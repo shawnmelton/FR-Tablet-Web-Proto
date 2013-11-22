@@ -23,6 +23,18 @@ module.exports = (function(grunt) {
                 }
             }
         },
+        uglify: {
+            options: {
+                mangle: true,
+                compress: true,
+                report: 'min'
+            },
+            my_target: {
+                files: {
+                    'dist/js/require.js': ['src/js/libs/require.js']
+                }
+            }
+        },
         sass: {
             dist: {
                 files: {
@@ -108,6 +120,7 @@ module.exports = (function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jst');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks("grunt-contrib-sass");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-imagemin");
@@ -115,6 +128,6 @@ module.exports = (function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-watch");
 
     grunt.registerTask('default', [
-        'jst', 'jshint', 'requirejs', 'sass', 'cssmin', 'htmlmin', 'imagemin', 'watch'
+        'jst', 'jshint', 'requirejs', 'uglify', 'sass', 'cssmin', 'htmlmin', 'imagemin'//, 'watch'
     ]);
 });

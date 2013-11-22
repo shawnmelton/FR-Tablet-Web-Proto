@@ -1,1 +1,22 @@
-HOME
+<form action="/search" method="post" name="search">
+    <h2>Discover the Perfect Apartment</h2>
+    <div>
+        <input type="text" name="keywords" placeholder="City, State or Zip Code">
+        <div>
+            <a id="adv-search"></a>
+            <button type="submit">Search</button>
+        </div>
+    </div>
+</form>
+<section>
+<% _.each(properties, function(property) { %>
+    <div>
+        <img src="<%= property.img %>" alt="<%= property.name %>">
+        <p>
+            <strong><%= property.name %></strong><br>
+            <%= property.location %><br>
+            <%= property.type %>
+        </p>
+    </div>
+<% }); %>
+</section>

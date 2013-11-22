@@ -3,10 +3,10 @@ define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts
 
     var AppRouter = Backbone.Router.extend({
         initialize: function() {
-            this.route(/^search(\/?)$/, 'showSearch');
+            this.route(/^search(\/|)$/, 'showSearch');
             this.route(/^property\/(\d+)$/, 'showProperty');
-            this.route(/^.*/, 'showHome');
             this.route(/^\/?$/, 'showHome');
+            this.route(/^$/, 'showHome');
         },
 
         showHome: function() {
