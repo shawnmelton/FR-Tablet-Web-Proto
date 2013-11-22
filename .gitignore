@@ -1,0 +1,6 @@
+node_modules
+.sass-cache
+dist/index.html
+dist/js
+dist/css
+dist/img
