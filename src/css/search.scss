@@ -1,0 +1,54 @@
+html {
+    body {
+        >#content.search {
+            padding: 3% 4% 3% 2%;
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+
+                td {
+                    padding: 0 0 2% 2%;
+                    vertical-align: top;
+                    width: 31%;
+                    &.select { width: 63%; }
+
+                    >div {
+                        position: relative;
+                        overflow: hidden;
+
+                        &.stacked {
+                            margin-bottom: 25px;
+                        }
+
+                        >img {
+                            display: block;
+                            width: 100%;
+                        }
+
+                        >p {
+                            position: absolute;
+                            margin: 0;
+                            padding: 15px;
+                            bottom: 0;
+                            color: #fff;
+                        }
+
+                        >p.price {
+                            right: 0;
+                            font-size: 140%;
+                        }
+
+                        >p.desc {
+                            >strong { font-size: 120%; }
+
+                            line-height: 18px;
+                            width: 100%;
+                            background: url(../img/trans-bg.png) repeat 0 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

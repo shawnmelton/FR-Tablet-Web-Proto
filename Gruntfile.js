@@ -39,6 +39,8 @@ module.exports = (function(grunt) {
             dist: {
                 files: {
                     'src/tmp/layout.css': 'src/css/layout.scss',
+                    'src/tmp/home.css': 'src/css/home.scss',
+                    'src/tmp/search.css': 'src/css/search.scss',
                     'src/tmp/responsive.css': 'src/css/responsive.scss'
                 }
             }

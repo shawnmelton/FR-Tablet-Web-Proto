@@ -1,5 +1,5 @@
-define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts/property'], 
-    function(Backbone, searchView, homeView, propertyView) {
+define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts/property', 'views/elements/menu'], 
+    function(Backbone, searchView, homeView, propertyView, menuViewEl) {
 
     var AppRouter = Backbone.Router.extend({
         initialize: function() {
@@ -14,10 +14,12 @@ define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts
         },
 
         showProperty: function() {
+            document.getElementsByTagName('html')[0].className = "";
             propertyView.render();
         },
 
         showSearch: function() {
+            document.getElementsByTagName('html')[0].className = "";
             searchView.render();
         }
     });

@@ -1,0 +1,80 @@
+<table>
+    <tr>
+        <td colspan="2" class="select">
+            <div>
+                <img src="<%= selects[0].img %>">
+                <p class="desc">
+                    <strong><%= selects[0].name %></strong><br>
+                    <%= selects[0].location %><br>
+                    <%= selects[0].type %>
+                </p>
+                <p class="price"><%= selects[0].price %></p>
+            </div>
+        </td>
+        <td>
+        <% for(var i = 0; i < 2; i++) { %>
+            <div class="stacked">
+                <img src="<%= properties[i].img %>">
+                <p class="desc">
+                    <strong><%= properties[i].name %></strong><br>
+                    <%= properties[i].location %><br>
+                    <%= properties[i].type %>
+                </p>
+            </div>
+        <% } %>
+        </td>
+    </tr>
+    <tr>
+        <% for(var i = 2; i < 5; i++) { %>
+        <td>
+            <div class="stacked">
+                <img src="<%= properties[i].img %>">
+                <p class="desc">
+                    <strong><%= properties[i].name %></strong><br>
+                    <%= properties[i].location %><br>
+                    <%= properties[i].type %>
+                </p>
+            </div>
+        </td>
+        <% } %>
+    </tr>
+    <tr>
+        <td>
+        <% for(var i = 5; i < 7; i++) { %>
+            <div class="stacked">
+                <img src="<%= properties[i].img %>">
+                <p class="desc">
+                    <strong><%= properties[i].name %></strong><br>
+                    <%= properties[i].location %><br>
+                    <%= properties[i].type %>
+                </p>
+            </div>
+        <% } %>
+        </td>
+        <td colspan="2" class="select">
+            <div>
+                <img src="<%= selects[1].img %>">
+                <p class="desc">
+                    <strong><%= selects[1].name %></strong><br>
+                    <%= selects[1].location %><br>
+                    <%= selects[1].type %>
+                </p>
+                <p class="price"><%= selects[1].price %></p>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <% for(var i = 7; i < 10; i++) { %>
+        <td>
+            <div class="stacked">
+                <img src="<%= properties[i].img %>">
+                <p class="desc">
+                    <strong><%= properties[i].name %></strong><br>
+                    <%= properties[i].location %><br>
+                    <%= properties[i].type %>
+                </p>
+            </div>
+        </td>
+        <% } %>
+    </tr>
+</table>

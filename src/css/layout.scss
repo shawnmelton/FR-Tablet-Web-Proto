@@ -1,20 +1,16 @@
 html {
-    background: #ccc;
+    background: #eaeaea;
     background-attachment: fixed;
     font-family: "helvetica", helvetica, arial;
     font-size: 16px;
-    background: url(../img/bg.jpg) no-repeat center center;
+
+    &.home2048 { background: url(../img/home-bg-2048.jpg) no-repeat center center; }
+    &.home1536 { background: url(../img/home-bg-1536.jpg) no-repeat center center; } 
+    &.home1024 { background: url(../img/home-bg-1024.jpg) no-repeat center center; }
+    &.home768 { background: url(../img/home-bg-768.jpg) no-repeat center center; }
 
     body {
         position: relative;
-
-        /*>img {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 2048px;
-        }*/
 
         header {
             position: relative;
@@ -23,141 +19,28 @@ html {
             padding: 11px 25px;
             transition: all 0.5s;
 
+            &:after {
+                content: " ";
+                display: table;
+                clear: both;
+            }
+
             >a {
                 display: block;
                 cursor: pointer;
-            }
-        }
+                float: left;
+                margin-right: 20px;
 
-        >#content.home {
-            position: relative;
-
-            >form {
-                display: block;
-                margin: 50px auto 0;
-                width: 70%;
-                border-radius: 10px;
-                padding: 35px 50px 75px;
-                background: url(../img/trans-bg.png) repeat 0 0;
-                box-sizing: border-box;
-                transition: all 0.5s;
-
-                >h2 {
-                    font-weight: 100;
-                    color: #fff;
-                    font-size: 180%;
-                    margin: 0 0 25px;
-                }
-
-                >div {
-                    position: relative;
-                    padding-right: 200px;
-
-                    &:after {
-                        content: " ";
-                        clear: both;
-                        display: table;
-                    }
-
-                    >input, a, button {
-                        display: block;
-                        background: #dcdcdd;
-                        color: #333;
-                        border-radius: 8px;
-                        border: 0;
-                        height: 60px;
-                        padding: 0;
-                        box-sizing: border-box;
-                        outline: none;
-                        cursor: pointer;
-                    }
-
-                    >input {
-                        padding: 0 10px;
-                        font-family: "helvetica", arial;
-                        width: 100%;
-                        font-size: 140%;
-                    }
-
-                    >div {
-                        position: absolute;
-                        bottom: 0;
-                        right: 0;
-
-                        >a, >button { float: left; }
-
-                        >a {
-                            width: 65px;
-                            background-image: url(../img/home-adv-search.png);
-                            background-repeat: no-repeat;
-                            background-position: center center;
-                            margin-right: 5px;
-                        }
-
-                        >button {
-                            line-height: 60px;
-                            width: 125px;
-                            text-align: center;
-                            font-size: 140%;
-                            transition: all 1s;
-                        }
-                    }
-                }
-            }
-
-            >section {
-                margin: 50px 0 0;
-                height: 260px;
-                overflow: hidden;
-                transition: all 0.5s;
-
-                &:after {
-                    content: " ";
-                    clear: both;
-                    display: table;
-                }
-
-                >div {
-                    position: relative;
-                    width: 23%;
-                    box-sizing: border-box;
-                    margin: 0 1% 1%;
-                    border: 5px solid #333;
-                    color: #fff;
-                    font-size: 80%;
-                    background: #aaa;
-                    float: left;
-                    border-radius: 12px;
-                    transition: all 0.5s;
-                    height: 250px;
-                    overflow: hidden;
-
-                    >img {
-                        display: block;
-                        height: 100%;
-                        width: 100%;
-                        border-radius: 12px;
-                    }
-
-                    >p {
-                        position: absolute;
-                        bottom: 0;
-                        width: 100%;
-                        background: url(../img/trans-bg.png) repeat 0 0;
-                        margin: 0;
-                        padding: 10px 15px 15px;
-                        line-height: 17px;
-
-                        >strong {
-                            font-weight: 100;
-                            font-size: 110%;
-                        }
-                    }
+                &#menu {
+                    background: url(../img/menu-button.png) no-repeat center center;
+                    height: 26px;
+                    width: 36px;
+                    border: 1px solid #093552;
                 }
             }
         }
 
-        footer {
+        >footer {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -165,6 +48,26 @@ html {
             width: 100%;
             background: url(../img/trans-bg.png) repeat 0 0;
             transition: all 0.5s;
+        }
+
+        >nav {
+            position: absolute;
+            top: 50px;
+            left: -250px;
+            width: 220px;
+            background: url(../img/trans-white-bg.png) repeat 0 0;
+            padding: 15px 15px 35px;
+            transition: all 0.5s;
+
+            >a {
+                display: block;
+                text-decoration: none;
+                cursor: pointer;
+                outline: none;
+                color: #333;
+                font-size: 130%;
+                padding: 8px 10px;
+            }
         }
     }
 }
