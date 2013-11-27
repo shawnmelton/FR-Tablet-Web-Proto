@@ -38,6 +38,66 @@ html {
                     border: 1px solid #093552;
                 }
             }
+
+            >form {
+                display: block;
+                position: relative;
+                float: left;
+
+                >fieldset {
+                    position: relative;
+                    padding-right: 175px;
+
+                    &:after {
+                        content: " ";
+                        clear: both;
+                        display: table;
+                    }
+
+                    >input, a, button {
+                        display: block;
+                        background: #dcdcdd;
+                        color: #333;
+                        border-radius: 8px;
+                        border: 0;
+                        height: 30px;
+                        padding: 0;
+                        box-sizing: border-box;
+                        outline: none;
+                        cursor: pointer;
+                        font-size: 100%;
+                    }
+
+                    >input {
+                        padding: 0 10px;
+                        font-family: "helvetica", arial;
+                        width: 200px;
+                    }
+
+                    >div {
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+
+                        >a, >button { float: left; }
+
+                        >a {
+                            width: 65px;
+                            background-image: url(../img/home-adv-search.png);
+                            background-repeat: no-repeat;
+                            background-position: center center;
+                            margin-right: 5px;
+                        }
+
+                        >button {
+                            line-height: 30px;
+                            width: 100px;
+                            text-align: center;
+                            transition: all 1s;
+                        }
+                    }
+                }
+            }
         }
 
         >footer {
@@ -68,6 +128,12 @@ html {
                 font-size: 130%;
                 padding: 8px 10px;
             }
+        }
+
+        input.error {
+            border: 1px solid #600;
+            color: #c00;
+            background: #fee;
         }
     }
 }

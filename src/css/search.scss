@@ -3,48 +3,65 @@ html {
         >#content.search {
             padding: 3% 4% 3% 2%;
 
-            table {
-                width: 100%;
-                border-collapse: collapse;
+            >#results {
+                background: url(../img/search-loading.gif) no-repeat bottom center;
+                padding-bottom: 20px;
 
-                td {
-                    padding: 0 0 2% 2%;
-                    vertical-align: top;
-                    width: 31%;
-                    &.select { width: 63%; }
+                >div.table {
+                    display: table;
+                    width: 100%;
+                    border-collapse: collapse;
 
                     >div {
-                        position: relative;
-                        overflow: hidden;
+                        display: table-row;
 
-                        &.stacked {
-                            margin-bottom: 25px;
-                        }
+                        >div {
+                            display: table-cell;
+                            padding: 0 0 2% 2%;
+                            vertical-align: top;
+                            width: 31%;
 
-                        >img {
-                            display: block;
-                            width: 100%;
-                        }
+                            &.select { width: 63%; }
 
-                        >p {
-                            position: absolute;
-                            margin: 0;
-                            padding: 15px;
-                            bottom: 0;
-                            color: #fff;
-                        }
+                            &.stacked {
+                                >div:first-child { margin-bottom: 20px; }
+                            }
 
-                        >p.price {
-                            right: 0;
-                            font-size: 140%;
-                        }
+                            >div {
+                                position: relative;
+                                overflow: hidden;
+                                border-radius: 8px;
+                                cursor: pointer;
 
-                        >p.desc {
-                            >strong { font-size: 120%; }
+                                >img {
+                                    display: block;
+                                    width: 100%;
+                                    max-height: 100%;
+                                    max-width: 100%;
+                                }
 
-                            line-height: 18px;
-                            width: 100%;
-                            background: url(../img/trans-bg.png) repeat 0 0;
+                                >p {
+                                    position: absolute;
+                                    margin: 0;
+                                    padding: 15px;
+                                    bottom: 0;
+                                    color: #fff;
+                                }
+
+                                >p.price {
+                                    right: 0;
+                                    font-size: 130%;
+                                }
+
+                                >p.desc {
+                                    >strong { font-size: 110%; }
+
+                                    font-size: 90%;
+                                    line-height: 18px;
+                                    width: 100%;
+                                    background: url(../img/property-gradient.png) repeat-x bottom left;
+                                }
+                            }
                         }
                     }
                 }

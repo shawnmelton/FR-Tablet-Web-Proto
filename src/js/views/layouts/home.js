@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst'],
-    function($, Backbone, tmplts){
+define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar'],
+    function($, Backbone, tmplts, searchBarViewEl){
     var homeView = Backbone.View.extend({
         el: "#content",
 
@@ -25,7 +25,11 @@ define(['jquery', 'backbone', 'templates/jst'],
         },
 
         render: function(){
-            this.$el.html(JST['src/js/templates/layouts/home.html']({
+            this.$el.empty();
+
+            searchBarViewEl.renderToContent();
+
+            this.$el.append(JST['src/js/templates/layouts/home.html']({
                 properties: [{
                     name: "Apartment Name",
                     location: "City, St",

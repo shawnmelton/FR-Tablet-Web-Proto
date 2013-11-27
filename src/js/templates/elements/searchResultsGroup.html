@@ -1,7 +1,7 @@
-<table>
-    <tr>
-        <td colspan="2" class="select">
-            <div>
+<div class="table">
+    <div>
+        <div class="select">
+            <div property="<%= selects[0].id %>">
                 <img src="<%= selects[0].img %>">
                 <p class="desc">
                     <strong><%= selects[0].name %></strong><br>
@@ -10,10 +10,10 @@
                 </p>
                 <p class="price"><%= selects[0].price %></p>
             </div>
-        </td>
-        <td>
+        </div>
+        <div class="stacked">
         <% for(var i = 0; i < 2; i++) { %>
-            <div class="stacked">
+            <div property="<%= properties[i].id %>">
                 <img src="<%= properties[i].img %>">
                 <p class="desc">
                     <strong><%= properties[i].name %></strong><br>
@@ -22,12 +22,14 @@
                 </p>
             </div>
         <% } %>
-        </td>
-    </tr>
-    <tr>
+        </div>
+    </div>
+</div>
+<div class="table">
+    <div>
         <% for(var i = 2; i < 5; i++) { %>
-        <td>
-            <div class="stacked">
+        <div>
+            <div property="<%= properties[i].id %>">
                 <img src="<%= properties[i].img %>">
                 <p class="desc">
                     <strong><%= properties[i].name %></strong><br>
@@ -35,13 +37,15 @@
                     <%= properties[i].type %>
                 </p>
             </div>
-        </td>
+        </div>
         <% } %>
-    </tr>
-    <tr>
-        <td>
+    </div>
+</div>
+<div class="table">
+    <div>
+        <div class="stacked">
         <% for(var i = 5; i < 7; i++) { %>
-            <div class="stacked">
+            <div property="<%= properties[i].id %>">
                 <img src="<%= properties[i].img %>">
                 <p class="desc">
                     <strong><%= properties[i].name %></strong><br>
@@ -50,9 +54,9 @@
                 </p>
             </div>
         <% } %>
-        </td>
-        <td colspan="2" class="select">
-            <div>
+        </div>
+        <div class="select">
+            <div property="<%= selects[1].id %>">
                 <img src="<%= selects[1].img %>">
                 <p class="desc">
                     <strong><%= selects[1].name %></strong><br>
@@ -61,12 +65,14 @@
                 </p>
                 <p class="price"><%= selects[1].price %></p>
             </div>
-        </td>
-    </tr>
-    <tr>
+        </div>
+    </div>
+</div>
+<div class="table">
+    <div>
         <% for(var i = 7; i < 10; i++) { %>
-        <td>
-            <div class="stacked">
+        <div>
+            <div property="<%= properties[i].id %>">
                 <img src="<%= properties[i].img %>">
                 <p class="desc">
                     <strong><%= properties[i].name %></strong><br>
@@ -74,7 +80,7 @@
                     <%= properties[i].type %>
                 </p>
             </div>
-        </td>
+        </div>
         <% } %>
-    </tr>
-</table>
+    </div>
+</div>

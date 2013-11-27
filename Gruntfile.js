@@ -65,6 +65,18 @@ module.exports = (function(grunt) {
                 }]
             }
         },
+        copy: {
+            main: {
+                files: [
+                    {
+                        src: ['src/img/*.gif'],
+                        dest: 'dist/img/',
+                        filter: 'isFile',
+                        flatten: true
+                    }
+                ]
+            }
+        },
         htmlmin: {
             dist: {
                 options: {
@@ -127,9 +139,10 @@ module.exports = (function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-imagemin");
     grunt.loadNpmTasks("grunt-contrib-htmlmin");
+    grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-watch");
 
     grunt.registerTask('default', [
-        'jst', 'jshint', 'requirejs', 'uglify', 'sass', 'cssmin', 'htmlmin', 'imagemin'//, 'watch'
+        'jst', 'jshint', 'requirejs', 'uglify', 'sass', 'cssmin', 'htmlmin', 'imagemin', 'copy' //, 'watch'
     ]);
 });

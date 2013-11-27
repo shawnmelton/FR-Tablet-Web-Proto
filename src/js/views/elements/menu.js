@@ -33,7 +33,6 @@ define(['jquery', 'backbone', 'templates/jst'],
             this.displaying = false;
             this.menuEl = $('body > nav');
             this.menuWidth = this.menuEl.outerWidth();
-            console.log('Menu width: '+ this.menuWidth);
         },
 
         slideMenu: function(newLeft) {
