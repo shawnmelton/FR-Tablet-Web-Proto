@@ -1,7 +1,7 @@
 <section>
 <% _.each(properties, function(property) { %>
-    <div>
-        <img src="<%= property.img %>" alt="<%= property.name %>">
+    <div property="<%= property.id %>" class="property">
+        <img src="/img/listings/<%= property.id %>-612.jpg" alt="<%= property.name %>">
         <p>
             <strong><%= property.name %></strong><br>
             <%= property.location %><br>

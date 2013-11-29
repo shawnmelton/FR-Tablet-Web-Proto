@@ -32,7 +32,6 @@ html {
 
                     >input, a, button {
                         display: block;
-                        background: #dcdcdd;
                         color: #333;
                         border-radius: 8px;
                         border: 0;
@@ -59,9 +58,7 @@ html {
 
                         >a {
                             width: 65px;
-                            background-image: url(../img/home-adv-search.png);
-                            background-repeat: no-repeat;
-                            background-position: center center;
+                            background: #dde0e6 url(../img/home-adv-search.png) no-repeat center center;
                             margin-right: 5px;
                         }
 
@@ -70,7 +67,9 @@ html {
                             width: 125px;
                             text-align: center;
                             font-size: 140%;
+                            background: #dde0e6;
                             transition: all 1s;
+                            color: #044a78;
                         }
                     }
                 }
@@ -102,6 +101,7 @@ html {
                     transition: all 0.5s;
                     height: 250px;
                     overflow: hidden;
+                    cursor: pointer;
 
                     >img {
                         display: block;

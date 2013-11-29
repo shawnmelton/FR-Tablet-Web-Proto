@@ -1,1 +1,28 @@
-PROPERTY
+<section>
+    <div id="propDetails">
+        <h2><%= property.name %></h2>
+        <p>
+            <%= property.address %><br>
+            <a href="http://maps.google.com?q=<%= property.address %>" target="_blank">View Map &amp; Directions</a>
+        </p>
+        <p>
+            <%= property.type %> for <%= property.price %><br>
+            <a>View Floor Plans &amp; Prices</a>
+        </p>
+        <p>
+            <%= property.type %> for <%= property.price %><br>
+            <a>View Floor Plans &amp; Prices</a>
+        </p>
+        <p class="noBorder">
+            Details<br>
+            <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet arcu pretium, placerat mauris sed, hendrerit eros. Curabitur sed fermentum justo. Pellentesque lobortis, orci ut porttitor luctus, nisi urna pharetra magna.</small>
+        </p>
+    </div>
+    <div id="propButtons">
+        <div>
+            <div><button id="buttonCA">Check Availability</button></div>
+            <div id="buttonSpacer"></div>
+            <div><button>1-800-555-0123</button></div>
+        </div>
+    </div>
+</section>

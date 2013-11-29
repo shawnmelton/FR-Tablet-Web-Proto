@@ -14,9 +14,9 @@ html {
 
         header {
             position: relative;
-            background: #014876;
-            height: 28px;
-            padding: 11px 25px;
+            background: #dde0e6;
+            height: 50px;
+            padding: 0 0 0 260px;
             transition: all 0.5s;
 
             &:after {
@@ -28,25 +28,33 @@ html {
             >a {
                 display: block;
                 cursor: pointer;
-                float: left;
-                margin-right: 20px;
+                position: absolute;
+
+                &#logo {
+                    width: 160px;
+                    left: 66px;
+                    top: 15px;
+                }
 
                 &#menu {
                     background: url(../img/menu-button.png) no-repeat center center;
-                    height: 26px;
-                    width: 36px;
-                    border: 1px solid #093552;
+                    left: 0;
+                    top: 0;
+                    height: 50px;
+                    width: 50px;
+                    border-right: 1px solid #fff;
                 }
             }
 
             >form {
                 display: block;
                 position: relative;
-                float: left;
+                padding-top: 10px;
+                transition: all 1s;
 
                 >fieldset {
                     position: relative;
-                    padding-right: 175px;
+                    padding-right: 155px;
 
                     &:after {
                         content: " ";
@@ -56,7 +64,6 @@ html {
 
                     >input, a, button {
                         display: block;
-                        background: #dcdcdd;
                         color: #333;
                         border-radius: 8px;
                         border: 0;
@@ -71,7 +78,8 @@ html {
                     >input {
                         padding: 0 10px;
                         font-family: "helvetica", arial;
-                        width: 200px;
+                        width: 100%;
+                        background: #fff;
                     }
 
                     >div {
@@ -82,8 +90,8 @@ html {
                         >a, >button { float: left; }
 
                         >a {
-                            width: 65px;
-                            background-image: url(../img/home-adv-search.png);
+                            width: 45px;
+                            background-image: url(../img/home-adv-search-small.png);
                             background-repeat: no-repeat;
                             background-position: center center;
                             margin-right: 5px;
@@ -94,6 +102,8 @@ html {
                             width: 100px;
                             text-align: center;
                             transition: all 1s;
+                            color: #044a78;
+                            background: #dde0e6;
                         }
                     }
                 }
@@ -131,9 +141,9 @@ html {
         }
 
         input.error {
-            border: 1px solid #600;
-            color: #c00;
-            background: #fee;
+            border: 1px solid #600 !important;
+            color: #c00 !important;
+            background: #fdd !important;
         }
     }
 }

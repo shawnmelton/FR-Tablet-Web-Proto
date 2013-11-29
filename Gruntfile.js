@@ -40,6 +40,7 @@ module.exports = (function(grunt) {
                 files: {
                     'src/tmp/layout.css': 'src/css/layout.scss',
                     'src/tmp/home.css': 'src/css/home.scss',
+                    'src/tmp/property.css': 'src/css/property.scss',
                     'src/tmp/search.css': 'src/css/search.scss',
                     'src/tmp/responsive.css': 'src/css/responsive.scss'
                 }
@@ -56,12 +57,20 @@ module.exports = (function(grunt) {
             options: {
                 optimizationLevel: 3
             },
-            dist: {
+            sitesImages: {
                 files: [{
                     expand: true,
                     cwd: 'src/img/',
                     src: ['*.png', '*.jpg'],
                     dest: 'dist/img/'
+                }]
+            },
+            listingImages: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/img/listings/',
+                    src: ['*.jpg'],
+                    dest: 'dist/img/listings/'
                 }]
             }
         },

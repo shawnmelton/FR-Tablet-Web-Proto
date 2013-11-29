@@ -1,24 +1,18 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar'],
-    function($, Backbone, tmplts, searchBarViewEl){
+define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tools/data', 'tools/navigate', 
+    'tools/device'], function($, Backbone, tmplts, searchBarViewEl, Data, Navigate, Device){
     var homeView = Backbone.View.extend({
         el: "#content",
+        eventType: 'click', // touchstart
 
         /**
          * Display the device appropriate background image according to the size of the layout.
          */
         displayBGImg: function() {
-            var dimensions = {
-                width: $(window).outerWidth(),
-                height: $(window).outerHeight()
-            };
-
-            var clsName = "home768";
-            if(dimensions.width > 1000 || dimensions.height > 1000) {
-                clsName = "home2048";
-            } else if(dimensions.width > 768 || dimensions.height > 768) {
-                clsName = "home1536";
-            } else if(dimensions.width > 512 || dimensions.height > 512) {
-                clsName = "home1024";
+            var clsName = 'home768';
+            switch(Device.getType()) {
+                case 'tablet': clsName = 'home2048'; break;
+                case 'mini': clsName = 'home1536'; break;
+                case 'phablet': clsName = 'home1024'; break;
             }
 
             document.getElementsByTagName('html')[0].className = clsName;
@@ -30,32 +24,24 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar'],
             searchBarViewEl.renderToContent();
 
             this.$el.append(JST['src/js/templates/layouts/home.html']({
-                properties: [{
-                    name: "Apartment Name",
-                    location: "City, St",
-                    type: "Studio - 3 Beds",
-                    img: "/img/apt.jpg"
-                },{
-                    name: "Apartment Name",
-                    location: "City, St",
-                    type: "Studio - 3 Beds",
-                    img: "/img/apt.jpg"
-                },{
-                    name: "Apartment Name",
-                    location: "City, St",
-                    type: "Studio - 3 Beds",
-                    img: "/img/apt.jpg"
-                },{
-                    name: "Apartment Name",
-                    location: "City, St",
-                    type: "Studio - 3 Beds",
-                    img: "/img/apt.jpg"
-                }]
+                properties: Data.get('basic', 4)
             }));
 
             this.$el.attr("class", "home");
             this.displayBGImg();
+            this.setEvents();
         },
+
+        /**
+         * Set the touch/click event to the properties at the bottom of the view.
+         */
+        setEvents: function() {
+            this.$el.find("div.property").unbind(this.eventType);
+            this.$el.find("div.property").bind(this.eventType, function(event) {
+                event.preventDefault();
+                Navigate.toUrl('/properties/'+ $(this).attr('property'));
+            });
+        }
     });
     
     return new homeView();

@@ -84,7 +84,19 @@
 @media screen and (max-height: 700px) {
     html {
         body {
-            header { padding: 6px 25px;}
+            header {
+                height: 40px;
+                >a {
+                    &#logo { top: 10px; }
+
+                    &#menu {
+                        height: 40px;
+                        width: 40px;
+                    }
+                }
+
+                >form { padding-top: 5px; }
+            }
 
             >#content.home {
                 >form { padding: 20px 30px 30px; }

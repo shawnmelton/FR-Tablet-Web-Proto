@@ -1,0 +1,76 @@
+html {
+    >body {
+        >#content.property {
+            >section {
+                position: absolute;
+                left: 5%;
+                top: 100px;
+                width: 40%;
+                min-width: 250px;
+
+                >div#propDetails {
+                    background: url(../img/trans-white-bg.png) repeat 0 0;
+                    border-radius: 8px;
+                    padding: 20px 0;
+
+                    >h2 {
+                        font-weight: 100;
+                        font-size: 130%;
+                        padding: 0 20px;
+                    }
+
+                    >p {
+                        padding: 20px;
+                        border-bottom: 1px solid #ddd;
+
+                        >a {
+                            cursor: pointer;
+                            color: #22567e;
+                            text-decoration: none;
+                        }
+
+                        >a, >small { font-size: 70%; }
+
+                        &.noBorder { border-bottom-width: 0; }
+                    }
+                }
+
+                >div#propButtons {
+                    display: table;
+                    border-collapse: collapse;
+                    margin-top: 15px;
+                    width: 100%;
+
+                    >div {
+                        display: table-row;
+
+                        >div {
+                            display: table-cell;
+                            width: 48%;
+
+                            >button {
+                                border-radius: 8px;
+                                display: block;
+                                border: 0;
+                                height: 60px;
+                                line-height: 60px;
+                                background: url(../img/trans-white-bg.png) repeat 0 0;
+                                color: #000;
+                                text-align: center;
+                                width: 100%;
+                                font-size: 100%;
+
+                                &#buttonCA {
+                                    color: #fff;
+                                    background: #e97d0e;
+                                }
+                            }
+
+                            &#buttonSpacer { width: 4%; }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

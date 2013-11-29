@@ -1,55 +1,53 @@
-define(['jquery', 'backbone', 'templates/jst'],
-    function($, Backbone, tmplts){
+define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
+    function($, Backbone, tmplts, Navigate){
     var searchBarViewEl = Backbone.View.extend({
         parentEl: null,
         keywords: '',
         form: null,
         textfield: null,
 
-        events: {
-            'click #searchBar > button': 'onSearchButtonClick',
-            'submit #searchBar': 'onSearchFormSubmission'
+        isRenderedToHeader: function() {
+            return (this.parentEl !== null && this.parentEl[0] && this.parentEl[0].tagName.toLowerCase() === 'header');
         },
 
         /**
          * Make sure that keywords entered are valid.
          */
         isValidSubmission: function() {
-            return (this.textfield.val() !== '');
+            return (/[a-z,0-9, ,\,,\',\-]+/i.test(this.textfield.val()));
         },
 
         /**
-         * Catch the form submission event.
-         * 
+         * Handle what happens when the form is submitted.
          */
-        onSearchButtonClick: function(event) {
-            event.preventDefault();
-            this.onSearchFormSubmission(null);
-        },
-
-        /**
-         * Reload search events based on search
-         */
-        onSearchFormSubmission: function(event) {
-            if(event !== null) {
-                event.preventDefault();
-            }
-
+        onSearchFormSubmission: function() {
             this.textfield.removeClass('error');
             if(this.isValidSubmission()) {
-                // TODO - Reload results.
+                Navigate.toUrl('/search/'+ this.textfield.val());
             } else {
                 this.textfield.addClass('error');
             }
         },
 
         /**
+         * Refresh the search bar.  Right now this just updates the keywords.
+         */
+        refresh: function() {
+            if(this.keywords !== '') {
+                this.textfield.val(this.keywords);
+            }
+        },
+
+        /**
          * If this search bar is in the header, remove it.
+         * Clean up all of the stored elements.
          */
         removeFromHeader: function() {
-            if(this.el === 'header') {
-                this.$el.find('form').remove();
-                this.el = null;
+            if(this.isRenderedToHeader()) {
+                this.textfield = null;
+                this.form.remove();
+                this.form = null;
+                this.parentEl = null;
             }
         },
 
@@ -62,16 +60,22 @@ define(['jquery', 'backbone', 'templates/jst'],
                 heading: heading
             }));
 
-            this.form = $('#searchBar');
-            this.textfield = $('#searchBar > input');
+            this.form = $(document.getElementById('searchBar'));
+            this.textfield = this.form.find('input');
+            this.setEvents();
+            this.refresh();
         },
 
         /**
          * Call this to insert this search bar into the page header.
          */
         renderToHeader: function() {
-            this.parentEl = $('header');
-            this.render('');
+            if(this.isRenderedToHeader()) {
+                this.refresh();
+            } else {
+                this.parentEl = $('header');
+                this.render('');
+            }
         },
 
         /**
@@ -79,8 +83,31 @@ define(['jquery', 'backbone', 'templates/jst'],
          */
         renderToContent: function() {
             this.removeFromHeader();
-            this.parentEl = $('#content');
+            this.parentEl = $(document.getElementById('content'));
             this.render('<h2>Discover the Perfect Apartment</h2>');
+        },
+
+        /**
+         * Set the form events for this form.
+         */
+        setEvents: function() {
+            this.form.unbind('submit');
+
+            var _this = this;
+            this.form.submit(function(event) {
+                event.preventDefault();
+                _this.onSearchFormSubmission();
+            });
+        },
+
+        /**
+         * Populate textfield with keywords from search.
+         */
+        setKeywords: function(keywords) {
+            this.keywords = keywords;
+            if(this.textfield !== null) {
+                this.refresh();
+            }
         }
     });
 

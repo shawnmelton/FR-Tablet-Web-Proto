@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar'],
-    function($, Backbone, tmplts, searchBarViewEl){
+define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tools/navigate', 'tools/data'],
+    function($, Backbone, tmplts, searchBarViewEl, Navigate, Data){
     var searchView = Backbone.View.extend({
         el: "#content",
         resultsEl: null,
@@ -9,86 +9,11 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar'],
             $('.table > div > div > div').unbind(this.eventType);
 
             this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroup.html']({
-                selects: [{
-                    id: 1,
-                    name: 'Apartment Name',
-                    location: 'City, St',
-                    type: 'Studio - 3 Beds',
-                    img: '/img/apt-large.jpg',
-                    price: '$1,200 - 2,350'
-                },{
-                    id: 1,
-                    name: 'Apartment Name',
-                    location: 'City, St',
-                    type: 'Studio - 3 Beds',
-                    img: '/img/apt-large.jpg',
-                    price: '$1,200 - 2,350'
-                }],
-                properties: [{
-                    id: 3,
-                    name: 'Apartment Name',
-                    location: 'City, St',
-                    type: 'Studio - 3 Beds',
-                    img: '/img/apt.jpg'
-                },{
-                    id: 2,
-                    name: 'Apartment Name',
-                    location: 'City, St',
-                    type: 'Studio - 3 Beds',
-                    img: '/img/apt-2.jpg'
-                },{
-                    id: 3,
-                    name: 'Apartment Name',
-                    location: 'City, St',
-                    type: 'Studio - 3 Beds',
-                    img: '/img/apt.jpg'
-                },{
-                    id: 2,
-                    name: 'Apartment Name',
-                    location: 'City, St',
-                    type: 'Studio - 3 Beds',
-                    img: '/img/apt-2.jpg'
-                },{
-                    id: 3,
-                    name: 'Apartment Name',
-                    location: 'City, St',
-                    type: 'Studio - 3 Beds',
-                    img: '/img/apt.jpg'
-                },{
-                    id: 2,
-                    name: 'Apartment Name',
-                    location: 'City, St',
-                    type: 'Studio - 3 Beds',
-                    img: '/img/apt-2.jpg'
-                },{
-                    id: 3,
-                    name: 'Apartment Name',
-                    location: 'City, St',
-                    type: 'Studio - 3 Beds',
-                    img: '/img/apt.jpg'
-                },{
-                    id: 2,
-                    name: 'Apartment Name',
-                    location: 'City, St',
-                    type: 'Studio - 3 Beds',
-                    img: '/img/apt-2.jpg'
-                },{
-                    id: 3,
-                    name: 'Apartment Name',
-                    location: 'City, St',
-                    type: 'Studio - 3 Beds',
-                    img: '/img/apt.jpg'
-                },{
-                    id: 2,
-                    name: 'Apartment Name',
-                    location: 'City, St',
-                    type: 'Studio - 3 Beds',
-                    img: '/img/apt-2.jpg'
-                }]
+                selects: Data.get('select', 2),
+                properties: Data.get('basic', 10)
             }));
 
             this.setPropertyClickEvents();
-            searchBarViewEl.renderToHeader();
         },
 
         /**
@@ -96,14 +21,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar'],
          * @propertyId - Integer value.
          */
         onPropertyClick: function(propertyId) {
-            if(!!(window.history && window.history.pushState)) {
-                appRouter.navigate('/properties/'+ propertyId, {
-                    trigger: true,
-                    replace: true
-                });
-            } else {
-                location.href = '/properties/'+propertyId;
-            }
+            Navigate.toUrl('/properties/'+propertyId);
         },
 
         /**
@@ -111,12 +29,14 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar'],
          * Load the first 10 results.
          */
         render: function(){
+            this.setKeywords();
             this.$el.html(JST['src/js/templates/layouts/search.html']());
             this.$el.attr("class", "search");
 
             this.resultsEl = $(document.getElementById('results'));
             this.loadResultsSet();
             this.setInfiniteScrolling();
+            searchBarViewEl.renderToHeader();
         },
 
         /**
@@ -130,6 +50,18 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar'],
                     _this.loadResultsSet();
                 }
             });
+        },
+
+        /**
+         * Get the keywords based on the url.
+         * First make sure user did a proper search.
+         */
+        setKeywords: function() {
+            if(!/^\/search\/[a-z,A-Z,0-9, ,\,,\',\-,\%,\&,\;]+$/i.test(location.pathname)) {
+                Navigate.toUrl('/');          
+            }
+
+            searchBarViewEl.setKeywords(decodeURIComponent(location.pathname.split('search/')[1]));
         },
 
         /**

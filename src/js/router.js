@@ -1,28 +1,30 @@
-define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts/property', 'views/elements/menu'], 
-    function(Backbone, searchView, homeView, propertyView, menuViewEl) {
+define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts/property', 
+    'views/elements/header', 'views/elements/menu'], function(Backbone, searchView, homeView, propertyView, 
+    headerViewEl, menuViewEl) {
 
     var AppRouter = Backbone.Router.extend({
         initialize: function() {
-            this.route(/^search(\/|)$/, 'showSearch');
+            this.route(/^.*$/, 'showHome');
+            this.route(/^search\/[a-z,A-Z,0-9, ,\,,\',\-,\%,\&,\;]+$/, 'showSearch');
             this.route(/^properties\/(\d+)$/, 'showProperty');
-            this.route(/^\/?$/, 'showHome');
-            this.route(/^$/, 'showHome');
         },
 
         showHome: function() {
-            document.getElementsByTagName('footer')[0].style.display = "";
+            document.getElementsByTagName('html')[0].style.background = '';
+            document.getElementsByTagName('footer')[0].style.display = '';
             homeView.render();
         },
 
         showProperty: function() {
-            document.getElementsByTagName('html')[0].className = "";
-            document.getElementsByTagName('footer')[0].style.display = "";
+            document.getElementsByTagName('html')[0].className = '';
+            document.getElementsByTagName('footer')[0].style.display = '';
             propertyView.render();
         },
 
         showSearch: function() {
-            document.getElementsByTagName('html')[0].className = "";
-            document.getElementsByTagName('footer')[0].style.display = "none";
+            document.getElementsByTagName('html')[0].style.background = '';
+            document.getElementsByTagName('html')[0].className = '';
+            document.getElementsByTagName('footer')[0].style.display = 'none';
             searchView.render();
         }
     });
