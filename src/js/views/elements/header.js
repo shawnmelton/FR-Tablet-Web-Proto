@@ -4,10 +4,10 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         el: "header",
 
         events: {
-            'touchstart #logo': 'onLogoClick'
+            'touchstart #logo': 'onLogoTouch'
         },
 
-        onLogoClick: function(event) {
+        onLogoTouch: function(event) {
             event.preventDefault();
             Navigate.toUrl('/');
         }

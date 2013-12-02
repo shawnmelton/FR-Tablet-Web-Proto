@@ -1,0 +1,7 @@
+<nav>
+    <div>
+    <% _.each(links, function(link) { %>
+        <a rel="<%= link.rel %>" <% if(typeof(link.cls) !== 'undefined') { %>class="<%= link.cls %>"<% } %> style="width: <%= size %>%;"><%= link.text %></a>
+    <% }); %>
+    </div>
+</nav>

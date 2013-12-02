@@ -1,8 +1,10 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tools/navigate', 'tools/data', 
-    'tools/Device'], function($, Backbone, tmplts, searchBarViewEl, Navigate, Data, Device){
+define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'views/elements/footer', 
+    'tools/navigate', 'tools/data', 'tools/Device'], function($, Backbone, tmplts, searchBarViewEl, footerViewEl, 
+    Navigate, Data, Device){
     var propertyView = Backbone.View.extend({
         el: "#content",
         property: null,
+        eventType: 'click', // touchstart
 
         render: function(){
             if(!this.valid()) {
@@ -16,6 +18,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
 
             searchBarViewEl.renderToHeader();
             this.setBackgroundImage();
+            this.setProfileFooter();
         },
 
         /**
@@ -30,6 +33,33 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
 
             document.getElementsByTagName('html')[0].style.background = 'url(/img/listings/'+ 
                 this.property.id +'-'+ imgSize +'.jpg) no-repeat center center';
+        },
+
+        setProfileFooter: function() {
+            footerViewEl.render([{
+                rel: 'floorplans',
+                text: 'Floor Plans &amp; Prices'
+            }, {
+                rel: 'details',
+                text: 'Details',
+                cls: 'active'
+            }, {
+                rel: 'reviews',
+                text: 'Reviews'
+            }, {
+                rel: 'map',
+                text: 'Map &amp; Directions'
+            }, {
+                rel: 'share',
+                text: 'Share',
+                cls: 'share'
+            }, {
+                rel: 'availability',
+                text: 'Check Availability',
+                cls: 'availability'
+            }]);
+
+            $('footer a').bind(this.eventType, function() {});
         },
 
         /**

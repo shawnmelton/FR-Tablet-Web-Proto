@@ -1,5 +1,32 @@
 this["JST"] = this["JST"] || {};
 
+this["JST"]["src/js/templates/elements/footerProfile.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<nav>\n    <div>\n    ';
+ _.each(links, function(link) { ;
+__p += '\n        <a rel="' +
+((__t = ( link.rel )) == null ? '' : __t) +
+'" ';
+ if(typeof(link.cls) !== 'undefined') { ;
+__p += 'class="' +
+((__t = ( link.cls )) == null ? '' : __t) +
+'"';
+ } ;
+__p += ' style="width: ' +
+((__t = ( size )) == null ? '' : __t) +
+'%;">' +
+((__t = ( link.text )) == null ? '' : __t) +
+'</a>\n    ';
+ }); ;
+__p += '\n    </div>\n</nav>';
+
+}
+return __p
+};
+
 this["JST"]["src/js/templates/elements/menu.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
