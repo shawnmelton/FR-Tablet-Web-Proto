@@ -23,7 +23,7 @@ define([], function() {
             var height = $(window).outerHeight();
             var width = $(window).outerWidth();
 
-            if(height < width) {
+            if(height > width) {
                 this.size = height;
             } else {
                 this.size = width;

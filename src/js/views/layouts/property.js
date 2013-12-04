@@ -1,11 +1,12 @@
 define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'views/elements/footer', 
-    'tools/navigate', 'tools/data', 'views/elements/propertyGallery'], function($, Backbone, tmplts, searchBarViewEl, 
-    footerViewEl, Navigate, Data, galleryViewEl){
+    'tools/navigate', 'tools/data', 'views/elements/propertyGallery', 'views/elements/guestCardForm'], 
+    function($, Backbone, tmplts, searchBarViewEl, footerViewEl, Navigate, Data, galleryViewEl, guestCardFormEl){
     var propertyView = Backbone.View.extend({
         el: "#content",
         property: null,
         eventType: 'click', // touchstart
         moreEl: null,
+        moreContentEl: null,
         contentHeight: 0,
         aboveTheFold: true,
         currentMoreSection: 'floorplans',
@@ -16,6 +17,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         loadSection: function(section) {
             if(this.moreEl === null) {
                 this.moreEl = $(document.getElementById('more'));
+                this.moreContentEl = $(document.getElementById('moreContent'));
             }
 
             this.currentMoreSection = section;
@@ -23,21 +25,23 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             // Load content from template instead.
             switch(section) {
                 case 'floorplans': 
-                    this.moreEl.html(JST['src/js/templates/elements/propertyFloorPlans.html']());
+                    this.moreContentEl.html(JST['src/js/templates/elements/propertyFloorPlans.html']());
                     break;
 
                 case 'reviews':
-                    this.moreEl.html(JST['src/js/templates/elements/propertyReviews.html']());
+                    this.moreContentEl.html(JST['src/js/templates/elements/propertyReviews.html']());
                     break;
 
                 case 'details':
-                    this.moreEl.html(JST['src/js/templates/elements/propertyDetails.html']({
+                    this.moreContentEl.html(JST['src/js/templates/elements/propertyDetails.html']({
                         property: this.property
                     }));
                     break;
 
                 case 'map':
-                    this.moreEl.html(JST['src/js/templates/elements/propertyMap.html']());
+                    this.moreContentEl.html(JST['src/js/templates/elements/propertyMap.html']({
+                        propertyAddress: this.property.address
+                    }));
                     break;
             }
         },
@@ -48,12 +52,18 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         moveToMore: function() {
             if(this.moreEl === null) {
                 this.moreEl = $(document.getElementById('more'));
+                this.moreContentEl = $(document.getElementById('moreContent'));
             }
 
-            var _this = this;
-            $('body').animate({
-                scrollTop: this.moreEl.position().top +'px'
-            }, 1000);
+            var moreElTopPos = this.moreEl.position().top;
+
+            // Don't scroll to the More section unless the user isn't close.
+            if($('body').scrollTop() < moreElTopPos - 25) {
+                var _this = this;
+                $('body').animate({
+                    scrollTop: moreElTopPos +'px'
+                }, 1000);
+            }
         },
 
         relayout: function() {
@@ -68,10 +78,12 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
 
             this.$el.html(JST['src/js/templates/layouts/property.html']({
                 property: this.property,
-                moreContent: JST['src/js/templates/elements/propertyFloorPlans.html']()
+                moreContent: JST['src/js/templates/elements/propertyFloorPlans.html'](),
+                guestCardForm: guestCardFormEl.getHTML()
             }));
             this.$el.attr("class", "property");
 
+            guestCardFormEl.init();
             searchBarViewEl.renderToHeader();
             this.setProfileFooter();
             this.relayout();
@@ -86,6 +98,13 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
          */
         setContentDimensions: function() {
             this.contentHeight = $(window).height() - footerViewEl.getHeight();
+
+            if(navigator.userAgent.match(/iPod|iPhone|iPad/i) &&
+                navigator.userAgent.match(/Safari/i) && !(navigator.userAgent.match(/Chrome/i) ||
+                navigator.userAgent.match(/CriOS/i))) {
+                this.contentHeight -= 20;
+            }
+
             this.$el.children('section').css('height', this.contentHeight +"px");
             this.$el.css('height', this.contentHeight +"px");
         },
@@ -110,16 +129,19 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             }, {
                 rel: 'availability',
                 text: 'Check Availability',
-                cls: 'notNav availability'
+                cls: 'availability'
             }]);
 
             var _this = this;
             $('footer a').bind(this.eventType, function() {
                 if($(this).hasClass('notNav')) {
-
+                    // Share Button
                 } else {
                     _this.moveToMore();
-                    _this.loadSection($(this).attr('rel'));
+
+                    if($(this).attr('rel') !== 'availability') {
+                        _this.loadSection($(this).attr('rel'));
+                    }
                 }
             });
 

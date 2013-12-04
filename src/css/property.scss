@@ -30,6 +30,13 @@ html {
                     box-sizing: border-box;
                     padding-left: 3%;
 
+                    >img {
+                        position: fixed;
+                        right: 35px;
+                        top: 40%;
+                        pointer-events: none;
+                    }
+
                     >div.info {
                         background: url(../img/trans-white-bg.png) repeat 0 0;
                         border-radius: 8px;
@@ -97,62 +104,201 @@ html {
 
                 &#more {
                     background: #eaeaea;
-                    padding: 3% 5%;
+                    display: table;
+                    width: 100%;
 
-                    >table#floorplans {
-                        background: #fff;
-                        width: 100%;
+                    >div {
+                        display: table-row;
 
-                        td {
-                            text-align: center;
+                        >div {
+                            display: table-cell;
                             vertical-align: top;
-                            padding: 15px 30px;
-                            font-size: 110%;
 
-                            >span {
-                                display: block;
-                                font-size: 70%;
-                                color: #044a78;
-                                padding-top: 2px;
+                            &.form { width: 40%; }
+
+                            >#guestCard {
+                                margin: 15px;
+                                background: #fff;
+                                border: 1px solid #ccc;
+                                border-radius: 5px;
+                                padding: 15px;
+
+                                >h3 {
+                                    font-weight: 100;
+                                    margin-bottom: 2px;
+                                    font-size: 120%;
+                                }
+
+                                >p {
+                                    margin: 3px 0 12px;
+                                    color: #044a78;
+                                    font-size: 80%;
+                                }
+
+                                >fieldset {
+                                    margin: 0;
+                                    padding: 10px 12px;
+                                    background: #eaeaea;
+
+                                    >input, >textarea {
+                                        width: 100%;
+                                        box-sizing: border-box;
+                                        padding: 5px;
+                                        border: 1px solid #aaa;
+                                    }
+
+                                    >input {
+                                        font-size: 90%;
+                                    }
+
+                                    >textarea {
+                                        font-size: 80%;
+                                        height: 75px;
+                                    }
+
+                                    >button {
+                                        font-size: 100%;
+                                        color: #fff;
+                                        background: #e97d0e;
+                                        border: 1px solid #dc6104;
+                                        width: 100%;
+                                        text-align: center;
+                                        padding: 8px 5px;
+                                        box-sizing: border-box;
+                                    }
+                                }
                             }
 
-                            &.left {
-                                text-align: left;
+                            >div#floorplans {
+                                background: #fff;
+                                padding: 10px 0;
+
+                                >table {
+                                    width: 100%;
+
+                                    td {
+                                        text-align: center;
+                                        vertical-align: top;
+                                        padding: 15px 30px;
+                                        font-size: 110%;
+                                        border-bottom: 1px solid #ccc;
+
+                                        >span {
+                                            display: block;
+                                            font-size: 70%;
+                                            color: #044a78;
+                                            padding-top: 2px;
+                                        }
+
+                                        &.left {
+                                            text-align: left;
+                                        }
+                                    }
+
+                                    tr.noBorder {
+                                        >td { border-bottom-width: 0; }
+                                    }
+                                }
                             }
-                        }
-                    }
 
-                    /**************/
+                            /**************/
 
-                    >#reviews {
-                        background: #eaeaea;
+                            >#reviews {
+                                background: #fff;
+                                padding: 15px;
 
-                        >p {
-                            padding: 20px 25px 20px 150px;
-                            border-top: 1px solid #ccc;
-                            background: url(../img/reviewStars.png) no-repeat 0 20px;
-                            line-height: 18px;
+                                >p {
+                                    padding: 20px 25px 20px 25px;
+                                    border-top: 1px solid #ccc;
+                                    background: url(../img/reviewStars.png) no-repeat 93% 15%;
+                                    line-height: 18px;
 
-                            &.noBorder { border-top-width: 0; }
+                                    &.noBorder { border-top-width: 0; }
 
-                            >strong {
-                                display: block;
-                                font-weight: 100;
-                                font-size: 130%;
-                                text-transform: uppercase;
-                                margin-bottom: 12px;
+                                    >strong {
+                                        display: block;
+                                        font-weight: 100;
+                                        font-size: 130%;
+                                        margin-bottom: 12px;
+                                    }
+
+                                    >span {
+                                        margin-top: 8px;
+                                        display: block;
+                                        color: #044a78;
+                                        font-size: 80%;
+                                    }
+                                }
                             }
-                        }
-                    }
 
 
-                    /**************/
+                            /**************/
 
-                    >#details {
-                        >h2 {
-                            font-weight: 100;
-                            font-size: 130%;
-                            margin-bottom: 10px;
+                            >#details {
+                                background: #fff;
+                                padding: 25px 25px 35px;
+
+                                >table {
+                                    border-collapse: collapse;
+                                    margin-bottom: 20px;
+                                    width: 100%;
+
+                                    td {
+                                        vertical-align: middle;
+                                        text-align: center;
+                                        font-size: 110%;
+
+                                        &.name {
+                                            font-weight: 100;
+                                            font-size: 130%;
+                                            text-align: left;
+                                        }
+
+                                        >span {
+                                            display: block;
+                                            font-size: 70%;
+                                            color: #044a78;
+                                            padding-top: 2px;
+                                        }
+                                    }
+                                }
+
+                                >p { line-height: 18px; }
+                            }
+
+                            /***************/
+
+                            >#map {
+                                background: #fff;
+                                padding: 25px;
+
+                                &:after {
+                                    content: " ";
+                                    display: table;
+                                    clear: both;
+                                }
+
+                                >img {
+                                    width: 100%;
+                                    margin-bottom: 25px;
+                                }
+                                >button {
+                                    float: right;
+                                    padding: 7px 20px;
+                                    font-size: 100%;
+                                    border-radius: 5px;
+                                    border: 1px solid #aaa;
+                                    background: #ddd;
+                                }
+                                >p {
+                                    background: url(../img/map-pin.png) no-repeat 0 0;
+                                    padding-left: 30px;
+                                    font-size: 110%;
+                                    margin: 0;
+                                    height: 35px;
+                                    line-height: 30px;
+                                }
+                            }
                         }
                     }
                 }

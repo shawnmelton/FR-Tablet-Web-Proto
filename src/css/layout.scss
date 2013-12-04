@@ -142,7 +142,7 @@ html {
                         padding: 0 10px;
 
                         &.active {
-                            background: #eaeaea;
+                            background: #fff;
                             color: #333;
                         }
 
@@ -175,7 +175,7 @@ html {
             }
         }
 
-        input.error {
+        input.error, textarea.error {
             border: 1px solid #600 !important;
             color: #c00 !important;
             background: #fdd !important;

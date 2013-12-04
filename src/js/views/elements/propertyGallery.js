@@ -18,6 +18,8 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
         startingLeft: 0,
         lockLeftMove: false,
         lockRightMove: true,
+        swipeArrowEl: null,
+        swipeDirLeft: true,
 
         /**
          * The property images should always be first.
@@ -57,7 +59,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
                     this.bgImgHeight = 768;
                     break;
             }
-            
+
             this.contentWidth = $(window).width();
             this.contentHeight = $(window).height() - footerViewEl.getHeight();
 
@@ -88,6 +90,23 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
                     img.addClass('last');
                 }
             }
+        },
+
+        /**
+         * Reverse the swipe arrow since the user cannot continue to swipe in that direction.
+         */
+        reverseSwipeArrow: function() {
+            if(this.swipeArrowEl === null) {
+                this.swipeArrowEl = $(document.getElementById('swipeArrow'));
+            }
+
+            if(this.swipeArrowEl.attr('src').indexOf('left') !== -1) {
+                this.swipeArrowEl.attr('src', this.swipeArrowEl.attr('src').replace('left', 'right'));
+            } else {
+                this.swipeArrowEl.attr('src', this.swipeArrowEl.attr('src').replace('right', 'left'));
+            }
+
+            this.swipeDirLeft = !this.swipeDirLeft;
         },
 
         setPropertyId: function(id) {
@@ -121,7 +140,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
                             _this.nextImage();
                             _this.galleryEl.swipe('enable');
                         }
-                    }, 600);
+                    }, 525);
                 },
                 swipeRight: function(event, direction, distance, duration, fingerCount) {
                     if(_this.lockRightMove) {
@@ -144,7 +163,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
                             _this.prevImage();
                            _this.galleryEl.swipe('enable'); 
                         }
-                    }, 600);
+                    }, 525);
                 },
                 swipeStatus: function(event, phase, direction, distance, duration, fingerCount) {
                     if(!_this.lockLeftMove && direction !== null && direction.toString().toLowerCase() === 'left') {
@@ -169,6 +188,10 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
 
             if(this.currentImageEl.hasClass('last')) {
                 this.lockLeftMove = true;
+
+                if(this.swipeDirLeft) {
+                    this.reverseSwipeArrow();
+                }
             }
         },
 
@@ -180,6 +203,10 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
             this.currentImageEl = this.currentImageEl.next();
             if(this.currentImageEl.hasClass('first')) {
                 this.lockRightMove = true;
+
+                if(!this.swipeDirLeft) {
+                    this.reverseSwipeArrow();
+                }
             }
         },
 
