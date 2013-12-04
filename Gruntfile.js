@@ -72,6 +72,14 @@ module.exports = (function(grunt) {
                     src: ['*.jpg'],
                     dest: 'dist/img/listings/'
                 }]
+            },
+            galleryImages: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/img/gallery/',
+                    src: ['*.jpg'],
+                    dest: 'dist/img/gallery/'
+                }]
             }
         },
         copy: {

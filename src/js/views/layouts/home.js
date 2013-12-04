@@ -10,7 +10,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         displayBGImg: function() {
             var clsName = 'home768';
             switch(Device.getType()) {
-                case 'tablet': clsName = 'home2048'; break;
+                case 'retina': clsName = 'home2048'; break;
+                case 'tablet':
                 case 'mini': clsName = 'home1536'; break;
                 case 'phablet': clsName = 'home1024'; break;
             }

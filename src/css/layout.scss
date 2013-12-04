@@ -119,6 +119,10 @@ html {
             background: url(../img/trans-bg.png) repeat 0 0;
             transition: all 0.5s;
 
+            &.sticky {
+                position: absolute;
+            }
+
             >nav {
                 display: table;
                 border-collapse: collapse;
@@ -135,11 +139,17 @@ html {
                         vertical-align: middle;
                         text-align: center;
                         cursor: pointer;
+                        padding: 0 10px;
 
                         &.active {
-                            background: #fff;
-                            color: #000;
+                            background: #eaeaea;
+                            color: #333;
                         }
+
+                        &.availability,
+                        &.share { color: #fff; }
+                        &.availability { background: #e97d0e; }
+                        &.share { background: #044a78; }
                     }
                 }
             }

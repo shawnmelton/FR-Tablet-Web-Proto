@@ -23,15 +23,17 @@ define([], function() {
             var height = $(window).outerHeight();
             var width = $(window).outerWidth();
 
-            if(height > width) {
+            if(height < width) {
                 this.size = height;
             } else {
                 this.size = width;
             }
 
-            if(this.size > 1000) {
+            if(this.size > 1500) {
+                this.type = 'retina';
+            } if(this.size > 1000) {
                 this.type = 'tablet';
-            } else if(this.size > 750) {
+            } else if(this.size > 768) {
                 this.type = 'mini';
             } else if(this.size > 500) {
                 this.type = 'phablet'; // larger phone

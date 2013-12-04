@@ -37,6 +37,48 @@ __p += '<nav>\n    <a href="/">Home</a>\n    <a href="http://forrent.com">Full S
 return __p
 };
 
+this["JST"]["src/js/templates/elements/propertyDetails.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div id="details">\n    <h2>' +
+((__t = ( property.name )) == null ? '' : __t) +
+'</h2>\n    <p>Curabitur eleifend nisi lobortis, adipiscing mauris in, venenatis ipsum. Sed suscipit nisi ut tincidunt facilisis. Praesent ligula mi, cursus eu gravida nec, consequat id sapien. Vestibulum adipiscing quis mi quis mollis. In condimentum consequat felis, sit amet gravida massa elementum quis. Ut suscipit aliquet dolor, vitae laoreet nibh mollis non. Aenean diam justo, pretium et odio a, fermentum tempus metus.</p>\n</div>';
+
+}
+return __p
+};
+
+this["JST"]["src/js/templates/elements/propertyFloorPlans.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<table id="floorplans">\n    <tr>\n        <td class="left">\n            Floor Plan Name\n            <span>more details here</span>\n        </td>\n        <td>1<span>Beds</span></td>\n        <td>2<span>Baths</span></td>\n        <td>$1,500<span>Monthly</span></td>\n    </tr>\n    <tr>\n        <td class="left">\n            Floor Plan Name\n            <span>more details here</span>\n        </td>\n        <td>1<span>Beds</span></td>\n        <td>2<span>Baths</span></td>\n        <td>$1,500<span>Monthly</span></td>\n    </tr>\n    <tr>\n        <td class="left">\n            Floor Plan Name\n            <span>more details here</span>\n        </td>\n        <td>1<span>Beds</span></td>\n        <td>2<span>Baths</span></td>\n        <td>$1,500<span>Monthly</span></td>\n    </tr>\n    <tr>\n        <td class="left">\n            Floor Plan Name\n            <span>more details here</span>\n        </td>\n        <td>1<span>Beds</span></td>\n        <td>2<span>Baths</span></td>\n        <td>$1,500<span>Monthly</span></td>\n    </tr>\n    <tr>\n        <td class="left">\n            Floor Plan Name\n            <span>more details here</span>\n        </td>\n        <td>1<span>Beds</span></td>\n        <td>2<span>Baths</span></td>\n        <td>$1,500<span>Monthly</span></td>\n    </tr>\n    <tr>\n        <td class="left">\n            Floor Plan Name\n            <span>more details here</span>\n        </td>\n        <td>1<span>Beds</span></td>\n        <td>2<span>Baths</span></td>\n        <td>$1,500<span>Monthly</span></td>\n    </tr>\n    <tr>\n        <td class="left">\n            Floor Plan Name\n            <span>more details here</span>\n        </td>\n        <td>1<span>Beds</span></td>\n        <td>2<span>Baths</span></td>\n        <td>$1,500<span>Monthly</span></td>\n    </tr>\n    <tr>\n        <td class="left">\n            Floor Plan Name\n            <span>more details here</span>\n        </td>\n        <td>1<span>Beds</span></td>\n        <td>2<span>Baths</span></td>\n        <td>$1,500<span>Monthly</span></td>\n    </tr>\n</table>';
+
+}
+return __p
+};
+
+this["JST"]["src/js/templates/elements/propertyMap.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '';
+
+}
+return __p
+};
+
+this["JST"]["src/js/templates/elements/propertyReviews.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div id="reviews">\n    <p class="noBorder">\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n    </p>\n    <p>\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n    </p>\n    <p>\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n    </p>\n    <p>\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n    </p>\n    <p>\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n    </p>\n</div>';
+
+}
+return __p
+};
+
 this["JST"]["src/js/templates/elements/searchBar.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -173,7 +215,7 @@ this["JST"]["src/js/templates/layouts/property.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<section>\n    <div id="propDetails">\n        <h2>' +
+__p += '<div id="gallery"></div>\n<section id="teaser">\n    <div class="info">\n        <h2>' +
 ((__t = ( property.name )) == null ? '' : __t) +
 '</h2>\n        <p>\n            ' +
 ((__t = ( property.address )) == null ? '' : __t) +
@@ -187,7 +229,9 @@ __p += '<section>\n    <div id="propDetails">\n        <h2>' +
 ((__t = ( property.type )) == null ? '' : __t) +
 ' for ' +
 ((__t = ( property.price )) == null ? '' : __t) +
-'<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p class="noBorder">\n            Details<br>\n            <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet arcu pretium, placerat mauris sed, hendrerit eros. Curabitur sed fermentum justo. Pellentesque lobortis, orci ut porttitor luctus, nisi urna pharetra magna.</small>\n        </p>\n    </div>\n    <div id="propButtons">\n        <div>\n            <div><button id="buttonCA">Check Availability</button></div>\n            <div id="buttonSpacer"></div>\n            <div><button>1-800-555-0123</button></div>\n        </div>\n    </div>\n</section>\n';
+'<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p class="noBorder">\n            Details<br>\n            <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet arcu pretium, placerat mauris sed, hendrerit eros. Curabitur sed fermentum justo. Pellentesque lobortis, orci ut porttitor luctus, nisi urna pharetra magna.</small>\n        </p>\n    </div>\n    <div class="buttons">\n        <div>\n            <div><button id="buttonCA">Check Availability</button></div>\n            <div id="buttonSpacer"></div>\n            <div><button>1-800-555-0123</button></div>\n        </div>\n    </div>\n</section>\n<section id="more">' +
+((__t = ( moreContent )) == null ? '' : __t) +
+'</section>';
 
 }
 return __p

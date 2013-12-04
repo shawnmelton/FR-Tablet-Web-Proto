@@ -8,8 +8,25 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
             'click nav > div > a': 'onNavItemTouch'
         },
 
+        activateLink: function(rel) {
+            this.deactivateAllLinks();
+            $('footer a[rel="'+rel+'"]').addClass('active');
+        },
+
+        deactivateAllLinks: function() {
+            this.links.removeClass('active');
+        },
+
+        getHeight: function() {
+            return parseInt(this.$el.height());
+        },
+
         hide: function() {
             this.$el.hide();
+        },
+
+        makeSticky: function() {
+            this.$el.addClass('sticky');
         },
 
         /**
@@ -17,7 +34,7 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
          */
         onNavItemTouch: function(event) {
             event.preventDefault();
-            this.links.removeClass('active');
+            this.deactivateAllLinks();
             var activeLink = $(event.currentTarget).addClass('active');
         },
 

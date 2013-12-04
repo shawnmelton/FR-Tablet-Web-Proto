@@ -1,76 +1,163 @@
 html {
     >body {
         >#content.property {
-            >section {
+            position: relative;
+
+            >div {
                 position: absolute;
-                left: 5%;
-                top: 100px;
-                width: 40%;
-                min-width: 250px;
+                top: 0px;
+                bottom: 0px;
+                left: 0;
+                right: 0;
+                overflow: hidden;
 
-                >div#propDetails {
-                    background: url(../img/trans-white-bg.png) repeat 0 0;
-                    border-radius: 8px;
-                    padding: 20px 0;
+                >img {
+                    position: absolute;
+                    pointer-events: none;
 
-                    >h2 {
-                        font-weight: 100;
-                        font-size: 130%;
-                        padding: 0 20px;
-                    }
+                    &.moving { transition: all 0.5s; }
+                }
+            }
 
-                    >p {
-                        padding: 20px;
-                        border-bottom: 1px solid #ddd;
+            >section {
+                position: relative;
+                box-sizing: border-box;
+                overflow: hidden;
 
-                        >a {
-                            cursor: pointer;
-                            color: #22567e;
-                            text-decoration: none;
+                &#teaser {
+                    width: 43%;
+                    min-width: 300px;
+                    box-sizing: border-box;
+                    padding-left: 3%;
+
+                    >div.info {
+                        background: url(../img/trans-white-bg.png) repeat 0 0;
+                        border-radius: 8px;
+                        padding: 20px 0;
+                        margin: 3% 0 0;
+
+                        >h2 {
+                            font-weight: 100;
+                            font-size: 130%;
+                            padding: 0 20px;
                         }
 
-                        >a, >small { font-size: 70%; }
+                        >p {
+                            padding: 20px;
+                            border-bottom: 1px solid #ddd;
 
-                        &.noBorder { border-bottom-width: 0; }
+                            >a {
+                                cursor: pointer;
+                                color: #22567e;
+                                text-decoration: none;
+                            }
+
+                            >a, >small { font-size: 70%; }
+
+                            &.noBorder { border-bottom-width: 0; }
+                        }
+                    }
+
+                    >div.buttons {
+                        display: table;
+                        border-collapse: collapse;
+                        margin-top: 15px;
+                        width: 100%;
+
+                        >div {
+                            display: table-row;
+
+                            >div {
+                                display: table-cell;
+                                width: 48%;
+
+                                >button {
+                                    border-radius: 8px;
+                                    display: block;
+                                    border: 0;
+                                    height: 60px;
+                                    line-height: 60px;
+                                    background: url(../img/trans-white-bg.png) repeat 0 0;
+                                    color: #000;
+                                    text-align: center;
+                                    width: 100%;
+                                    font-size: 100%;
+
+                                    &#buttonCA {
+                                        color: #fff;
+                                        background: #e97d0e;
+                                    }
+                                }
+
+                                &#buttonSpacer { width: 4%; }
+                            }
+                        }
                     }
                 }
 
-                >div#propButtons {
-                    display: table;
-                    border-collapse: collapse;
-                    margin-top: 15px;
-                    width: 100%;
+                &#more {
+                    background: #eaeaea;
+                    padding: 3% 5%;
 
-                    >div {
-                        display: table-row;
+                    >table#floorplans {
+                        background: #fff;
+                        width: 100%;
 
-                        >div {
-                            display: table-cell;
-                            width: 48%;
+                        td {
+                            text-align: center;
+                            vertical-align: top;
+                            padding: 15px 30px;
+                            font-size: 110%;
 
-                            >button {
-                                border-radius: 8px;
+                            >span {
                                 display: block;
-                                border: 0;
-                                height: 60px;
-                                line-height: 60px;
-                                background: url(../img/trans-white-bg.png) repeat 0 0;
-                                color: #000;
-                                text-align: center;
-                                width: 100%;
-                                font-size: 100%;
-
-                                &#buttonCA {
-                                    color: #fff;
-                                    background: #e97d0e;
-                                }
+                                font-size: 70%;
+                                color: #044a78;
+                                padding-top: 2px;
                             }
 
-                            &#buttonSpacer { width: 4%; }
+                            &.left {
+                                text-align: left;
+                            }
+                        }
+                    }
+
+                    /**************/
+
+                    >#reviews {
+                        background: #eaeaea;
+
+                        >p {
+                            padding: 20px 25px 20px 150px;
+                            border-top: 1px solid #ccc;
+                            background: url(../img/reviewStars.png) no-repeat 0 20px;
+                            line-height: 18px;
+
+                            &.noBorder { border-top-width: 0; }
+
+                            >strong {
+                                display: block;
+                                font-weight: 100;
+                                font-size: 130%;
+                                text-transform: uppercase;
+                                margin-bottom: 12px;
+                            }
+                        }
+                    }
+
+
+                    /**************/
+
+                    >#details {
+                        >h2 {
+                            font-weight: 100;
+                            font-size: 130%;
+                            margin-bottom: 10px;
                         }
                     }
                 }
             }
+            
         }
     }
 }
