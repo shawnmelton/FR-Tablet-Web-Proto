@@ -12,18 +12,26 @@ html {
     body {
         position: relative;
 
+        >#content { padding-top: 50px; }
+
         header {
-            position: relative;
-            background: #dde0e6;
-            height: 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: url(../img/trans-white-bg.png) repeat 0 0;
+            height: 49px;
             padding: 0 0 0 260px;
             transition: all 0.5s;
+            border-bottom: 1px solid #044a78;
 
             &:after {
                 content: " ";
                 display: table;
                 clear: both;
             }
+
+            &.sticky { position: absolute; }
 
             >a {
                 display: block;
@@ -36,20 +44,20 @@ html {
                     top: 15px;
                 }
 
-                &#menu {
+                &#menuBtn {
                     background: url(../img/menu-button.png) no-repeat center center;
                     left: 0;
                     top: 0;
                     height: 50px;
                     width: 50px;
-                    border-right: 1px solid #fff;
+                    border-right: 1px solid #eaeaea;
                 }
             }
 
             >form {
                 display: block;
                 position: relative;
-                padding-top: 10px;
+                padding-top: 8px;
                 transition: all 1s;
 
                 >fieldset {
@@ -67,7 +75,7 @@ html {
                         color: #333;
                         border-radius: 8px;
                         border: 0;
-                        height: 30px;
+                        height: 32px;
                         padding: 0;
                         box-sizing: border-box;
                         outline: none;
@@ -79,7 +87,8 @@ html {
                         padding: 0 10px;
                         font-family: "helvetica", arial;
                         width: 100%;
-                        background: #fff;
+                        background: #eaeaea;
+                        border: 1px solid #044a78;
                     }
 
                     >div {
@@ -103,7 +112,7 @@ html {
                             text-align: center;
                             transition: all 1s;
                             color: #044a78;
-                            background: #dde0e6;
+                            background: transparent;
                         }
                     }
                 }
@@ -119,9 +128,7 @@ html {
             background: url(../img/trans-bg.png) repeat 0 0;
             transition: all 0.5s;
 
-            &.sticky {
-                position: absolute;
-            }
+            &.sticky { position: absolute; }
 
             >nav {
                 display: table;
@@ -156,13 +163,15 @@ html {
         }
 
         >nav {
-            position: absolute;
+            position: fixed;
             top: 50px;
             left: -250px;
             width: 220px;
             background: url(../img/trans-white-bg.png) repeat 0 0;
             padding: 15px 15px 35px;
             transition: all 0.5s;
+
+            &.sticky { position: absolute; }
 
             >a {
                 display: block;

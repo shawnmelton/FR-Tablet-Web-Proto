@@ -52,6 +52,18 @@ html {
                         >p {
                             padding: 20px;
                             border-bottom: 1px solid #ddd;
+    
+                            &.clickable {
+                                background: url(../img/arrow-down.png) no-repeat 95% 50%;
+                                cursor: pointer;
+                            }
+
+                            >span#webReview {
+                                display: block;
+                                height: 21px;
+                                line-height: 21px;
+                                background: url(../img/reviewStars.png) no-repeat 87px 0;
+                            }
 
                             >a {
                                 cursor: pointer;
@@ -282,13 +294,18 @@ html {
                                     width: 100%;
                                     margin-bottom: 25px;
                                 }
-                                >button {
+                                >a {
                                     float: right;
                                     padding: 7px 20px;
                                     font-size: 100%;
                                     border-radius: 5px;
                                     border: 1px solid #aaa;
                                     background: #ddd;
+                                    display: block;
+                                    outline: none;
+                                    cursor: pointer;
+                                    text-decoration: none;
+                                    color: #333;
                                 }
                                 >p {
                                     background: url(../img/map-pin.png) no-repeat 0 0;

@@ -4,12 +4,20 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         el: "header",
 
         events: {
-            'touchstart #logo': 'onLogoTouch'
+            'click #logo': 'onLogoTouch'
+        },
+
+        makeSticky: function() {
+            this.$el.addClass('sticky');
         },
 
         onLogoTouch: function(event) {
             event.preventDefault();
             Navigate.toUrl('/');
+        },
+
+        removeSticky: function() {
+            this.$el.removeClass('sticky');
         }
     });
 

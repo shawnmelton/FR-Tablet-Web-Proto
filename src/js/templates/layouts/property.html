@@ -3,17 +3,17 @@
     <img src="/img/swipe-arrow-left.png" id="swipeArrow">
     <div class="info">
         <h2><%= property.name %></h2>
-        <p>
+        <p class="clickable" section="map">
             <%= property.address %><br>
             <a href="http://maps.google.com?q=<%= property.address %>" target="_blank">View Map &amp; Directions</a>
         </p>
-        <p>
+        <p class="clickable" section="floorplans">
             <%= property.type %> for <%= property.price %><br>
             <a>View Floor Plans &amp; Prices</a>
         </p>
-        <p>
-            <%= property.type %> for <%= property.price %><br>
-            <a>View Floor Plans &amp; Prices</a>
+        <p class="clickable" section="reviews">
+            <span id="webReview">2 Reviews</span>
+            <a>View Reviews from the Web</a>
         </p>
         <p class="noBorder">
             Details<br>

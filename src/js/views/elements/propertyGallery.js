@@ -211,6 +211,13 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
         },
 
         /**
+         * If this gallery has been set up.  If so, reset it.
+         */
+        reset: function() {
+            this.currentImageEl = null;
+        },
+
+        /**
          * Update the images to be centered on the page.
          */
         update: function() {
@@ -220,10 +227,10 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
 
             // Center all of the images on the page.
             this.startingLeft = parseInt((this.contentWidth - this.bgImgWidth) / 2);
-            console.log(this.startingLeft);
             this.galleryEl.children('img')
                 .css('top', parseInt((this.contentHeight - this.bgImgHeight) / 2) +'px')
                 .css('left', this.startingLeft +'px');
+            this.currentImageEl = this.galleryEl.find('img.first');
         }
     });
 

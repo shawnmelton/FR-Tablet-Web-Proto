@@ -11,19 +11,30 @@ define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts
 
         showHome: function() {
             document.getElementsByTagName('html')[0].style.background = '';
+            document.getElementById('content').style.height = '';
+            headerViewEl.removeSticky();
+            menuViewEl.removeSticky();
+            footerViewEl.clear();
             footerViewEl.show();
             homeView.render();
         },
 
         showProperty: function() {
+            window.scrollTo(0,0);
             document.getElementsByTagName('html')[0].className = '';
+            document.getElementById('content').style.height = '';
+            headerViewEl.makeSticky();
+            menuViewEl.makeSticky();
             footerViewEl.show();
             propertyView.render();
         },
 
         showSearch: function() {
+            window.scrollTo(0,0);
             document.getElementsByTagName('html')[0].style.background = '';
             document.getElementsByTagName('html')[0].className = '';
+            headerViewEl.removeSticky();
+            menuViewEl.removeSticky();
             footerViewEl.hide();
             searchView.render();
         }

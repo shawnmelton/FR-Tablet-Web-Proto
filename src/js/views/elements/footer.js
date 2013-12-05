@@ -13,6 +13,11 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
             $('footer a[rel="'+rel+'"]').addClass('active');
         },
 
+        clear: function() {
+            this.$el.removeClass('sticky');
+            this.$el.empty();
+        },
+
         deactivateAllLinks: function() {
             this.links.removeClass('active');
         },

@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'views/elements/footer', 
-    'tools/navigate', 'tools/data', 'views/elements/propertyGallery', 'views/elements/guestCardForm'], 
+define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'views/elements/footer',
+    'tools/navigate', 'tools/data', 'views/elements/propertyGallery', 'views/elements/guestCardForm'],
     function($, Backbone, tmplts, searchBarViewEl, footerViewEl, Navigate, Data, galleryViewEl, guestCardFormEl){
     var propertyView = Backbone.View.extend({
         el: "#content",
@@ -10,6 +10,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         contentHeight: 0,
         aboveTheFold: true,
         currentMoreSection: 'floorplans',
+        events: {
+            'click .info > p.clickable': 'onTeaserSectionClick'
+        },
 
         /**
          * Load the content specific to the section that was clicked on.
@@ -58,12 +61,20 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             var moreElTopPos = this.moreEl.position().top;
 
             // Don't scroll to the More section unless the user isn't close.
-            if($('body').scrollTop() < moreElTopPos - 25) {
-                var _this = this;
+            if($('body').scrollTop() < (moreElTopPos - 50)) {
                 $('body').animate({
                     scrollTop: moreElTopPos +'px'
-                }, 1000);
+                },  500);
             }
+        },
+
+        /**
+         * Catch the event when the user clicks on a section of the Property teaser
+         * Teaser is the section that displays on top of the property image.
+         */
+        onTeaserSectionClick: function(event) {
+            this.moveToMore();
+            this.loadSection($(event.currentTarget).attr('section'));  
         },
 
         relayout: function() {
@@ -76,6 +87,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 return;
             }
 
+            // Reset elements for this property view.
+            this.moreEl = null;
+            this.moreContentEl = null;
+
             this.$el.html(JST['src/js/templates/layouts/property.html']({
                 property: this.property,
                 moreContent: JST['src/js/templates/elements/propertyFloorPlans.html'](),
@@ -86,6 +101,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             guestCardFormEl.init();
             searchBarViewEl.renderToHeader();
             this.setProfileFooter();
+            galleryViewEl.reset();
             this.relayout();
 
             // Events
@@ -109,6 +125,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             this.$el.css('height', this.contentHeight +"px");
         },
 
+        /**
+         * Load footer with links that will take the user to additional property information.
+         */
         setProfileFooter: function() {
             footerViewEl.render([{
                 rel: 'floorplans',

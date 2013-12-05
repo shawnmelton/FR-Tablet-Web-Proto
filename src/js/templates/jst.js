@@ -41,7 +41,7 @@ this["JST"]["src/js/templates/elements/menu.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<nav>\n    <a href="/">Home</a>\n    <a href="http://forrent.com">Full Site</a>\n</nav>';
+__p += '<nav id="menu">\n    <a href="/">Home</a>\n    <a href="http://forrent.com" target="_blank">Full Site</a>\n</nav>';
 
 }
 return __p
@@ -73,7 +73,9 @@ this["JST"]["src/js/templates/elements/propertyMap.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="map">\n    <img src="/img/google-map.png">\n    <button>Get Directions</button>\n    <p>' +
+__p += '<div id="map">\n    <img src="/img/google-map.png">\n    <a href="https://maps.google.com?q=' +
+((__t = ( propertyAddress )) == null ? '' : __t) +
+'" target="_blank">Get Directions</a>\n    <p>' +
 ((__t = ( propertyAddress )) == null ? '' : __t) +
 '</p>\n</div>';
 
@@ -229,19 +231,15 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div id="gallery"></div>\n<section id="teaser">\n    <img src="/img/swipe-arrow-left.png" id="swipeArrow">\n    <div class="info">\n        <h2>' +
 ((__t = ( property.name )) == null ? '' : __t) +
-'</h2>\n        <p>\n            ' +
+'</h2>\n        <p class="clickable" section="map">\n            ' +
 ((__t = ( property.address )) == null ? '' : __t) +
 '<br>\n            <a href="http://maps.google.com?q=' +
 ((__t = ( property.address )) == null ? '' : __t) +
-'" target="_blank">View Map &amp; Directions</a>\n        </p>\n        <p>\n            ' +
+'" target="_blank">View Map &amp; Directions</a>\n        </p>\n        <p class="clickable" section="floorplans">\n            ' +
 ((__t = ( property.type )) == null ? '' : __t) +
 ' for ' +
 ((__t = ( property.price )) == null ? '' : __t) +
-'<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p>\n            ' +
-((__t = ( property.type )) == null ? '' : __t) +
-' for ' +
-((__t = ( property.price )) == null ? '' : __t) +
-'<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p class="noBorder">\n            Details<br>\n            <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet arcu pretium, placerat mauris sed, hendrerit eros. Curabitur sed fermentum justo. Pellentesque lobortis, orci ut porttitor luctus, nisi urna pharetra magna.</small>\n        </p>\n    </div>\n    <div class="buttons">\n        <div>\n            <div><button id="buttonCA">Check Availability</button></div>\n            <div id="buttonSpacer"></div>\n            <div><button>1-800-555-0123</button></div>\n        </div>\n    </div>\n</section>\n<section id="more">\n    <div>\n        <div id="moreContent">' +
+'<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p class="clickable" section="reviews">\n            <span id="webReview">2 Reviews</span>\n            <a>View Reviews from the Web</a>\n        </p>\n        <p class="noBorder">\n            Details<br>\n            <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet arcu pretium, placerat mauris sed, hendrerit eros. Curabitur sed fermentum justo. Pellentesque lobortis, orci ut porttitor luctus, nisi urna pharetra magna.</small>\n        </p>\n    </div>\n    <div class="buttons">\n        <div>\n            <div><button id="buttonCA">Check Availability</button></div>\n            <div id="buttonSpacer"></div>\n            <div><button>1-800-555-0123</button></div>\n        </div>\n    </div>\n</section>\n<section id="more">\n    <div>\n        <div id="moreContent">' +
 ((__t = ( moreContent )) == null ? '' : __t) +
 '</div>\n        <div class="form">' +
 ((__t = ( guestCardForm )) == null ? '' : __t) +
