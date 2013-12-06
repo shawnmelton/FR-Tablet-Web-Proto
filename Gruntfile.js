@@ -89,6 +89,7 @@ module.exports = (function(grunt) {
                         src: ['src/img/*.gif'],
                         dest: 'dist/img/',
                         filter: 'isFile',
+                        expand: true,
                         flatten: true
                     }
                 ]

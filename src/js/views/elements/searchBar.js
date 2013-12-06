@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
-    function($, Backbone, tmplts, Navigate){
+define(['jquery', 'backbone', 'templates/jst', 'tools/navigate', 'views/elements/advancedSearch'],
+    function($, Backbone, tmplts, Navigate, advancedSearchViewEl){
     var searchBarViewEl = Backbone.View.extend({
         parentEl: null,
         keywords: '',
@@ -23,6 +23,7 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         onSearchFormSubmission: function() {
             this.textfield.removeClass('error');
             if(this.isValidSubmission()) {
+                this.textfield.blur();
                 Navigate.toUrl('/search/'+ this.textfield.val());
             } else {
                 this.textfield.addClass('error');
@@ -91,12 +92,18 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
          * Set the form events for this form.
          */
         setEvents: function() {
+            // Submission events
             this.form.unbind('submit');
 
             var _this = this;
-            this.form.submit(function(event) {
-                event.preventDefault();
+            this.form.submit(function(ev) {
+                ev.preventDefault();
                 _this.onSearchFormSubmission();
+            });
+
+            // Button events
+            $(document.getElementById('advSearchBtn')).bind(touchEventType, function() {
+                advancedSearchViewEl.toggleDrawer();
             });
         },
 

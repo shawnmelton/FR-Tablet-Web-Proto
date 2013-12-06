@@ -83,13 +83,13 @@
  */
 @media screen and (max-height: 700px) {
     html {
-        body {
-            header {
+        >body {
+            >header {
                 height: 40px;
                 >a {
                     &#logo { top: 10px; }
 
-                    &#menu {
+                    &#menuBtn {
                         height: 40px;
                         width: 40px;
                     }
@@ -98,9 +98,13 @@
                 >form { padding-top: 4px; }
             }
 
+            >#advancedSearch { top: 40px; }
+
             >#content.home {
                 >form { padding: 20px 30px 30px; }
             }
+
+            >#content.search { padding-top: 55px !important; }
 
             >footer {
                 height: 40px;
@@ -112,7 +116,7 @@
                 }
             }
 
-            >nav { top: 40px; }
+            >div#menu { top: 40px; }
         }
     }
 }

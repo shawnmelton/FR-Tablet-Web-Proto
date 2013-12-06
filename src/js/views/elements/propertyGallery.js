@@ -93,6 +93,52 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
         },
 
         /**
+         * Move gallery to next image.
+         */
+        nextImage: function() {
+            this.lockRightMove = false;
+            this.currentImageEl = this.currentImageEl.prev();
+            this.loadNextImage();
+
+            if(this.currentImageEl.hasClass('last')) {
+                this.lockLeftMove = true;
+
+                if(this.swipeDirLeft) {
+                    this.reverseSwipeArrow();
+                }
+            }
+        },
+
+        /**
+         * Move gallery to prev image.
+         */
+        prevImage: function() {
+            this.lockLeftMove = false;
+            this.currentImageEl = this.currentImageEl.next();
+            if(this.currentImageEl.hasClass('first')) {
+                this.lockRightMove = true;
+
+                if(!this.swipeDirLeft) {
+                    this.reverseSwipeArrow();
+                }
+            }
+        },
+
+        /**
+         * If this gallery has been set up.  If so, reset it.
+         */
+        reset: function() {
+            this.currentImageEl = null;
+            this.images = [
+                '/img/gallery/1-[SIZE].jpg',
+                '/img/gallery/2-[SIZE].jpg',
+                '/img/gallery/3-[SIZE].jpg',
+                '/img/gallery/4-[SIZE].jpg',
+                '/img/gallery/5-[SIZE].jpg'
+            ];
+        },
+
+        /**
          * Reverse the swipe arrow since the user cannot continue to swipe in that direction.
          */
         reverseSwipeArrow: function() {
@@ -167,54 +213,15 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
                 },
                 swipeStatus: function(event, phase, direction, distance, duration, fingerCount) {
                     if(!_this.lockLeftMove && direction !== null && direction.toString().toLowerCase() === 'left') {
-                        _this.currentImageEl.css('left', (_this.startingLeft - (distance * 2)) +'px');
+                        _this.currentImageEl.css('left', (_this.startingLeft - (distance * 1.75)) +'px');
                     } else if(!_this.lockRightMove && direction !== null && direction.toString().toLowerCase() === 'right') {
-                        _this.currentImageEl.next().css('left', ((-1 * _this.bgImgWidth) + (distance * 2)) +'px');
+                        _this.currentImageEl.next().css('left', ((-1 * _this.bgImgWidth) + (distance * 1.75)) +'px');
                     }
                 },
                 threshold: 0,
                 fingers: 1,
                 allowPageScroll: 'vertical'
             });
-        },
-
-        /**
-         * Move gallery to next image.
-         */
-        nextImage: function() {
-            this.lockRightMove = false;
-            this.currentImageEl = this.currentImageEl.prev();
-            this.loadNextImage();
-
-            if(this.currentImageEl.hasClass('last')) {
-                this.lockLeftMove = true;
-
-                if(this.swipeDirLeft) {
-                    this.reverseSwipeArrow();
-                }
-            }
-        },
-
-        /**
-         * Move gallery to prev image.
-         */
-        prevImage: function() {
-            this.lockLeftMove = false;
-            this.currentImageEl = this.currentImageEl.next();
-            if(this.currentImageEl.hasClass('first')) {
-                this.lockRightMove = true;
-
-                if(!this.swipeDirLeft) {
-                    this.reverseSwipeArrow();
-                }
-            }
-        },
-
-        /**
-         * If this gallery has been set up.  If so, reset it.
-         */
-        reset: function() {
-            this.currentImageEl = null;
         },
 
         /**

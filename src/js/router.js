@@ -1,6 +1,7 @@
 define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts/property', 
-    'views/elements/header', 'views/elements/menu', 'views/elements/footer'], function(Backbone, searchView, homeView, 
-    propertyView, headerViewEl, menuViewEl, footerViewEl) {
+    'views/elements/header', 'views/elements/menu', 'views/elements/footer','views/elements/advancedSearch'], 
+    function(Backbone, searchView, homeView, propertyView, headerViewEl, menuViewEl, footerViewEl,
+        advancedSearchViewEl) {
 
     var AppRouter = Backbone.Router.extend({
         initialize: function() {
@@ -14,6 +15,7 @@ define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts
             document.getElementById('content').style.height = '';
             headerViewEl.removeSticky();
             menuViewEl.removeSticky();
+            advancedSearchViewEl.removeSticky();
             footerViewEl.clear();
             footerViewEl.show();
             homeView.render();
@@ -25,6 +27,7 @@ define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts
             document.getElementById('content').style.height = '';
             headerViewEl.makeSticky();
             menuViewEl.makeSticky();
+            advancedSearchViewEl.makeSticky();
             footerViewEl.show();
             propertyView.render();
         },
@@ -35,6 +38,7 @@ define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts
             document.getElementsByTagName('html')[0].className = '';
             headerViewEl.removeSticky();
             menuViewEl.removeSticky();
+            advancedSearchViewEl.removeSticky();
             footerViewEl.hide();
             searchView.render();
         }

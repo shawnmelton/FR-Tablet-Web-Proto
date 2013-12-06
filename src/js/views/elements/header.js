@@ -4,7 +4,7 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         el: "header",
 
         events: {
-            'click #logo': 'onLogoTouch'
+            'touchstart #logo': 'onLogoTouch'
         },
 
         makeSticky: function() {

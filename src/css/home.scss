@@ -8,14 +8,14 @@ html {
                 margin: 50px auto 0;
                 width: 70%;
                 border-radius: 10px;
-                padding: 35px 50px 75px;
-                background: url(../img/trans-bg.png) repeat 0 0;
+                padding: 35px 50px 45px;
+                background: url(../img/trans-white-bg-80.png) repeat 0 0;
                 box-sizing: border-box;
                 transition: all 0.5s;
 
                 >h2 {
                     font-weight: 100;
-                    color: #fff;
+                    color: #333;
                     font-size: 180%;
                     margin: 0 0 25px;
                 }
@@ -40,6 +40,8 @@ html {
                         box-sizing: border-box;
                         outline: none;
                         cursor: pointer;
+                        background: #fff;
+                        border: 1px solid #789;
                     }
 
                     >input {
@@ -47,6 +49,7 @@ html {
                         font-family: "helvetica", arial;
                         width: 100%;
                         font-size: 140%;
+                        font-weight: 100;
                     }
 
                     >div {
@@ -58,7 +61,7 @@ html {
 
                         >a {
                             width: 65px;
-                            background: #dde0e6 url(../img/home-adv-search.png) no-repeat center center;
+                            background: #fff url(../img/home-adv-search.png) no-repeat center center;
                             margin-right: 5px;
                         }
 
@@ -67,7 +70,6 @@ html {
                             width: 125px;
                             text-align: center;
                             font-size: 140%;
-                            background: #dde0e6;
                             transition: all 1s;
                             color: #044a78;
                         }
@@ -76,6 +78,10 @@ html {
             }
 
             >section {
+                position: fixed;
+                bottom: 65px;
+                left: 0;
+                right: 0;
                 margin: 50px 0 0;
                 height: 260px;
                 overflow: hidden;
@@ -92,7 +98,7 @@ html {
                     width: 23%;
                     box-sizing: border-box;
                     margin: 0 1% 1%;
-                    border: 5px solid #333;
+                    border: 3px solid #eaeaea;
                     color: #fff;
                     font-size: 80%;
                     background: #aaa;
@@ -114,9 +120,9 @@ html {
                         position: absolute;
                         bottom: 0;
                         width: 100%;
-                        background: url(../img/trans-bg.png) repeat 0 0;
+                        background: url(../img/property-gradient.png) repeat 0 0;
                         margin: 0;
-                        padding: 10px 15px 15px;
+                        padding: 50px 15px 15px;
                         line-height: 17px;
 
                         >strong {

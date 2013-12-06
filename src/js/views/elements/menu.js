@@ -8,8 +8,8 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         sticky: false,
 
         events: {
-            'click #menuBtn': 'onMenuButtonClick',
-            'click #menu > a': 'onMenuLinkClick'
+            'touchstart #menuBtn': 'onMenuButtonClick',
+            'touchstart #menu a': 'onMenuLinkClick'
         },
 
         /**
@@ -65,7 +65,7 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         render: function() {
             this.$el.append(JST['src/js/templates/elements/menu.html']());
             this.displaying = false;
-            this.menuEl = $('body > nav');
+            this.menuEl = $(document.getElementById('menu'));
             this.menuWidth = this.menuEl.outerWidth();
 
             // If the menu is on a view where it needs to remain at the top of the page, then make that setting now.
@@ -74,22 +74,20 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
             }
         },
 
-        slideMenu: function(newLeft) {
-            this.menuEl.animate({
-                left: newLeft +"px"
-            }, 250);
+        slideMenu: function(newWidth) {
+            this.menuEl.css('width', newWidth +'px');
         },
 
         /**
          * Toggle the menu to display or hide.
          */
         toggleMenu: function() {
-            var newLeft = 0;
+            var newWidth = 250;
             if(this.displaying === true) {
-                newLeft = (this.menuWidth * -1);
+                newWidth = 0;
             }
 
-            this.slideMenu(newLeft);
+            this.slideMenu(newWidth);
             this.displaying = !this.displaying;
         }
     });

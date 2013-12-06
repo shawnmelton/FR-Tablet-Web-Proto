@@ -4,10 +4,6 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         el: "footer",
         links: null,
 
-        events: {
-            'click nav > div > a': 'onNavItemTouch'
-        },
-
         activateLink: function(rel) {
             this.deactivateAllLinks();
             $('footer a[rel="'+rel+'"]').addClass('active');
@@ -16,6 +12,11 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         clear: function() {
             this.$el.removeClass('sticky');
             this.$el.empty();
+
+            if(this.links !== null) {
+                this.links.unbind(touchEventType);
+                this.links = null;
+            }
         },
 
         deactivateAllLinks: function() {
@@ -37,10 +38,9 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         /**
          * Handle what happens when a navigation item is touched.
          */
-        onNavItemTouch: function(event) {
-            event.preventDefault();
+        onNavItemTouch: function(link) {
             this.deactivateAllLinks();
-            var activeLink = $(event.currentTarget).addClass('active');
+            link.addClass('active');
         },
 
         render: function(links) {
@@ -49,6 +49,18 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
                 size: parseInt(100 / links.length)
             }));
             this.links = $('footer > nav > div > a');
+            this.setEvents();
+        },
+
+        /**
+         * Set events on the footer links.
+         */
+        setEvents: function() {
+            var _this = this;
+            this.links.bind(touchEventType, function(ev) {
+                ev.preventDefault();
+                _this.onNavItemTouch($(this));
+            });
         },
 
         show: function() {

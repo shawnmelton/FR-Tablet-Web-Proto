@@ -3,14 +3,13 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
     var searchView = Backbone.View.extend({
         el: "#content",
         resultsEl: null,
-        eventType: 'click', // 'touchstart',
 
         loadResultsSet: function() {
-            $('.table > div > div > div').unbind(this.eventType);
+            $('.table > div > div > div').unbind(touchEventType);
 
             this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroup.html']({
                 selects: Data.get('select', 2),
-                properties: Data.get('basic', 10)
+                properties: Data.get('basic', 17)
             }));
 
             this.setPropertyClickEvents();
@@ -69,7 +68,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          */
         setPropertyClickEvents: function() {
             var _this = this;
-            $('.table > div > div > div').bind(this.eventType, function() {
+            $('.table > div > div > div').bind(touchEventType, function() {
                 var propertyId = $(this).attr('property');
                 if(propertyId !== 'undefined' && propertyId !== false) {
                     _this.onPropertyClick(parseInt(propertyId));

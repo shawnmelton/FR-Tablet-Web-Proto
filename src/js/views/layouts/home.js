@@ -2,7 +2,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
     'tools/device'], function($, Backbone, tmplts, searchBarViewEl, Data, Navigate, Device){
     var homeView = Backbone.View.extend({
         el: "#content",
-        eventType: 'click', // touchstart
 
         /**
          * Display the device appropriate background image according to the size of the layout.
@@ -11,9 +10,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             var clsName = 'home768';
             switch(Device.getType()) {
                 case 'retina': clsName = 'home2048'; break;
-                case 'tablet':
-                case 'mini': clsName = 'home1536'; break;
-                case 'phablet': clsName = 'home1024'; break;
+                case 'tablet': clsName = 'home1024'; break;
             }
 
             document.getElementsByTagName('html')[0].className = clsName;
@@ -37,8 +34,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          * Set the touch/click event to the properties at the bottom of the view.
          */
         setEvents: function() {
-            this.$el.find("div.property").unbind(this.eventType);
-            this.$el.find("div.property").bind(this.eventType, function(event) {
+            this.$el.find("div.property").unbind(touchEventType);
+            this.$el.find("div.property").bind(touchEventType, function(event) {
                 event.preventDefault();
                 Navigate.toUrl('/properties/'+ $(this).attr('property'));
             });

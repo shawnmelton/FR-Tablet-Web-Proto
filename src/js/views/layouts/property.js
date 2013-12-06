@@ -4,15 +4,11 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
     var propertyView = Backbone.View.extend({
         el: "#content",
         property: null,
-        eventType: 'click', // touchstart
         moreEl: null,
         moreContentEl: null,
         contentHeight: 0,
         aboveTheFold: true,
         currentMoreSection: 'floorplans',
-        events: {
-            'click .info > p.clickable': 'onTeaserSectionClick'
-        },
 
         /**
          * Load the content specific to the section that was clicked on.
@@ -69,12 +65,20 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         },
 
         /**
+         * Handle what happens when the user clicks on the Check Availability button in the
+         * property teaser.
+         */
+        onCheckAvailabilityClick: function() {
+            this.moveToMore();
+        },
+
+        /**
          * Catch the event when the user clicks on a section of the Property teaser
          * Teaser is the section that displays on top of the property image.
          */
-        onTeaserSectionClick: function(event) {
+        onTeaserSectionClick: function(pEl) {
             this.moveToMore();
-            this.loadSection($(event.currentTarget).attr('section'));  
+            this.loadSection(pEl.attr('section'));  
         },
 
         relayout: function() {
@@ -107,6 +111,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             // Events
             this.setScrollingEvents();
             this.setResizeEvent();
+            this.setTouchEvents();
         },
 
         /**
@@ -118,7 +123,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             if(navigator.userAgent.match(/iPod|iPhone|iPad/i) &&
                 navigator.userAgent.match(/Safari/i) && !(navigator.userAgent.match(/Chrome/i) ||
                 navigator.userAgent.match(/CriOS/i))) {
-                this.contentHeight -= 20;
+                this.contentHeight -= 30;
             }
 
             this.$el.children('section').css('height', this.contentHeight +"px");
@@ -152,7 +157,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             }]);
 
             var _this = this;
-            $('footer a').bind(this.eventType, function() {
+            $('footer a').bind(touchEventType, function() {
                 if($(this).hasClass('notNav')) {
                     // Share Button
                 } else {
@@ -199,6 +204,22 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     footerViewEl.deactivateAllLinks();
                     _this.aboveTheFold = true;
                 }
+            });
+        },
+
+        /**
+         * Set touchable item events.
+         */
+        setTouchEvents: function() {
+            var _this = this;
+            $('p.clickable').bind(touchEventType, function(ev) {
+                ev.preventDefault();
+                _this.onTeaserSectionClick($(this));
+            });
+
+            $(document.getElementById('buttonCA')).bind(touchEventType, function(ev) {
+                ev.preventDefault();
+                _this.onCheckAvailabilityClick();
             });
         },
 

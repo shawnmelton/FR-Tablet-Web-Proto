@@ -1,13 +1,14 @@
 html {
+    font-weight: 100;
     background: #eaeaea;
     background-attachment: fixed;
     font-family: "helvetica", helvetica, arial;
     font-size: 16px;
 
-    &.home2048 { background: url(../img/home-bg-2048.jpg) no-repeat center center; }
-    &.home1536 { background: url(../img/home-bg-1536.jpg) no-repeat center center; } 
-    &.home1024 { background: url(../img/home-bg-1024.jpg) no-repeat center center; }
-    &.home768 { background: url(../img/home-bg-768.jpg) no-repeat center center; }
+    &.home2048 { background: url(../img/home-bg-2048.jpg) no-repeat top center; }
+    &.home1536 { background: url(../img/home-bg-1536.jpg) no-repeat top center; } 
+    &.home1024 { background: url(../img/home-bg-1024.jpg) no-repeat top center; }
+    &.home768 { background: url(../img/home-bg-768.jpg) no-repeat top center; }
 
     body {
         position: relative;
@@ -19,7 +20,7 @@ html {
             top: 0;
             left: 0;
             right: 0;
-            background: url(../img/trans-white-bg.png) repeat 0 0;
+            background: url(../img/trans-gray-bg.png) repeat 0 0;
             height: 49px;
             padding: 0 0 0 260px;
             transition: all 0.5s;
@@ -51,6 +52,7 @@ html {
                     height: 50px;
                     width: 50px;
                     border-right: 1px solid #eaeaea;
+                    transition: all 0.5s;
                 }
             }
 
@@ -87,8 +89,9 @@ html {
                         padding: 0 10px;
                         font-family: "helvetica", arial;
                         width: 100%;
-                        background: #eaeaea;
-                        border: 1px solid #044a78;
+                        background: #fff;
+                        border: 1px solid #789;
+                        font-weight: 100;
                     }
 
                     >div {
@@ -113,6 +116,105 @@ html {
                             transition: all 1s;
                             color: #044a78;
                             background: transparent;
+                        }
+                    }
+                }
+            }
+        }
+
+        >#advancedSearch {
+            position: fixed;
+            top: 50px;
+            left: 0;
+            background: url(../img/trans-blue-bg-90.png) repeat 0 0;
+            height: 0px;
+            width: 100%;
+            transition: all 0.5s;
+            overflow: hidden;
+            color: #fff;
+
+            &.sticky { position: absolute; }
+
+            &.show {
+                border-bottom: 2px solid #fff;
+                overflow: visible;
+            }
+
+            >div {
+                position: relative;
+                padding: 25px;
+
+                &:after {
+                    content: " ";
+                    display: table;
+                    clear: both;
+                }
+
+                >span {
+                    position: absolute;
+                    top: -1px;
+                    right: 118px;
+                    width: 0px;
+                    height: 0px;
+                    border-left: 8px solid transparent;
+                    border-right: 8px solid transparent;
+                    border-top: 8px solid #eaeaea;
+                }
+
+                >h3 {
+                    font-weight: 100;
+                    font-size: 150%;
+                    text-shadow: 0 0 1px #000;
+                }
+
+                >.table {
+                    display: table;
+                    width: 100%;
+                    margin: 25px 0;
+
+                    >div {
+                        display: table-row;
+
+                        >div {
+                            display: table-cell;
+                            padding: 0 1%;
+                            vertical-align: middle;
+
+                            &.noPadLeft,
+                            &.noPadRight { padding-left: 0; }
+
+                            >select {
+                                width: 100%;
+                                font-size: 100%;
+                                font-weight: 100;
+                                background: #eaeaea;
+                                height: 30px;
+                                text-indent: 5px;
+                            }
+                        }
+                    }
+                }
+
+                >.buttons {
+                    float: right;
+                    margin-right: 2%;
+
+                    >button {
+                        font-size: 100%;
+                        cursor: pointer;
+                        font-weight: 100;
+                        outline: none;
+                        border-radius: 5px;
+                        background: transparent;
+                        border: none;
+                        padding: 0 40px;
+                        height: 40px;
+                        color: #eee;
+                        text-shadow: 0 0 1px #000;
+
+                        &.blue {
+                            color: #fff;
+                            background: rgb(16,161,215);
                         }
                     }
                 }
@@ -162,25 +264,35 @@ html {
             }
         }
 
-        >nav {
+        >div#menu {
             position: fixed;
             top: 50px;
-            left: -250px;
-            width: 220px;
-            background: url(../img/trans-white-bg.png) repeat 0 0;
-            padding: 15px 15px 35px;
+            left: 0;
+            width: 0px;
+            background: url(../img/trans-white-bg-80.png) repeat 0 0;
             transition: all 0.5s;
+            overflow: hidden;
 
-            &.sticky { position: absolute; }
+            &.sticky {
+                position: absolute;
+                z-index: 1000;
+            }
 
-            >a {
-                display: block;
-                text-decoration: none;
-                cursor: pointer;
-                outline: none;
-                color: #333;
-                font-size: 130%;
-                padding: 8px 10px;
+            >nav {
+                width: 218px;
+                padding: 15px 15px 35px;
+                border: 1px solid #aaa;
+                border-width: 0 1px 1px 0;
+
+                >a {
+                    display: block;
+                    text-decoration: none;
+                    cursor: pointer;
+                    outline: none;
+                    color: #333;
+                    font-size: 130%;
+                    padding: 8px 10px;
+                }
             }
         }
 

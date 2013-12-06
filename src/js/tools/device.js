@@ -29,13 +29,13 @@ define([], function() {
                 this.size = width;
             }
 
-            if(this.size > 1500) {
+            if(this.size > 1024) {
                 this.type = 'retina';
-            } if(this.size > 1000) {
-                this.type = 'tablet';
             } else if(this.size > 768) {
+                this.type = 'tablet';
+            } else if(this.size > 600) {
                 this.type = 'mini';
-            } else if(this.size > 500) {
+            } else if(this.size > 400) {
                 this.type = 'phablet'; // larger phone
             } else {
                 this.type = 'phone';
