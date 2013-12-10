@@ -5,6 +5,7 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate', 'views/elements
         keywords: '',
         form: null,
         textfield: null,
+        advSearchBtn: null,
 
         isRenderedToHeader: function() {
             return (this.parentEl !== null && this.parentEl[0] && this.parentEl[0].tagName.toLowerCase() === 'header');
@@ -63,6 +64,7 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate', 'views/elements
 
             this.form = $(document.getElementById('searchBar'));
             this.textfield = this.form.find('input');
+            this.advSearchBtn = $(document.getElementById('advSearchBtn'));
             this.setEvents();
             this.refresh();
         },
@@ -101,10 +103,13 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate', 'views/elements
                 _this.onSearchFormSubmission();
             });
 
-            // Button events
-            $(document.getElementById('advSearchBtn')).bind(touchEventType, function() {
-                advancedSearchViewEl.toggleDrawer();
-            });
+            // Advanced Search Button Event.
+            this.advSearchBtn.unbind(touchEventType);
+            if(this.isRenderedToHeader()) {
+                this.advSearchBtn.bind(touchEventType, function() {
+                    advancedSearchViewEl.toggleDrawer();
+                });
+            }
         },
 
         /**

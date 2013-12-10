@@ -3,8 +3,24 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
     var footerViewEl = Backbone.View.extend({
         el: "footer",
         links: null,
+        currentLink: null,
 
+        /**
+         * Activate the last activated link.  If not applicable, then activate first link.
+         */
+        activateCurrentLink: function() {
+            if(this.currentLink !== null) {
+                this.activateLink(this.currentLink);
+            } else {
+                this.activateLink($('footer a').first().attr('rel'));
+            }
+        },
+
+        /**
+         * Activate a specific link with the provided rel attribute value.
+         */
         activateLink: function(rel) {
+            this.currentLink = rel;
             this.deactivateAllLinks();
             $('footer a[rel="'+rel+'"]').addClass('active');
         },

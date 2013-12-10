@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/device'], 
-    function($, Backbone, tsw, footerViewEl, Device) {
+define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/device', 'views/elements/menu'], 
+    function($, Backbone, tsw, footerViewEl, Device, menuViewEl) {
     var galleryViewEl = Backbone.View.extend({
         galleryEl: null,
         currentImageEl: null,
@@ -93,6 +93,48 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
         },
 
         /**
+         * Move the current image.
+         * @movePos The position of the image will go if it moves.
+         * @revertPos The position of the image will go if it reverts back to previous position.
+         * @distance How far the image was swiped by the user.
+         */
+        moveCurrentImage: function(movePos, revertPos, distance) {
+            var moveDirection = (revertPos === this.startingLeft) ? 'left' : 'right';
+            var newImgLeft;
+            var targetImg;
+
+            if(distance < parseInt(this.contentWidth * 0.12)) { // Revert changes.                
+                newImgLeft = revertPos;
+            } else {
+                newImgLeft = movePos;
+                this.galleryEl.swipe('disable');
+            }
+
+            if(moveDirection === 'left') {
+                targetImg = this.currentImageEl;
+            } else {
+                targetImg = this.currentImageEl.next();
+            }
+
+            targetImg.addClass('moving');
+            targetImg.css('left', newImgLeft +'px');
+
+            var _this = this;
+            setTimeout(function() {
+                targetImg.removeClass('moving');
+                if(newImgLeft === movePos) {
+                    if(moveDirection === 'left') {
+                        _this.nextImage();
+                    } else {
+                        _this.prevImage();
+                    }
+
+                    _this.galleryEl.swipe('enable');
+                }
+            }, 515);
+        },
+
+        /**
          * Move gallery to next image.
          */
         nextImage: function() {
@@ -161,61 +203,47 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
 
         /**
          * Add event that will allow user to swipe to see additional images.
+         * Tie in the scroll events to also:
+         *  1. Close menu if its open and user scrolls down property profile page.
+         *  2. Activate a footer tab if the user scrolls down page.
+         *  3. Deactivate a footer tab if user scrolls up page.
          */
         setSwipeEvent: function() {
             var _this = this;
+
             this.galleryEl.swipe({
                 swipeLeft: function(event, direction, distance, duration, fingerCount) {
                     if(_this.lockLeftMove) {
                         return;
                     }
 
-                    var newImgLeft = (-1 * _this.bgImgWidth);
-                    if(distance < parseInt(_this.contentWidth * 0.12)) {
-                        // Revert changes.
-                        newImgLeft = _this.startingLeft;
-                    } else {
-                        _this.galleryEl.swipe('disable');
-                    }
-
-                    _this.currentImageEl.addClass('moving');
-                    _this.currentImageEl.css('left', newImgLeft +'px');
-                    setTimeout(function() {
-                        _this.currentImageEl.removeClass('moving');
-                        if(newImgLeft === (-1 * _this.bgImgWidth)) {
-                            _this.nextImage();
-                            _this.galleryEl.swipe('enable');
-                        }
-                    }, 525);
+                    _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, distance);
                 },
                 swipeRight: function(event, direction, distance, duration, fingerCount) {
                     if(_this.lockRightMove) {
                         return;
                     }
 
-                    var newImgLeft = _this.startingLeft;
-                    if(distance < parseInt(_this.contentWidth * 0.12)) {
-                        // Revert changes.
-                        newImgLeft = (-1 * _this.bgImgWidth);
-                    } else {
-                        _this.galleryEl.swipe('disable');
-                    }
-
-                    _this.currentImageEl.next().addClass('moving');
-                    _this.currentImageEl.next().css('left', newImgLeft +'px');
-                    setTimeout(function() {
-                        _this.currentImageEl.next().removeClass('moving');
-                        if(newImgLeft === _this.startingLeft) {
-                            _this.prevImage();
-                           _this.galleryEl.swipe('enable'); 
-                        }
-                    }, 525);
+                    _this.moveCurrentImage(_this.startingLeft, (-1 * _this.bgImgWidth), distance);
+                },
+                swipeUp: function(event, direction, distance, duration, fingerCount) {
+                    menuViewEl.hide();
                 },
                 swipeStatus: function(event, phase, direction, distance, duration, fingerCount) {
-                    if(!_this.lockLeftMove && direction !== null && direction.toString().toLowerCase() === 'left') {
-                        _this.currentImageEl.css('left', (_this.startingLeft - (distance * 1.75)) +'px');
-                    } else if(!_this.lockRightMove && direction !== null && direction.toString().toLowerCase() === 'right') {
-                        _this.currentImageEl.next().css('left', ((-1 * _this.bgImgWidth) + (distance * 1.75)) +'px');
+                    if(direction !== null) {
+                        switch(direction.toString().toLowerCase()) {
+                            case 'left':
+                                if(!_this.lockLeftMove) {
+                                    _this.currentImageEl.css('left', (_this.startingLeft - (distance * 1.25)) +'px');
+                                }
+                                break;
+
+                            case 'right':
+                                if(!_this.lockRightMove) {
+                                   _this.currentImageEl.next().css('left', ((-1 * _this.bgImgWidth) + (distance * 1.25)) +'px');
+                                }
+                                break;
+                        }
                     }
                 },
                 threshold: 0,

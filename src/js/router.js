@@ -10,35 +10,45 @@ define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts
             this.route(/^properties\/(\d+)$/, 'showProperty');
         },
 
-        showHome: function() {
+        /**
+         * Clean up the current page when its requested.
+         */
+        pageLoad: function(sticky) {
+            // Reset page
+            window.scrollTo(0,0);
             document.getElementsByTagName('html')[0].style.background = '';
+            document.getElementsByTagName('html')[0].className = '';
             document.getElementById('content').style.height = '';
-            headerViewEl.removeSticky();
-            menuViewEl.removeSticky();
-            advancedSearchViewEl.removeSticky();
+
+            menuViewEl.init();
+
+            // Should fixed items stick to top of page?
+            if(sticky) {
+                headerViewEl.makeSticky();
+                advancedSearchViewEl.makeSticky();
+            } else {
+                headerViewEl.removeSticky();
+                advancedSearchViewEl.removeSticky();
+            }
+
+            advancedSearchViewEl.hide();
+        },
+
+        showHome: function() {
+            this.pageLoad(false);
             footerViewEl.clear();
             footerViewEl.show();
             homeView.render();
         },
 
         showProperty: function() {
-            window.scrollTo(0,0);
-            document.getElementsByTagName('html')[0].className = '';
-            document.getElementById('content').style.height = '';
-            headerViewEl.makeSticky();
-            menuViewEl.makeSticky();
-            advancedSearchViewEl.makeSticky();
+            this.pageLoad(true);
             footerViewEl.show();
             propertyView.render();
         },
 
         showSearch: function() {
-            window.scrollTo(0,0);
-            document.getElementsByTagName('html')[0].style.background = '';
-            document.getElementsByTagName('html')[0].className = '';
-            headerViewEl.removeSticky();
-            menuViewEl.removeSticky();
-            advancedSearchViewEl.removeSticky();
+            this.pageLoad(false);
             footerViewEl.hide();
             searchView.render();
         }

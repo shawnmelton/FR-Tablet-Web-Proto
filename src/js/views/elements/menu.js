@@ -5,24 +5,26 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         displaying: null,
         menuEl: null,
         menuWidth: 0,
-        sticky: false,
+        initiated: false,
 
-        events: {
-            'touchstart #menuBtn': 'onMenuButtonClick',
-            'touchstart #menu a': 'onMenuLinkClick'
+        hide: function() {
+            if(this.displaying) {
+                this.toggleMenu();
+            }
         },
 
         /**
-         * By "Sticky", I mean make the menu stick to the top of the page
-         * and not scroll with the page.
+         * Initialize the menu.  Render after button is clicked.
          */
-        makeSticky: function() {
-            if(!this.sticky) {
-                if(this.menuEl !== null) {
-                    this.menuEl.addClass('sticky');
-                }
+        init: function() {
+            if(!this.initiated) {
+                var _this = this;
+                $(document.getElementById('menuBtn')).bind(touchEventType, function(ev) {
+                    ev.preventDefault();
+                    _this.onMenuButtonClick();
+                });
 
-                this.sticky = !this.sticky;
+                this.initiated = true;
             }
         },
 
@@ -30,8 +32,7 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
          * Render the menu if it is not showing.
          * Toggle back and forth between showing and not showing the menu.
          */
-        onMenuButtonClick: function(ev) {
-            ev.preventDefault();
+        onMenuButtonClick: function() {
             if(this.displaying === null) {
                 this.render();
             }
@@ -48,19 +49,6 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
             this.toggleMenu();
             Navigate.toUrl($(ev.currentTarget).attr('href'));
         },
-        
-        /**
-         * Make the menu move along with the page scroll.
-         */
-        removeSticky: function() {
-            if(this.sticky) {
-                if(this.menuEl !== null) {
-                    this.menuEl.removeClass('sticky');
-                }
-
-                this.sticky = !this.sticky;
-            }
-        },
 
         render: function() {
             this.$el.append(JST['src/js/templates/elements/menu.html']());
@@ -68,10 +56,17 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
             this.menuEl = $(document.getElementById('menu'));
             this.menuWidth = this.menuEl.outerWidth();
 
-            // If the menu is on a view where it needs to remain at the top of the page, then make that setting now.
-            if(this.sticky) {
-                this.menuEl.addClass('sticky');
-            }
+            this.setEvents();
+        },
+
+        /**
+         * Set the events related to this view.
+         */
+        setEvents: function() {
+            var _this = this;
+            this.menuEl.find('a').bind(touchEventType, function(ev) {
+                _this.onMenuLinkClick(ev);
+            });
         },
 
         slideMenu: function(newWidth) {

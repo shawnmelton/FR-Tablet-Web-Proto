@@ -7,8 +7,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         moreEl: null,
         moreContentEl: null,
         contentHeight: 0,
-        aboveTheFold: true,
-        currentMoreSection: 'floorplans',
+        linksInactive: true,
 
         /**
          * Load the content specific to the section that was clicked on.
@@ -18,8 +17,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 this.moreEl = $(document.getElementById('more'));
                 this.moreContentEl = $(document.getElementById('moreContent'));
             }
-
-            this.currentMoreSection = section;
 
             // Load content from template instead.
             switch(section) {
@@ -109,9 +106,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             this.relayout();
 
             // Events
-            this.setScrollingEvents();
             this.setResizeEvent();
             this.setTouchEvents();
+            this.setScrollEvent();
         },
 
         /**
@@ -191,18 +188,16 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         },
 
         /**
-         * Set scrolling event to activate first link when user scrolls down.
+         * Activate footer link when scrolling down.
          */
-        setScrollingEvents: function() {
-            var _this = this;
-            var buffer = 10;
-            $(document).scroll(function() {
-                if(_this.aboveTheFold && ($(window).scrollTop() >= (_this.contentHeight - buffer))) {
-                    footerViewEl.activateLink(_this.currentMoreSection);
-                    _this.aboveTheFold = false;
-                } else if(!_this.aboveTheFold && ($(window).scrollTop() < (_this.contentHeight - buffer))) {
+        setScrollEvent: function() {
+            $(window).scroll(function() {
+                if(this.linksInactive && $(this).scrollTop() > 50) {
+                    footerViewEl.activateCurrentLink();
+                    this.linksInactive = !this.linksInactive;
+                } else if(!this.linksInactive && $(this).scrollTop() <= 50) {
                     footerViewEl.deactivateAllLinks();
-                    _this.aboveTheFold = true;
+                    this.linksInactive = !this.linksInactive;
                 }
             });
         },
@@ -212,11 +207,14 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
          */
         setTouchEvents: function() {
             var _this = this;
+
+            // Teaser sections.
             $('p.clickable').bind(touchEventType, function(ev) {
                 ev.preventDefault();
                 _this.onTeaserSectionClick($(this));
             });
 
+            // Check Availability Button.
             $(document.getElementById('buttonCA')).bind(touchEventType, function(ev) {
                 ev.preventDefault();
                 _this.onCheckAvailabilityClick();

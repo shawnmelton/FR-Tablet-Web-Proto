@@ -7,6 +7,15 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         sticky: false,
 
         /**
+         * Hide the search drawer if its showing.
+         */
+        hide: function() {
+            if(this.displaying !== null && this.displaying) {
+                this.toggleDrawer();
+            }
+        },
+
+        /**
          * By "Sticky", I mean make the advanced search stick to the top of the page
          * and not scroll with the page.
          */

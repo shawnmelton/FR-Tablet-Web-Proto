@@ -5,7 +5,7 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div id="advancedSearch">\n    <div>\n        <span></span>\n        <h3>Refine Your Search</h3>\n        <div class="table">\n            <div>\n                <div class="noPadLeft"><select>\n                    <option value="">Beds</option>\n                    <option value="Studio">Studio</option>\n                    <option value="1">1 Bed</option>\n                    <option value="2">2 Beds</option>\n                    <option value="3">3 Beds</option>\n                    <option value="4+">4+ Beds</option>\n                </select></div>\n                <div><select>\n                    <option value="">Baths</option>\n                    <option value="1">1+ Baths</option>\n                    <option value="2">2+ Baths</option>\n                    <option value="3">3+ Baths</option>\n                </select></div>\n                <div><select>\n                    <option value="">Price: Low</option>\n                    ';
+__p += '<div id="advancedSearch">\n    <div>\n        <h3>Refine Your Search</h3>\n        <div class="table">\n            <div>\n                <div class="noPadLeft"><select>\n                    <option value="">Beds</option>\n                    <option value="Studio">Studio</option>\n                    <option value="1">1 Bed</option>\n                    <option value="2">2 Beds</option>\n                    <option value="3">3 Beds</option>\n                    <option value="4+">4+ Beds</option>\n                </select></div>\n                <div><select>\n                    <option value="">Baths</option>\n                    <option value="1">1+ Baths</option>\n                    <option value="2">2+ Baths</option>\n                    <option value="3">3+ Baths</option>\n                </select></div>\n                <div><select>\n                    <option value="">Price: Low</option>\n                    ';
  var price = 250; while(price <= 3000) { ;
 __p += '\n                        <option value="' +
 ((__t = ( price )) == null ? '' : __t) +
@@ -25,7 +25,7 @@ __p += '\n                        <option value="' +
  price += 250; ;
 __p += '\n                    ';
  } ;
-__p += '\n                </select></div>\n                <div class="noPadRight"><select>\n                    <option value="">Apartment &amp; Community Amenities</option>\n                </select></div>\n            </div>\n        </div>\n        <div class="buttons">\n            <button>Cancel</button> &nbsp;\n            <button class="blue">Apply</button>\n        </div>\n    </div>\n</div>';
+__p += '\n                </select></div>\n                <div class="noPadRight"><select>\n                    <option value="">Apartment &amp; Community Amenities</option>\n                </select></div>\n            </div>\n        </div>\n        <div class="buttons">\n            <button>Cancel</button> &nbsp;\n            <button class="blue">Apply</button>\n        </div>\n    </div>\n    <span></span>\n</div>';
 
 }
 return __p
