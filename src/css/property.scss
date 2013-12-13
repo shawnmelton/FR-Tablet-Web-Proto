@@ -5,9 +5,16 @@ html {
 
             >img {
                 position: absolute;
-                right: 35px;
-                top: 40%;
-                pointer-events: none;
+
+                &#swipeHorizArrow {
+                    right: 35px;
+                    top: 40%;
+                }
+
+                &#swipeVertArrow {
+                    left: 45%;
+                    bottom: 60px;
+                }
             }
 
             >#gallery {
@@ -57,6 +64,8 @@ html {
                             &.clickable {
                                 background: url(../img/arrow-down.png) no-repeat 95% 50%;
                                 cursor: pointer;
+
+                                &.touched { background-color: #fff; }
                             }
 
                             >span#webReview {
@@ -105,9 +114,13 @@ html {
                                     outline: none;
                                     cursor: pointer;
 
+                                    &.touched { background: #fff; }
+
                                     &#buttonCA {
                                         color: #fff;
                                         background: #e97d0e;
+
+                                        &.touched { background: #c60; }
                                     }
                                 }
 
@@ -180,6 +193,8 @@ html {
                                         text-align: center;
                                         padding: 8px 5px;
                                         box-sizing: border-box;
+
+                                        &.touched { background: #c60; }
                                     }
                                 }
                             }

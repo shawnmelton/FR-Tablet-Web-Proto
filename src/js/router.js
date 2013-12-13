@@ -34,23 +34,42 @@ define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts
             advancedSearchViewEl.hide();
         },
 
+        /**
+         * Add a class to all buttons and links so that they are responsive.
+         */
+        setButtonEvents: function() {
+            var buttons = $('a, button, p.clickable, div.property');
+            buttons.unbind('touchstart');
+            buttons.unbind('touchend');
+            buttons.bind('touchstart', function() {
+                $(this).addClass('touched');
+            });
+
+            buttons.bind('touchend', function() {
+                $(this).removeClass('touched');
+            });
+        },
+
         showHome: function() {
             this.pageLoad(false);
             footerViewEl.clear();
             footerViewEl.show();
             homeView.render();
+            this.setButtonEvents();
         },
 
         showProperty: function() {
             this.pageLoad(true);
             footerViewEl.show();
             propertyView.render();
+            this.setButtonEvents();
         },
 
         showSearch: function() {
             this.pageLoad(false);
             footerViewEl.hide();
             searchView.render();
+            this.setButtonEvents();
         }
     });
     

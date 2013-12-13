@@ -18,7 +18,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
         startingLeft: 0,
         lockLeftMove: false,
         lockRightMove: true,
-        swipeArrowEl: null,
+        swipeHorizArrowEl: null,
         swipeDirLeft: true,
 
         /**
@@ -65,6 +65,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
 
             this.addFirstImage();
             this.setSwipeEvent();
+            this.setHorizArrowEvent();
         },
 
         loadImage: function(url, nextEl) {
@@ -184,17 +185,43 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
          * Reverse the swipe arrow since the user cannot continue to swipe in that direction.
          */
         reverseSwipeArrow: function() {
-            if(this.swipeArrowEl === null) {
-                this.swipeArrowEl = $(document.getElementById('swipeArrow'));
-            }
-
-            if(this.swipeArrowEl.attr('src').indexOf('left') !== -1) {
-                this.swipeArrowEl.attr('src', this.swipeArrowEl.attr('src').replace('left', 'right'));
+            if(this.swipeHorizArrowEl.attr('src').indexOf('left') !== -1) {
+                this.swipeHorizArrowEl.attr('src', this.swipeHorizArrowEl.attr('src').replace('left', 'right'));
             } else {
-                this.swipeArrowEl.attr('src', this.swipeArrowEl.attr('src').replace('right', 'left'));
+                this.swipeHorizArrowEl.attr('src', this.swipeHorizArrowEl.attr('src').replace('right', 'left'));
             }
 
             this.swipeDirLeft = !this.swipeDirLeft;
+        },
+
+        /**
+         * If the swipe arrow is touched, advance the photo gallery in the appropriate direction.
+         */
+        setHorizArrowEvent: function() {
+            if(this.swipeHorizArrowEl === null) {
+                this.swipeHorizArrowEl = $(document.getElementById('swipeHorizArrow'));
+            }
+
+            var horizArrowLock = false;
+            var _this = this;
+            this.swipeHorizArrowEl.unbind(touchEventType);
+            this.swipeHorizArrowEl.bind(touchEventType, function() {
+                if(horizArrowLock) {
+                    return;
+                }
+
+                horizArrowLock = true;
+                if(_this.swipeDirLeft) {
+                    _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, 1000);
+                } else {
+                    _this.moveCurrentImage(_this.startingLeft, (-1 * _this.bgImgWidth), 1000);
+                }
+
+                // Release lock after transition has completed.
+                setTimeout(function() {
+                    horizArrowLock = false;
+                }, 515);
+            });
         },
 
         setPropertyId: function(id) {

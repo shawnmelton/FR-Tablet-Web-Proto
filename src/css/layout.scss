@@ -22,7 +22,7 @@ html {
             right: 0;
             background: url(../img/trans-gray-bg.png) repeat 0 0;
             height: 49px;
-            padding: 0 0 0 260px;
+            padding: 0 0 0 270px;
             transition: all 0.5s;
             border-bottom: 1px solid #044a78;
 
@@ -41,8 +41,12 @@ html {
 
                 &#logo {
                     width: 160px;
-                    left: 66px;
-                    top: 15px;
+                    height: 20px;
+                    padding: 15px 25px 14px;
+                    top: 0;
+                    left: 50px;
+
+                    &.touched { background-color: #fff; }
                 }
 
                 &#menuBtn {
@@ -53,6 +57,8 @@ html {
                     width: 50px;
                     border-right: 1px solid #eaeaea;
                     transition: all 0.5s;
+
+                    &.touched { background-color: #fff; }
                 }
             }
 
@@ -75,7 +81,6 @@ html {
                     >input, a, button {
                         display: block;
                         color: #333;
-                        border-radius: 8px;
                         border: 0;
                         height: 32px;
                         padding: 0;
@@ -99,7 +104,11 @@ html {
                         bottom: 0;
                         right: 0;
 
-                        >a, >button { float: left; }
+                        >a, >button {
+                            float: left;
+
+                            &.touched { background-color: #bbb; }
+                        }
 
                         >a {
                             width: 45px;
@@ -216,9 +225,13 @@ html {
                         color: #eee;
                         text-shadow: 0 0 1px #000;
 
+                        &.touched { background-color: #0A77A0; }
+
                         &.blue {
                             color: #fff;
-                            background: rgb(16,161,215);
+                            background: #10a1d7;
+
+                            &.touched { background-color: #0A77A0; }
                         }
                     }
                 }
@@ -254,6 +267,8 @@ html {
                         cursor: pointer;
                         padding: 0 10px;
 
+                        &.touched { background: #333; }
+
                         &.active {
                             background: #fff;
                             color: #333;
@@ -261,8 +276,16 @@ html {
 
                         &.availability,
                         &.share { color: #fff; }
-                        &.availability { background: #e97d0e; }
-                        &.share { background: #044a78; }
+                        &.availability {
+                            background: #e97d0e;
+
+                            &.touched { background: #c60; }
+                        }
+                        &.share {
+                            background: #044a78;
+
+                            &.touched { background: #036; }
+                        }
                     }
                 }
             }
@@ -297,6 +320,8 @@ html {
                     color: #333;
                     font-size: 130%;
                     padding: 8px 10px;
+
+                    &.touched { background: #fff; }
                 }
             }
         }

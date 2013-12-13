@@ -288,7 +288,7 @@ this["JST"]["src/js/templates/layouts/property.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="gallery"></div>\n<img src="/img/swipe-arrow-left.png" id="swipeArrow">\n<section id="teaser">\n    <div class="info">\n        <h2>' +
+__p += '<div id="gallery"></div>\n<img src="/img/swipe-arrow-left.png" id="swipeHorizArrow">\n<img src="/img/swipe-arrow-down.png" id="swipeVertArrow">\n<section id="teaser">\n    <div class="info">\n        <h2>' +
 ((__t = ( property.name )) == null ? '' : __t) +
 '</h2>\n        <p class="clickable" section="map">\n            ' +
 ((__t = ( property.address )) == null ? '' : __t) +

@@ -57,6 +57,7 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         onNavItemTouch: function(link) {
             this.deactivateAllLinks();
             link.addClass('active');
+            this.currentLink = link.attr('rel');
         },
 
         render: function(links) {
@@ -66,6 +67,13 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
             }));
             this.links = $('footer > nav > div > a');
             this.setEvents();
+        },
+
+        /**
+         * Set the current link section.
+         */
+        setCurrentLink: function(link) {
+            this.currentLink = link;
         },
 
         /**

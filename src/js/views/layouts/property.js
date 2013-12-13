@@ -74,6 +74,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
          * Teaser is the section that displays on top of the property image.
          */
         onTeaserSectionClick: function(pEl) {
+            footerViewEl.setCurrentLink(pEl.attr('section'));
             this.moveToMore();
             this.loadSection(pEl.attr('section'));  
         },
@@ -109,6 +110,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             this.setResizeEvent();
             this.setTouchEvents();
             this.setScrollEvent();
+            this.setVertArrowEvent();
         },
 
         /**
@@ -218,6 +220,18 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             $(document.getElementById('buttonCA')).bind(touchEventType, function(ev) {
                 ev.preventDefault();
                 _this.onCheckAvailabilityClick();
+            });
+        },
+
+        /**
+         * Scroll down the page to the additional content when the down arrow is touched.
+         */
+        setVertArrowEvent: function() {
+            var _this = this;
+            var vertArrow = $(document.getElementById('swipeVertArrow'));
+            vertArrow.unbind(touchEventType);
+            vertArrow.bind(touchEventType, function() {
+                _this.moveToMore();
             });
         },
 

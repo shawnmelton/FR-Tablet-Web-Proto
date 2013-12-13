@@ -57,7 +57,11 @@ html {
                         bottom: 0;
                         right: 0;
 
-                        >a, >button { float: left; }
+                        >a, >button {
+                            float: left;
+
+                            &.touched { background-color: #bcd; }
+                        }
 
                         >a {
                             width: 65px;
@@ -109,6 +113,8 @@ html {
                     overflow: hidden;
                     cursor: pointer;
 
+                    &.property.touched { border-color: #10a1d7; }
+
                     >img {
                         display: block;
                         height: 100%;
@@ -127,7 +133,7 @@ html {
 
                         >strong {
                             font-weight: 100;
-                            font-size: 110%;
+                            font-size: 125%;
                         }
                     }
                 }

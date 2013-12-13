@@ -87,7 +87,10 @@
             >header {
                 height: 40px;
                 >a {
-                    &#logo { top: 10px; }
+                    &#logo {
+                        padding: 10px 25px 9px;
+                        left: 40px;
+                    }
 
                     &#menuBtn {
                         height: 40px;
