@@ -32,6 +32,10 @@ define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts
             }
 
             advancedSearchViewEl.hide();
+
+            // Property page watches resizing and scrolling events.  Lets unset these bindings.
+            $(window).unbind('resize');
+            $(window).unbind('scroll');
         },
 
         /**
