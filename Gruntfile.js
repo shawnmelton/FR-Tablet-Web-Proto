@@ -1,5 +1,5 @@
 module.exports = (function(grunt) {
-    "use strict";
+    'use strict';
 
     grunt.initConfig({
         jst: {
@@ -15,11 +15,14 @@ module.exports = (function(grunt) {
         requirejs: {
             compile: {
                 options: {
+                    optimize: 'uglify',
+                    preserveLicenseComments: false,
+                    findNestedDependencies: true,
                     baseUrl: 'src/js/',
                     mainConfigFile: 'src/js/bootstrap.js',
                     name: 'app',
                     include: ['bootstrap'],
-                    out: 'dist/js/app.js'
+                    out: 'tmp/js/app.js'
                 }
             }
         },
@@ -31,25 +34,17 @@ module.exports = (function(grunt) {
             },
             my_target: {
                 files: {
-                    'dist/js/require.js': ['src/js/libs/require.js']
+                    'dist/js/app.js': ['src/js/libs/require.js', 'tmp/js/app.js']
                 }
             }
         },
         sass: {
             dist: {
                 files: {
-                    'src/tmp/layout.css': 'src/css/layout.scss',
-                    'src/tmp/home.css': 'src/css/home.scss',
-                    'src/tmp/property.css': 'src/css/property.scss',
-                    'src/tmp/search.css': 'src/css/search.scss',
-                    'src/tmp/responsive.css': 'src/css/responsive.scss'
-                }
-            }
-        },
-        cssmin: {
-            compress: {
-                files: {
-                    'dist/css/styles.css': ['src/css/reset.css', 'src/tmp/*.css']
+                    'dist/css/styles.css': 'src/css/styles.scss'
+                },
+                options: {
+                    style: 'compressed'
                 }
             }
         },
@@ -61,38 +56,28 @@ module.exports = (function(grunt) {
                 files: [{
                     expand: true,
                     cwd: 'src/img/',
-                    src: ['*.png', '*.jpg'],
+                    src: ['*.png', '*.jpg', '*.gif', '*/*.jpg'],
                     dest: 'dist/img/'
-                }]
-            },
-            listingImages: {
-                files: [{
-                    expand: true,
-                    cwd: 'src/img/listings/',
-                    src: ['*.jpg'],
-                    dest: 'dist/img/listings/'
-                }]
-            },
-            galleryImages: {
-                files: [{
-                    expand: true,
-                    cwd: 'src/img/gallery/',
-                    src: ['*.jpg'],
-                    dest: 'dist/img/gallery/'
                 }]
             }
         },
-        copy: {
-            main: {
-                files: [
-                    {
-                        src: ['src/img/*.gif'],
-                        dest: 'dist/img/',
-                        filter: 'isFile',
-                        expand: true,
-                        flatten: true
-                    }
-                ]
+        imageEmbed: {
+            dist: {
+                src: ['dist/css/styles.css'],
+                dest: 'dist/css/styles.css',
+                options: {
+                    deleteAfterEncoding : false
+                }
+            }
+        },
+        embed: {
+            custom_options: {
+                options: {
+                    threshold: '500KB'
+                },
+                files: {
+                    'dist/index.html': 'dist/index.html'
+                }
             }
         },
         htmlmin: {
@@ -102,27 +87,28 @@ module.exports = (function(grunt) {
                     collapseWhitespace: true
                 },
                 files: { 
-                    'dist/index.html' : 'src/index.html'
+                    'dist/index.html': 'src/index.html'
                 }
             }
         },
+        clean: ['tmp', 'dist/img', 'dist/js', 'dist/css', 'dist/index.html'],
         watch: {
             css: {
-                files: ['src/css/*.scss', 'src/css/*.css'],
-                tasks: ['sass', 'cssmin'],
+                files: ['src/css/*.scss'],
+                tasks: ['sass'],
                 options: {
                     livereload: true
                 }
             },
             scripts: {
                 files: ['src/js/*.js', 'src/js/**/*.js'],
-                tasks: ['jshint', 'requirejs'],
+                tasks: ['jshint', 'requirejs', 'uglify'],
                 options: {
                     livereload: true
                 }
             },
             images: {
-                files: ['src/img/*.png', 'src/img/*.jpg'],
+                files: ['src/img/*.png', 'src/img/*.jpg', 'src/img/*.gif'],
                 tasks: ['imagemin'],
                 options: {
                     livereload: true
@@ -149,18 +135,21 @@ module.exports = (function(grunt) {
         grunt.log.writeln(filepath +' has '+ action);
     });
 
-    grunt.loadNpmTasks('grunt-contrib-jst');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-jst');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks("grunt-contrib-sass");
-    grunt.loadNpmTasks("grunt-contrib-cssmin");
-    grunt.loadNpmTasks("grunt-contrib-imagemin");
-    grunt.loadNpmTasks("grunt-contrib-htmlmin");
-    grunt.loadNpmTasks("grunt-contrib-copy");
-    grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-embed');
+    grunt.loadNpmTasks('grunt-image-embed');
 
     grunt.registerTask('default', [
-        'jst', 'jshint', 'requirejs', 'uglify', 'sass', 'cssmin', 'htmlmin', 'imagemin', 'copy' //, 'watch'
+        'jst', 'jshint', 'requirejs', 'uglify', 'sass', 'imagemin', 'imageEmbed', 'htmlmin', 'embed'
     ]);
+
+    grunt.registerTask('cleanup', ['clean']);
 });
