@@ -1,8 +1,8 @@
 <div id="gallery"></div>
-<img src="/img/swipe-arrow-left.png" id="swipeHorizArrow">
-<img src="/img/swipe-arrow-down.png" id="swipeVertArrow">
+<a id="swipeHorizArrow"></a>
+<a id="swipeVertArrow"></a>
 <section id="teaser">
-    <div class="info">
+    <div class="info transWhite80">
         <h2><%= property.name %></h2>
         <p class="clickable" section="map">
             <%= property.address %><br>
@@ -13,7 +13,7 @@
             <a>View Floor Plans &amp; Prices</a>
         </p>
         <p class="clickable" section="reviews">
-            <span id="webReview">4 Reviews</span>
+            <span id="webReview" class="reviewStars">4 Reviews</span>
             <a>View Reviews from the Web</a>
         </p>
         <p class="clickable noBorder" section="details">
@@ -25,7 +25,7 @@
         <div>
             <div><button id="buttonCA">Check Availability</button></div>
             <div id="buttonSpacer"></div>
-            <div><button>1-800-555-0123</button></div>
+            <div><button class="transWhite80">1-800-555-0123</button></div>
         </div>
     </div>
 </section>

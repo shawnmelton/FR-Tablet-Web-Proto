@@ -1,0 +1,34 @@
+.absolute { position: absolute; }
+.relative { position: relative; }
+.fixed { position: fixed; }
+
+.block { display: block; }
+.table { display: table; }
+    .tableRow { display: table-row; }
+        .tableCell { display: table-cell; }
+
+.noOverflow { overflow: hidden; }
+
+.transition { transition: all 0.5s; }
+
+.clearFix:after {
+    content: " ";
+    display: table;
+    clear: both;
+}
+
+/* Transparent Background Styles */
+.transWhite80 { background: url(../img/trans-white-bg-80.png) repeat 0 0; }
+
+/* Property Specific */
+.reviewStars {
+    background-image: url(../img/reviewStars.png);
+    background-repeat: no-repeat;
+}
+.fadingGradient { background: url(../img/property-gradient.png) repeat-x 0 0; }
+
+/* Anchor Styles */
+a, button {
+    cursor: pointer;
+    outline: none;
+}

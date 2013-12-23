@@ -185,10 +185,10 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
          * Reverse the swipe arrow since the user cannot continue to swipe in that direction.
          */
         reverseSwipeArrow: function() {
-            if(this.swipeHorizArrowEl.attr('src').indexOf('left') !== -1) {
-                this.swipeHorizArrowEl.attr('src', this.swipeHorizArrowEl.attr('src').replace('left', 'right'));
+            if(this.swipeHorizArrowEl.hasClass('reverse')) {
+                this.swipeHorizArrowEl.removeClass('reverse');
             } else {
-                this.swipeHorizArrowEl.attr('src', this.swipeHorizArrowEl.attr('src').replace('right', 'left'));
+                this.swipeHorizArrowEl.addClass('reverse');
             }
 
             this.swipeDirLeft = !this.swipeDirLeft;

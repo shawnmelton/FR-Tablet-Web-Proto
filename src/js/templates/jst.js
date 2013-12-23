@@ -5,7 +5,7 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div id="advancedSearch">\n    <div>\n        <h3>Refine Your Search</h3>\n        <div class="table">\n            <div>\n                <div class="noPadLeft"><select>\n                    <option value="">Beds</option>\n                    <option value="Studio">Studio</option>\n                    <option value="1">1 Bed</option>\n                    <option value="2">2 Beds</option>\n                    <option value="3">3 Beds</option>\n                    <option value="4+">4+ Beds</option>\n                </select></div>\n                <div><select>\n                    <option value="">Baths</option>\n                    <option value="1">1+ Baths</option>\n                    <option value="2">2+ Baths</option>\n                    <option value="3">3+ Baths</option>\n                </select></div>\n                <div><select>\n                    <option value="">Price: Low</option>\n                    ';
+__p += '<div id="advancedSearch">\n    <div class="clearFix noOverflow">\n        <h3>Refine Your Search</h3>\n        <div class="table">\n            <div class="tableRow">\n                <div class="tableCell noPadLeft"><select>\n                    <option value="">Beds</option>\n                    <option value="Studio">Studio</option>\n                    <option value="1">1 Bed</option>\n                    <option value="2">2 Beds</option>\n                    <option value="3">3 Beds</option>\n                    <option value="4+">4+ Beds</option>\n                </select></div>\n                <div class="tableCell"><select>\n                    <option value="">Baths</option>\n                    <option value="1">1+ Baths</option>\n                    <option value="2">2+ Baths</option>\n                    <option value="3">3+ Baths</option>\n                </select></div>\n                <div class="tableCell"><select>\n                    <option value="">Price: Low</option>\n                    ';
  var price = 250; while(price <= 3000) { ;
 __p += '\n                        <option value="' +
 ((__t = ( price )) == null ? '' : __t) +
@@ -15,7 +15,7 @@ __p += '\n                        <option value="' +
  price += 250; ;
 __p += '\n                    ';
  } ;
-__p += '\n                </select></div>\n                <div>&nbsp; to &nbsp;</div>\n                <div><select>\n                    <option value="">Price: Max</option>\n                    ';
+__p += '\n                </select></div>\n                <div class="tableCell">&nbsp; to &nbsp;</div>\n                <div class="tableCell"><select>\n                    <option value="">Price: Max</option>\n                    ';
  var price = 500; while(price <= 5000) { ;
 __p += '\n                        <option value="' +
 ((__t = ( price )) == null ? '' : __t) +
@@ -25,7 +25,7 @@ __p += '\n                        <option value="' +
  price += 250; ;
 __p += '\n                    ';
  } ;
-__p += '\n                </select></div>\n                <div class="noPadRight"><select>\n                    <option value="">Apartment &amp; Community Amenities</option>\n                </select></div>\n            </div>\n        </div>\n        <div class="buttons">\n            <button>Cancel</button> &nbsp;\n            <button class="blue">Apply</button>\n        </div>\n    </div>\n    <span></span>\n</div>';
+__p += '\n                </select></div>\n                <div class="tableCell noPadRight"><select>\n                    <option value="">Apartment &amp; Community Amenities</option>\n                </select></div>\n            </div>\n        </div>\n        <div class="buttons">\n            <button>Cancel</button> &nbsp;\n            <button class="blue">Apply</button>\n        </div>\n    </div>\n    <span></span>\n</div>';
 
 }
 return __p
@@ -36,17 +36,16 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<nav>\n    <div>\n    ';
+__p += '<nav class="table">\n    <div class="tableRow">\n    ';
  _.each(links, function(link) { ;
 __p += '\n        <a rel="' +
 ((__t = ( link.rel )) == null ? '' : __t) +
-'" ';
+'" class="tableCell ';
  if(typeof(link.cls) !== 'undefined') { ;
-__p += 'class="' +
-((__t = ( link.cls )) == null ? '' : __t) +
-'"';
+__p +=
+((__t = ( link.cls )) == null ? '' : __t);
  } ;
-__p += ' style="width: ' +
+__p += '" style="width: ' +
 ((__t = ( size )) == null ? '' : __t) +
 '%;">' +
 ((__t = ( link.text )) == null ? '' : __t) +
@@ -72,7 +71,7 @@ this["JST"]["src/js/templates/elements/menu.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="menu">\n    <nav>\n        <a href="/">Home</a>\n        <a href="http://forrent.com" target="_blank">Full Site</a>\n    </nav>\n</div>';
+__p += '<div id="menu" class="fixed transition noOverflow">\n    <nav class="relative transWhite80">\n        <a href="/" class="block">Home</a>\n        <a href="http://forrent.com" target="_blank" class="block">Full Site</a>\n    </nav>\n</div>';
 
 }
 return __p
@@ -118,7 +117,7 @@ this["JST"]["src/js/templates/elements/propertyReviews.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="reviews">\n    <p class="noBorder">\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span>From Google Places</span>\n    </p>\n    <p>\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span>From Google Places</span>\n    </p>\n    <p>\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span>From Google Places</span>\n    </p>\n    <p>\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span>From Google Places</span>\n    </p>\n</div>';
+__p += '<div id="reviews">\n    <p class="noBorder reviewStars">\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span>From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span>From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span>From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span>From Google Places</span>\n    </p>\n</div>';
 
 }
 return __p
@@ -128,7 +127,9 @@ this["JST"]["src/js/templates/elements/searchBar.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form action="/search" method="post" name="search" id="searchBar">\n    ' +
+__p += '<form action="/search" method="post" name="search" id="searchBar" class="' +
+((__t = ( formClass )) == null ? '' : __t) +
+' clearFix">\n    ' +
 ((__t = ( heading )) == null ? '' : __t) +
 '\n    <fieldset>\n        <input type="text" name="keywords" placeholder="City, State or Zip Code" value="' +
 ((__t = ( keywords )) == null ? '' : __t) +
@@ -147,7 +148,7 @@ __p += '<div class="table">\n    <div>\n        <div class="select">\n          
 ((__t = ( selects[0].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( selects[0].id )) == null ? '' : __t) +
-'-1024.jpg">\n                <p class="desc">\n                    <strong>' +
+'-1024.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
 ((__t = ( selects[0].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( selects[0].location )) == null ? '' : __t) +
@@ -161,7 +162,7 @@ __p += '\n            <div property="' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg">\n                <p class="desc">\n                    <strong>' +
+'-612.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
 ((__t = ( properties[i].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( properties[i].location )) == null ? '' : __t) +
@@ -175,7 +176,7 @@ __p += '\n        <div>\n            <div property="' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg">\n                <p class="desc">\n                    <strong>' +
+'-612.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
 ((__t = ( properties[i].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( properties[i].location )) == null ? '' : __t) +
@@ -189,7 +190,7 @@ __p += '\n        <div>\n            <div property="' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg">\n                <p class="desc">\n                    <strong>' +
+'-612.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
 ((__t = ( properties[i].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( properties[i].location )) == null ? '' : __t) +
@@ -203,7 +204,7 @@ __p += '\n            <div property="' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg">\n                <p class="desc">\n                    <strong>' +
+'-612.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
 ((__t = ( properties[i].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( properties[i].location )) == null ? '' : __t) +
@@ -215,7 +216,7 @@ __p += '\n        </div>\n        <div class="select">\n            <div propert
 ((__t = ( selects[1].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( selects[1].id )) == null ? '' : __t) +
-'-1024.jpg">\n                <p class="desc">\n                    <strong>' +
+'-1024.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
 ((__t = ( selects[1].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( selects[1].location )) == null ? '' : __t) +
@@ -229,7 +230,7 @@ __p += '\n        <div>\n            <div property="' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg">\n                <p class="desc">\n                    <strong>' +
+'-612.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
 ((__t = ( properties[i].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( properties[i].location )) == null ? '' : __t) +
@@ -243,7 +244,7 @@ __p += '\n        <div>\n            <div property="' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg">\n                <p class="desc">\n                    <strong>' +
+'-612.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
 ((__t = ( properties[i].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( properties[i].location )) == null ? '' : __t) +
@@ -270,7 +271,7 @@ __p += '\n    <div property="' +
 ((__t = ( property.id )) == null ? '' : __t) +
 '-612.jpg" alt="' +
 ((__t = ( property.name )) == null ? '' : __t) +
-'">\n        <p>\n            <strong>' +
+'">\n        <p class="fadingGradient">\n            <strong>' +
 ((__t = ( property.name )) == null ? '' : __t) +
 '</strong><br>\n            ' +
 ((__t = ( property.location )) == null ? '' : __t) +
@@ -288,7 +289,7 @@ this["JST"]["src/js/templates/layouts/property.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="gallery"></div>\n<img src="/img/swipe-arrow-left.png" id="swipeHorizArrow">\n<img src="/img/swipe-arrow-down.png" id="swipeVertArrow">\n<section id="teaser">\n    <div class="info">\n        <h2>' +
+__p += '<div id="gallery"></div>\n<a id="swipeHorizArrow"></a>\n<a id="swipeVertArrow"></a>\n<section id="teaser">\n    <div class="info transWhite80">\n        <h2>' +
 ((__t = ( property.name )) == null ? '' : __t) +
 '</h2>\n        <p class="clickable" section="map">\n            ' +
 ((__t = ( property.address )) == null ? '' : __t) +
@@ -298,7 +299,7 @@ __p += '<div id="gallery"></div>\n<img src="/img/swipe-arrow-left.png" id="swipe
 ((__t = ( property.type )) == null ? '' : __t) +
 ' for ' +
 ((__t = ( property.price )) == null ? '' : __t) +
-'<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p class="clickable" section="reviews">\n            <span id="webReview">4 Reviews</span>\n            <a>View Reviews from the Web</a>\n        </p>\n        <p class="clickable noBorder" section="details">\n            Details<br>\n            <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet arcu pretium, placerat mauris sed, hendrerit eros. Curabitur sed fermentum justo. Pellentesque lobortis, orci ut porttitor luctus, nisi urna pharetra magna.</small>\n        </p>\n    </div>\n    <div class="buttons">\n        <div>\n            <div><button id="buttonCA">Check Availability</button></div>\n            <div id="buttonSpacer"></div>\n            <div><button>1-800-555-0123</button></div>\n        </div>\n    </div>\n</section>\n<section id="more">\n    <div>\n        <div id="moreContent">' +
+'<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p class="clickable" section="reviews">\n            <span id="webReview" class="reviewStars">4 Reviews</span>\n            <a>View Reviews from the Web</a>\n        </p>\n        <p class="clickable noBorder" section="details">\n            Details<br>\n            <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet arcu pretium, placerat mauris sed, hendrerit eros. Curabitur sed fermentum justo. Pellentesque lobortis, orci ut porttitor luctus, nisi urna pharetra magna.</small>\n        </p>\n    </div>\n    <div class="buttons">\n        <div>\n            <div><button id="buttonCA">Check Availability</button></div>\n            <div id="buttonSpacer"></div>\n            <div><button class="transWhite80">1-800-555-0123</button></div>\n        </div>\n    </div>\n</section>\n<section id="more">\n    <div>\n        <div id="moreContent">' +
 ((__t = ( moreContent )) == null ? '' : __t) +
 '</div>\n        <div class="form">' +
 ((__t = ( guestCardForm )) == null ? '' : __t) +

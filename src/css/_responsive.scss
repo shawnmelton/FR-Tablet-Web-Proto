@@ -88,7 +88,7 @@
                 height: 40px;
                 >a {
                     &#logo {
-                        padding: 10px 25px 9px;
+                        height: 40px;
                         left: 40px;
                     }
 
@@ -107,7 +107,7 @@
                 >form { padding: 20px 30px 30px; }
             }
 
-            >#content.search { padding-top: 55px !important; }
+            >#content.search { padding-top: 55px; }
 
             >footer {
                 height: 40px;

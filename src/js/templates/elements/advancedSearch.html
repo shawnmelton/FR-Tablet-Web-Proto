@@ -1,9 +1,9 @@
 <div id="advancedSearch">
-    <div>
+    <div class="clearFix noOverflow">
         <h3>Refine Your Search</h3>
         <div class="table">
-            <div>
-                <div class="noPadLeft"><select>
+            <div class="tableRow">
+                <div class="tableCell noPadLeft"><select>
                     <option value="">Beds</option>
                     <option value="Studio">Studio</option>
                     <option value="1">1 Bed</option>
@@ -11,28 +11,28 @@
                     <option value="3">3 Beds</option>
                     <option value="4+">4+ Beds</option>
                 </select></div>
-                <div><select>
+                <div class="tableCell"><select>
                     <option value="">Baths</option>
                     <option value="1">1+ Baths</option>
                     <option value="2">2+ Baths</option>
                     <option value="3">3+ Baths</option>
                 </select></div>
-                <div><select>
+                <div class="tableCell"><select>
                     <option value="">Price: Low</option>
                     <% var price = 250; while(price <= 3000) { %>
                         <option value="<%= price %>"><%= price %></option>
                         <% price += 250; %>
                     <% } %>
                 </select></div>
-                <div>&nbsp; to &nbsp;</div>
-                <div><select>
+                <div class="tableCell">&nbsp; to &nbsp;</div>
+                <div class="tableCell"><select>
                     <option value="">Price: Max</option>
                     <% var price = 500; while(price <= 5000) { %>
                         <option value="<%= price %>"><%= price %></option>
                         <% price += 250; %>
                     <% } %>
                 </select></div>
-                <div class="noPadRight"><select>
+                <div class="tableCell noPadRight"><select>
                     <option value="">Apartment &amp; Community Amenities</option>
                 </select></div>
             </div>

@@ -2,7 +2,7 @@
 <% _.each(properties, function(property) { %>
     <div property="<%= property.id %>" class="property">
         <img src="/img/listings/<%= property.id %>-612.jpg" alt="<%= property.name %>">
-        <p>
+        <p class="fadingGradient">
             <strong><%= property.name %></strong><br>
             <%= property.location %><br>
             <%= property.type %>

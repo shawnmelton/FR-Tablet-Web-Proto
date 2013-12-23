@@ -10,40 +10,29 @@ html {
     &.home768 { background: url(../img/home-bg-768.jpg) no-repeat top center; }
 
     body {
-        position: relative;
-
         >#content { padding-top: 50px; }
 
         header {
-            position: fixed;
             top: 0;
             left: 0;
             right: 0;
             background: url(../img/trans-gray-bg.png) repeat 0 0;
             height: 49px;
             padding: 0 0 0 270px;
-            transition: all 0.5s;
             border-bottom: 1px solid #044a78;
-
-            &:after {
-                content: " ";
-                display: table;
-                clear: both;
-            }
 
             &.sticky { position: absolute; }
 
             >a {
                 display: block;
-                cursor: pointer;
                 position: absolute;
 
                 &#logo {
-                    width: 160px;
-                    height: 20px;
-                    padding: 15px 25px 14px;
+                    width: 210px;
+                    height: 49px;
                     top: 0;
                     left: 50px;
+                    background: url(../img/logo.png) no-repeat center center;
 
                     &.touched { background-color: #fff; }
                 }
@@ -71,12 +60,6 @@ html {
                     position: relative;
                     padding-right: 155px;
 
-                    &:after {
-                        content: " ";
-                        clear: both;
-                        display: table;
-                    }
-
                     >input, a, button {
                         display: block;
                         color: #333;
@@ -84,8 +67,6 @@ html {
                         height: 32px;
                         padding: 0;
                         box-sizing: border-box;
-                        outline: none;
-                        cursor: pointer;
                         font-size: 100%;
                     }
 
@@ -164,14 +145,6 @@ html {
                 position: relative;
                 padding: 25px;
                 box-sizing: border-box;
-                overflow: hidden;
-                transition: all 0.5s;
-
-                &:after {
-                    content: " ";
-                    display: table;
-                    clear: both;
-                }
 
                 >h3 {
                     font-weight: 100;
@@ -180,15 +153,11 @@ html {
                 }
 
                 >.table {
-                    display: table;
                     width: 100%;
                     margin: 25px 0;
 
                     >div {
-                        display: table-row;
-
                         >div {
-                            display: table-cell;
                             padding: 0 1%;
                             vertical-align: middle;
 
@@ -213,9 +182,7 @@ html {
 
                     >button {
                         font-size: 100%;
-                        cursor: pointer;
                         font-weight: 100;
-                        outline: none;
                         border-radius: 5px;
                         background: transparent;
                         border: none;
@@ -238,32 +205,25 @@ html {
         }
 
         >footer {
-            position: fixed;
             bottom: 0;
             left: 0;
             height: 50px;
             width: 100%;
             background: url(../img/trans-bg.png) repeat 0 0;
-            transition: all 0.5s;
 
             &.sticky { position: absolute; }
 
             >nav {
-                display: table;
                 border-collapse: collapse;
                 width: 100%;
 
                 >div {
-                    display: table-row;
-
                     >a {
-                        display: table-cell;
                         color: #fff;
                         font-size: 100%;
                         height: 50px;
                         vertical-align: middle;
                         text-align: center;
-                        cursor: pointer;
                         padding: 0 10px;
 
                         &.touched { background: #333; }
@@ -291,31 +251,18 @@ html {
         }
 
         >div#menu {
-            position: fixed;
             top: 50px;
             left: 0;
             width: 0px;
-            transition: all 0.5s;
-            overflow: hidden;
-
-            &.sticky {
-                position: absolute;
-                z-index: 1000;
-            }
 
             >nav {
-                background: url(../img/trans-white-bg-80.png) repeat 0 0;
-                position: relative;
                 width: 218px;
                 padding: 15px 15px 35px;
                 border: 1px solid #aaa;
                 border-width: 0 1px 1px 0;
 
                 >a {
-                    display: block;
                     text-decoration: none;
-                    cursor: pointer;
-                    outline: none;
                     color: #333;
                     font-size: 130%;
                     padding: 8px 10px;
