@@ -1,0 +1,98 @@
+header {
+    top: 0;
+    left: 0;
+    right: 0;
+    background: url(../img/trans-gray-bg.png) repeat 0 0;
+    height: 49px;
+    padding: 0 0 0 270px;
+    border-bottom: 1px solid #044a78;
+
+    &.sticky { position: absolute; }
+
+    >a {
+        display: block;
+        position: absolute;
+
+        &#logo {
+            width: 210px;
+            height: 49px;
+            top: 0;
+            left: 50px;
+            background: url(../img/logo.png) no-repeat center center;
+
+            &.touched { background-color: #fff; }
+        }
+
+        &#menuBtn {
+            background: url(../img/menu-button.png) no-repeat center center;
+            left: 0;
+            top: 0;
+            height: 50px;
+            width: 50px;
+            border-right: 1px solid #eaeaea;
+            transition: all 0.5s;
+
+            &.touched { background-color: #fff; }
+        }
+    }
+
+    >form {
+        display: block;
+        position: relative;
+        padding-top: 8px;
+        transition: all 1s;
+
+        >fieldset {
+            position: relative;
+            padding-right: 155px;
+
+            >input, a, button {
+                display: block;
+                color: #333;
+                border: 0;
+                height: 32px;
+                padding: 0;
+                box-sizing: border-box;
+                font-size: 100%;
+            }
+
+            >input {
+                padding: 0 10px;
+                font-family: "helvetica", arial;
+                width: 100%;
+                background: #fff;
+                border: 1px solid #789;
+                font-weight: 100;
+            }
+
+            >div {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+
+                >a, >button {
+                    float: left;
+
+                    &.touched { background-color: #bbb; }
+                }
+
+                >a {
+                    width: 45px;
+                    background-image: url(../img/home-adv-search-small.png);
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    margin-right: 5px;
+                }
+
+                >button {
+                    line-height: 30px;
+                    width: 100px;
+                    text-align: center;
+                    transition: all 1s;
+                    color: #044a78;
+                    background: transparent;
+                }
+            }
+        }
+    }
+}

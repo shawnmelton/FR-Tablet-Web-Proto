@@ -103,7 +103,7 @@ this["JST"]["src/js/templates/elements/propertyMap.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="map">\n    <img src="/img/google-map.png">\n    <a href="https://maps.google.com?q=' +
+__p += '<div id="map" class="clearFix">\n    <img src="/img/google-map.png">\n    <a href="https://maps.google.com?q=' +
 ((__t = ( propertyAddress )) == null ? '' : __t) +
 '" target="_blank">Get Directions</a>\n    <p>' +
 ((__t = ( propertyAddress )) == null ? '' : __t) +
@@ -127,13 +127,13 @@ this["JST"]["src/js/templates/elements/searchBar.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form action="/search" method="post" name="search" id="searchBar" class="' +
+__p += '<form action="/search" method="post" name="search" id="searchBar" class="block ' +
 ((__t = ( formClass )) == null ? '' : __t) +
-' clearFix">\n    ' +
+' clearFix borderBox">\n    ' +
 ((__t = ( heading )) == null ? '' : __t) +
-'\n    <fieldset>\n        <input type="text" name="keywords" placeholder="City, State or Zip Code" value="' +
+'\n    <fieldset class="relative clearFix">\n        <input type="text" name="keywords" placeholder="City, State or Zip Code" value="' +
 ((__t = ( keywords )) == null ? '' : __t) +
-'">\n        <div>\n            <a id="advSearchBtn"></a>\n            <button type="submit">Search</button>\n        </div>\n    </fieldset>\n</form>';
+'" class="block width100 borderBox">\n        <div class="absolute">\n            <a id="advSearchBtn" class="block borderBox noBorder left"></a>\n            <button type="submit" class="block borderBox alignCenter noBorder left">Search</button>\n        </div>\n    </fieldset>\n</form>';
 
 }
 return __p
@@ -263,15 +263,15 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<section>\n';
+__p += '<section class="fixed noOverflow clearFix">\n';
  _.each(properties, function(property) { ;
 __p += '\n    <div property="' +
 ((__t = ( property.id )) == null ? '' : __t) +
-'" class="property">\n        <img src="/img/listings/' +
+'" class="relative noOverflow property borderBox whiteText left pointer">\n        <img src="/img/listings/' +
 ((__t = ( property.id )) == null ? '' : __t) +
 '-612.jpg" alt="' +
 ((__t = ( property.name )) == null ? '' : __t) +
-'">\n        <p class="fadingGradient">\n            <strong>' +
+'" class="block width100">\n        <p class="absolute width100 fadingGradient">\n            <strong>' +
 ((__t = ( property.name )) == null ? '' : __t) +
 '</strong><br>\n            ' +
 ((__t = ( property.location )) == null ? '' : __t) +

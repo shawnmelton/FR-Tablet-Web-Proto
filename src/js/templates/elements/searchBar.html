@@ -1,10 +1,10 @@
-<form action="/search" method="post" name="search" id="searchBar" class="<%= formClass %> clearFix">
+<form action="/search" method="post" name="search" id="searchBar" class="block <%= formClass %> clearFix borderBox">
     <%= heading %>
-    <fieldset>
-        <input type="text" name="keywords" placeholder="City, State or Zip Code" value="<%= keywords %>">
-        <div>
-            <a id="advSearchBtn"></a>
-            <button type="submit">Search</button>
+    <fieldset class="relative clearFix">
+        <input type="text" name="keywords" placeholder="City, State or Zip Code" value="<%= keywords %>" class="block width100 borderBox">
+        <div class="absolute">
+            <a id="advSearchBtn" class="block borderBox noBorder left"></a>
+            <button type="submit" class="block borderBox alignCenter noBorder left">Search</button>
         </div>
     </fieldset>
 </form>

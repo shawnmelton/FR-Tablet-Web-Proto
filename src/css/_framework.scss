@@ -1,7 +1,9 @@
+/* Positioning */
 .absolute { position: absolute; }
 .relative { position: relative; }
 .fixed { position: fixed; }
 
+/* Display Types */
 .block { display: block; }
 .table { display: table; }
     .tableRow { display: table-row; }
@@ -11,14 +13,30 @@
 
 .transition { transition: all 0.5s; }
 
+/* Float fix. */
 .clearFix:after {
     content: " ";
     display: table;
     clear: both;
 }
 
-/* Transparent Background Styles */
+/* Borders */
+.noBorder { border: 0; }
+.borderBox { box-sizing: border-box; }
+
+/* Sizes */
+.width100 { width: 100%; }
+
+/* Alignment */
+.alignCenter { text-align: center; }
+.left { float: left; }
+
+/* Background Colors and Images */
+.bgWhite { background-color: #fff; }
 .transWhite80 { background: url(../img/trans-white-bg-80.png) repeat 0 0; }
+
+/* Text */
+.whiteText { color: #fff; }
 
 /* Property Specific */
 .reviewStars {
@@ -26,6 +44,8 @@
     background-repeat: no-repeat;
 }
 .fadingGradient { background: url(../img/property-gradient.png) repeat-x 0 0; }
+
+.pointer { cursor: pointer; }
 
 /* Anchor Styles */
 a, button {

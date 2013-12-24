@@ -1,140 +1,87 @@
-html {
-    body {
-        >#content.home {
-            position: relative;
+#content.home {
+    >form {
+        margin: 50px auto 0;
+        width: 70%;
+        border-radius: 10px;
+        padding: 35px 50px 45px;
 
-            >form {
-                display: block;
-                margin: 50px auto 0;
-                width: 70%;
-                border-radius: 10px;
-                padding: 35px 50px 45px;
-                box-sizing: border-box;
-                transition: all 0.5s;
+        >h2 {
+            color: #333;
+            font-size: 180%;
+            margin: 0 0 25px;
+        }
 
-                >h2 {
-                    font-weight: 100;
-                    color: #333;
-                    font-size: 180%;
-                    margin: 0 0 25px;
-                }
+        >fieldset {
+            padding-right: 200px;
 
-                >fieldset {
-                    position: relative;
-                    padding-right: 200px;
-
-                    &:after {
-                        content: " ";
-                        clear: both;
-                        display: table;
-                    }
-
-                    >input, a, button {
-                        display: block;
-                        color: #333;
-                        border-radius: 8px;
-                        border: 0;
-                        height: 60px;
-                        padding: 0;
-                        box-sizing: border-box;
-                        outline: none;
-                        cursor: pointer;
-                        background: #fff;
-                        border: 1px solid #789;
-                    }
-
-                    >input {
-                        padding: 0 10px;
-                        font-family: "helvetica", arial;
-                        width: 100%;
-                        font-size: 140%;
-                        font-weight: 100;
-                    }
-
-                    >div {
-                        position: absolute;
-                        bottom: 0;
-                        right: 0;
-
-                        >a, >button {
-                            float: left;
-
-                            &.touched { background-color: #bcd; }
-                        }
-
-                        >a {
-                            width: 65px;
-                            background: #fff url(../img/home-adv-search.png) no-repeat center center;
-                            margin-right: 5px;
-                        }
-
-                        >button {
-                            line-height: 60px;
-                            width: 125px;
-                            text-align: center;
-                            font-size: 140%;
-                            transition: all 1s;
-                            color: #044a78;
-                        }
-                    }
-                }
+            >input, a, button {
+                color: #333;
+                border-radius: 8px;
+                height: 60px;
+                padding: 0;
+                background: #fff;
+                border: 1px solid #789;
             }
 
-            >section {
-                position: fixed;
-                bottom: 65px;
-                left: 0;
+            >input {
+                padding: 0 10px;
+                font-size: 140%;
+            }
+
+            >div {
+                bottom: 0;
                 right: 0;
-                margin: 50px 0 0;
-                height: 260px;
-                overflow: hidden;
-                transition: all 0.5s;
 
-                &:after {
-                    content: " ";
-                    clear: both;
-                    display: table;
+                >a, >button {
+                    &.touched { background-color: #bcd; }
                 }
 
-                >div {
-                    position: relative;
-                    width: 23%;
-                    box-sizing: border-box;
-                    margin: 0 1% 1%;
-                    border: 3px solid #eaeaea;
-                    color: #fff;
-                    font-size: 80%;
-                    background: #aaa;
-                    float: left;
-                    border-radius: 12px;
-                    transition: all 0.5s;
-                    height: 250px;
-                    overflow: hidden;
-                    cursor: pointer;
-
-                    &.property.touched { border-color: #10a1d7; }
-
-                    >img {
-                        display: block;
-                        height: 100%;
-                        width: 100%;
-                        border-radius: 12px;
-                    }
-
-                    >p {
-                        position: absolute;
-                        bottom: 0;
-                        width: 100%;
-                        margin: 0;
-                        padding: 50px 15px 15px;
-                        line-height: 17px;
-
-                        >strong {
-                            font-weight: 100;
-                            font-size: 125%;
-                        }
-                    }
+                >a {
+                    width: 65px;
+                    background: #fff url(../img/home-adv-search.png) no-repeat center center;
+                    margin-right: 5px;
                 }
+
+                >button {
+                    line-height: 60px;
+                    width: 125px;
+                    font-size: 140%;
+                    color: #044a78;
+                }
+            }
+        }
+    }
+
+    >section {
+        bottom: 65px;
+        left: 0;
+        right: 0;
+        margin: 50px 0 0;
+        height: 260px;
+
+        >div {
+            width: 23%;
+            margin: 0 1% 1%;
+            border: 3px solid #eaeaea;
+            font-size: 80%;
+            background: #aaa;
+            border-radius: 12px;
+            height: 250px;
+
+            &.property.touched { border-color: #10a1d7; }
+
+            >img {
+                height: 100%;
+                border-radius: 12px;
+            }
+
+            >p {
+                bottom: 0;
+                margin: 0;
+                padding: 50px 15px 15px;
+                line-height: 17px;
+
+                >strong { font-size: 125%; }
             }
         }
     }

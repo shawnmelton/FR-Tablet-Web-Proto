@@ -1,68 +1,64 @@
-html {
-    body {
-        >#content.search {
-            padding: 3% 4% 3% 2%;
-            padding-top: 75px;
+#content.search {
+    padding: 3% 4% 3% 2%;
+    padding-top: 75px;
 
-            >#results {
-                background: url(../img/search-loading.gif) no-repeat bottom center;
-                padding-bottom: 20px;
+    >#results {
+        background: url(../img/search-loading.gif) no-repeat bottom center;
+        padding-bottom: 20px;
 
-                >div.table {
-                    display: table;
-                    width: 100%;
-                    border-collapse: collapse;
+        >div.table {
+            display: table;
+            width: 100%;
+            border-collapse: collapse;
+
+            >div {
+                display: table-row;
+
+                >div {
+                    display: table-cell;
+                    padding: 0 0 2% 2%;
+                    vertical-align: top;
+                    width: 31%;
+
+                    &.select { width: 63%; }
+
+                    &.stacked {
+                        >div:first-child { margin-bottom: 20px; }
+                    }
 
                     >div {
-                        display: table-row;
+                        position: relative;
+                        overflow: hidden;
+                        border-radius: 8px;
+                        cursor: pointer;
 
-                        >div {
-                            display: table-cell;
-                            padding: 0 0 2% 2%;
-                            vertical-align: top;
-                            width: 31%;
+                        >img {
+                            display: block;
+                            width: 100%;
+                            max-height: 100%;
+                            max-width: 100%;
+                        }
 
-                            &.select { width: 63%; }
+                        >p {
+                            position: absolute;
+                            margin: 0;
+                            padding: 15px;
+                            bottom: 0;
+                            color: #fff;
+                        }
 
-                            &.stacked {
-                                >div:first-child { margin-bottom: 20px; }
-                            }
+                        >p.price {
+                            right: 0;
+                            font-size: 130%;
+                        }
 
-                            >div {
-                                position: relative;
-                                overflow: hidden;
-                                border-radius: 8px;
-                                cursor: pointer;
+                        >p.desc {
+                            >strong { font-size: 110%; }
 
-                                >img {
-                                    display: block;
-                                    width: 100%;
-                                    max-height: 100%;
-                                    max-width: 100%;
-                                }
-
-                                >p {
-                                    position: absolute;
-                                    margin: 0;
-                                    padding: 15px;
-                                    bottom: 0;
-                                    color: #fff;
-                                }
-
-                                >p.price {
-                                    right: 0;
-                                    font-size: 130%;
-                                }
-
-                                >p.desc {
-                                    >strong { font-size: 110%; }
-
-                                    font-size: 90%;
-                                    line-height: 18px;
-                                    width: 100%;
-                                    padding-top: 45px;
-                                }
-                            }
+                            font-size: 90%;
+                            line-height: 18px;
+                            width: 100%;
+                            padding-top: 45px;
                         }
                     }
                 }

@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/device', 'views/elements/menu'], 
-    function($, Backbone, tsw, footerViewEl, Device, menuViewEl) {
+define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/elements/header', 'tools/device'],
+    function($, Backbone, tsw, footerViewEl, headerViewEl, Device) {
     var galleryViewEl = Backbone.View.extend({
         galleryEl: null,
         currentImageEl: null,
@@ -254,7 +254,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
                     _this.moveCurrentImage(_this.startingLeft, (-1 * _this.bgImgWidth), distance);
                 },
                 swipeUp: function(event, direction, distance, duration, fingerCount) {
-                    menuViewEl.hide();
+                    headerViewEl.hideMenu();
                 },
                 swipeStatus: function(event, phase, direction, distance, duration, fingerCount) {
                     if(direction !== null) {

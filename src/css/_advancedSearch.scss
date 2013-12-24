@@ -1,0 +1,92 @@
+#advancedSearch {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    height: 0px;
+    width: 100%;
+    transition: all 0.5s;
+    overflow: hidden;
+    color: #fff;
+
+    &.sticky { position: absolute; }
+
+    &.show {
+        border-bottom: 2px solid #fff;
+        overflow: visible;
+    }
+
+    >span {
+        position: absolute;
+        top: -1px;
+        right: 118px;
+        width: 0px;
+        height: 0px;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 8px solid #eaeaea;
+    }
+
+    >div {
+        height: 100%;
+        background: url(../img/trans-blue-bg-90.png) repeat 0 0;
+        position: relative;
+        padding: 25px;
+        box-sizing: border-box;
+
+        >h3 {
+            font-weight: 100;
+            font-size: 150%;
+            text-shadow: 0 0 1px #000;
+        }
+
+        >.table {
+            width: 100%;
+            margin: 25px 0;
+
+            >div {
+                >div {
+                    padding: 0 1%;
+                    vertical-align: middle;
+
+                    &.noPadLeft,
+                    &.noPadRight { padding-left: 0; }
+
+                    >select {
+                        width: 100%;
+                        font-size: 100%;
+                        font-weight: 100;
+                        background: #eaeaea;
+                        height: 30px;
+                        text-indent: 5px;
+                    }
+                }
+            }
+        }
+
+        >.buttons {
+            float: right;
+            margin-right: 2%;
+
+            >button {
+                font-size: 100%;
+                font-weight: 100;
+                border-radius: 5px;
+                background: transparent;
+                border: none;
+                padding: 0 40px;
+                height: 40px;
+                color: #eee;
+                text-shadow: 0 0 1px #000;
+
+                &.touched { background-color: #0A77A0; }
+
+                &.blue {
+                    color: #fff;
+                    background: #10a1d7;
+
+                    &.touched { background-color: #0A77A0; }
+                }
+            }
+        }
+    }
+}

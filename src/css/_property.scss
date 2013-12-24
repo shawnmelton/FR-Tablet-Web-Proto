@@ -1,354 +1,341 @@
-html {
-    >body {
-        >#content.property {
-            position: relative;
+#content.property {
+    >a {
+        display: block;
+        position: absolute;
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        cursor: pointer;
 
-            >a {
-                display: block;
-                position: absolute;
-                background-repeat: no-repeat;
-                background-position: 0 0;
-                cursor: pointer;
+        &#swipeHorizArrow {
+            right: 35px;
+            top: 40%;
+            width: 55px;
+            height: 94px;
+            background-image: url(../img/swipe-arrow-left.png);
 
-                &#swipeHorizArrow {
-                    right: 35px;
-                    top: 40%;
-                    width: 55px;
-                    height: 94px;
-                    background-image: url(../img/swipe-arrow-left.png);
+            &.reverse { background-image: url(../img/swipe-arrow-right.png); }
+        }
 
-                    &.reverse { background-image: url(../img/swipe-arrow-right.png); }
+        &#swipeVertArrow {
+            left: 45%;
+            bottom: 60px;
+            width: 94px;
+            height: 55px;
+            background-image: url(../img/swipe-arrow-down.png);
+        }
+    }
+
+    >#gallery {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+
+        >img {
+            position: absolute;
+            pointer-events: none;
+
+            &.moving { transition: all 0.5s; }
+        }
+    }
+
+    >section {
+        position: relative;
+        box-sizing: border-box;
+        overflow: hidden;
+
+        &#teaser {
+            width: 43%;
+            min-width: 300px;
+            box-sizing: border-box;
+            padding-left: 3%;
+
+            >div.info {
+                border-radius: 8px;
+                padding: 20px 0;
+                margin: 3% 0 0;
+
+                >h2 {
+                    font-weight: 100;
+                    font-size: 130%;
+                    padding: 0 20px;
                 }
 
-                &#swipeVertArrow {
-                    left: 45%;
-                    bottom: 60px;
-                    width: 94px;
-                    height: 55px;
-                    background-image: url(../img/swipe-arrow-down.png);
+                >p {
+                    padding: 20px;
+                    padding-right: 60px;
+                    border-bottom: 1px solid #ddd;
+
+                    &.clickable {
+                        background: url(../img/arrow-down.png) no-repeat 95% 50%;
+                        cursor: pointer;
+
+                        &.touched { background-color: #fff; }
+                    }
+
+                    >span#webReview {
+                        display: block;
+                        height: 21px;
+                        line-height: 21px;
+                        background-position: 87px 0;
+                    }
+
+                    >a {
+                        cursor: pointer;
+                        color: #22567e;
+                        text-decoration: none;
+                    }
+
+                    >a, >small { font-size: 70%; }
+
+                    &.noBorder { border-bottom-width: 0; }
                 }
             }
 
-            >#gallery {
-                position: absolute;
-                top: 0px;
-                bottom: 0px;
-                left: 0;
-                right: 0;
-                overflow: hidden;
+            >div.buttons {
+                display: table;
+                border-collapse: collapse;
+                margin-top: 15px;
+                width: 100%;
 
-                >img {
-                    position: absolute;
-                    pointer-events: none;
+                >div {
+                    display: table-row;
 
-                    &.moving { transition: all 0.5s; }
+                    >div {
+                        display: table-cell;
+                        width: 48%;
+
+                        >button {
+                            border-radius: 8px;
+                            display: block;
+                            border: 0;
+                            height: 60px;
+                            line-height: 60px;
+                            color: #000;
+                            text-align: center;
+                            width: 100%;
+                            font-size: 100%;
+                            outline: none;
+                            cursor: pointer;
+
+                            &.touched { background: #fff; }
+
+                            &#buttonCA {
+                                color: #fff;
+                                background: #e97d0e;
+
+                                &.touched { background: #c60; }
+                            }
+                        }
+
+                        &#buttonSpacer { width: 4%; }
+                    }
                 }
             }
+        }
 
-            >section {
-                position: relative;
-                box-sizing: border-box;
-                overflow: hidden;
+        &#more {
+            background: #eaeaea;
+            display: table;
+            width: 100%;
 
-                &#teaser {
-                    width: 43%;
-                    min-width: 300px;
-                    box-sizing: border-box;
-                    padding-left: 3%;
+            >div {
+                display: table-row;
 
-                    >div.info {
-                        border-radius: 8px;
-                        padding: 20px 0;
-                        margin: 3% 0 0;
+                >div {
+                    display: table-cell;
+                    vertical-align: top;
 
-                        >h2 {
+                    &.form { width: 40%; }
+
+                    >#guestCard {
+                        margin: 15px;
+                        background: #fff;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                        padding: 15px;
+
+                        >h3 {
                             font-weight: 100;
-                            font-size: 130%;
-                            padding: 0 20px;
+                            margin-bottom: 2px;
+                            font-size: 120%;
                         }
 
                         >p {
-                            padding: 20px;
-                            padding-right: 60px;
-                            border-bottom: 1px solid #ddd;
-    
-                            &.clickable {
-                                background: url(../img/arrow-down.png) no-repeat 95% 50%;
-                                cursor: pointer;
+                            margin: 3px 0 12px;
+                            color: #044a78;
+                            font-size: 80%;
+                        }
 
-                                &.touched { background-color: #fff; }
+                        >fieldset {
+                            margin: 0;
+                            padding: 10px 12px;
+                            background: #eaeaea;
+
+                            >input, >textarea {
+                                width: 100%;
+                                box-sizing: border-box;
+                                padding: 5px;
+                                border: 1px solid #aaa;
                             }
 
-                            >span#webReview {
-                                display: block;
-                                height: 21px;
-                                line-height: 21px;
-                                background-position: 87px 0;
+                            >input {
+                                font-size: 90%;
                             }
 
-                            >a {
-                                cursor: pointer;
-                                color: #22567e;
-                                text-decoration: none;
+                            >textarea {
+                                font-size: 80%;
+                                height: 75px;
                             }
 
-                            >a, >small { font-size: 70%; }
+                            >button {
+                                font-size: 100%;
+                                color: #fff;
+                                background: #e97d0e;
+                                border: 1px solid #dc6104;
+                                width: 100%;
+                                text-align: center;
+                                padding: 8px 5px;
+                                box-sizing: border-box;
 
-                            &.noBorder { border-bottom-width: 0; }
+                                &.touched { background: #c60; }
+                            }
                         }
                     }
 
-                    >div.buttons {
-                        display: table;
-                        border-collapse: collapse;
-                        margin-top: 15px;
-                        width: 100%;
+                    >div#floorplans {
+                        background: #fff;
+                        padding: 10px 0;
 
-                        >div {
-                            display: table-row;
+                        >table {
+                            width: 100%;
 
-                            >div {
-                                display: table-cell;
-                                width: 48%;
+                            td {
+                                text-align: center;
+                                vertical-align: top;
+                                padding: 15px 30px;
+                                font-size: 110%;
+                                border-bottom: 1px solid #ccc;
 
-                                >button {
-                                    border-radius: 8px;
+                                >span {
                                     display: block;
-                                    border: 0;
-                                    height: 60px;
-                                    line-height: 60px;
-                                    color: #000;
-                                    text-align: center;
-                                    width: 100%;
-                                    font-size: 100%;
-                                    outline: none;
-                                    cursor: pointer;
-
-                                    &.touched { background: #fff; }
-
-                                    &#buttonCA {
-                                        color: #fff;
-                                        background: #e97d0e;
-
-                                        &.touched { background: #c60; }
-                                    }
-                                }
-
-                                &#buttonSpacer { width: 4%; }
-                            }
-                        }
-                    }
-                }
-
-                &#more {
-                    background: #eaeaea;
-                    display: table;
-                    width: 100%;
-
-                    >div {
-                        display: table-row;
-
-                        >div {
-                            display: table-cell;
-                            vertical-align: top;
-
-                            &.form { width: 40%; }
-
-                            >#guestCard {
-                                margin: 15px;
-                                background: #fff;
-                                border: 1px solid #ccc;
-                                border-radius: 5px;
-                                padding: 15px;
-
-                                >h3 {
-                                    font-weight: 100;
-                                    margin-bottom: 2px;
-                                    font-size: 120%;
-                                }
-
-                                >p {
-                                    margin: 3px 0 12px;
+                                    font-size: 70%;
                                     color: #044a78;
-                                    font-size: 80%;
+                                    padding-top: 2px;
                                 }
 
-                                >fieldset {
-                                    margin: 0;
-                                    padding: 10px 12px;
-                                    background: #eaeaea;
-
-                                    >input, >textarea {
-                                        width: 100%;
-                                        box-sizing: border-box;
-                                        padding: 5px;
-                                        border: 1px solid #aaa;
-                                    }
-
-                                    >input {
-                                        font-size: 90%;
-                                    }
-
-                                    >textarea {
-                                        font-size: 80%;
-                                        height: 75px;
-                                    }
-
-                                    >button {
-                                        font-size: 100%;
-                                        color: #fff;
-                                        background: #e97d0e;
-                                        border: 1px solid #dc6104;
-                                        width: 100%;
-                                        text-align: center;
-                                        padding: 8px 5px;
-                                        box-sizing: border-box;
-
-                                        &.touched { background: #c60; }
-                                    }
+                                &.left {
+                                    text-align: left;
                                 }
                             }
 
-                            >div#floorplans {
-                                background: #fff;
-                                padding: 10px 0;
+                            tr.noBorder {
+                                >td { border-bottom-width: 0; }
+                            }
+                        }
+                    }
 
-                                >table {
-                                    width: 100%;
+                    /**************/
 
-                                    td {
-                                        text-align: center;
-                                        vertical-align: top;
-                                        padding: 15px 30px;
-                                        font-size: 110%;
-                                        border-bottom: 1px solid #ccc;
+                    >#reviews {
+                        background: #fff;
+                        padding: 15px;
 
-                                        >span {
-                                            display: block;
-                                            font-size: 70%;
-                                            color: #044a78;
-                                            padding-top: 2px;
-                                        }
+                        >p {
+                            padding: 20px 25px 20px 25px;
+                            border-top: 1px solid #ccc;
+                            background-position: 93% 15%;
+                            line-height: 18px;
 
-                                        &.left {
-                                            text-align: left;
-                                        }
-                                    }
+                            &.noBorder { border-top-width: 0; }
 
-                                    tr.noBorder {
-                                        >td { border-bottom-width: 0; }
-                                    }
-                                }
+                            >strong {
+                                display: block;
+                                font-weight: 100;
+                                font-size: 130%;
+                                margin-bottom: 12px;
                             }
 
-                            /**************/
-
-                            >#reviews {
-                                background: #fff;
-                                padding: 15px;
-
-                                >p {
-                                    padding: 20px 25px 20px 25px;
-                                    border-top: 1px solid #ccc;
-                                    background-position: 93% 15%;
-                                    line-height: 18px;
-
-                                    &.noBorder { border-top-width: 0; }
-
-                                    >strong {
-                                        display: block;
-                                        font-weight: 100;
-                                        font-size: 130%;
-                                        margin-bottom: 12px;
-                                    }
-
-                                    >span {
-                                        margin-top: 8px;
-                                        display: block;
-                                        color: #044a78;
-                                        font-size: 80%;
-                                    }
-                                }
+                            >span {
+                                margin-top: 8px;
+                                display: block;
+                                color: #044a78;
+                                font-size: 80%;
                             }
+                        }
+                    }
 
 
-                            /**************/
+                    /**************/
 
-                            >#details {
-                                background: #fff;
-                                padding: 25px 25px 35px;
+                    >#details {
+                        background: #fff;
+                        padding: 25px 25px 35px;
 
-                                >table {
-                                    border-collapse: collapse;
-                                    margin-bottom: 20px;
-                                    width: 100%;
+                        >table {
+                            border-collapse: collapse;
+                            margin-bottom: 20px;
+                            width: 100%;
 
-                                    td {
-                                        vertical-align: middle;
-                                        text-align: center;
-                                        font-size: 110%;
+                            td {
+                                vertical-align: middle;
+                                text-align: center;
+                                font-size: 110%;
 
-                                        &.name {
-                                            font-weight: 100;
-                                            font-size: 130%;
-                                            text-align: left;
-                                        }
-
-                                        >span {
-                                            display: block;
-                                            font-size: 70%;
-                                            color: #044a78;
-                                            padding-top: 2px;
-                                        }
-                                    }
+                                &.name {
+                                    font-weight: 100;
+                                    font-size: 130%;
+                                    text-align: left;
                                 }
 
-                                >p { line-height: 18px; }
-                            }
-
-                            /***************/
-
-                            >#map {
-                                background: #fff;
-                                padding: 25px;
-
-                                &:after {
-                                    content: " ";
-                                    display: table;
-                                    clear: both;
-                                }
-
-                                >img {
-                                    width: 100%;
-                                    margin-bottom: 25px;
-                                }
-                                >a {
-                                    float: right;
-                                    padding: 7px 20px;
-                                    font-size: 100%;
-                                    border-radius: 5px;
-                                    border: 1px solid #aaa;
-                                    background: #ddd;
+                                >span {
                                     display: block;
-                                    outline: none;
-                                    cursor: pointer;
-                                    text-decoration: none;
-                                    color: #333;
-                                }
-                                >p {
-                                    background: url(../img/map-pin.png) no-repeat 0 0;
-                                    padding-left: 30px;
-                                    font-size: 110%;
-                                    margin: 0;
-                                    height: 35px;
-                                    line-height: 30px;
+                                    font-size: 70%;
+                                    color: #044a78;
+                                    padding-top: 2px;
                                 }
                             }
+                        }
+
+                        >p { line-height: 18px; }
+                    }
+
+                    /***************/
+
+                    >#map {
+                        background: #fff;
+                        padding: 25px;
+
+                        >img {
+                            width: 100%;
+                            margin-bottom: 25px;
+                        }
+                        >a {
+                            float: right;
+                            padding: 7px 20px;
+                            font-size: 100%;
+                            border-radius: 5px;
+                            border: 1px solid #aaa;
+                            background: #ddd;
+                            display: block;
+                            outline: none;
+                            cursor: pointer;
+                            text-decoration: none;
+                            color: #333;
+                        }
+                        >p {
+                            background: url(../img/map-pin.png) no-repeat 0 0;
+                            padding-left: 30px;
+                            font-size: 110%;
+                            margin: 0;
+                            height: 35px;
+                            line-height: 30px;
                         }
                     }
                 }
             }
-            
         }
     }
 }

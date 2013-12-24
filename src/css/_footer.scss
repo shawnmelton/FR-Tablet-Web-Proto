@@ -1,0 +1,45 @@
+footer {
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    width: 100%;
+    background: url(../img/trans-bg.png) repeat 0 0;
+
+    &.sticky { position: absolute; }
+
+    >nav {
+        border-collapse: collapse;
+        width: 100%;
+
+        >div {
+            >a {
+                color: #fff;
+                font-size: 100%;
+                height: 50px;
+                vertical-align: middle;
+                text-align: center;
+                padding: 0 10px;
+
+                &.touched { background: #333; }
+
+                &.active {
+                    background: #fff;
+                    color: #333;
+                }
+
+                &.availability,
+                &.share { color: #fff; }
+                &.availability {
+                    background: #e97d0e;
+
+                    &.touched { background: #c60; }
+                }
+                &.share {
+                    background: #044a78;
+
+                    &.touched { background: #036; }
+                }
+            }
+        }
+    }
+}

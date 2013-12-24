@@ -8,69 +8,56 @@
 
 /* <= 900px */
 @media screen and (max-width: 900px) {
-    html {
-        font-size: 15px;
-
-        body {
-            >#content.home {
-                >section {
-                    >div:first-child { display: none; }
-                    >div { width: 31%; }
-                }
-            }
+    html { font-size: 15px; }
+    #content.home {
+        >section {
+            >div:first-child { display: none; }
+            >div { width: 31%; }
         }
     }
 }
 
 /* <= 800px */
 @media screen and (max-width: 800px) {
-    html {
-        font-size: 14px;
+    html { font-size: 14px; }
 
-        body {
-            >#content.home {
-                >form {
-                    >fieldset {
-                        padding-right: 180px;
-                        >div {
-                            >button { width: 105px; }
-                        }
-                    }
-                }
-
-                >section {
-                    >div { font-size: 110%; }
+    #content.home {
+        >form {
+            >fieldset {
+                padding-right: 180px;
+                >div {
+                    >button { width: 105px; }
                 }
             }
+        }
+
+        >section {
+            >div { font-size: 110%; }
         }
     }
 }
 
 /* <= 700px */
 @media screen and (max-width: 700px) {
-    html {
-        font-size: 12px;
+    html { font-size: 12px; }
 
-        body {
-            >#content.home {
-                >form {
-                    width: 90%;
+    #content.home {
+        >form {
+            width: 90%;
 
-                    >fieldset {
-                        padding-right: 160px;
-                        >div {
-                            >button { width: 85px; }
-                        }
-                    }
+            >fieldset {
+                padding-right: 160px;
+                >div {
+                    >button { width: 85px; }
                 }
+            }
+        }
 
-                >section {
-                    >div:first-child+div { display: none; }
-                    >div {
-                        width: 48%;
-                        font-size: 120%;
-                    }
-                }
+        >section {
+            >div:first-child+div { display: none; }
+            >div {
+                width: 48%;
+                font-size: 120%;
             }
         }
     }
@@ -82,92 +69,76 @@
  * Restrictions based on height.
  */
 @media screen and (max-height: 700px) {
-    html {
-        >body {
-            >header {
+    header {
+        height: 40px;
+        >a {
+            &#logo {
                 height: 40px;
-                >a {
-                    &#logo {
-                        height: 40px;
-                        left: 40px;
-                    }
-
-                    &#menuBtn {
-                        height: 40px;
-                        width: 40px;
-                    }
-                }
-
-                >form { padding-top: 4px; }
+                left: 40px;
             }
 
-            >#advancedSearch { top: 40px; }
-
-            >#content.home {
-                >form { padding: 20px 30px 30px; }
-            }
-
-            >#content.search { padding-top: 55px; }
-
-            >footer {
+            &#menuBtn {
                 height: 40px;
-
-                >nav {
-                    >div {
-                      >a { height: 40px; }
-                    }
-                }
+                width: 40px;
             }
+        }
 
-            >div#menu { top: 40px; }
+        >form { padding-top: 4px; }
+    }
+
+    #advancedSearch { top: 40px; }
+
+    #content.home {
+        >form { padding: 20px 30px 30px; }
+    }
+
+    #content.search { padding-top: 55px; }
+
+    footer {
+        height: 40px;
+
+        >nav {
+            >div {
+              >a { height: 40px; }
+            }
         }
     }
+
+    #menu { top: 40px; }
 }
 
 @media screen and (max-height: 615px) {
-    html {
-        body {
-            >#content.home {
-                >form { margin-top: 25px; }
+    #content.home {
+        >form { margin-top: 25px; }
 
-                >section {
-                    height: 210px;
+        >section {
+            height: 210px;
 
-                    >div { height: 200px; }
-                }
-            }
+            >div { height: 200px; }
         }
     }
 }
 
 @media screen and (max-height: 570px) {
-    html {
-        body {
-            >#content.home {
-                >section {
-                    height: 185px;
+    #content.home {
+        >section {
+            height: 185px;
 
-                    >div { height: 175px; }
-                }
-            }
+            >div { height: 175px; }
         }
     }
 }
 
 @media screen and (max-height: 515px) {
-    html {
-        body {
-            >#content.home {
-                >section {
-                    height: 150px;
-                    margin-top: 25px;
+    #content.home {
+        >section {
+            height: 150px;
+            margin-top: 25px;
 
-                    >div {
-                        height: 140px;
+            >div {
+                height: 140px;
 
-                        >p { padding: 5px 15px; }
-                    }
-                }
+                >p { padding: 5px 15px; }
             }
         }
     }
