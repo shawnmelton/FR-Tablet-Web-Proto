@@ -10,17 +10,12 @@ header {
     &.sticky { position: absolute; }
 
     >a {
-        display: block;
-        position: absolute;
-
         &#logo {
             width: 210px;
             height: 49px;
             top: 0;
             left: 50px;
             background: url(../img/logo.png) no-repeat center center;
-
-            &.touched { background-color: #fff; }
         }
 
         &#menuBtn {
@@ -30,49 +25,34 @@ header {
             height: 50px;
             width: 50px;
             border-right: 1px solid #eaeaea;
-            transition: all 0.5s;
-
-            &.touched { background-color: #fff; }
         }
+
+        &.touched { background-color: #fff; }
     }
 
     >form {
-        display: block;
-        position: relative;
         padding-top: 8px;
-        transition: all 1s;
 
         >fieldset {
-            position: relative;
             padding-right: 155px;
 
             >input, a, button {
-                display: block;
                 color: #333;
-                border: 0;
                 height: 32px;
                 padding: 0;
-                box-sizing: border-box;
-                font-size: 100%;
             }
 
             >input {
                 padding: 0 10px;
-                font-family: "helvetica", arial;
-                width: 100%;
                 background: #fff;
                 border: 1px solid #789;
-                font-weight: 100;
             }
 
             >div {
-                position: absolute;
                 bottom: 0;
                 right: 0;
 
                 >a, >button {
-                    float: left;
-
                     &.touched { background-color: #bbb; }
                 }
 
@@ -87,8 +67,6 @@ header {
                 >button {
                     line-height: 30px;
                     width: 100px;
-                    text-align: center;
-                    transition: all 1s;
                     color: #044a78;
                     background: transparent;
                 }

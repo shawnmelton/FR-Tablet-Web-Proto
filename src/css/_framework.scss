@@ -5,7 +5,10 @@
 
 /* Display Types */
 .block { display: block; }
-.table { display: table; }
+.table {
+    display: table;
+    border-collapse: collapse;
+}
     .tableRow { display: table-row; }
         .tableCell { display: table-cell; }
 
@@ -21,7 +24,7 @@
 }
 
 /* Borders */
-.noBorder { border: 0; }
+.noBorder { border: 0 !important; }
 .borderBox { box-sizing: border-box; }
 
 /* Sizes */
@@ -29,7 +32,11 @@
 
 /* Alignment */
 .alignCenter { text-align: center; }
+.alignLeft { text-align: left; }
 .left { float: left; }
+.right { float: right; }
+.vAlignMiddle { vertical-align: middle; }
+.vAlignTop { vertical-align: top; }
 
 /* Background Colors and Images */
 .bgWhite { background-color: #fff; }
@@ -37,6 +44,7 @@
 
 /* Text */
 .whiteText { color: #fff; }
+.blackText { color: #000; }
 
 /* Property Specific */
 .reviewStars {
@@ -51,4 +59,5 @@
 a, button {
     cursor: pointer;
     outline: none;
+    text-decoration: none;
 }

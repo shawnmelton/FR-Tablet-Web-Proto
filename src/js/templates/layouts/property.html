@@ -1,37 +1,37 @@
-<div id="gallery"></div>
-<a id="swipeHorizArrow"></a>
-<a id="swipeVertArrow"></a>
-<section id="teaser">
+<div id="gallery" class="absolute noOverflow"></div>
+<a id="swipeHorizArrow" class="block absolute"></a>
+<a id="swipeVertArrow" class="block absolute"></a>
+<section id="teaser" class="relative borderBox noOverflow">
     <div class="info transWhite80">
         <h2><%= property.name %></h2>
-        <p class="clickable" section="map">
+        <p class="clickable pointer" section="map">
             <%= property.address %><br>
             <a href="http://maps.google.com?q=<%= property.address %>" target="_blank">View Map &amp; Directions</a>
         </p>
-        <p class="clickable" section="floorplans">
+        <p class="clickable pointer" section="floorplans">
             <%= property.type %> for <%= property.price %><br>
             <a>View Floor Plans &amp; Prices</a>
         </p>
-        <p class="clickable" section="reviews">
-            <span id="webReview" class="reviewStars">4 Reviews</span>
+        <p class="clickable pointer" section="reviews">
+            <span id="webReview" class="block reviewStars">4 Reviews</span>
             <a>View Reviews from the Web</a>
         </p>
-        <p class="clickable noBorder" section="details">
+        <p class="clickable pointer noBorder" section="details">
             Details<br>
             <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet arcu pretium, placerat mauris sed, hendrerit eros. Curabitur sed fermentum justo. Pellentesque lobortis, orci ut porttitor luctus, nisi urna pharetra magna.</small>
         </p>
     </div>
-    <div class="buttons">
-        <div>
-            <div><button id="buttonCA">Check Availability</button></div>
-            <div id="buttonSpacer"></div>
-            <div><button class="transWhite80">1-800-555-0123</button></div>
+    <div class="buttons table width100">
+        <div class="tableRow">
+            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>
+            <div id="buttonSpacer" class="tableCell"></div>
+            <div class="tableCell"><button class="block noBorder blackText width100 alignCenter transWhite80">1-800-555-0123</button></div>
         </div>
     </div>
 </section>
-<section id="more">
-    <div>
-        <div id="moreContent"><%= moreContent %></div>
-        <div class="form"><%= guestCardForm %></div>
+<section id="more" class="relative borderBox noOverflow table width100">
+    <div class="tableRow">
+        <div id="moreContent" class="tableCell vAlignTop"><%= moreContent %></div>
+        <div class="form tableCell vAlignTop"><%= guestCardForm %></div>
     </div>
 </section>

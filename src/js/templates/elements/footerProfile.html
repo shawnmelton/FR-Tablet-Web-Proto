@@ -1,7 +1,7 @@
-<nav class="table">
+<nav class="table width100">
     <div class="tableRow">
     <% _.each(links, function(link) { %>
-        <a rel="<%= link.rel %>" class="tableCell <% if(typeof(link.cls) !== 'undefined') { %><%= link.cls %><% } %>" style="width: <%= size %>%;"><%= link.text %></a>
+        <a rel="<%= link.rel %>" class="tableCell whiteText vAlignMiddle alignCenter <% if(typeof(link.cls) !== 'undefined') { %><%= link.cls %><% } %>" style="width: <%= size %>%;"><%= link.text %></a>
     <% }); %>
     </div>
 </nav>

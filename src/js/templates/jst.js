@@ -36,11 +36,11 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<nav class="table">\n    <div class="tableRow">\n    ';
+__p += '<nav class="table width100">\n    <div class="tableRow">\n    ';
  _.each(links, function(link) { ;
 __p += '\n        <a rel="' +
 ((__t = ( link.rel )) == null ? '' : __t) +
-'" class="tableCell ';
+'" class="tableCell whiteText vAlignMiddle alignCenter ';
  if(typeof(link.cls) !== 'undefined') { ;
 __p +=
 ((__t = ( link.cls )) == null ? '' : __t);
@@ -61,7 +61,7 @@ this["JST"]["src/js/templates/elements/guestCardForm.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form id="guestCard" method="post" action="">\n    <h3>Check Availability</h3>\n    <p>Email this property for more information</p>\n    <fieldset>\n        <input type="text" placeholder="Full Name" name="fullName">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Email Address" name="emailAddress">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Phone Number" name="phoneNumber">\n    </fieldset>\n    <fieldset>\n        <textarea placeholder="I am interested in more information about this property." name="comments"></textarea>\n    </fieldset>\n    <fieldset>\n        <button type="submit">Check Availability</button>\n    </fieldset>\n</form>';
+__p += '<form id="guestCard" method="post" action="" class="bgWhite">\n    <h3>Check Availability</h3>\n    <p>Email this property for more information</p>\n    <fieldset>\n        <input type="text" placeholder="Full Name" name="fullName" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Email Address" name="emailAddress" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Phone Number" name="phoneNumber" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <textarea placeholder="I am interested in more information about this property." name="comments" class="width100 borderBox"></textarea>\n    </fieldset>\n    <fieldset>\n        <button type="submit" class="width100 borderBox whiteText alignCenter">Check Availability</button>\n    </fieldset>\n</form>';
 
 }
 return __p
@@ -81,9 +81,9 @@ this["JST"]["src/js/templates/elements/propertyDetails.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="details">\n    <table>\n        <tr>\n            <td class="name">' +
+__p += '<div id="details" class="bgWhite">\n    <table class="width100">\n        <tr>\n            <td class="name alignLeft vAlignMiddle">' +
 ((__t = ( property.name )) == null ? '' : __t) +
-'</td>\n            <td>1<span>Beds</span></td>\n            <td>2<span>Baths</span></td>\n            <td>$1,500<span>Monthly</span></td>\n        </tr>\n    </table>\n    <p>Curabitur eleifend nisi lobortis, adipiscing mauris in, venenatis ipsum. Sed suscipit nisi ut tincidunt facilisis. Praesent ligula mi, cursus eu gravida nec, consequat id sapien. Vestibulum adipiscing quis mi quis mollis. In condimentum consequat felis, sit amet gravida massa elementum quis. Ut suscipit aliquet dolor, vitae laoreet nibh mollis non. Aenean diam justo, pretium et odio a, fermentum tempus metus.</p>\n</div>';
+'</td>\n            <td class="alignCenter vAlignMiddle">1<span class="block">Beds</span></td>\n            <td class="alignCenter vAlignMiddle">2<span class="block">Baths</span></td>\n            <td class="alignCenter vAlignMiddle">$1,500<span class="block">Monthly</span></td>\n        </tr>\n    </table>\n    <p>Curabitur eleifend nisi lobortis, adipiscing mauris in, venenatis ipsum. Sed suscipit nisi ut tincidunt facilisis. Praesent ligula mi, cursus eu gravida nec, consequat id sapien. Vestibulum adipiscing quis mi quis mollis. In condimentum consequat felis, sit amet gravida massa elementum quis. Ut suscipit aliquet dolor, vitae laoreet nibh mollis non. Aenean diam justo, pretium et odio a, fermentum tempus metus.</p>\n</div>';
 
 }
 return __p
@@ -93,7 +93,7 @@ this["JST"]["src/js/templates/elements/propertyFloorPlans.html"] = function(obj)
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="floorplans">\n    <table>\n        <tr>\n            <td class="left">\n                Floor Plan Name\n                <span>more details here</span>\n            </td>\n            <td>1<span>Beds</span></td>\n            <td>2<span>Baths</span></td>\n            <td>$1,500<span>Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="left">\n                Floor Plan Name\n                <span>more details here</span>\n            </td>\n            <td>1<span>Beds</span></td>\n            <td>2<span>Baths</span></td>\n            <td>$1,500<span>Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="left">\n                Floor Plan Name\n                <span>more details here</span>\n            </td>\n            <td>1<span>Beds</span></td>\n            <td>2<span>Baths</span></td>\n            <td>$1,500<span>Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="left">\n                Floor Plan Name\n                <span>more details here</span>\n            </td>\n            <td>1<span>Beds</span></td>\n            <td>2<span>Baths</span></td>\n            <td>$1,500<span>Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="left">\n                Floor Plan Name\n                <span>more details here</span>\n            </td>\n            <td>1<span>Beds</span></td>\n            <td>2<span>Baths</span></td>\n            <td>$1,500<span>Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="left">\n                Floor Plan Name\n                <span>more details here</span>\n            </td>\n            <td>1<span>Beds</span></td>\n            <td>2<span>Baths</span></td>\n            <td>$1,500<span>Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="left">\n                Floor Plan Name\n                <span>more details here</span>\n            </td>\n            <td>1<span>Beds</span></td>\n            <td>2<span>Baths</span></td>\n            <td>$1,500<span>Monthly</span></td>\n        </tr>\n        <tr class="noBorder">\n            <td class="left">\n                Floor Plan Name\n                <span>more details here</span>\n            </td>\n            <td>1<span>Beds</span></td>\n            <td>2<span>Baths</span></td>\n            <td>$1,500<span>Monthly</span></td>\n        </tr>\n    </table>\n</div>';
+__p += '<div id="floorplans" class="bgWhite">\n    <table class="width100">\n        <tr>\n            <td class="alignLeft">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter">1<span class="block">Beds</span></td>\n            <td class="alignCenter">2<span class="block">Baths</span></td>\n            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="alignLeft">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter">1<span class="block">Beds</span></td>\n            <td class="alignCenter">2<span class="block">Baths</span></td>\n            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="alignLeft">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter">1<span class="block">Beds</span></td>\n            <td class="alignCenter">2<span class="block">Baths</span></td>\n            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="alignLeft">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter">1<span class="block">Beds</span></td>\n            <td class="alignCenter">2<span class="block">Baths</span></td>\n            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="alignLeft">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter">1<span class="block">Beds</span></td>\n            <td class="alignCenter">2<span class="block">Baths</span></td>\n            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="alignLeft">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter">1<span class="block">Beds</span></td>\n            <td class="alignCenter">2<span class="block">Baths</span></td>\n            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="alignLeft">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter">1<span class="block">Beds</span></td>\n            <td class="alignCenter">2<span class="block">Baths</span></td>\n            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="alignLeft noBorder">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter noBorder">1<span class="block">Beds</span></td>\n            <td class="alignCenter noBorder">2<span class="block">Baths</span></td>\n            <td class="alignCenter noBorder">$1,500<span class="block">Monthly</span></td>\n        </tr>\n    </table>\n</div>';
 
 }
 return __p
@@ -103,9 +103,9 @@ this["JST"]["src/js/templates/elements/propertyMap.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="map" class="clearFix">\n    <img src="/img/google-map.png">\n    <a href="https://maps.google.com?q=' +
+__p += '<div id="map" class="clearFix bgWhite">\n    <img src="/img/google-map.png" class="width100">\n    <a href="https://maps.google.com?q=' +
 ((__t = ( propertyAddress )) == null ? '' : __t) +
-'" target="_blank">Get Directions</a>\n    <p>' +
+'" target="_blank" class="block right">Get Directions</a>\n    <p>' +
 ((__t = ( propertyAddress )) == null ? '' : __t) +
 '</p>\n</div>';
 
@@ -117,7 +117,7 @@ this["JST"]["src/js/templates/elements/propertyReviews.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="reviews">\n    <p class="noBorder reviewStars">\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span>From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span>From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span>From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong>Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span>From Google Places</span>\n    </p>\n</div>';
+__p += '<div id="reviews" class="bgWhite">\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>';
 
 }
 return __p
@@ -127,7 +127,7 @@ this["JST"]["src/js/templates/elements/searchBar.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form action="/search" method="post" name="search" id="searchBar" class="block ' +
+__p += '<form action="/search" method="post" name="search" id="searchBar" class="relative block ' +
 ((__t = ( formClass )) == null ? '' : __t) +
 ' clearFix borderBox">\n    ' +
 ((__t = ( heading )) == null ? '' : __t) +
@@ -144,25 +144,25 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div class="table">\n    <div>\n        <div class="select">\n            <div property="' +
+__p += '<div class="table width100">\n    <div class="tableRow">\n        <div class="select tableCell vAlignTop">\n            <div class="relative noOverflow pointer" property="' +
 ((__t = ( selects[0].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( selects[0].id )) == null ? '' : __t) +
-'-1024.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
+'-1024.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
 ((__t = ( selects[0].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( selects[0].location )) == null ? '' : __t) +
 '<br>\n                    ' +
 ((__t = ( selects[0].type )) == null ? '' : __t) +
-'\n                </p>\n                <p class="price">' +
+'\n                </p>\n                <p class="price absolute whiteText">' +
 ((__t = ( selects[0].price )) == null ? '' : __t) +
-'</p>\n            </div>\n        </div>\n        <div class="stacked">\n        ';
+'</p>\n            </div>\n        </div>\n        <div class="stacked tableCell vAlignTop">\n        ';
  for(var i = 0; i < 2; i++) { ;
-__p += '\n            <div property="' +
+__p += '\n            <div class="relative noOverflow pointer" property="' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
+'-612.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
 ((__t = ( properties[i].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( properties[i].location )) == null ? '' : __t) +
@@ -170,13 +170,13 @@ __p += '\n            <div property="' +
 ((__t = ( properties[i].type )) == null ? '' : __t) +
 '\n                </p>\n            </div>\n        ';
  } ;
-__p += '\n        </div>\n    </div>\n</div>\n<div class="table">\n    <div>\n        ';
+__p += '\n        </div>\n    </div>\n</div>\n<div class="table width100">\n    <div class="tableRow">\n        ';
  for(var i = 2; i < 5; i++) { ;
-__p += '\n        <div>\n            <div property="' +
+__p += '\n        <div class="tableCell vAlignTop">\n            <div class="relative noOverflow pointer" property="' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
+'-612.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
 ((__t = ( properties[i].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( properties[i].location )) == null ? '' : __t) +
@@ -184,13 +184,13 @@ __p += '\n        <div>\n            <div property="' +
 ((__t = ( properties[i].type )) == null ? '' : __t) +
 '\n                </p>\n            </div>\n        </div>\n        ';
  } ;
-__p += '\n    </div>\n</div>\n<div class="table">\n    <div>\n        ';
+__p += '\n    </div>\n</div>\n<div class="table width100">\n    <div class="tableRow">\n        ';
  for(var i = 5; i < 8; i++) { ;
-__p += '\n        <div>\n            <div property="' +
+__p += '\n        <div class="tableCell vAlignTop">\n            <div class="relative noOverflow pointer" property="' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
+'-612.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
 ((__t = ( properties[i].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( properties[i].location )) == null ? '' : __t) +
@@ -198,13 +198,13 @@ __p += '\n        <div>\n            <div property="' +
 ((__t = ( properties[i].type )) == null ? '' : __t) +
 '\n                </p>\n            </div>\n        </div>\n        ';
  } ;
-__p += '\n    </div>\n</div>\n<div class="table">\n    <div>\n        <div class="stacked">\n        ';
+__p += '\n    </div>\n</div>\n<div class="table width100">\n    <div class="tableRow">\n        <div class="stacked tableCell vAlignTop">\n        ';
  for(var i = 8; i < 10; i++) { ;
-__p += '\n            <div property="' +
+__p += '\n            <div class="relative noOverflow pointer" property="' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
+'-612.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
 ((__t = ( properties[i].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( properties[i].location )) == null ? '' : __t) +
@@ -212,25 +212,25 @@ __p += '\n            <div property="' +
 ((__t = ( properties[i].type )) == null ? '' : __t) +
 '\n                </p>\n            </div>\n        ';
  } ;
-__p += '\n        </div>\n        <div class="select">\n            <div property="' +
+__p += '\n        </div>\n        <div class="select tableCell vAlignTop">\n            <div class="relative noOverflow pointer" property="' +
 ((__t = ( selects[1].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( selects[1].id )) == null ? '' : __t) +
-'-1024.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
+'-1024.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
 ((__t = ( selects[1].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( selects[1].location )) == null ? '' : __t) +
 '<br>\n                    ' +
 ((__t = ( selects[1].type )) == null ? '' : __t) +
-'\n                </p>\n                <p class="price">' +
+'\n                </p>\n                <p class="price absolute whiteText">' +
 ((__t = ( selects[1].price )) == null ? '' : __t) +
-'</p>\n            </div>\n        </div>\n    </div>\n</div>\n<div class="table">\n    <div>\n        ';
+'</p>\n            </div>\n        </div>\n    </div>\n</div>\n<div class="table width100">\n    <div class="tableRow">\n        ';
  for(var i = 10; i < 13; i++) { ;
-__p += '\n        <div>\n            <div property="' +
+__p += '\n        <div class="tableCell vAlignTop">\n            <div class="relative noOverflow pointer" property="' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
+'-612.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
 ((__t = ( properties[i].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( properties[i].location )) == null ? '' : __t) +
@@ -238,13 +238,13 @@ __p += '\n        <div>\n            <div property="' +
 ((__t = ( properties[i].type )) == null ? '' : __t) +
 '\n                </p>\n            </div>\n        </div>\n        ';
  } ;
-__p += '\n    </div>\n</div>\n<div class="table">\n    <div>\n        ';
+__p += '\n    </div>\n</div>\n<div class="table width100">\n    <div class="tableRow">\n        ';
  for(var i = 13; i < 16; i++) { ;
-__p += '\n        <div>\n            <div property="' +
+__p += '\n        <div class="tableCell vAlignTop">\n            <div class="relative noOverflow pointer" property="' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
 ((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg">\n                <p class="desc fadingGradient">\n                    <strong>' +
+'-612.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
 ((__t = ( properties[i].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( properties[i].location )) == null ? '' : __t) +
@@ -289,19 +289,19 @@ this["JST"]["src/js/templates/layouts/property.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="gallery"></div>\n<a id="swipeHorizArrow"></a>\n<a id="swipeVertArrow"></a>\n<section id="teaser">\n    <div class="info transWhite80">\n        <h2>' +
+__p += '<div id="gallery" class="absolute noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute"></a>\n<a id="swipeVertArrow" class="block absolute"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info transWhite80">\n        <h2>' +
 ((__t = ( property.name )) == null ? '' : __t) +
-'</h2>\n        <p class="clickable" section="map">\n            ' +
+'</h2>\n        <p class="clickable pointer" section="map">\n            ' +
 ((__t = ( property.address )) == null ? '' : __t) +
 '<br>\n            <a href="http://maps.google.com?q=' +
 ((__t = ( property.address )) == null ? '' : __t) +
-'" target="_blank">View Map &amp; Directions</a>\n        </p>\n        <p class="clickable" section="floorplans">\n            ' +
+'" target="_blank">View Map &amp; Directions</a>\n        </p>\n        <p class="clickable pointer" section="floorplans">\n            ' +
 ((__t = ( property.type )) == null ? '' : __t) +
 ' for ' +
 ((__t = ( property.price )) == null ? '' : __t) +
-'<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p class="clickable" section="reviews">\n            <span id="webReview" class="reviewStars">4 Reviews</span>\n            <a>View Reviews from the Web</a>\n        </p>\n        <p class="clickable noBorder" section="details">\n            Details<br>\n            <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet arcu pretium, placerat mauris sed, hendrerit eros. Curabitur sed fermentum justo. Pellentesque lobortis, orci ut porttitor luctus, nisi urna pharetra magna.</small>\n        </p>\n    </div>\n    <div class="buttons">\n        <div>\n            <div><button id="buttonCA">Check Availability</button></div>\n            <div id="buttonSpacer"></div>\n            <div><button class="transWhite80">1-800-555-0123</button></div>\n        </div>\n    </div>\n</section>\n<section id="more">\n    <div>\n        <div id="moreContent">' +
+'<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p class="clickable pointer" section="reviews">\n            <span id="webReview" class="block reviewStars">4 Reviews</span>\n            <a>View Reviews from the Web</a>\n        </p>\n        <p class="clickable pointer noBorder" section="details">\n            Details<br>\n            <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet arcu pretium, placerat mauris sed, hendrerit eros. Curabitur sed fermentum justo. Pellentesque lobortis, orci ut porttitor luctus, nisi urna pharetra magna.</small>\n        </p>\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n            <div id="buttonSpacer" class="tableCell"></div>\n            <div class="tableCell"><button class="block noBorder blackText width100 alignCenter transWhite80">1-800-555-0123</button></div>\n        </div>\n    </div>\n</section>\n<section id="more" class="relative borderBox noOverflow table width100">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
 ((__t = ( moreContent )) == null ? '' : __t) +
-'</div>\n        <div class="form">' +
+'</div>\n        <div class="form tableCell vAlignTop">' +
 ((__t = ( guestCardForm )) == null ? '' : __t) +
 '</div>\n    </div>\n</section>';
 
