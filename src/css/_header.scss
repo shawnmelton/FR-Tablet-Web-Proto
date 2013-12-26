@@ -6,6 +6,7 @@ header {
     height: 49px;
     padding: 0 0 0 270px;
     border-bottom: 1px solid #044a78;
+    -webkit-transform: translate3d(0, 0, 0);
 
     &.sticky { position: absolute; }
 

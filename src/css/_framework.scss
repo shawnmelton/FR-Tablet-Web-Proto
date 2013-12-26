@@ -54,3 +54,6 @@
 .fadingGradient { background: url(../img/property-gradient.png) repeat-x 0 0; }
 
 .pointer { cursor: pointer; }
+
+/* Hacks */
+.safariHack { -webkit-transform: translate3d(0, 0, 0); } /* Force Safari to show elements that disappear */

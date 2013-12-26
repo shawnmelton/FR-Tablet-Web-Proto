@@ -208,7 +208,6 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
             }
 
             var _this = this;
-            this.swipeHorizArrowEl.unbind(touchEventType);
             this.swipeHorizArrowEl.bind(touchEventType, function() {
                 if(_this.swipeDirLeft) {
                     _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, 2000);
@@ -258,7 +257,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
                             case 'right':
                                 if(!_this.lockRightMove) {
                                     _this.currentImageEl.next().css('-webkit-transform', 
-                                        'translateX(-'+ (_this.bgImgWidth - distance) +'px, '+ _this.startingTop +'px)');
+                                        'translate(-'+ (_this.bgImgWidth - distance) +'px, '+ _this.startingTop +'px)');
                                 }
                                 break;
                         }

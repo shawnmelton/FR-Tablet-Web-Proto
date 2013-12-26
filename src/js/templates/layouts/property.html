@@ -1,6 +1,6 @@
-<div id="gallery" class="absolute noOverflow"></div>
-<a id="swipeHorizArrow" class="block absolute"></a>
-<a id="swipeVertArrow" class="block absolute"></a>
+<div id="gallery" class="fixed noOverflow"></div>
+<a id="swipeHorizArrow" class="block absolute safariHack"></a>
+<a id="swipeVertArrow" class="block absolute safariHack"></a>
 <section id="teaser" class="relative borderBox noOverflow">
     <div class="info transWhite80">
         <h2><%= property.name %></h2>
@@ -29,7 +29,7 @@
         </div>
     </div>
 </section>
-<section id="more" class="relative borderBox noOverflow table width100">
+<section id="more" class="relative borderBox noOverflow table width100 safariHack">
     <div class="tableRow">
         <div id="moreContent" class="tableCell vAlignTop"><%= moreContent %></div>
         <div class="form tableCell vAlignTop"><%= guestCardForm %></div>
