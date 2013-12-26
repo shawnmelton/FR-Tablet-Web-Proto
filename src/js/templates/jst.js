@@ -133,7 +133,7 @@ __p += '<form action="/search" method="post" name="search" id="searchBar" class=
 ((__t = ( heading )) == null ? '' : __t) +
 '\n    <fieldset class="relative clearFix">\n        <input type="text" name="keywords" placeholder="City, State or Zip Code" value="' +
 ((__t = ( keywords )) == null ? '' : __t) +
-'" class="block width100 borderBox">\n        <div class="absolute">\n            <a id="advSearchBtn" class="block borderBox noBorder left"></a>\n            <button type="submit" class="block borderBox alignCenter noBorder left">Search</button>\n        </div>\n    </fieldset>\n</form>';
+'" class="block width100 borderBox">\n        <div class="absolute">\n            <a id="advSearchBtn" class="block borderBox left"></a>\n            <button type="submit" class="block borderBox alignCenter left">Search</button>\n        </div>\n    </fieldset>\n</form>';
 
 }
 return __p

@@ -28,11 +28,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
         addFirstImage: function(url) {
             this.currentImageEl = $('<img src="/img/listings/'+ this.propertyId +'-'+ this.bgImgWidth +'.jpg" '+
                 'width="'+ this.bgImgWidth +'">');
-            this.currentImageEl
-                .addClass('first');
-                /*.on('dragstart', function(ev) {
-                    ev.preventDefault();
-                });*/
+            this.currentImageEl.addClass('first');
 
             this.galleryEl.prepend(this.currentImageEl);
             this.loadNextImage();
@@ -112,40 +108,31 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
          */
         moveCurrentImage: function(movePos, revertPos, distance) {
             var moveDirection = (revertPos === this.startingLeft) ? 'left' : 'right';
-            var newImgLeft;
-            var targetImg;
 
-            if(distance < parseInt(this.contentWidth * 0.12)) { // Revert changes.                
-                newImgLeft = revertPos;
-            } else {
-                newImgLeft = movePos;
-                //this.galleryEl.swipe('disable');
+            // Locked.  Don't move.
+            if((this.lockLeftMove && moveDirection === 'left') || (this.lockRightMove && moveDirection === 'right')) {
+                return;
             }
 
-            if(moveDirection === 'left') {
-                targetImg = this.currentImageEl;
-            } else {
-                targetImg = this.currentImageEl.next();
-            }
+            var targetImg = (moveDirection === 'left') ? this.currentImageEl : this.currentImageEl.next();
+
+            // Revert changes if the user does not drag far enought.          
+            var newImgLeft = (distance < parseInt(this.contentWidth * 0.12)) ? revertPos : movePos;
 
             targetImg
                 .addClass('moving')
                 .css('-webkit-transform', 'translate('+ newImgLeft +'px, '+ this.startingTop +'px)');
 
-            var _this = this;
-            setTimeout(function() {
-                targetImg
-                    .removeClass('moving');
-
-                if(newImgLeft === movePos) {
-                    if(moveDirection === 'left') {
-                        _this.nextImage();
-                    } else {
-                        _this.prevImage();
-                    }
-
-                    //_this.galleryEl.swipe('enable');
+            if(newImgLeft === movePos) {
+                if(moveDirection === 'left') {
+                    this.nextImage();
+                } else {
+                    this.prevImage();
                 }
+            }
+
+            setTimeout(function() {
+                targetImg.removeClass('moving');
             }, 405);
         },
 
@@ -153,13 +140,15 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
          * Move gallery to next image.
          */
         nextImage: function() {
-            this.lockRightMove = false;
+            if(this.lockRightMove) {
+                this.lockRightMove = false;
+            }
+
             this.currentImageEl = this.currentImageEl.prev();
             this.loadNextImage();
 
             if(this.currentImageEl.hasClass('last')) {
-                //this.lockLeftMove = true;
-
+                this.lockLeftMove = true;
                 if(this.swipeDirLeft) {
                     this.reverseSwipeArrow();
                 }
@@ -170,11 +159,13 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
          * Move gallery to prev image.
          */
         prevImage: function() {
-            this.lockLeftMove = false;
+            if(this.lockLeftMove) {
+                this.lockLeftMove = false;
+            }
+
             this.currentImageEl = this.currentImageEl.next();
             if(this.currentImageEl.hasClass('first')) {
-                //this.lockRightMove = true;
-
+                this.lockRightMove = true;
                 if(!this.swipeDirLeft) {
                     this.reverseSwipeArrow();
                 }
@@ -216,25 +207,14 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
                 this.swipeHorizArrowEl = $(document.getElementById('swipeHorizArrow'));
             }
 
-            var horizArrowLock = false;
             var _this = this;
             this.swipeHorizArrowEl.unbind(touchEventType);
             this.swipeHorizArrowEl.bind(touchEventType, function() {
-                if(horizArrowLock) {
-                    return;
-                }
-
-                //horizArrowLock = true;
                 if(_this.swipeDirLeft) {
-                    _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, 1000);
+                    _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, 2000);
                 } else {
-                    _this.moveCurrentImage(_this.startingLeft, (-1 * _this.bgImgWidth), 1000);
+                    _this.moveCurrentImage(_this.startingLeft, (-1 * _this.bgImgWidth), 2000);
                 }
-
-                // Release lock after transition has completed.
-                setTimeout(function() {
-                    horizArrowLock = false;
-                }, 405);
             });
         },
 
@@ -251,21 +231,16 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
          */
         setSwipeEvent: function() {
             var _this = this;
-
             this.galleryEl.swipe({
                 swipeLeft: function(event, direction, distance, duration, fingerCount) {
-                    if(_this.lockLeftMove) {
-                        return;
+                    if(!_this.lockLeftMove) {
+                        _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, distance);
                     }
-
-                    _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, distance);
                 },
                 swipeRight: function(event, direction, distance, duration, fingerCount) {
-                    if(_this.lockRightMove) {
-                        return;
+                    if(!_this.lockRightMove) {
+                        _this.moveCurrentImage(_this.startingLeft, (-1 * _this.bgImgWidth), distance);
                     }
-
-                    _this.moveCurrentImage(_this.startingLeft, (-1 * _this.bgImgWidth), distance);
                 },
                 swipeUp: function(event, direction, distance, duration, fingerCount) {
                     headerViewEl.hideMenu();
@@ -276,15 +251,14 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
                             case 'left':
                                 if(!_this.lockLeftMove) {
                                     _this.currentImageEl.css('-webkit-transform',
-                                        'translate(-'+ distance +'px, '+ _this.startingTop +'px)');
+                                        'translate('+ (_this.startingLeft - distance) +'px, '+ _this.startingTop +'px)');
                                 }
                                 break;
 
                             case 'right':
                                 if(!_this.lockRightMove) {
-                                    _this.currentImageEl.next().css('-webkit-transform',
-                                        'translate(-'+ (_this.bgImgWidth - distance) +'px, '+
-                                        _this.startingTop +'px)');
+                                    _this.currentImageEl.next().css('-webkit-transform', 
+                                        'translateX(-'+ (_this.bgImgWidth - distance) +'px, '+ _this.startingTop +'px)');
                                 }
                                 break;
                         }
