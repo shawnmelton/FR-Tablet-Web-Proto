@@ -16,6 +16,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
         ],
         propertyId: null,
         startingLeft: 0,
+        startingTop: 0,
         lockLeftMove: false,
         lockRightMove: true,
         swipeHorizArrowEl: null,
@@ -28,14 +29,22 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
             this.currentImageEl = $('<img src="/img/listings/'+ this.propertyId +'-'+ this.bgImgWidth +'.jpg" '+
                 'width="'+ this.bgImgWidth +'">');
             this.currentImageEl
-                .addClass('first')
-                .on('dragstart', function(ev) {
+                .addClass('first');
+                /*.on('dragstart', function(ev) {
                     ev.preventDefault();
-                });
+                });*/
 
             this.galleryEl.prepend(this.currentImageEl);
             this.loadNextImage();
             this.loadNextImage();
+        },
+
+        /**
+         * Center an image according to the size of the page.
+         * @param img <Image Object(s)>
+         */
+        centerImage: function(img) {
+            img.css('-webkit-transform', 'translate('+ this.startingLeft +'px, '+ this.startingTop +'px)');
         },
 
         /**
@@ -68,15 +77,16 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
             this.setHorizArrowEvent();
         },
 
+        /**
+         * Add an image to the gallery.  It will be placed directly behind (before) the provided image object.
+         * @param url <String> The url to the image.
+         * @param nextEl <Image Object>
+         * @return img <Image Object> Image that was just created and added to the DOM.
+         */
         loadImage: function(url, nextEl) {
             var img = $('<img src="'+ url +'" width="'+ this.bgImgWidth +'">');
             nextEl.before(img);
-            img
-                .css('top', parseInt((this.contentHeight - parseInt(this.bgImgHeight)) / 2) +'px')
-                .css('left', this.startingLeft +'px')
-                .on('dragstart', function(ev) {
-                    ev.preventDefault();
-                });
+            this.centerImage(img);
             return img;
         },
 
@@ -85,7 +95,8 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
          */
         loadNextImage: function() {
             if(this.images.length > 0) {
-                var img = this.loadImage(this.images.pop().replace('[SIZE]', this.bgImgWidth), this.galleryEl.children('img').first());
+                var img = this.loadImage(this.images.pop().replace('[SIZE]', this.bgImgWidth),
+                    this.galleryEl.children('img').first());
 
                 if(this.images.length === 0) {
                     img.addClass('last');
@@ -108,7 +119,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
                 newImgLeft = revertPos;
             } else {
                 newImgLeft = movePos;
-                this.galleryEl.swipe('disable');
+                //this.galleryEl.swipe('disable');
             }
 
             if(moveDirection === 'left') {
@@ -117,12 +128,15 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
                 targetImg = this.currentImageEl.next();
             }
 
-            targetImg.addClass('moving');
-            targetImg.css('left', newImgLeft +'px');
+            targetImg
+                .addClass('moving')
+                .css('-webkit-transform', 'translate('+ newImgLeft +'px, '+ this.startingTop +'px)');
 
             var _this = this;
             setTimeout(function() {
-                targetImg.removeClass('moving');
+                targetImg
+                    .removeClass('moving');
+
                 if(newImgLeft === movePos) {
                     if(moveDirection === 'left') {
                         _this.nextImage();
@@ -130,9 +144,9 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
                         _this.prevImage();
                     }
 
-                    _this.galleryEl.swipe('enable');
+                    //_this.galleryEl.swipe('enable');
                 }
-            }, 515);
+            }, 405);
         },
 
         /**
@@ -144,7 +158,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
             this.loadNextImage();
 
             if(this.currentImageEl.hasClass('last')) {
-                this.lockLeftMove = true;
+                //this.lockLeftMove = true;
 
                 if(this.swipeDirLeft) {
                     this.reverseSwipeArrow();
@@ -159,7 +173,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
             this.lockLeftMove = false;
             this.currentImageEl = this.currentImageEl.next();
             if(this.currentImageEl.hasClass('first')) {
-                this.lockRightMove = true;
+                //this.lockRightMove = true;
 
                 if(!this.swipeDirLeft) {
                     this.reverseSwipeArrow();
@@ -210,7 +224,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
                     return;
                 }
 
-                horizArrowLock = true;
+                //horizArrowLock = true;
                 if(_this.swipeDirLeft) {
                     _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, 1000);
                 } else {
@@ -220,7 +234,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
                 // Release lock after transition has completed.
                 setTimeout(function() {
                     horizArrowLock = false;
-                }, 515);
+                }, 405);
             });
         },
 
@@ -261,13 +275,16 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
                         switch(direction.toString().toLowerCase()) {
                             case 'left':
                                 if(!_this.lockLeftMove) {
-                                    _this.currentImageEl.css('left', (_this.startingLeft - (distance * 1.25)) +'px');
+                                    _this.currentImageEl.css('-webkit-transform',
+                                        'translate(-'+ distance +'px, '+ _this.startingTop +'px)');
                                 }
                                 break;
 
                             case 'right':
                                 if(!_this.lockRightMove) {
-                                   _this.currentImageEl.next().css('left', ((-1 * _this.bgImgWidth) + (distance * 1.25)) +'px');
+                                    _this.currentImageEl.next().css('-webkit-transform',
+                                        'translate(-'+ (_this.bgImgWidth - distance) +'px, '+
+                                        _this.startingTop +'px)');
                                 }
                                 break;
                         }
@@ -289,9 +306,8 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
 
             // Center all of the images on the page.
             this.startingLeft = parseInt((this.contentWidth - this.bgImgWidth) / 2);
-            this.galleryEl.children('img')
-                .css('top', parseInt((this.contentHeight - this.bgImgHeight) / 2) +'px')
-                .css('left', this.startingLeft +'px');
+            this.startingTop = parseInt((this.contentHeight - this.bgImgHeight) / 2);
+            this.centerImage(this.galleryEl.children('img'));
             this.currentImageEl = this.galleryEl.find('img.first');
         }
     });

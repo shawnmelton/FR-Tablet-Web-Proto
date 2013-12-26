@@ -31,6 +31,12 @@ input, textarea, button {
     font-family: "helvetica", helvetica, arial;
 }
 
+a, button {
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {

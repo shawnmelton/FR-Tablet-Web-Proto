@@ -20,11 +20,13 @@ footer {
 
             &.availability,
             &.share { color: #fff; }
+
             &.availability {
                 background: #e97d0e;
 
                 &.touched { background: #c60; }
             }
+            
             &.share {
                 background: #044a78;
 
