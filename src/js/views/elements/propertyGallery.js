@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/device', 'views/elements/menu'], 
-    function($, Backbone, tsw, footerViewEl, Device, menuViewEl) {
+define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/elements/header', 'tools/device'],
+    function($, Backbone, tsw, footerViewEl, headerViewEl, Device) {
     var galleryViewEl = Backbone.View.extend({
         galleryEl: null,
         currentImageEl: null,
@@ -16,6 +16,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
         ],
         propertyId: null,
         startingLeft: 0,
+        startingTop: 0,
         lockLeftMove: false,
         lockRightMove: true,
         swipeHorizArrowEl: null,
@@ -27,15 +28,19 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
         addFirstImage: function(url) {
             this.currentImageEl = $('<img src="/img/listings/'+ this.propertyId +'-'+ this.bgImgWidth +'.jpg" '+
                 'width="'+ this.bgImgWidth +'">');
-            this.currentImageEl
-                .addClass('first')
-                .on('dragstart', function(ev) {
-                    ev.preventDefault();
-                });
+            this.currentImageEl.addClass('first');
 
             this.galleryEl.prepend(this.currentImageEl);
             this.loadNextImage();
             this.loadNextImage();
+        },
+
+        /**
+         * Center an image according to the size of the page.
+         * @param img <Image Object(s)>
+         */
+        centerImage: function(img) {
+            img.css('-webkit-transform', 'translate('+ this.startingLeft +'px, '+ this.startingTop +'px)');
         },
 
         /**
@@ -68,15 +73,16 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
             this.setHorizArrowEvent();
         },
 
+        /**
+         * Add an image to the gallery.  It will be placed directly behind (before) the provided image object.
+         * @param url <String> The url to the image.
+         * @param nextEl <Image Object>
+         * @return img <Image Object> Image that was just created and added to the DOM.
+         */
         loadImage: function(url, nextEl) {
             var img = $('<img src="'+ url +'" width="'+ this.bgImgWidth +'">');
             nextEl.before(img);
-            img
-                .css('top', parseInt((this.contentHeight - parseInt(this.bgImgHeight)) / 2) +'px')
-                .css('left', this.startingLeft +'px')
-                .on('dragstart', function(ev) {
-                    ev.preventDefault();
-                });
+            this.centerImage(img);
             return img;
         },
 
@@ -85,7 +91,8 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
          */
         loadNextImage: function() {
             if(this.images.length > 0) {
-                var img = this.loadImage(this.images.pop().replace('[SIZE]', this.bgImgWidth), this.galleryEl.children('img').first());
+                var img = this.loadImage(this.images.pop().replace('[SIZE]', this.bgImgWidth),
+                    this.galleryEl.children('img').first());
 
                 if(this.images.length === 0) {
                     img.addClass('last');
@@ -101,51 +108,47 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
          */
         moveCurrentImage: function(movePos, revertPos, distance) {
             var moveDirection = (revertPos === this.startingLeft) ? 'left' : 'right';
-            var newImgLeft;
-            var targetImg;
 
-            if(distance < parseInt(this.contentWidth * 0.12)) { // Revert changes.                
-                newImgLeft = revertPos;
-            } else {
-                newImgLeft = movePos;
-                this.galleryEl.swipe('disable');
+            // Locked.  Don't move.
+            if((this.lockLeftMove && moveDirection === 'left') || (this.lockRightMove && moveDirection === 'right')) {
+                return;
             }
 
-            if(moveDirection === 'left') {
-                targetImg = this.currentImageEl;
-            } else {
-                targetImg = this.currentImageEl.next();
+            var targetImg = (moveDirection === 'left') ? this.currentImageEl : this.currentImageEl.next();
+
+            // Revert changes if the user does not drag far enought.          
+            var newImgLeft = (distance < parseInt(this.contentWidth * 0.12)) ? revertPos : movePos;
+
+            targetImg
+                .addClass('moving')
+                .css('-webkit-transform', 'translate('+ newImgLeft +'px, '+ this.startingTop +'px)');
+
+            if(newImgLeft === movePos) {
+                if(moveDirection === 'left') {
+                    this.nextImage();
+                } else {
+                    this.prevImage();
+                }
             }
 
-            targetImg.addClass('moving');
-            targetImg.css('left', newImgLeft +'px');
-
-            var _this = this;
             setTimeout(function() {
                 targetImg.removeClass('moving');
-                if(newImgLeft === movePos) {
-                    if(moveDirection === 'left') {
-                        _this.nextImage();
-                    } else {
-                        _this.prevImage();
-                    }
-
-                    _this.galleryEl.swipe('enable');
-                }
-            }, 515);
+            }, 405);
         },
 
         /**
          * Move gallery to next image.
          */
         nextImage: function() {
-            this.lockRightMove = false;
+            if(this.lockRightMove) {
+                this.lockRightMove = false;
+            }
+
             this.currentImageEl = this.currentImageEl.prev();
             this.loadNextImage();
 
             if(this.currentImageEl.hasClass('last')) {
                 this.lockLeftMove = true;
-
                 if(this.swipeDirLeft) {
                     this.reverseSwipeArrow();
                 }
@@ -156,11 +159,13 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
          * Move gallery to prev image.
          */
         prevImage: function() {
-            this.lockLeftMove = false;
+            if(this.lockLeftMove) {
+                this.lockLeftMove = false;
+            }
+
             this.currentImageEl = this.currentImageEl.next();
             if(this.currentImageEl.hasClass('first')) {
                 this.lockRightMove = true;
-
                 if(!this.swipeDirLeft) {
                     this.reverseSwipeArrow();
                 }
@@ -185,10 +190,10 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
          * Reverse the swipe arrow since the user cannot continue to swipe in that direction.
          */
         reverseSwipeArrow: function() {
-            if(this.swipeHorizArrowEl.attr('src').indexOf('left') !== -1) {
-                this.swipeHorizArrowEl.attr('src', this.swipeHorizArrowEl.attr('src').replace('left', 'right'));
+            if(this.swipeHorizArrowEl.hasClass('reverse')) {
+                this.swipeHorizArrowEl.removeClass('reverse');
             } else {
-                this.swipeHorizArrowEl.attr('src', this.swipeHorizArrowEl.attr('src').replace('right', 'left'));
+                this.swipeHorizArrowEl.addClass('reverse');
             }
 
             this.swipeDirLeft = !this.swipeDirLeft;
@@ -202,25 +207,14 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
                 this.swipeHorizArrowEl = $(document.getElementById('swipeHorizArrow'));
             }
 
-            var horizArrowLock = false;
             var _this = this;
             this.swipeHorizArrowEl.unbind(touchEventType);
             this.swipeHorizArrowEl.bind(touchEventType, function() {
-                if(horizArrowLock) {
-                    return;
-                }
-
-                horizArrowLock = true;
                 if(_this.swipeDirLeft) {
-                    _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, 1000);
+                    _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, 2000);
                 } else {
-                    _this.moveCurrentImage(_this.startingLeft, (-1 * _this.bgImgWidth), 1000);
+                    _this.moveCurrentImage(_this.startingLeft, (-1 * _this.bgImgWidth), 2000);
                 }
-
-                // Release lock after transition has completed.
-                setTimeout(function() {
-                    horizArrowLock = false;
-                }, 515);
             });
         },
 
@@ -237,37 +231,34 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
          */
         setSwipeEvent: function() {
             var _this = this;
-
             this.galleryEl.swipe({
                 swipeLeft: function(event, direction, distance, duration, fingerCount) {
-                    if(_this.lockLeftMove) {
-                        return;
+                    if(!_this.lockLeftMove) {
+                        _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, distance);
                     }
-
-                    _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, distance);
                 },
                 swipeRight: function(event, direction, distance, duration, fingerCount) {
-                    if(_this.lockRightMove) {
-                        return;
+                    if(!_this.lockRightMove) {
+                        _this.moveCurrentImage(_this.startingLeft, (-1 * _this.bgImgWidth), distance);
                     }
-
-                    _this.moveCurrentImage(_this.startingLeft, (-1 * _this.bgImgWidth), distance);
                 },
                 swipeUp: function(event, direction, distance, duration, fingerCount) {
-                    menuViewEl.hide();
+                    headerViewEl.hideMenu();
                 },
                 swipeStatus: function(event, phase, direction, distance, duration, fingerCount) {
                     if(direction !== null) {
                         switch(direction.toString().toLowerCase()) {
                             case 'left':
                                 if(!_this.lockLeftMove) {
-                                    _this.currentImageEl.css('left', (_this.startingLeft - (distance * 1.25)) +'px');
+                                    _this.currentImageEl.css('-webkit-transform',
+                                        'translate('+ (_this.startingLeft - distance) +'px, '+ _this.startingTop +'px)');
                                 }
                                 break;
 
                             case 'right':
                                 if(!_this.lockRightMove) {
-                                   _this.currentImageEl.next().css('left', ((-1 * _this.bgImgWidth) + (distance * 1.25)) +'px');
+                                    _this.currentImageEl.next().css('-webkit-transform', 
+                                        'translateX(-'+ (_this.bgImgWidth - distance) +'px, '+ _this.startingTop +'px)');
                                 }
                                 break;
                         }
@@ -289,9 +280,8 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'tools/
 
             // Center all of the images on the page.
             this.startingLeft = parseInt((this.contentWidth - this.bgImgWidth) / 2);
-            this.galleryEl.children('img')
-                .css('top', parseInt((this.contentHeight - this.bgImgHeight) / 2) +'px')
-                .css('left', this.startingLeft +'px');
+            this.startingTop = parseInt((this.contentHeight - this.bgImgHeight) / 2);
+            this.centerImage(this.galleryEl.children('img'));
             this.currentImageEl = this.galleryEl.find('img.first');
         }
     });

@@ -1,8 +1,8 @@
-<section>
+<section class="fixed noOverflow clearFix">
 <% _.each(properties, function(property) { %>
-    <div property="<%= property.id %>" class="property">
-        <img src="/img/listings/<%= property.id %>-612.jpg" alt="<%= property.name %>">
-        <p>
+    <div property="<%= property.id %>" class="relative noOverflow property borderBox whiteText left pointer">
+        <img src="/img/listings/<%= property.id %>-612.jpg" alt="<%= property.name %>" class="block width100">
+        <p class="absolute width100 fadingGradient">
             <strong><%= property.name %></strong><br>
             <%= property.location %><br>
             <%= property.type %>

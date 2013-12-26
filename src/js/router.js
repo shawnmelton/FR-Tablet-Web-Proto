@@ -1,7 +1,5 @@
-define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts/property', 
-    'views/elements/header', 'views/elements/menu', 'views/elements/footer','views/elements/advancedSearch'], 
-    function(Backbone, searchView, homeView, propertyView, headerViewEl, menuViewEl, footerViewEl,
-        advancedSearchViewEl) {
+define(['jquery', 'backbone', 'views/elements/header', 'views/elements/footer', 'views/elements/advancedSearch'], 
+    function($, Backbone, headerViewEl, footerViewEl, advancedSearchViewEl) {
 
     var AppRouter = Backbone.Router.extend({
         initialize: function() {
@@ -13,17 +11,15 @@ define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts
         /**
          * Clean up the current page when its requested.
          */
-        pageLoad: function(sticky) {
+        pageLoad: function(view) {
             // Reset page
             window.scrollTo(0,0);
             document.getElementsByTagName('html')[0].style.background = '';
             document.getElementsByTagName('html')[0].className = '';
             document.getElementById('content').style.height = '';
 
-            menuViewEl.init();
-
             // Should fixed items stick to top of page?
-            if(sticky) {
+            if(view === 'property') {
                 headerViewEl.makeSticky();
                 advancedSearchViewEl.makeSticky();
             } else {
@@ -55,24 +51,39 @@ define(['backbone', 'views/layouts/search', 'views/layouts/home', 'views/layouts
         },
 
         showHome: function() {
-            this.pageLoad(false);
+            this.pageLoad('home');
             footerViewEl.clear();
             footerViewEl.show();
-            homeView.render();
+
+            // Lazy Load the view.
+            require(['views/layouts/home'], function(homeView) {
+                homeView.render();
+            });
+
             this.setButtonEvents();
         },
 
         showProperty: function() {
-            this.pageLoad(true);
+            this.pageLoad('property');
             footerViewEl.show();
-            propertyView.render();
+
+            // Lazy Load the view.
+            require(['views/layouts/property'], function(propertyView) {
+                propertyView.render();
+            });
+
             this.setButtonEvents();
         },
 
         showSearch: function() {
-            this.pageLoad(false);
+            this.pageLoad('search');
             footerViewEl.hide();
-            searchView.render();
+
+            // Lazy Load the view.
+            require(['views/layouts/search'], function(searchView) {
+                searchView.render();
+            });
+
             this.setButtonEvents();
         }
     });

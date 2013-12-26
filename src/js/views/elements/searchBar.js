@@ -59,7 +59,8 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate', 'views/elements
         render: function(heading) {
             this.parentEl.append(JST['src/js/templates/elements/searchBar.html']({
                 keywords: this.keywords,
-                heading: heading
+                heading: heading,
+                formClass: (heading !== '') ? 'transWhite80' : '' // Home page has heading.  No other place does at this moment.
             }));
 
             this.form = $(document.getElementById('searchBar'));

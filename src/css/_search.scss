@@ -1,0 +1,48 @@
+#content.search {
+    padding: 3% 4% 3% 2%;
+    padding-top: 75px;
+}
+
+    #results {
+        background: url(../img/search-loading.gif) no-repeat bottom center;
+        padding-bottom: 20px;
+
+        .tableCell {
+            padding: 0 0 2% 2%;
+            width: 31%;
+
+            &.select { width: 63%; }
+
+            &.stacked {
+                >div:first-child { margin-bottom: 20px; }
+            }
+
+            >div {
+                border-radius: 8px;
+
+                >img {
+                    max-height: 100%;
+                    max-width: 100%;
+                }
+
+                >p {
+                    margin: 0;
+                    padding: 15px;
+                    bottom: 0;
+
+                    &.price {
+                        right: 0;
+                        font-size: 130%;
+                    }
+
+                    &.desc {
+                        >strong { font-size: 110%; }
+
+                        font-size: 90%;
+                        line-height: 18px;
+                        padding-top: 45px;
+                    }
+                }
+            }
+        }
+    }

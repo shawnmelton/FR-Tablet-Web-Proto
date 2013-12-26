@@ -1,0 +1,37 @@
+footer {
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    background: url(../img/trans-bg.png) repeat 0 0;
+
+    &.sticky { position: absolute; }
+
+    div {
+        >a {
+            height: 50px;
+            padding: 0 10px;
+
+            &.touched { background: #333; }
+
+            &.active {
+                background: #fff;
+                color: #333;
+            }
+
+            &.availability,
+            &.share { color: #fff; }
+
+            &.availability {
+                background: #e97d0e;
+
+                &.touched { background: #c60; }
+            }
+            
+            &.share {
+                background: #044a78;
+
+                &.touched { background: #036; }
+            }
+        }
+    }
+}

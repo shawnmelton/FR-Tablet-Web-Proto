@@ -14,21 +14,6 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         },
 
         /**
-         * Initialize the menu.  Render after button is clicked.
-         */
-        init: function() {
-            if(!this.initiated) {
-                var _this = this;
-                $(document.getElementById('menuBtn')).bind(touchEventType, function(ev) {
-                    ev.preventDefault();
-                    _this.onMenuButtonClick();
-                });
-
-                this.initiated = true;
-            }
-        },
-
-        /**
          * Render the menu if it is not showing.
          * Toggle back and forth between showing and not showing the menu.
          */

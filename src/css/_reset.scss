@@ -18,10 +18,25 @@ time, mark, audio, video {
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
     font: inherit;
+    font-size: 100%;
+    font-weight: 100;
+    font-family: "helvetica", helvetica, arial;
     vertical-align: baseline;
 }
+
+input, textarea, button {
+    font-size: 100%;
+    font-weight: 100;
+    font-family: "helvetica", helvetica, arial;
+}
+
+a, button {
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -44,4 +59,5 @@ q:before, q:after {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+    vertical-align: top;
 }

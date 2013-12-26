@@ -1,0 +1,19 @@
+html {
+    background: #eaeaea;
+    background-attachment: fixed;
+    font-size: 16px;
+
+    &.home2048 { background: url(../img/home-bg-2048.jpg) no-repeat top center; }
+    &.home1024 { background: url(../img/home-bg-1024.jpg) no-repeat top center; }
+    &.home768 { background: url(../img/home-bg-768.jpg) no-repeat top center; }
+}
+    #content { padding-top: 50px; }
+
+    form {
+        input.error,
+        textarea.error {
+            border: 1px solid #600 !important;
+            color: #c00 !important;
+            background: #fdd !important;
+        }
+    }

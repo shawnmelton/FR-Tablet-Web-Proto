@@ -1,0 +1,88 @@
+#content.home {
+    >form {
+        margin: 50px auto 0;
+        width: 70%;
+        border-radius: 10px;
+        padding: 35px 50px 45px;
+
+        >h2 {
+            color: #333;
+            font-size: 180%;
+            margin: 0 0 25px;
+        }
+
+        >fieldset {
+            padding-right: 200px;
+
+            >input, a, button {
+                color: #333;
+                border-radius: 8px;
+                height: 60px;
+                padding: 0;
+                background: #fff;
+                border: 1px solid #789;
+            }
+
+            >input {
+                padding: 0 10px;
+                font-size: 140%;
+            }
+
+            >div {
+                bottom: 0;
+                right: 0;
+
+                >a, >button {
+                    &.touched { background-color: #bcd; }
+                }
+
+                >a {
+                    width: 65px;
+                    background: #fff url(../img/home-adv-search.png) no-repeat center center;
+                    margin-right: 5px;
+                }
+
+                >button {
+                    line-height: 60px;
+                    width: 125px;
+                    font-size: 140%;
+                    color: #044a78;
+                }
+            }
+        }
+    }
+
+    >section {
+        bottom: 65px;
+        left: 0;
+        right: 0;
+        margin: 50px 0 0;
+        height: 260px;
+
+        >div {
+            width: 23%;
+            margin: 0 1% 1%;
+            border: 3px solid #eaeaea;
+            font-size: 80%;
+            background: #aaa;
+            border-radius: 12px;
+            height: 250px;
+
+            &.property.touched { border-color: #10a1d7; }
+
+            >img {
+                height: 100%;
+                border-radius: 12px;
+            }
+
+            >p {
+                bottom: 0;
+                margin: 0;
+                padding: 50px 15px 15px;
+                line-height: 17px;
+
+                >strong { font-size: 125%; }
+            }
+        }
+    }
+}
