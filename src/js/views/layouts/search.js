@@ -5,6 +5,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         resultsEl: null,
         contentHeight: 0,
         map: null,
+        userZip: null,
 
         getLocationFromZip: function(zip){
             var geocoder = new google.maps.Geocoder();
@@ -16,18 +17,21 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     var lng = results_array[0].geometry.location.lng();
                     var userLocation = new google.maps.LatLng(lat, lng);
 
+                    var mapOptions = {
+                        center: userLocation,
+                        zoom: 8
+                    };
+                    map = new google.maps.Map(document.getElementById("map-canvas"),
+                        mapOptions);
+                    this.setMapOffset(userLocation, $(window).width() * 0.25, 0);
+
+
                     return userLocation;
             });
         },
 
-        initializeMap: function(latlng) {
-            var mapOptions = {
-                center: new google.maps.LatLng(-34.397, 150.644),
-                zoom: 8
-            };
-            map = new google.maps.Map(document.getElementById("map-canvas"),
-                mapOptions);
-            this.setUserLocation();
+        initializeMap: function() {
+            var userLocation = this.getLocationFromZip(userZip);
         },
 
         loadResultsSet: function() {
@@ -56,7 +60,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         render: function(){
             this.setContentDimensions();
 
-            var zip = decodeURIComponent(location.pathname.split('search/')[1]);
+            userZip = decodeURIComponent(location.pathname.split('search/')[1]);
             this.initializeMap();
 
             this.setKeywords();
@@ -73,7 +77,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          * Set the content height for this page.
          */
         setContentDimensions: function() {
-            this.setUserLocation();
+            // this.setUserLocation();
             this.contentHeight = $(window).height();
 
             if (navigator.userAgent.match(/iPod|iPhone|iPad/i) &&
