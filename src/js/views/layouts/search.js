@@ -3,6 +3,32 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
     var searchView = Backbone.View.extend({
         el: "#content",
         resultsEl: null,
+        contentHeight: 0,
+        map: null,
+
+        getLocationFromZip: function(zip){
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({address: zip },
+                function(results_array, status) { 
+                    // Check status and do whatever you want with what you get back
+                    // in the results_array variable if it is OK.
+                    var lat = results_array[0].geometry.location.lat();
+                    var lng = results_array[0].geometry.location.lng();
+                    var userLocation = new google.maps.LatLng(lat, lng);
+
+                    return userLocation;
+            });
+        },
+
+        initializeMap: function(latlng) {
+            var mapOptions = {
+                center: new google.maps.LatLng(-34.397, 150.644),
+                zoom: 8
+            };
+            map = new google.maps.Map(document.getElementById("map-canvas"),
+                mapOptions);
+            this.setUserLocation();
+        },
 
         loadResultsSet: function() {
             $('.table > div > div > div').unbind(touchEventType);
@@ -28,6 +54,11 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          * Load the first 10 results.
          */
         render: function(){
+            this.setContentDimensions();
+
+            var zip = decodeURIComponent(location.pathname.split('search/')[1]);
+            this.initializeMap();
+
             this.setKeywords();
             this.$el.html(JST['src/js/templates/layouts/search.html']());
             this.$el.attr("class", "search");
@@ -36,6 +67,23 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.loadResultsSet();
             this.setInfiniteScrolling();
             searchBarViewEl.renderToHeader();
+        },
+
+        /**
+         * Set the content height for this page.
+         */
+        setContentDimensions: function() {
+            this.setUserLocation();
+            this.contentHeight = $(window).height();
+
+            if (navigator.userAgent.match(/iPod|iPhone|iPad/i) &&
+                navigator.userAgent.match(/Safari/i) && !(navigator.userAgent.match(/Chrome/i) ||
+                    navigator.userAgent.match(/CriOS/i))) {
+                this.contentHeight -= 30;
+            }
+
+            $('#map-canvas').css('height', this.contentHeight + "px");
+            this.$el.css('height', this.contentHeight + "px");
         },
 
         /**
@@ -64,6 +112,24 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         },
 
         /**
+         * Set the user's LatLong location to a certain point on the 
+         * screen other than the center
+         */
+        setMapOffset: function(latlng,offsetx,offsety){
+            var point1 = map.getProjection().fromLatLngToPoint(
+                (latlng instanceof google.maps.LatLng) ? latlng : map.getCenter()
+            );
+            var point2 = new google.maps.Point(
+                ( (typeof(offsetx) == 'number' ? offsetx : 0) / Math.pow(2, map.getZoom()) ) || 0,
+                ( (typeof(offsety) == 'number' ? offsety : 0) / Math.pow(2, map.getZoom()) ) || 0
+            );  
+            map.setCenter(map.getProjection().fromPointToLatLng(new google.maps.Point(
+                point1.x - point2.x,
+                point1.y + point2.y
+            )));
+        },
+
+        /**
          * Make each property touchable.
          */
         setPropertyClickEvents: function() {
@@ -74,6 +140,43 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     _this.onPropertyClick(parseInt(propertyId));
                 }
             });
+        },
+
+        /**
+         * If the screen is resized, make sure we perform a relayout.
+         */
+        setResizeEvent: function() {
+            var _this = this;
+            var resizeTimeout = null;
+            $(window).resize(function() {
+                if (resizeTimeout !== null) {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = null;
+                }
+
+                resizeTimeout = setTimeout(function() {
+                    _this.setContentDimensions();
+                }, 250);
+            });
+        },
+
+        setUserLocation: function(){
+            var _this = this;
+            //First, check for geolocation capability
+            if (navigator.geolocation) {
+                browserSupportFlag = true;
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    map.setCenter(initialLocation);
+                    _this.setMapOffset(initialLocation, $(window).width() * 0.25, 0);
+                }, function() {
+                    console.log('No Location Allowed/Found');
+                });
+            }
+            // Browser doesn't support Geolocation
+            else {
+                console.log('Browser Doesn\'t Support Geolocation');
+            }
         }
     });
     
