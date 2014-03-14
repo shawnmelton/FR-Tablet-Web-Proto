@@ -26,6 +26,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             }));
 
             this.$el.attr("class", "home");
+            this.displayBGImg();
             this.setEvents();
         },
 
