@@ -28,6 +28,7 @@
         bottom: 0;
         left: 0;
         right: 0;
+        clip: rect(-10px,110%,110%,-10px);
 
         >img {
             position: absolute;
@@ -100,8 +101,6 @@
     }
 
     #more {
-        background: #eaeaea;
-
         .tableCell.form { width: 40%; }
     }
 

@@ -55,6 +55,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
 
             // Don't scroll to the More section unless the user isn't close.
             if($('body').scrollTop() < (moreElTopPos - 50)) {
+                console.log("Body");
                 $('body').animate({
                     scrollTop: moreElTopPos +'px'
                 },  500);
@@ -194,6 +195,20 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
          */
         setScrollEvent: function() {
             $(window).scroll(function() {
+                
+                var scrollTop = $(this).scrollTop() * 1.5;
+                var percent = scrollTop/$(window).height();
+                console.log('Percent:', scrollTop/$(window).height());
+                
+                //Add CSS blur to the gallery as the user scrolls the property up
+                $('#gallery').css({
+                    "-webkit-filter" : 'blur('+ (percent*10) +'px)',
+                    "-moz-filter" : 'blur('+ (percent*10) +'px)',
+                    "-MS-filter" : 'blur('+ (percent*10) +'px)',
+                    "filter" : 'blur('+ (percent*10) +'px)',
+                    "-o-filter" : 'blur('+ (percent*10) +'px)'
+                });
+
                 if(this.linksInactive && $(this).scrollTop() > 50) {
                     footerViewEl.activateCurrentLink();
                     this.linksInactive = !this.linksInactive;
