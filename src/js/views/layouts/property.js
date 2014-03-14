@@ -200,7 +200,14 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 var percent = scrollTop/$(window).height();
                 console.log('Percent:', scrollTop/$(window).height());
                 
-                $('#gallery').css('opacity', percent);
+                //Add CSS blur to the gallery as the user scrolls the property up
+                $('#gallery').css({
+                    "-webkit-filter" : 'blur('+ (percent*10) +'px)',
+                    "-moz-filter" : 'blur('+ (percent*10) +'px)',
+                    "-MS-filter" : 'blur('+ (percent*10) +'px)',
+                    "filter" : 'blur('+ (percent*10) +'px)',
+                    "-o-filter" : 'blur('+ (percent*10) +'px)'
+                });
 
                 if(this.linksInactive && $(this).scrollTop() > 50) {
                     footerViewEl.activateCurrentLink();
