@@ -5,3 +5,4 @@ dist/js
 dist/css
 dist/img
 src/tmp
+.DS_Store
