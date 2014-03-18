@@ -66,6 +66,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.resultsEl = $(document.getElementById('results'));
             this.loadResultsSet();
             this.setInfiniteScrolling();
+            this.setResizeEvent();
             searchBarViewEl.renderToHeader();
         },
 
@@ -146,6 +147,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          * If the screen is resized, make sure we perform a relayout.
          */
         setResizeEvent: function() {
+            console.log("Resize");
             var _this = this;
             var resizeTimeout = null;
             $(window).resize(function() {
