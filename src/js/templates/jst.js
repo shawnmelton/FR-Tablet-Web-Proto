@@ -144,11 +144,15 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<style type="text/css">\n.basic {\n    display: inline-block;\n    position: relative;\n    width: 47%;\n    margin: 1.5% 0 0 1.5%;\n}\n    .basic .aspect_fill {\n        padding-top: 75%; /* 4:3 aspect ratio */\n    }\n    .basic .element {\n        position: absolute;\n        top: 0;\n        bottom: 0;\n        left: 0;\n        right: 0;\n        background-color: silver /* show me! */\n    }\n    .basic img {\n        position: absolute;\n    }\n.select {\n    width: 96%;\n    margin: 1.5% 0 0 1.5%;\n}\n    .select .aspect_fill {\n        padding-top: 40%; /* 4:3 aspect ratio */\n    }\n    .select img {\n        top: -25%;\n    }\n</style>\n';
+
 
 for(var s = 0; s < numBlocksToPrint; s++) {
+    //Remove top padding from the first property
+    var first = (s == 0) ? 'first' : '';
 ;
-__p += '\n    <div class="basic select">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow" property="' +
+__p += '\n    <div class="basic select ' +
+((__t = ( first )) == null ? '' : __t) +
+'">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow" property="' +
 ((__t = ( selects[s].id )) == null ? '' : __t) +
 '">\n            <img src="/img/listings/' +
 ((__t = ( selects[s].id )) == null ? '' : __t) +

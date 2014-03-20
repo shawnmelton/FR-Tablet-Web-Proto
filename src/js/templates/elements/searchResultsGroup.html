@@ -1,39 +1,9 @@
-<style type="text/css">
-.basic {
-    display: inline-block;
-    position: relative;
-    width: 47%;
-    margin: 1.5% 0 0 1.5%;
-}
-    .basic .aspect_fill {
-        padding-top: 75%; /* 4:3 aspect ratio */
-    }
-    .basic .element {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: silver /* show me! */
-    }
-    .basic img {
-        position: absolute;
-    }
-.select {
-    width: 96%;
-    margin: 1.5% 0 0 1.5%;
-}
-    .select .aspect_fill {
-        padding-top: 40%; /* 4:3 aspect ratio */
-    }
-    .select img {
-        top: -25%;
-    }
-</style>
 <%
 for(var s = 0; s < numBlocksToPrint; s++) {
+    //Remove top padding from the first property
+    var first = (s == 0) ? 'first' : '';
 %>
-    <div class="basic select">
+    <div class="basic select <%= first %>">
         <div class="aspect_fill"></div>
         <div class="element noOverflow" property="<%= selects[s].id %>">
             <img src="/img/listings/<%= selects[s].id %>-1024.jpg" class="block width100">

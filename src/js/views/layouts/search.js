@@ -5,6 +5,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         resultsEl: null,
         contentHeight: 0,
         map: null,
+        mapCanvas: $('#map-canvas'),
         userAddressTerms: null,
         propertyIndex: null,
 
@@ -67,6 +68,12 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.$el.html(JST['src/js/templates/layouts/search.html']());
             this.$el.attr("class", "search");
 
+            //Check for "Show Map" setting
+            this.$el.addClass('showMap');
+            this.mapCanvas.addClass('showMap');
+
+            //Check for orientation
+
             $('#currentLocationButton').click(function(){
                 _this.currentLocationClicked();
             });
@@ -75,6 +82,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.loadResultsSet();
             this.setInfiniteScrolling();
             this.setResizeEvent();
+            this.setContentDimensions();
             searchBarViewEl.renderToHeader();
         },
 
@@ -83,6 +91,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          */
         setContentDimensions: function() {
             this.contentHeight = $(window).height();
+            console.log("content height: ", this.contentHeight);
 
             if (navigator.userAgent.match(/iPod|iPhone|iPad/i) &&
                 navigator.userAgent.match(/Safari/i) && !(navigator.userAgent.match(/Chrome/i) ||
@@ -90,7 +99,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 this.contentHeight -= 30;
             }
 
-            $('#map-canvas').css('height', (this.contentHeight - 55) + "px");
+            this.mapCanvas.css('height', (this.contentHeight - 45) + "px");
             this.$el.css('height', this.contentHeight + "px");
         },
 
@@ -124,7 +133,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          */
         setPropertyClickEvents: function() {
             var _this = this;
-            $('.table > div > div > div').bind(touchEventType, function() {
+            $('.basic > div').bind(touchEventType, function() {
                 var propertyId = $(this).attr('property');
                 if(propertyId !== 'undefined' && propertyId !== false) {
                     _this.onPropertyClick(parseInt(propertyId));
