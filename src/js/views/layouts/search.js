@@ -8,21 +8,18 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         userAddressTerms: null,
 
         getLocationFromZip: function(address){
-            var geocoder = new google.maps.Geocoder();
-            geocoder.geocode({address: address },
-                function(results_array, status) { 
-                    // Check status and do whatever you want with what you get back
-                    // in the results_array variable if it is OK.
-                    var lat = results_array[0].geometry.location.lat();
-                    var lng = results_array[0].geometry.location.lng();
-                    var userLocation = new google.maps.LatLng(lat, lng);
-
-                    return userLocation;
-            });
+            //
         },
 
         initializeMap: function() {
-            var map = new Microsoft.Maps.Map(document.getElementById("map-canvas"), {credentials:"AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW"});         
+            var mapOptions = {
+                credentials:"AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW",
+                center: new Microsoft.Maps.Location(36.847861, -76.291552),
+                mapTypeId: Microsoft.Maps.MapTypeId.road,
+                zoom: 15,
+                showScalebar: false
+            };
+            var map = new Microsoft.Maps.Map(document.getElementById("map-canvas"), mapOptions);         
         },
 
         loadResultsSet: function() {
@@ -88,9 +85,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 this.contentHeight -= 30;
             }
 
-            $('#map-canvas').css('height', this.contentHeight + "px");
-            this.$el.css('height', this.contentHeight + "px");            
-            map.LoadMap();
+            $('#map-canvas').css('height', (this.contentHeight - 55) + "px");
+            this.$el.css('height', this.contentHeight + "px");
         },
 
         /**
@@ -116,24 +112,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             }
 
             searchBarViewEl.setKeywords(decodeURIComponent(location.pathname.split('search/')[1]));
-        },
-
-        /**
-         * Set the user's LatLong location to a certain point on the 
-         * screen other than the center
-         */
-        setMapOffset: function(latlng,offsetx,offsety){
-            var point1 = map.getProjection().fromLatLngToPoint(
-                (latlng instanceof google.maps.LatLng) ? latlng : map.getCenter()
-            );
-            var point2 = new google.maps.Point(
-                ( (typeof(offsetx) == 'number' ? offsetx : 0) / Math.pow(2, map.getZoom()) ) || 0,
-                ( (typeof(offsety) == 'number' ? offsety : 0) / Math.pow(2, map.getZoom()) ) || 0
-            );  
-            map.setCenter(map.getProjection().fromPointToLatLng(new google.maps.Point(
-                point1.x - point2.x,
-                point1.y + point2.y
-            )));
         },
 
         /**
@@ -172,13 +150,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             console.log('Show Loader');
             var _this = this;
             //First, check for geolocation capability
-            if (navigator.geolocation && map) {
+            if (navigator.geolocation) {
                 browserSupportFlag = true;
                 navigator.geolocation.getCurrentPosition(function(position) {
-                    var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                    map.setCenter(initialLocation);
-                    _this.setMapOffset(initialLocation, $(window).width() * 0.25, 0);
-                    console.log('Hide Loader');
+                    console.log('Hide Loader ', position);
                 }, function() {
                     console.log('No Location Allowed/Found');
                 });
