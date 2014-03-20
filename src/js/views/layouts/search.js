@@ -5,10 +5,11 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         resultsEl: null,
         contentHeight: 0,
         map: null,
+        userAddressTerms: null,
 
-        getLocationFromZip: function(zip){
+        getLocationFromZip: function(address){
             var geocoder = new google.maps.Geocoder();
-            geocoder.geocode({address: zip },
+            geocoder.geocode({address: address },
                 function(results_array, status) { 
                     // Check status and do whatever you want with what you get back
                     // in the results_array variable if it is OK.
@@ -20,14 +21,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             });
         },
 
-        initializeMap: function(latlng) {
-            var mapOptions = {
-                center: new google.maps.LatLng(-34.397, 150.644),
-                zoom: 8
-            };
-            map = new google.maps.Map(document.getElementById("map-canvas"),
-                mapOptions);
-            this.setUserLocation();
+        initializeMap: function() {
+            var map = new Microsoft.Maps.Map(document.getElementById("map-canvas"), {credentials:"AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW"});         
         },
 
         loadResultsSet: function() {
@@ -39,6 +34,14 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             }));
 
             this.setPropertyClickEvents();
+        },
+
+        /**
+         *  Hanldle click on Current Location button
+         *
+         */
+        currentLocationClicked: function(){
+            this.setUserLocation();
         },
 
         /**
@@ -54,14 +57,17 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          * Load the first 10 results.
          */
         render: function(){
-            this.setContentDimensions();
+            var _this = this;
 
-            var zip = decodeURIComponent(location.pathname.split('search/')[1]);
             this.initializeMap();
 
             this.setKeywords();
             this.$el.html(JST['src/js/templates/layouts/search.html']());
             this.$el.attr("class", "search");
+
+            $('#currentLocationButton').click(function(){
+                _this.currentLocationClicked();
+            });
 
             this.resultsEl = $(document.getElementById('results'));
             this.loadResultsSet();
@@ -74,7 +80,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          * Set the content height for this page.
          */
         setContentDimensions: function() {
-            this.setUserLocation();
             this.contentHeight = $(window).height();
 
             if (navigator.userAgent.match(/iPod|iPhone|iPad/i) &&
@@ -84,7 +89,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             }
 
             $('#map-canvas').css('height', this.contentHeight + "px");
-            this.$el.css('height', this.contentHeight + "px");
+            this.$el.css('height', this.contentHeight + "px");            
+            map.LoadMap();
         },
 
         /**
@@ -163,14 +169,16 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         },
 
         setUserLocation: function(){
+            console.log('Show Loader');
             var _this = this;
             //First, check for geolocation capability
-            if (navigator.geolocation) {
+            if (navigator.geolocation && map) {
                 browserSupportFlag = true;
                 navigator.geolocation.getCurrentPosition(function(position) {
                     var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                     map.setCenter(initialLocation);
                     _this.setMapOffset(initialLocation, $(window).width() * 0.25, 0);
+                    console.log('Hide Loader');
                 }, function() {
                     console.log('No Location Allowed/Found');
                 });

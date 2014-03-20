@@ -313,7 +313,7 @@ this["JST"]["src/js/templates/layouts/search.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="results"></div>';
+__p += '<div id="results"></div>\n';
 
 }
 return __p
