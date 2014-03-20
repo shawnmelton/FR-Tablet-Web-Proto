@@ -1,6 +1,6 @@
 #content.search {
-    padding: 3% 4% 3% 0;
-    padding-top: 75px;
+    padding: 0 4% 3% 0;
+    padding-top: 55px;
     width: 50%;
     overflow: scroll;
 }
@@ -12,20 +12,11 @@
         height: 606px;
         margin: 1%;
     }
-    #currentLocationButton {
-        position: absolute;
-        top: 54px;
-        right: 10px;
-        z-index: 100;
-
-        >img{
-            width: 44px;
-            height: 44px;
-        }
-    }
     #results {
         background: url(../img/search-loading.gif) no-repeat bottom center;
         padding-bottom: 20px;
+        overflow: auto;
+        padding-right: 1px;
 
         .tableCell {
             padding: 0 0 2% 2%;

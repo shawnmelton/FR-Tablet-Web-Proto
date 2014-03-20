@@ -144,115 +144,42 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div class="table width100">\n    <div class="tableRow">\n        <div class="select tableCell vAlignTop">\n            <div class="relative noOverflow pointer" property="' +
-((__t = ( selects[0].id )) == null ? '' : __t) +
+__p += '<style type="text/css">\n.basic {\n    display: inline-block;\n    position: relative;\n    width: 47%;\n    margin: 1.5% 0 0 1.5%;\n}\n    .basic .aspect_fill {\n        padding-top: 75%; /* 4:3 aspect ratio */\n    }\n    .basic .element {\n        position: absolute;\n        top: 0;\n        bottom: 0;\n        left: 0;\n        right: 0;\n        background-color: silver /* show me! */\n    }\n    .basic img {\n        position: absolute;\n    }\n.select {\n    width: 96%;\n    margin: 1.5% 0 0 1.5%;\n}\n    .select .aspect_fill {\n        padding-top: 40%; /* 4:3 aspect ratio */\n    }\n    .select img {\n        top: -25%;\n    }\n</style>\n';
+
+for(var s = 0; s < numBlocksToPrint; s++) {
+;
+__p += '\n    <div class="basic select">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow" property="' +
+((__t = ( selects[s].id )) == null ? '' : __t) +
+'">\n            <img src="/img/listings/' +
+((__t = ( selects[s].id )) == null ? '' : __t) +
+'-1024.jpg" class="block width100">\n            <p class="desc fadingGradient width100 absolute whiteText">\n                <strong>' +
+((__t = ( selects[s].name )) == null ? '' : __t) +
+'</strong><br>\n                ' +
+((__t = ( selects[s].location )) == null ? '' : __t) +
+'<br>\n                ' +
+((__t = ( selects[s].type )) == null ? '' : __t) +
+'\n            </p>\n            <p class="price absolute whiteText">' +
+((__t = ( selects[s].price )) == null ? '' : __t) +
+'</p>\n        </div>\n    </div>\n';
+
+    for(var p = 0; p < numPropertiesToPrint; p++) { 
+;
+__p += '\n        <div class="basic">\n            <div class="aspect_fill"></div>\n            <div class="element noOverflow" property="' +
+((__t = ( properties[p].id )) == null ? '' : __t) +
 '">\n                <img src="/img/listings/' +
-((__t = ( selects[0].id )) == null ? '' : __t) +
-'-1024.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
-((__t = ( selects[0].name )) == null ? '' : __t) +
-'</strong><br>\n                    ' +
-((__t = ( selects[0].location )) == null ? '' : __t) +
-'<br>\n                    ' +
-((__t = ( selects[0].type )) == null ? '' : __t) +
-'\n                </p>\n                <p class="price absolute whiteText">' +
-((__t = ( selects[0].price )) == null ? '' : __t) +
-'</p>\n            </div>\n        </div>\n        <div class="stacked tableCell vAlignTop">\n        ';
- for(var i = 0; i < 2; i++) { ;
-__p += '\n            <div class="relative noOverflow pointer" property="' +
-((__t = ( properties[i].id )) == null ? '' : __t) +
-'">\n                <img src="/img/listings/' +
-((__t = ( properties[i].id )) == null ? '' : __t) +
+((__t = ( properties[p].id )) == null ? '' : __t) +
 '-612.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
-((__t = ( properties[i].name )) == null ? '' : __t) +
+((__t = ( properties[p].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
-((__t = ( properties[i].location )) == null ? '' : __t) +
+((__t = ( properties[p].location )) == null ? '' : __t) +
 '<br>\n                    ' +
-((__t = ( properties[i].type )) == null ? '' : __t) +
-'\n                </p>\n            </div>\n        ';
- } ;
-__p += '\n        </div>\n    </div>\n</div>\n<div class="table width100">\n    <div class="tableRow">\n        ';
- for(var i = 2; i < 5; i++) { ;
-__p += '\n        <div class="tableCell vAlignTop">\n            <div class="relative noOverflow pointer" property="' +
-((__t = ( properties[i].id )) == null ? '' : __t) +
-'">\n                <img src="/img/listings/' +
-((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
-((__t = ( properties[i].name )) == null ? '' : __t) +
-'</strong><br>\n                    ' +
-((__t = ( properties[i].location )) == null ? '' : __t) +
-'<br>\n                    ' +
-((__t = ( properties[i].type )) == null ? '' : __t) +
-'\n                </p>\n            </div>\n        </div>\n        ';
- } ;
-__p += '\n    </div>\n</div>\n<div class="table width100">\n    <div class="tableRow">\n        ';
- for(var i = 5; i < 8; i++) { ;
-__p += '\n        <div class="tableCell vAlignTop">\n            <div class="relative noOverflow pointer" property="' +
-((__t = ( properties[i].id )) == null ? '' : __t) +
-'">\n                <img src="/img/listings/' +
-((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
-((__t = ( properties[i].name )) == null ? '' : __t) +
-'</strong><br>\n                    ' +
-((__t = ( properties[i].location )) == null ? '' : __t) +
-'<br>\n                    ' +
-((__t = ( properties[i].type )) == null ? '' : __t) +
-'\n                </p>\n            </div>\n        </div>\n        ';
- } ;
-__p += '\n    </div>\n</div>\n<div class="table width100">\n    <div class="tableRow">\n        <div class="stacked tableCell vAlignTop">\n        ';
- for(var i = 8; i < 10; i++) { ;
-__p += '\n            <div class="relative noOverflow pointer" property="' +
-((__t = ( properties[i].id )) == null ? '' : __t) +
-'">\n                <img src="/img/listings/' +
-((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
-((__t = ( properties[i].name )) == null ? '' : __t) +
-'</strong><br>\n                    ' +
-((__t = ( properties[i].location )) == null ? '' : __t) +
-'<br>\n                    ' +
-((__t = ( properties[i].type )) == null ? '' : __t) +
-'\n                </p>\n            </div>\n        ';
- } ;
-__p += '\n        </div>\n        <div class="select tableCell vAlignTop">\n            <div class="relative noOverflow pointer" property="' +
-((__t = ( selects[1].id )) == null ? '' : __t) +
-'">\n                <img src="/img/listings/' +
-((__t = ( selects[1].id )) == null ? '' : __t) +
-'-1024.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
-((__t = ( selects[1].name )) == null ? '' : __t) +
-'</strong><br>\n                    ' +
-((__t = ( selects[1].location )) == null ? '' : __t) +
-'<br>\n                    ' +
-((__t = ( selects[1].type )) == null ? '' : __t) +
-'\n                </p>\n                <p class="price absolute whiteText">' +
-((__t = ( selects[1].price )) == null ? '' : __t) +
-'</p>\n            </div>\n        </div>\n    </div>\n</div>\n<div class="table width100">\n    <div class="tableRow">\n        ';
- for(var i = 10; i < 13; i++) { ;
-__p += '\n        <div class="tableCell vAlignTop">\n            <div class="relative noOverflow pointer" property="' +
-((__t = ( properties[i].id )) == null ? '' : __t) +
-'">\n                <img src="/img/listings/' +
-((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
-((__t = ( properties[i].name )) == null ? '' : __t) +
-'</strong><br>\n                    ' +
-((__t = ( properties[i].location )) == null ? '' : __t) +
-'<br>\n                    ' +
-((__t = ( properties[i].type )) == null ? '' : __t) +
-'\n                </p>\n            </div>\n        </div>\n        ';
- } ;
-__p += '\n    </div>\n</div>\n<div class="table width100">\n    <div class="tableRow">\n        ';
- for(var i = 13; i < 16; i++) { ;
-__p += '\n        <div class="tableCell vAlignTop">\n            <div class="relative noOverflow pointer" property="' +
-((__t = ( properties[i].id )) == null ? '' : __t) +
-'">\n                <img src="/img/listings/' +
-((__t = ( properties[i].id )) == null ? '' : __t) +
-'-612.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
-((__t = ( properties[i].name )) == null ? '' : __t) +
-'</strong><br>\n                    ' +
-((__t = ( properties[i].location )) == null ? '' : __t) +
-'<br>\n                    ' +
-((__t = ( properties[i].type )) == null ? '' : __t) +
-'\n                </p>\n            </div>\n        </div>\n        ';
- } ;
-__p += '\n    </div>\n</div>';
+((__t = ( properties[p].type )) == null ? '' : __t) +
+'\n                </p>\n            </div>\n        </div>\n';
+
+    }
+} 
+;
+
 
 }
 return __p
