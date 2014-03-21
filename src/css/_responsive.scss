@@ -150,7 +150,39 @@
  */
  /* portrait */
 @media screen and (orientation:portrait) {
+/*
+    #content.search {
+        &.showMap{
+            width: 100%;
+            height: 50%;
+            position: fixed;
+            top: 50%;
+            padding: 0;
 
+            .basic {
+                width: 31%;
+            }
+                .basic .aspect_fill {
+                    padding-top: 75%;
+                }
+            .select {
+                width: 64%;
+            }
+                .select .aspect_fill {
+                    padding-top: 36%;
+                }
+        }
+    }
+
+    #map-canvas {
+        &.showMap{
+            height: 42.5%;
+            width: 97%;
+            margin: 0 0 1% 1.5%;
+            left: 0;
+        }
+    }
+*/
 }
 /* landscape */
 @media screen and (orientation:landscape) {

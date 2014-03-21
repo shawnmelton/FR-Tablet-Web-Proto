@@ -30,11 +30,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
 
         loadResultsSet: function() {
             this.propertyIndex += (this.propertyIndex === null) ? 0 : 1;
-            console.log('Start with property: ', this.propertyIndex);
             $('.table > div > div > div').unbind(touchEventType);
             this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroup.html']({
                 startIndex: this.propertyIndex,
-                numBlocksToPrint: 3,          //Change this based or layout options
+                numBlocksToPrint: 2,          //Change this based or layout options
                 numPropertiesToPrint: 4,       //Change this based or layout options
                 selects: Data.get('select', 2),
                 properties: Data.get('basic', 17)
