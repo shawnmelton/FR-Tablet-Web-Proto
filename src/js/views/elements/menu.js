@@ -20,12 +20,14 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         onMenuButtonClick: function() {
 
             $('#map-canvas, #content.search').toggleClass('showMap');
-                
-            if(this.displaying === null) {
-                this.render();
-            }
 
-            this.toggleMenu();
+            // Removed this just for testing purposes until a 
+            // "Switch View" button is added
+            // if(this.displaying === null) {
+            //     this.render();
+            // }
+
+            // this.toggleMenu();
         },
 
         onMenuLinkClick: function(ev) {
