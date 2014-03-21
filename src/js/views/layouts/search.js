@@ -14,6 +14,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         },
 
         initializeMap: function() {
+            /**
+             *  TODO: Get Lat/Lng from zip or address and
+             *  pass to the mapOptions
+             */
             var mapOptions = {
                 credentials:"AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW",
                 center: new Microsoft.Maps.Location(36.847861, -76.291552),
@@ -30,7 +34,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             $('.table > div > div > div').unbind(touchEventType);
             this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroup.html']({
                 startIndex: this.propertyIndex,
-                numBlocksToPrint: 2,          //Change this based or layout options
+                numBlocksToPrint: 3,          //Change this based or layout options
                 numPropertiesToPrint: 4,       //Change this based or layout options
                 selects: Data.get('select', 2),
                 properties: Data.get('basic', 17)
@@ -72,11 +76,15 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.$el.addClass('showMap');
             this.mapCanvas.addClass('showMap');
 
-            //Check for orientation
-
+            //Toggle browse/split-map view
             $('#currentLocationButton').click(function(){
                 _this.currentLocationClicked();
             });
+
+            //Check for orientation
+            window.addEventListener("orientationchange", function() {
+                this.setContentDimensions();
+            }, false);
 
             this.resultsEl = $(document.getElementById('results'));
             this.loadResultsSet();
@@ -91,7 +99,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          */
         setContentDimensions: function() {
             this.contentHeight = $(window).height();
-            console.log("content height: ", this.contentHeight);
 
             if (navigator.userAgent.match(/iPod|iPhone|iPad/i) &&
                 navigator.userAgent.match(/Safari/i) && !(navigator.userAgent.match(/Chrome/i) ||
@@ -99,8 +106,23 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 this.contentHeight -= 30;
             }
 
-            this.mapCanvas.css('height', (this.contentHeight - 45) + "px");
-            this.$el.css('height', this.contentHeight + "px");
+            if($(window).width() <= 768 || window.orientation === 0 || window.orientation === 180){
+                this.$el.addClass('portrait');
+                this.mapCanvas.addClass('portrait');
+
+                //If Portrait, the height is set by percentage,
+                //so we need to clear out the inline css text
+                this.$el.css('cssText', '');
+                this.mapCanvas.css('cssText', '');
+            }
+            else{
+                this.$el.removeClass('portrait');
+                this.mapCanvas.removeClass('portrait');
+
+                //If Landscape, set height by window height
+                this.mapCanvas.css('height', (this.contentHeight - 45) + "px");
+                this.$el.css('height', this.contentHeight + "px");
+            }
         },
 
         /**

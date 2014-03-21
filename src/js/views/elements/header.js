@@ -6,7 +6,9 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
 
         events: {
             'touchstart #logo': 'onLogoTouch',
-            'touchstart #menuBtn': 'onMenuButtonTouch'
+            'touchstart #menuBtn': 'onMenuButtonTouch',
+            'click #logo': 'onLogoTouch',
+            'click #menuBtn': 'onMenuButtonTouch'
         },
 
         /**
