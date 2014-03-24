@@ -8,6 +8,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         mapCanvas: $('#map-canvas'),
         userAddressTerms: null,
         propertyIndex: null,
+        userZip: null,
 
         getLocationFromZip: function(address){
             //
@@ -25,7 +26,24 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 zoom: 15,
                 showScalebar: false
             };
-            var map = new Microsoft.Maps.Map(document.getElementById("map-canvas"), mapOptions);         
+            this.map = new Microsoft.Maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+            var _this = this;
+            Microsoft.Maps.loadModule('Microsoft.Maps.Search', { callback: function(){
+                var zip = decodeURIComponent(location.pathname.split('search/')[1]);
+                var search = new Microsoft.Maps.Search.SearchManager(_this.map);
+                search.geocode({where:zip, count:10, callback:geocodeCallback});
+                function geocodeCallback(geocodeResult, userData)
+                {
+                    console.log('Zip: ', zip);
+                    var location = geocodeResult.results[0].location;
+                    console.log('Location ', location);
+                    _this.map.setView({
+                        center: location
+                    });
+                }
+             } 
+            });
         },
 
         loadResultsSet: function() {
@@ -64,7 +82,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          */
         render: function(){
             var _this = this;
-
+            userZip = decodeURIComponent(location.pathname.split('search/')[1]);
             this.initializeMap();
 
             this.setKeywords();
@@ -166,7 +184,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          * If the screen is resized, make sure we perform a relayout.
          */
         setResizeEvent: function() {
-            console.log("Resize");
             var _this = this;
             var resizeTimeout = null;
             $(window).resize(function() {
