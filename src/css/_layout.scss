@@ -8,7 +8,10 @@ html {
     &.home768 { background: url(../img/home-bg-768.jpg) no-repeat top center; }
 }
     #content { padding-top: 50px; }
-
+    #map-canvas {
+        width: 100%;
+        position: absolute;
+    }
     form {
         input.error,
         textarea.error {

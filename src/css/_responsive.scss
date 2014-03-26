@@ -92,7 +92,8 @@
         >form { padding: 20px 30px 30px; }
     }
 
-    #content.search { padding-top: 55px; }
+    #content.search { padding-top: 60px; }
+    #map-canvas { padding-top: 65px; }
 
     footer {
         height: 40px;
@@ -142,4 +143,68 @@
             }
         }
     }
+}
+
+/**
+ * Restrictions based on Orientation
+ */
+ /* portrait */
+@media screen and (orientation:portrait) {
+/*
+    #content.search {
+        &.showMap{
+            width: 100%;
+            height: 50%;
+            position: fixed;
+            top: 50%;
+            padding: 0;
+
+            .basic {
+                width: 31%;
+            }
+                .basic .aspect_fill {
+                    padding-top: 75%;
+                }
+            .select {
+                width: 64%;
+            }
+                .select .aspect_fill {
+                    padding-top: 36%;
+                }
+        }
+    }
+
+    #map-canvas {
+        &.showMap{
+            height: 42.5%;
+            width: 97%;
+            margin: 0 0 1% 1.5%;
+            left: 0;
+        }
+    }
+*/
+}
+
+@media screen and (max-width: 480px){
+    #content.search.portrait, #content.search.portrait.showMap{
+        padding-left: 0%;
+
+        .basic {
+            width: 47.4%;
+        }
+            .basic .aspect_fill {
+                padding-top: 75%; /* 4:3 aspect ratio */
+            }
+        .select {
+            width: 97%;
+        }
+            .select .aspect_fill {
+                padding-top: 40%; /* 4:3 aspect ratio */
+            }
+    }
+}
+
+/* landscape */
+@media screen and (orientation:landscape) {
+
 }

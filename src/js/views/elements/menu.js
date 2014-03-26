@@ -18,11 +18,16 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
          * Toggle back and forth between showing and not showing the menu.
          */
         onMenuButtonClick: function() {
-            if(this.displaying === null) {
-                this.render();
-            }
 
-            this.toggleMenu();
+            $('#map-canvas, #content.search').toggleClass('showMap');
+
+            // Removed this just for testing purposes until a 
+            // "Switch View" button is added
+            // if(this.displaying === null) {
+            //     this.render();
+            // }
+
+            // this.toggleMenu();
         },
 
         onMenuLinkClick: function(ev) {
