@@ -14,6 +14,22 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             //
         },
 
+        getPinGroupCenter: function(pins){
+            var maxLat=0,
+                minLat=0, 
+                maxLng=0,
+                minLng=0;
+
+            //loop over pins and find top right and bottom left and center on that point
+            $.each(pins, function(i, pin){
+                maxLat = (pin.latitude > maxLat) ? pin.latitude : maxLat;
+                maxLng = (pin.longitude > maxLng) ? pin.longitude : maxLng;
+                console.log('Pin location: ', pin);
+            });
+
+            return new Microsoft.Maps.Location(maxLat, maxLng);
+        },
+
         initializeMap: function() {
             /**
              *  TODO: Get Lat/Lng from zip or address and
@@ -23,24 +39,66 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 credentials:"AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW",
                 center: new Microsoft.Maps.Location(36.847861, -76.291552),
                 mapTypeId: Microsoft.Maps.MapTypeId.road,
-                zoom: 15,
+                zoom: 14,
                 showScalebar: false
             };
             this.map = new Microsoft.Maps.Map(document.getElementById("map-canvas"), mapOptions);
 
             var _this = this;
             Microsoft.Maps.loadModule('Microsoft.Maps.Search', { callback: function(){
+
+                //Location from Lat/Lng
+                //new Microsoft.Maps.Location(36.847861, -76.291552)
+
                 var zip = decodeURIComponent(location.pathname.split('search/')[1]);
                 var search = new Microsoft.Maps.Search.SearchManager(_this.map);
                 search.geocode({where:zip, count:10, callback:geocodeCallback});
                 function geocodeCallback(geocodeResult, userData)
                 {
-                    console.log('Zip: ', zip);
-                    var location = geocodeResult.results[0].location;
-                    console.log('Location ', location);
+                    _this.map.entities.clear(); 
+                    var coords = [
+                        {
+                            lat: 36.847861, 
+                            lng: -76.291552
+                        },
+                        {
+                            lat: 36.84682083129883, 
+                            lng: -76.2850570678711
+                        },
+                        {
+                            lat: 36.85277557373047, 
+                            lng: -76.28134155273438
+                        },
+                        {
+                            lat: 36.86275863647461,
+                            lng: -76.26134490966797
+                        }
+                    ];
+                    var locs = [];
+                    var currentLocation = geocodeResult.results[0].location;
+                    var pinHtmlContent = "<div class='marker premier'>";
+                        pinHtmlContent += "<span class='img_container'><img src='http://cdn-1.eneighborhoods.com/x2/@v=-1112083012@/2611/7/776/1402776/1402776_1.jpg' /></span>";
+                        pinHtmlContent += "<div class='marker basic'><span class='count'>" + "5" + "</span></div>";
+                        pinHtmlContent += "</div>";
+                        var pinOptions = {width: null, height: null, htmlContent: pinHtmlContent}; 
+                        var pin = new Microsoft.Maps.Pushpin(currentLocation, pinOptions);
+                        
                     _this.map.setView({
-                        center: location
+                        center: currentLocation
                     });
+                     _this.map.entities.push(pin);
+                    locs.push(currentLocation);
+                    $.each(coords, function(i, coord){
+                        var location = new Microsoft.Maps.Location(coord.lat, coord.lng);
+                        var pinHtmlContent = "<div class='marker basic'>";
+                        pinHtmlContent += "<span class='count'>" + "5" + "</span>";
+                        pinHtmlContent += "</div>";
+                        var pinOptions = {width: null, height: null, htmlContent: pinHtmlContent}; 
+                        var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
+                        _this.map.entities.push(pin);
+                        locs.push(location);
+                    });
+                    _this.getPinGroupCenter(locs);
                 }
              } 
             });

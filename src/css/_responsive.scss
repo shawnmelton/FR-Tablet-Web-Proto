@@ -184,6 +184,26 @@
     }
 */
 }
+
+@media screen and (max-width: 480px){
+    #content.search.portrait, #content.search.portrait.showMap{
+        padding-left: 0%;
+
+        .basic {
+            width: 47.4%;
+        }
+            .basic .aspect_fill {
+                padding-top: 75%; /* 4:3 aspect ratio */
+            }
+        .select {
+            width: 97%;
+        }
+            .select .aspect_fill {
+                padding-top: 40%; /* 4:3 aspect ratio */
+            }
+    }
+}
+
 /* landscape */
 @media screen and (orientation:landscape) {
 
