@@ -76,12 +76,12 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     ];
                     var locs = [];
                     var currentLocation = geocodeResult.results[0].location;
-                    var pinHtmlContent = "<div class='marker premier'>";
-                        pinHtmlContent += "<span class='img_container'><img src='http://cdn-1.eneighborhoods.com/x2/@v=-1112083012@/2611/7/776/1402776/1402776_1.jpg' /></span>";
-                        pinHtmlContent += "<div class='marker basic'><span class='count'>" + "5" + "</span></div>";
-                        pinHtmlContent += "</div>";
-                        var pinOptions = {width: null, height: null, htmlContent: pinHtmlContent}; 
-                        var pin = new Microsoft.Maps.Pushpin(currentLocation, pinOptions);
+                    var pinHTML = JST['src/js/templates/elements/pmarker.html']({
+                        image_src: 'http://cdn-1.eneighborhoods.com/x2/@v=-1112083012@/2611/7/776/1402776/1402776_1.jpg',
+                        count: '5'
+                    });
+                    var pinOptions = {width: null, height: null, htmlContent: pinHTML}; 
+                    var pin = new Microsoft.Maps.Pushpin(currentLocation, pinOptions);
                         
                     _this.map.setView({
                         center: currentLocation
@@ -90,10 +90,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     locs.push(currentLocation);
                     $.each(coords, function(i, coord){
                         var location = new Microsoft.Maps.Location(coord.lat, coord.lng);
-                        var pinHtmlContent = "<div class='marker basic'>";
-                        pinHtmlContent += "<span class='count'>" + "5" + "</span>";
-                        pinHtmlContent += "</div>";
-                        var pinOptions = {width: null, height: null, htmlContent: pinHtmlContent}; 
+                        var pinHTML = JST['src/js/templates/elements/marker.html']({
+                            count: '1'
+                        });
+                        var pinOptions = {width: null, height: null, htmlContent: pinHTML}; 
                         var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
                         _this.map.entities.push(pin);
                         locs.push(location);

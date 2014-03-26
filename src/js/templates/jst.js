@@ -67,11 +67,37 @@ __p += '<form id="guestCard" method="post" action="" class="bgWhite">\n    <h3>C
 return __p
 };
 
+this["JST"]["src/js/templates/elements/marker.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class=\'marker basic\'>\n    <span class=\'count\'>' +
+((__t = ( count )) == null ? '' : __t) +
+'</span>\n</div>';
+
+}
+return __p
+};
+
 this["JST"]["src/js/templates/elements/menu.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div id="menu" class="fixed transition noOverflow">\n    <nav class="relative transWhite80">\n        <a href="/" class="block">Home</a>\n        <a href="http://forrent.com" target="_blank" class="block">Full Site</a>\n    </nav>\n</div>';
+
+}
+return __p
+};
+
+this["JST"]["src/js/templates/elements/pmarker.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class=\'marker premier\'>\n\t<span class=\'img_container\'><img src=\'' +
+((__t = ( image_src )) == null ? '' : __t) +
+'\' /></span>\n\t<div class=\'marker basic\'><span class=\'count\'>' +
+((__t = ( count )) == null ? '' : __t) +
+'</span></div>\n</div>';
 
 }
 return __p
