@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tools/navigate', 'tools/data'],
-    function($, Backbone, tmplts, searchBarViewEl, Navigate, Data){
+define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tools/navigate', 'tools/data', 'models/listing','collections/listings'],
+    function($, Backbone, tmplts, searchBarViewEl, Navigate, Data, ListingModel, ListingCollection){
     var searchView = Backbone.View.extend({
         el: "#content",
         resultsEl: null,
@@ -24,13 +24,12 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             $.each(pins, function(i, pin){
                 maxLat = (pin.latitude > maxLat) ? pin.latitude : maxLat;
                 maxLng = (pin.longitude > maxLng) ? pin.longitude : maxLng;
-                console.log('Pin location: ', pin);
             });
 
             return new Microsoft.Maps.Location(maxLat, maxLng);
         },
 
-        initializeMap: function() {
+        initializeMap: function(listings) {
             /**
              *  TODO: Get Lat/Lng from zip or address and
              *  pass to the mapOptions
@@ -39,17 +38,13 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 credentials:"AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW",
                 center: new Microsoft.Maps.Location(36.847861, -76.291552),
                 mapTypeId: Microsoft.Maps.MapTypeId.road,
-                zoom: 14,
+                zoom: 15,
                 showScalebar: false
             };
             this.map = new Microsoft.Maps.Map(document.getElementById("map-canvas"), mapOptions);
 
             var _this = this;
             Microsoft.Maps.loadModule('Microsoft.Maps.Search', { callback: function(){
-
-                //Location from Lat/Lng
-                //new Microsoft.Maps.Location(36.847861, -76.291552)
-
                 var zip = decodeURIComponent(location.pathname.split('search/')[1]);
                 var search = new Microsoft.Maps.Search.SearchManager(_this.map);
                 search.geocode({where:zip, count:10, callback:geocodeCallback});
@@ -88,8 +83,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     });
                      _this.map.entities.push(pin);
                     locs.push(currentLocation);
-                    $.each(coords, function(i, coord){
-                        var location = new Microsoft.Maps.Location(coord.lat, coord.lng);
+                    $.each(listings.models, function(i, listing){
+                        var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng);
                         var pinHTML = JST['src/js/templates/elements/marker.html']({
                             count: '1'
                         });
@@ -105,6 +100,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         },
 
         loadResultsSet: function() {
+            var _this = this;
             this.propertyIndex += (this.propertyIndex === null) ? 0 : 1;
             $('.table > div > div > div').unbind(touchEventType);
             this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroup.html']({
@@ -112,7 +108,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 numBlocksToPrint: 2,          //Change this based or layout options
                 numPropertiesToPrint: 4,       //Change this based or layout options
                 selects: Data.get('select', 2),
-                properties: Data.get('basic', 17)
+                properties: Data.get('basic', 17),
+                listings: _this.listings
             }));
 
             this.setPropertyClickEvents();
@@ -141,7 +138,18 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         render: function(){
             var _this = this;
             userZip = decodeURIComponent(location.pathname.split('search/')[1]);
-            this.initializeMap();
+            this.listings = new ListingCollection();
+            this.listings.fetch({
+                data: $.param({ zip: 23510}),
+                success: function(response){
+                    //Load listings in list view
+                    _this.loadResultsSet();
+
+                    //Initialize map with listings and 
+                    //center on the group
+                    _this.initializeMap(_this.listings);
+                }
+            });
 
             this.setKeywords();
             this.$el.html(JST['src/js/templates/layouts/search.html']());
@@ -162,7 +170,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             }, false);
 
             this.resultsEl = $(document.getElementById('results'));
-            this.loadResultsSet();
             this.setInfiniteScrolling();
             this.setResizeEvent();
             this.setContentDimensions();
@@ -208,6 +215,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             _this = this;
             $(window).scroll(function(){
                 if($(window).scrollTop() >= ($(document).height() - $(window).height() - 600)) {
+
+                    //TODO: Make another API call before loading the results again
                     _this.loadResultsSet();
                 }
             });

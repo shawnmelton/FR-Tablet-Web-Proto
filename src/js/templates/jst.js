@@ -172,6 +172,7 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
 
+console.log('Use this zip:', listings);
 for(var s = 0; s < numBlocksToPrint; s++) {
     //Remove top padding from the first property
     var first = (s == 0) ? 'first' : '';

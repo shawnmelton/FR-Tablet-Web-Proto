@@ -104,6 +104,9 @@
 
         .marker{
             &.premier{
+                position: absolute;
+                top: -63px;
+                left: -57px;
                 width:67px;
                 height: 63px;
                 background:url(../img/pmarker.png);
