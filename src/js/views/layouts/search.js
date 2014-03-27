@@ -9,24 +9,20 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         userAddressTerms: null,
         propertyIndex: null,
         userZip: null,
+        userState: null,
+        userCity: null,
 
         getLocationFromZip: function(address){
             //
         },
 
-        getPinGroupCenter: function(pins){
-            var maxLat=0,
-                minLat=0, 
-                maxLng=0,
-                minLng=0;
+        centerOnPinGroup: function(pins){
+            var bounds = new Microsoft.Maps.LocationRect.fromLocations(pins);
 
-            //loop over pins and find top right and bottom left and center on that point
-            $.each(pins, function(i, pin){
-                maxLat = (pin.latitude > maxLat) ? pin.latitude : maxLat;
-                maxLng = (pin.longitude > maxLng) ? pin.longitude : maxLng;
+            //Set map bounds
+            this.map.setView({
+                bounds: bounds
             });
-
-            return new Microsoft.Maps.Location(maxLat, maxLng);
         },
 
         initializeMap: function(listings) {
@@ -36,7 +32,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
              */
             var mapOptions = {
                 credentials:"AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW",
-                center: new Microsoft.Maps.Location(36.847861, -76.291552),
                 mapTypeId: Microsoft.Maps.MapTypeId.road,
                 zoom: 15,
                 showScalebar: false
@@ -50,25 +45,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 search.geocode({where:zip, count:10, callback:geocodeCallback});
                 function geocodeCallback(geocodeResult, userData)
                 {
-                    _this.map.entities.clear(); 
-                    var coords = [
-                        {
-                            lat: 36.847861, 
-                            lng: -76.291552
-                        },
-                        {
-                            lat: 36.84682083129883, 
-                            lng: -76.2850570678711
-                        },
-                        {
-                            lat: 36.85277557373047, 
-                            lng: -76.28134155273438
-                        },
-                        {
-                            lat: 36.86275863647461,
-                            lng: -76.26134490966797
-                        }
-                    ];
                     var locs = [];
                     var currentLocation = geocodeResult.results[0].location;
                     var pinHTML = JST['src/js/templates/elements/pmarker.html']({
@@ -93,7 +69,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                         _this.map.entities.push(pin);
                         locs.push(location);
                     });
-                    _this.getPinGroupCenter(locs);
+
+                    //Get bounding box from group of pins
+                    _this.centerOnPinGroup(locs);
                 }
              } 
             });
@@ -137,10 +115,14 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          */
         render: function(){
             var _this = this;
-            userZip = decodeURIComponent(location.pathname.split('search/')[1]);
+            this.userZip = decodeURIComponent(location.pathname.split('search/')[1]);
             this.listings = new ListingCollection();
             this.listings.fetch({
-                data: $.param({ zip: 23510}),
+                data: $.param({ 
+                    zip: _this.userZip,
+                    city: _this.userCity,
+                    state: _this.userState,
+                }),
                 success: function(response){
                     //Load listings in list view
                     _this.loadResultsSet();
