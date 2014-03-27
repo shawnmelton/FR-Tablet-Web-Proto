@@ -45,25 +45,23 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 search.geocode({where:zip, count:10, callback:geocodeCallback});
                 function geocodeCallback(geocodeResult, userData)
                 {
-                    var locs = [];
-                    var currentLocation = geocodeResult.results[0].location;
-                    var pinHTML = JST['src/js/templates/elements/pmarker.html']({
-                        image_src: 'http://cdn-1.eneighborhoods.com/x2/@v=-1112083012@/2611/7/776/1402776/1402776_1.jpg',
-                        count: '5'
-                    });
-                    var pinOptions = {width: null, height: null, htmlContent: pinHTML}; 
-                    var pin = new Microsoft.Maps.Pushpin(currentLocation, pinOptions);
-                        
-                    _this.map.setView({
-                        center: currentLocation
-                    });
-                     _this.map.entities.push(pin);
-                    locs.push(currentLocation);
+                    var locs = [],
+                        pinHTML,
+                        currentLocation = geocodeResult.results[0].location;
+
                     $.each(listings.models, function(i, listing){
                         var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng);
-                        var pinHTML = JST['src/js/templates/elements/marker.html']({
-                            count: '1'
-                        });
+                        if(i === 0 || i === 1){
+                                pinHTML = JST['src/js/templates/elements/pmarker.html']({
+                                image_src: listing.attributes.primaryImage,
+                                count: '5'
+                            });
+                        }
+                        else{
+                                pinHTML = JST['src/js/templates/elements/marker.html']({
+                                count: '1'
+                            });
+                        }
                         var pinOptions = {width: null, height: null, htmlContent: pinHTML}; 
                         var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
                         _this.map.entities.push(pin);
@@ -85,8 +83,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 startIndex: this.propertyIndex,
                 numBlocksToPrint: 2,          //Change this based or layout options
                 numPropertiesToPrint: 4,       //Change this based or layout options
-                selects: Data.get('select', 2),
-                properties: Data.get('basic', 17),
+                selects: _this.listings.slice(0,2),
+                properties: _this.listings.slice(2,8),
                 listings: _this.listings
             }));
 

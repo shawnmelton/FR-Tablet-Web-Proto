@@ -180,9 +180,9 @@ __p += '\n    <div class="basic select ' +
 ((__t = ( first )) == null ? '' : __t) +
 '">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow" property="' +
 ((__t = ( selects[s].id )) == null ? '' : __t) +
-'">\n            <img src="/img/listings/' +
-((__t = ( selects[s].id )) == null ? '' : __t) +
-'-1024.jpg" class="block width100">\n            <p class="desc fadingGradient width100 absolute whiteText">\n                <strong>' +
+'">\n            <img src="' +
+((__t = ( selects[s].attributes.primaryImage )) == null ? '' : __t) +
+'" class="block width100">\n            <p class="desc fadingGradient width100 absolute whiteText">\n                <strong>' +
 ((__t = ( selects[s].name )) == null ? '' : __t) +
 '</strong><br>\n                ' +
 ((__t = ( selects[s].location )) == null ? '' : __t) +
@@ -196,9 +196,9 @@ __p += '\n    <div class="basic select ' +
 ;
 __p += '\n        <div class="basic">\n            <div class="aspect_fill"></div>\n            <div class="element noOverflow" property="' +
 ((__t = ( properties[p].id )) == null ? '' : __t) +
-'">\n                <img src="/img/listings/' +
-((__t = ( properties[p].id )) == null ? '' : __t) +
-'-612.jpg" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
+'">\n                <img src="' +
+((__t = ( properties[p].attributes.primaryImage )) == null ? '' : __t) +
+'" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
 ((__t = ( properties[p].name )) == null ? '' : __t) +
 '</strong><br>\n                    ' +
 ((__t = ( properties[p].location )) == null ? '' : __t) +
