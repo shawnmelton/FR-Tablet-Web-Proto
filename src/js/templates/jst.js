@@ -180,31 +180,31 @@ __p += '\n    <div class="basic select ' +
 ((__t = ( first )) == null ? '' : __t) +
 '">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow" property="' +
 ((__t = ( selects[s].id )) == null ? '' : __t) +
-'">\n            <img src="' +
+'">\n            <div class="front">\n                <img src="' +
 ((__t = ( selects[s].attributes.primaryImage )) == null ? '' : __t) +
-'" class="block width100">\n            <p class="desc fadingGradient width100 absolute whiteText">\n                <strong>' +
+'" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
 ((__t = ( selects[s].name )) == null ? '' : __t) +
-'</strong><br>\n                ' +
+'</strong><br>\n                    ' +
 ((__t = ( selects[s].location )) == null ? '' : __t) +
-'<br>\n                ' +
+'<br>\n                    ' +
 ((__t = ( selects[s].type )) == null ? '' : __t) +
-'\n            </p>\n            <p class="price absolute whiteText">' +
+'\n                </p>\n                <p class="price absolute whiteText">' +
 ((__t = ( selects[s].price )) == null ? '' : __t) +
-'</p>\n        </div>\n    </div>\n';
+'</p>\n            </div>\n            <div class="back">Back</div>\n        </div>\n    </div>\n';
 
     for(var p = 0; p < numPropertiesToPrint; p++) { 
 ;
 __p += '\n        <div class="basic">\n            <div class="aspect_fill"></div>\n            <div class="element noOverflow" property="' +
 ((__t = ( properties[p].id )) == null ? '' : __t) +
-'">\n                <img src="' +
+'">\n                <div class="front">\n                    <img src="' +
 ((__t = ( properties[p].attributes.primaryImage )) == null ? '' : __t) +
-'" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
+'" class="block width100">\n                    <p class="desc fadingGradient width100 absolute whiteText">\n                        <strong>' +
 ((__t = ( properties[p].name )) == null ? '' : __t) +
-'</strong><br>\n                    ' +
+'</strong><br>\n                        ' +
 ((__t = ( properties[p].location )) == null ? '' : __t) +
-'<br>\n                    ' +
+'<br>\n                        ' +
 ((__t = ( properties[p].type )) == null ? '' : __t) +
-'\n                </p>\n            </div>\n        </div>\n';
+'\n                    </p>\n                </div>\n                <div class="back">Back</div>\n            </div>\n        </div>\n';
 
     }
 } 

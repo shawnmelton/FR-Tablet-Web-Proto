@@ -219,11 +219,12 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          */
         setPropertyClickEvents: function() {
             var _this = this;
-            $('.basic > div').bind(touchEventType, function() {
-                var propertyId = $(this).attr('property');
-                if(propertyId !== 'undefined' && propertyId !== false) {
-                    _this.onPropertyClick(parseInt(propertyId));
-                }
+            $('.basic').bind(touchEventType, function() {
+                $(this).find('div.element').toggleClass('flip');
+                // var propertyId = $(this).attr('property');
+                // if(propertyId !== 'undefined' && propertyId !== false) {
+                //     _this.onPropertyClick(parseInt(propertyId));
+                // }
             });
         },
 

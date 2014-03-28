@@ -10,17 +10,45 @@
         width: 30%;
         margin: 0 0 1.5% 1.5%;
         -webkit-transition: width 0.1s;
+        -webkit-perspective: 1000;
+        overflow:hidden;
     }
         .basic .aspect_fill {
-            padding-top: 75%; /* 4:3 aspect ratio */
+            padding-top: 75%;
         }
         .basic .element {
             position: absolute;
+            -webkit-transition: 0.6s;
+            -webkit-transform-style: preserve-3d;
             top: 0;
             bottom: 0;
             left: 0;
             right: 0;
-            background-color: silver /* show me! */
+            overflow: visible;
+            background-color: silver;
+                -webkit-backface-visibility: hidden;
+
+            &.flip{
+                -webkit-transform: rotateY(180deg);
+            }
+
+            .front, .back {
+                -webkit-backface-visibility: hidden;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+            .front{
+                z-index: 1;
+                -webkit-transform:rotateY(0deg);
+            }
+            .back{
+                background: #36F;
+                -webkit-transform: translate3d(0,0,0);
+                -webkit-transform: rotateY(180deg);
+            }
         }
         .basic img {
             position: absolute;

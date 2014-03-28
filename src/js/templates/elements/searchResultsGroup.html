@@ -6,13 +6,16 @@ for(var s = 0; s < numBlocksToPrint; s++) {
     <div class="basic select <%= first %>">
         <div class="aspect_fill"></div>
         <div class="element noOverflow" property="<%= selects[s].id %>">
-            <img src="<%= selects[s].attributes.primaryImage %>" class="block width100">
-            <p class="desc fadingGradient width100 absolute whiteText">
-                <strong><%= selects[s].name %></strong><br>
-                <%= selects[s].location %><br>
-                <%= selects[s].type %>
-            </p>
-            <p class="price absolute whiteText"><%= selects[s].price %></p>
+            <div class="front">
+                <img src="<%= selects[s].attributes.primaryImage %>" class="block width100">
+                <p class="desc fadingGradient width100 absolute whiteText">
+                    <strong><%= selects[s].name %></strong><br>
+                    <%= selects[s].location %><br>
+                    <%= selects[s].type %>
+                </p>
+                <p class="price absolute whiteText"><%= selects[s].price %></p>
+            </div>
+            <div class="back">Back</div>
         </div>
     </div>
 <%
@@ -21,12 +24,15 @@ for(var s = 0; s < numBlocksToPrint; s++) {
         <div class="basic">
             <div class="aspect_fill"></div>
             <div class="element noOverflow" property="<%= properties[p].id %>">
-                <img src="<%= properties[p].attributes.primaryImage %>" class="block width100">
-                <p class="desc fadingGradient width100 absolute whiteText">
-                    <strong><%= properties[p].name %></strong><br>
-                    <%= properties[p].location %><br>
-                    <%= properties[p].type %>
-                </p>
+                <div class="front">
+                    <img src="<%= properties[p].attributes.primaryImage %>" class="block width100">
+                    <p class="desc fadingGradient width100 absolute whiteText">
+                        <strong><%= properties[p].name %></strong><br>
+                        <%= properties[p].location %><br>
+                        <%= properties[p].type %>
+                    </p>
+                </div>
+                <div class="back">Back</div>
             </div>
         </div>
 <%
