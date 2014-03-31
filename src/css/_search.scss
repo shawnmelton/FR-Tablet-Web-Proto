@@ -11,7 +11,6 @@
         margin: 0 0 1.5% 1.5%;
         -webkit-transition: width 0.1s;
         -webkit-perspective: 1000;
-        overflow:hidden;
     }
         .basic .aspect_fill {
             padding-top: 75%;
@@ -39,15 +38,51 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
+                overflow: hidden;
             }
             .front{
                 z-index: 1;
                 -webkit-transform:rotateY(0deg);
             }
             .back{
-                background: #36F;
+                background: #F1F1F1;
                 -webkit-transform: translate3d(0,0,0);
                 -webkit-transform: rotateY(180deg);
+                box-shadow: 0 0 0 1px #CCC inset;
+
+                >a{
+                    position: fixed;
+                    bottom: 0;
+                    margin: 5%;
+                    height: 15px;
+                    width: 90%;
+                    padding: 15px 0;
+                    text-align: center;
+                    -webkit-border-radius: 8px;
+                    background: #F90;
+                    color: #FFF;
+                    text-decoration: none;
+                    font-size: 16px;
+                    font-family: 'Helvetica';
+                    box-shadow: 0 0 0 1px #FFF inset;
+                }
+
+                >ul{
+                    padding: 0;
+                    margin: 6% 8% 6% 12%;
+                    width: 84%;
+                    font-size: 10px;
+                    position: absolute;
+                    z-index: 0;
+                    list-style: circle;
+
+                    >li{
+                        margin: 0;
+                        padding: 0;
+                        float: left;
+                        width: 50%;
+                    }
+                }
             }
         }
         .basic img {

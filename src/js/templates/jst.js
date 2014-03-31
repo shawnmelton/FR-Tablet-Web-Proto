@@ -190,7 +190,7 @@ __p += '\n    <div class="basic select ' +
 ((__t = ( selects[s].type )) == null ? '' : __t) +
 '\n                </p>\n                <p class="price absolute whiteText">' +
 ((__t = ( selects[s].price )) == null ? '' : __t) +
-'</p>\n            </div>\n            <div class="back">Back</div>\n        </div>\n    </div>\n';
+'</p>\n            </div>\n            <div class="back">\n                <a href="#">Check Availability</a>\n            </div>\n        </div>\n    </div>\n';
 
     for(var p = 0; p < numPropertiesToPrint; p++) { 
 ;
@@ -204,7 +204,7 @@ __p += '\n        <div class="basic">\n            <div class="aspect_fill"></di
 ((__t = ( properties[p].location )) == null ? '' : __t) +
 '<br>\n                        ' +
 ((__t = ( properties[p].type )) == null ? '' : __t) +
-'\n                    </p>\n                </div>\n                <div class="back">Back</div>\n            </div>\n        </div>\n';
+'\n                    </p>\n                </div>\n                <div class="back">\n                    <ul>\n                        <li>Brand New Floorplans</li>\n                        <li>Resort Style Pool</li>\n                        <li>Stainless Steel Appliances</li>\n                        <li>In-Home Washer &amp; Dryer</li>\n                        <li>Private Pier w/ Access to Canoes, Kayaks, &amp; Fishing</li>\n                        <li>21st Century Kitchens with Granite Countertops</li>\n                    </ul>\n                    <a href="#">Check Availability</a>\n                </div>\n            </div>\n        </div>\n';
 
     }
 } 

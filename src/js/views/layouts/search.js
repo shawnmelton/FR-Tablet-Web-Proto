@@ -214,6 +214,12 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             searchBarViewEl.setKeywords(decodeURIComponent(location.pathname.split('search/')[1]));
         },
 
+        setMotionDetection: function(){
+            window.ondevicemotion = function(event) {
+
+            };
+        },
+
         /**
          * Make each property touchable.
          */
