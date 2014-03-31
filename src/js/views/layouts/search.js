@@ -226,6 +226,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         setPropertyClickEvents: function() {
             var _this = this;
             $('.basic').bind(touchEventType, function() {
+                $('.basic div.element').removeClass('flip');
                 $(this).find('div.element').toggleClass('flip');
                 // var propertyId = $(this).attr('property');
                 // if(propertyId !== 'undefined' && propertyId !== false) {
