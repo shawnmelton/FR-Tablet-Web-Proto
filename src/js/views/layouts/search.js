@@ -46,6 +46,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 function geocodeCallback(geocodeResult, userData)
                 {
                     var locs = [],
+                        pins = [],
                         pinHTML,
                         currentLocation = geocodeResult.results[0].location;
 
@@ -64,7 +65,14 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                         }
                         var pinOptions = {width: null, height: null, htmlContent: pinHTML}; 
                         var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
+                        Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
+                            var propertyIndex = pins.indexOf(e.target);
+                            console.log('Clicked ', propertyIndex, _this.listings.models[propertyIndex].attributes);
+                            //Bring this card to top of list, n-th child, scroll up
+                            //Show info card
+                        });
                         _this.map.entities.push(pin);
+                        pins.push(pin);
                         locs.push(location);
                     });
 
