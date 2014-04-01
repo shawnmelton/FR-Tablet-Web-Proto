@@ -172,7 +172,7 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
 
-for(var s = 0; s < numBlocksToPrint; s++) {
+for(var s = 0; s < numBlocksToPrint && selects; s++) {
     //Remove top padding from the first property
     var first = (s == 0) ? 'first' : '';
 ;
@@ -192,7 +192,7 @@ __p += '\n    <div class="basic select ' +
 ((__t = ( selects[s].price )) == null ? '' : __t) +
 '</p>\n            </div>\n            <div class="back">\n                <a href="#">Check Availability</a>\n            </div>\n        </div>\n    </div>\n';
 
-    for(var p = 0; p < numPropertiesToPrint; p++) { 
+    for(var p = 0; p < numPropertiesToPrint && properties; p++) { 
 ;
 __p += '\n        <div class="basic">\n            <div class="aspect_fill"></div>\n            <div class="element noOverflow" property="' +
 ((__t = ( properties[p].id )) == null ? '' : __t) +

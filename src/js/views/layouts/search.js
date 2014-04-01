@@ -11,6 +11,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         userZip: null,
         userState: null,
         userCity: null,
+        currentListingsPage: null,
+        listingLimit: 10,
+        scrollTriggerDistance: 600,
 
         getLocationFromZip: function(address){
             //
@@ -85,18 +88,44 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
 
         loadResultsSet: function() {
             var _this = this;
-            this.propertyIndex += (this.propertyIndex === null) ? 0 : 1;
-            $('.table > div > div > div').unbind(touchEventType);
-            this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroup.html']({
-                startIndex: this.propertyIndex,
-                numBlocksToPrint: 2,          //Change this based or layout options
-                numPropertiesToPrint: 4,       //Change this based or layout options
-                selects: _this.listings.slice(0,2),
-                properties: _this.listings.slice(2,8),
-                listings: _this.listings
-            }));
 
-            this.setPropertyClickEvents();
+            console.log('Load Results');
+
+            //Initialize to zero or increment based on whether
+            //or not this is the first call
+            this.currentListingsPage += (this.currentListingsPage === null) ? 0 : 1;
+            this.userZip = decodeURIComponent(location.pathname.split('search/')[1]);
+
+            this.listings = new ListingCollection();
+            this.listings.fetch({
+                data: $.param({
+                    limit: _this.listingLimit,
+                    start: _this.currentListingsPage*_this.listingLimit,
+                    zip: _this.userZip
+                }),
+                success: function(response){
+                    console.log('Response: ', response);
+                    console.log('Load page: ', _this.currentListingsPage);
+
+                    var numListings = _this.listings.length;
+                    if(!numListings) return;
+                    $('.table > div > div > div').unbind(touchEventType);
+                    _this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroup.html']({
+                        startIndex: this.propertyIndex,
+                        selects: (numListings >= 2) ? _this.listings.slice(0,2) : _this.listings.slice(0,numListings),
+                        properties: (numListings > 2) ? _this.listings.slice(2,numListings-2) : null,
+                        listings: _this.listings,
+                        numBlocksToPrint: 2,          //Change this based or layout options
+                        numPropertiesToPrint: 4       //Change this based or layout options
+                    }));
+
+                    _this.setPropertyClickEvents();
+
+                    //Initialize map with listings and 
+                    //center on the group
+                    _this.initializeMap(_this.listings);
+                }
+            });
         },
 
         /**
@@ -122,23 +151,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         render: function(){
             var _this = this;
             this.userZip = decodeURIComponent(location.pathname.split('search/')[1]);
-            this.listings = new ListingCollection();
-            this.listings.fetch({
-                data: $.param({ 
-                    zip: _this.userZip,
-                    city: _this.userCity,
-                    state: _this.userState,
-                }),
-                success: function(response){
-                    //Load listings in list view
-                    _this.loadResultsSet();
-
-                    //Initialize map with listings and 
-                    //center on the group
-                    _this.initializeMap(_this.listings);
-                }
-            });
-
+            this.loadResultsSet();
             this.setKeywords();
             this.$el.html(JST['src/js/templates/layouts/search.html']());
             this.$el.attr("class", "search");
@@ -202,8 +215,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         setInfiniteScrolling: function() {
             _this = this;
             $(window).scroll(function(){
-                if($(window).scrollTop() >= ($(document).height() - $(window).height() - 600)) {
-
+                console.log('ScrollTop: ', $(window).scrollTop());
+                if($(window).scrollTop() >= ($(document).height() - $(window).height() - _this.scrollTriggerDistance)) {
+                    console.log('Threshold crossed: ', $(window).scrollTop());
                     //TODO: Make another API call before loading the results again
                     _this.loadResultsSet();
                 }
@@ -234,8 +248,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         setPropertyClickEvents: function() {
             var _this = this;
             $('.basic').bind(touchEventType, function() {
-                $('.basic div.element').removeClass('flip');
                 $(this).find('div.element').toggleClass('flip');
+                $('.basic div').not($(this)).removeClass('flip');
+
                 // var propertyId = $(this).attr('property');
                 // if(propertyId !== 'undefined' && propertyId !== false) {
                 //     _this.onPropertyClick(parseInt(propertyId));

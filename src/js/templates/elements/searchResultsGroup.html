@@ -1,5 +1,5 @@
 <%
-for(var s = 0; s < numBlocksToPrint; s++) {
+for(var s = 0; s < numBlocksToPrint && selects; s++) {
     //Remove top padding from the first property
     var first = (s == 0) ? 'first' : '';
 %>
@@ -21,7 +21,7 @@ for(var s = 0; s < numBlocksToPrint; s++) {
         </div>
     </div>
 <%
-    for(var p = 0; p < numPropertiesToPrint; p++) { 
+    for(var p = 0; p < numPropertiesToPrint && properties; p++) { 
 %>
         <div class="basic">
             <div class="aspect_fill"></div>
