@@ -6,14 +6,20 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         contentHeight: 0,
         map: null,
         mapCanvas: $('#map-canvas'),
+        mapInitialized: false,
         userAddressTerms: null,
         propertyIndex: null,
+        searchString: null,
+        lastSearchString: null,
         userZip: null,
+        lastZip: null,
         userState: null,
         userCity: null,
         currentListingsPage: null,
-        listingLimit: 10,
+        currentSearchListingCount: 0, //How many recs have been loaded, to compare to total
+        listingLimit: 20,
         scrollTriggerDistance: 600,
+        morePropertiesExist: false,
 
         getLocationFromZip: function(address){
             //
@@ -55,7 +61,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
 
                     $.each(listings.models, function(i, listing){
                         var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng);
-                        if(i === 0 || i === 1){
+                        if(i%5 === 0){
                                 pinHTML = JST['src/js/templates/elements/pmarker.html']({
                                 image_src: listing.attributes.primaryImage,
                                 count: '5'
@@ -78,6 +84,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                         pins.push(pin);
                         locs.push(location);
                     });
+                    //Map is initialized
+                    _this.mapInitialized = true;
 
                     //Get bounding box from group of pins
                     _this.centerOnPinGroup(locs);
@@ -86,44 +94,88 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             });
         },
 
+        isNumeric: function(n){
+          return !isNaN(parseFloat(n)) && isFinite(n);
+        },
+
         loadResultsSet: function() {
             var _this = this;
 
-            console.log('Load Results');
 
             //Initialize to zero or increment based on whether
-            //or not this is the first call
-            this.currentListingsPage += (this.currentListingsPage === null) ? 0 : 1;
-            this.userZip = decodeURIComponent(location.pathname.split('search/')[1]);
+            //or not this is the first call of a new zip code
+            if(_this.lastSearchString != _this.searchString || this.currentListingsPage === null){
+                _this.mapInitialized = false;
+                this.currentListingsPage = 0;
+            }
+            else{
+                this.currentListingsPage++;
+            }
+
+            console.log('Load Results', _this.lastSearchString, _this.searchString);
+            console.log('Load page: ', _this.currentListingsPage);
+
+            //Show loading image
+            $(_this.resultsEl).addClass('loading');
+
+            var searchOptions = {
+                limit: _this.listingLimit,
+                start: _this.currentListingsPage*_this.listingLimit
+            };
+
+            //If search string is numeric, search by zip code
+            if(this.isNumeric(this.searchString)){
+                searchOptions.zip = this.searchString;
+            }
+            else{
+                searchOptions.city = decodeURIComponent(this.searchString);
+            }
 
             this.listings = new ListingCollection();
             this.listings.fetch({
-                data: $.param({
-                    limit: _this.listingLimit,
-                    start: _this.currentListingsPage*_this.listingLimit,
-                    zip: _this.userZip
-                }),
+                data: $.param(searchOptions),
                 success: function(response){
+                    //Remove loading image
+                    $(_this.resultsEl).removeClass('loading');
+
+                    console.log('Count: ', _this.listings.totalRecs);
                     console.log('Response: ', response);
                     console.log('Load page: ', _this.currentListingsPage);
 
-                    var numListings = _this.listings.length;
-                    if(!numListings) return;
+                    var numListings = response.length;
+                    _this.morePropertiesExist = (response.length);
+                    if(!_this.morePropertiesExist){
+                        //Remove loading class
+                        return;
+                    }
+
+                    //Properties exist
+
+                    //Increment listings shown
+                    _this.currentSearchListingCount += numListings;
+
+                    //Update current searched zip
+                    _this.lastSearchString = _this.searchString;
+
+                    var blocks = 4;
+
                     $('.table > div > div > div').unbind(touchEventType);
                     _this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroup.html']({
                         startIndex: this.propertyIndex,
-                        selects: (numListings >= 2) ? _this.listings.slice(0,2) : _this.listings.slice(0,numListings),
-                        properties: (numListings > 2) ? _this.listings.slice(2,numListings-2) : null,
+                        selects: (numListings >= blocks) ? _this.listings.slice(0,blocks) : _this.listings.slice(0,numListings),
+                        properties: (numListings > blocks) ? _this.listings.slice(blocks,numListings-blocks) : null,
                         listings: _this.listings,
-                        numBlocksToPrint: 2,          //Change this based or layout options
-                        numPropertiesToPrint: 4       //Change this based or layout options
+                        numBlocksToPrint: blocks,          //Change this based or layout options
+                        numPropertiesToPrint: blocks       //Change this based or layout options
                     }));
 
                     _this.setPropertyClickEvents();
 
                     //Initialize map with listings and 
                     //center on the group
-                    _this.initializeMap(_this.listings);
+                    if(!_this.mapInitialized){
+                        _this.initializeMap(_this.listings);
+                    }
                 }
             });
         },
@@ -150,7 +202,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          */
         render: function(){
             var _this = this;
-            this.userZip = decodeURIComponent(location.pathname.split('search/')[1]);
+            this.searchString = decodeURIComponent(location.pathname.split('search/')[1]);
             this.loadResultsSet();
             this.setKeywords();
             this.$el.html(JST['src/js/templates/layouts/search.html']());
@@ -213,12 +265,14 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          * down the screen.
          */
         setInfiniteScrolling: function() {
-            _this = this;
-            $(window).scroll(function(){
-                console.log('ScrollTop: ', $(window).scrollTop());
-                if($(window).scrollTop() >= ($(document).height() - $(window).height() - _this.scrollTriggerDistance)) {
-                    console.log('Threshold crossed: ', $(window).scrollTop());
-                    //TODO: Make another API call before loading the results again
+            var _this = this;
+            $(this.el).scroll(function(){
+                var distanceScrolled = $(this).scrollTop();
+                var scrollHeight = $(this).height();
+                var scrollThreshold = scrollHeight * _this.currentListingsPage + scrollHeight;
+                console.log('Content Top: ', distanceScrolled, ', New Threshold: ', scrollThreshold);
+                if(distanceScrolled >= scrollThreshold && _this.morePropertiesExist) {
+                    console.log('Load More Results');
                     _this.loadResultsSet();
                 }
             });

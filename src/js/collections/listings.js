@@ -6,7 +6,9 @@ define([
   var ListingCollection = Backbone.Collection.extend({
     model: ListingModel,
     url: '/api.php',
+    totalRecs: null,
     parse: function(response) {
+        this.totalRecs = response.totalrecs;
         return response.listings;
     }
   });

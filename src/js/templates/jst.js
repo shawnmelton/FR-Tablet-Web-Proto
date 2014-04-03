@@ -173,6 +173,7 @@ with (obj) {
 
 
 for(var s = 0; s < numBlocksToPrint && selects; s++) {
+    if(!selects[s]) break;
     //Remove top padding from the first property
     var first = (s == 0) ? 'first' : '';
 ;
@@ -182,29 +183,41 @@ __p += '\n    <div class="basic select ' +
 ((__t = ( selects[s].id )) == null ? '' : __t) +
 '">\n            <div class="front">\n                <img src="' +
 ((__t = ( selects[s].attributes.primaryImage )) == null ? '' : __t) +
-'" class="block width100">\n                <p class="desc fadingGradient width100 absolute whiteText">\n                    <strong>' +
-((__t = ( selects[s].name )) == null ? '' : __t) +
-'</strong><br>\n                    ' +
-((__t = ( selects[s].location )) == null ? '' : __t) +
-'<br>\n                    ' +
-((__t = ( selects[s].type )) == null ? '' : __t) +
-'\n                </p>\n                <p class="price absolute whiteText">' +
-((__t = ( selects[s].price )) == null ? '' : __t) +
-'</p>\n            </div>\n            <div class="back">\n                <a href="#">Check Availability</a>\n            </div>\n        </div>\n    </div>\n';
+'" class="block width100">\n                <div class="blurImageContainer">\n                    <img src="' +
+((__t = ( selects[s].attributes.primaryImage )) == null ? '' : __t) +
+'" class="block width100">\n                    <p class="desc width100 absolute whiteText">\n                        <strong>' +
+((__t = ( selects[s].attributes.name )) == null ? '' : __t) +
+'</strong><br>\n                        ' +
+((__t = ( selects[s].attributes.streetAddress )) == null ? '' : __t) +
+',' +
+((__t = ( selects[s].attributes.city )) == null ? '' : __t) +
+'\n                    </p>\n                    <p class="price absolute whiteText">' +
+((__t = ( selects[s].attributes.price.max )) == null ? '' : __t) +
+' - ' +
+((__t = ( selects[s].attributes.price.min )) == null ? '' : __t) +
+'\n                    </p>\n                </div>\n            </div>\n            <div class="back">\n                <a href="#">Check Availability</a>\n            </div>\n        </div>\n    </div>\n';
 
-    for(var p = 0; p < numPropertiesToPrint && properties; p++) { 
+    for(var p = 0; p < numPropertiesToPrint && properties; p++) {
+        var trueIndex = p + s*numPropertiesToPrint;
+        if(!properties[trueIndex]) break;
 ;
 __p += '\n        <div class="basic">\n            <div class="aspect_fill"></div>\n            <div class="element noOverflow" property="' +
-((__t = ( properties[p].id )) == null ? '' : __t) +
+((__t = ( properties[trueIndex].id )) == null ? '' : __t) +
 '">\n                <div class="front">\n                    <img src="' +
-((__t = ( properties[p].attributes.primaryImage )) == null ? '' : __t) +
-'" class="block width100">\n                    <p class="desc fadingGradient width100 absolute whiteText">\n                        <strong>' +
-((__t = ( properties[p].name )) == null ? '' : __t) +
+((__t = ( properties[trueIndex].attributes.primaryImage )) == null ? '' : __t) +
+'" class="block width100">\n                    <div class="blurImageContainer">\n                        <img src="' +
+((__t = ( properties[trueIndex].attributes.primaryImage )) == null ? '' : __t) +
+'" class="block width100">                    <p class="desc width100 absolute whiteText">\n                        <strong>' +
+((__t = ( properties[s].attributes.name )) == null ? '' : __t) +
 '</strong><br>\n                        ' +
-((__t = ( properties[p].location )) == null ? '' : __t) +
-'<br>\n                        ' +
-((__t = ( properties[p].type )) == null ? '' : __t) +
-'\n                    </p>\n                </div>\n                <div class="back">\n                    <ul>\n                        <li>Brand New Floorplans</li>\n                        <li>Resort Style Pool</li>\n                        <li>Stainless Steel Appliances</li>\n                        <li>In-Home Washer &amp; Dryer</li>\n                        <li>Private Pier w/ Access to Canoes, Kayaks, &amp; Fishing</li>\n                        <li>21st Century Kitchens with Granite Countertops</li>\n                    </ul>\n                    <a href="#">Check Availability</a>\n                </div>\n            </div>\n        </div>\n';
+((__t = ( properties[s].attributes.streetAddress )) == null ? '' : __t) +
+',' +
+((__t = ( properties[s].attributes.city )) == null ? '' : __t) +
+'\n                    </p>\n                    <p class="price absolute whiteText">' +
+((__t = ( properties[s].attributes.price.max )) == null ? '' : __t) +
+' - ' +
+((__t = ( properties[s].attributes.price.min )) == null ? '' : __t) +
+'\n                    </p>\n                    </div>\n                </div>\n                <div class="back">\n                    <ul>\n                        <li>Brand New Floorplans</li>\n                        <li>Resort Style Pool</li>\n                        <li>Stainless Steel Appliances</li>\n                        <li>In-Home Washer &amp; Dryer</li>\n                        <li>Private Pier w/ Access to Canoes, Kayaks, &amp; Fishing</li>\n                        <li>21st Century Kitchens with Granite Countertops</li>\n                    </ul>\n                    <a href="#">Check Availability</a>\n                </div>\n            </div>\n        </div>\n';
 
     }
 } 

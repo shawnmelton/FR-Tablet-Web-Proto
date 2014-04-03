@@ -1,5 +1,6 @@
 <%
 for(var s = 0; s < numBlocksToPrint && selects; s++) {
+    if(!selects[s]) break;
     //Remove top padding from the first property
     var first = (s == 0) ? 'first' : '';
 %>
@@ -8,12 +9,15 @@ for(var s = 0; s < numBlocksToPrint && selects; s++) {
         <div class="element noOverflow" property="<%= selects[s].id %>">
             <div class="front">
                 <img src="<%= selects[s].attributes.primaryImage %>" class="block width100">
-                <p class="desc fadingGradient width100 absolute whiteText">
-                    <strong><%= selects[s].name %></strong><br>
-                    <%= selects[s].location %><br>
-                    <%= selects[s].type %>
-                </p>
-                <p class="price absolute whiteText"><%= selects[s].price %></p>
+                <div class="blurImageContainer">
+                    <img src="<%= selects[s].attributes.primaryImage %>" class="block width100">
+                    <p class="desc width100 absolute whiteText">
+                        <strong><%= selects[s].attributes.name %></strong><br>
+                        <%= selects[s].attributes.streetAddress %>,<%= selects[s].attributes.city %>
+                    </p>
+                    <p class="price absolute whiteText"><%= selects[s].attributes.price.max %> - <%= selects[s].attributes.price.min %>
+                    </p>
+                </div>
             </div>
             <div class="back">
                 <a href="#">Check Availability</a>
@@ -21,18 +25,23 @@ for(var s = 0; s < numBlocksToPrint && selects; s++) {
         </div>
     </div>
 <%
-    for(var p = 0; p < numPropertiesToPrint && properties; p++) { 
+    for(var p = 0; p < numPropertiesToPrint && properties; p++) {
+        var trueIndex = p + s*numPropertiesToPrint;
+        if(!properties[trueIndex]) break;
 %>
         <div class="basic">
             <div class="aspect_fill"></div>
-            <div class="element noOverflow" property="<%= properties[p].id %>">
+            <div class="element noOverflow" property="<%= properties[trueIndex].id %>">
                 <div class="front">
-                    <img src="<%= properties[p].attributes.primaryImage %>" class="block width100">
-                    <p class="desc fadingGradient width100 absolute whiteText">
-                        <strong><%= properties[p].name %></strong><br>
-                        <%= properties[p].location %><br>
-                        <%= properties[p].type %>
+                    <img src="<%= properties[trueIndex].attributes.primaryImage %>" class="block width100">
+                    <div class="blurImageContainer">
+                        <img src="<%= properties[trueIndex].attributes.primaryImage %>" class="block width100">                    <p class="desc width100 absolute whiteText">
+                        <strong><%= properties[trueIndex].attributes.name %></strong><br>
+                        <%= properties[trueIndex].attributes.streetAddress %>,<%= properties[trueIndex].attributes.city %>
                     </p>
+                    <p class="price absolute whiteText"><%= properties[trueIndex].attributes.price.max %> - <%= properties[trueIndex].attributes.price.min %>
+                    </p>
+                    </div>
                 </div>
                 <div class="back">
                     <ul>
