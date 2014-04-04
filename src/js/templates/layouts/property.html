@@ -3,13 +3,13 @@
 <a id="swipeVertArrow" class="block absolute safariHack"></a>
 <section id="teaser" class="relative borderBox noOverflow">
     <div class="info transWhite80">
-        <h2><%= property.name %></h2>
+        <h2><%= property.attributes.name %></h2>
         <p class="clickable pointer" section="map">
-            <%= property.address %><br>
+            <%= property.attributes.streetAddress %> <%= property.attributes.city %>, <%= property.attributes.state %><%= property.attributes.zip %><br>
             <a href="http://maps.google.com?q=<%= property.address %>" target="_blank">View Map &amp; Directions</a>
         </p>
         <p class="clickable pointer" section="floorplans">
-            <%= property.type %> for <%= property.price %><br>
+            <%= property.attributes.beds %> Beds for <%= property.attributes.price.min %> - <%= property.attributes.price.max %><br>
             <a>View Floor Plans &amp; Prices</a>
         </p>
         <p class="clickable pointer" section="reviews">

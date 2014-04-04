@@ -21,6 +21,21 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         scrollTriggerDistance: 600,
         morePropertiesExist: false,
 
+        /**
+         * Locate a property given an id.
+         */
+        findById: function(id) {
+
+            var obj = null;
+            this.listings.each(function(property) {
+                if(parseInt(property.get('id')) === id) {
+                    obj = property.toJSON();
+                }
+            });
+
+            return obj;
+        },
+
         getLocationFromZip: function(address){
             //
         },
@@ -69,8 +84,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                         }
                         else{
                                 pinHTML = JST['src/js/templates/elements/marker.html']({
-                                count: '1'
-                            });
+                                    count: '1'
+                                });
                         }
                         var pinOptions = {width: null, height: null, htmlContent: pinHTML}; 
                         var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
@@ -128,7 +143,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 searchOptions.zip = this.searchString;
             }
             else{
-                searchOptions.city = decodeURIComponent(this.searchString);
+                searchOptions.city = encodeURI(this.searchString);
             }
 
             this.listings = new ListingCollection();
@@ -192,8 +207,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          * Handle what happens when a property is touched/clicked.
          * @propertyId - Integer value.
          */
-        onPropertyClick: function(propertyId) {
-            Navigate.toUrl('/properties/'+propertyId);
+        onPropertyClick: function(homesId) {
+            Navigate.toUrl('/properties/'+homesId);
         },
 
         /**
@@ -270,9 +285,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 var distanceScrolled = $(this).scrollTop();
                 var scrollHeight = $(this).height();
                 var scrollThreshold = scrollHeight * _this.currentListingsPage + scrollHeight;
-                console.log('Content Top: ', distanceScrolled, ', New Threshold: ', scrollThreshold);
+                // console.log('Content Top: ', distanceScrolled, ', New Threshold: ', scrollThreshold);
                 if(distanceScrolled >= scrollThreshold && _this.morePropertiesExist) {
-                    console.log('Load More Results');
+                    // console.log('Load More Results');
                     _this.loadResultsSet();
                 }
             });
@@ -301,14 +316,15 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          */
         setPropertyClickEvents: function() {
             var _this = this;
-            $('.basic').bind(touchEventType, function() {
-                $(this).find('div.element').toggleClass('flip');
-                $('.basic div').not($(this)).removeClass('flip');
+            $('.basic > .element').bind(touchEventType, function() {
+                // $(this).find('div.element').toggleClass('flip');
+                // $('.basic div').not($(this)).removeClass('flip');
 
-                // var propertyId = $(this).attr('property');
-                // if(propertyId !== 'undefined' && propertyId !== false) {
-                //     _this.onPropertyClick(parseInt(propertyId));
-                // }
+                var homesId = $(this).attr('property');
+                if(homesId !== 'undefined' && homesId !== false) {
+                    _this.currentListingsPage = null;
+                    _this.onPropertyClick(parseInt(homesId));
+                }
             });
         },
 

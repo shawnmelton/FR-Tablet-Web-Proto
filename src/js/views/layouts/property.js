@@ -1,6 +1,6 @@
 define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'views/elements/footer',
-    'tools/navigate', 'tools/data', 'views/elements/propertyGallery', 'views/elements/guestCardForm'],
-    function($, Backbone, tmplts, searchBarViewEl, footerViewEl, Navigate, Data, galleryViewEl, guestCardFormEl){
+    'tools/navigate', 'tools/data', 'views/elements/propertyGallery', 'views/elements/guestCardForm','models/listing','collections/listings'],
+    function($, Backbone, tmplts, searchBarViewEl, footerViewEl, Navigate, Data, galleryViewEl, guestCardFormEl, ListingModel, ListingCollection){
     var propertyView = Backbone.View.extend({
         el: "#content",
         property: null,
@@ -89,29 +89,50 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             if(!this.valid()) {
                 return;
             }
+            var _this = this;
+            var propertyId = parseInt(decodeURIComponent(location.pathname.split('properties/')[1]));
+            this.listings = new ListingCollection();
+            this.listings.fetch({
+                data: $.param({
+                    homesId: propertyId
+                }),
+                success: function(response){
+                    _this.property = response.models[0];
+                    
+                    if(_this.property === null) {
+                        Navigate.toUrl('/');
+                        valid = false;
+                    }
 
-            // Reset elements for this property view.
-            this.moreEl = null;
-            this.moreContentEl = null;
+                    console.log('Property: ', _this.property);
+                    galleryViewEl.setProperty(_this.property);
 
-            this.$el.html(JST['src/js/templates/layouts/property.html']({
-                property: this.property,
-                moreContent: JST['src/js/templates/elements/propertyFloorPlans.html'](),
-                guestCardForm: guestCardFormEl.getHTML()
-            }));
-            this.$el.attr("class", "property");
+                    // Reset elements for this property view.
+                    _this.moreEl = null;
+                    _this.moreContentEl = null;
 
-            guestCardFormEl.init();
-            searchBarViewEl.renderToHeader();
-            this.setProfileFooter();
-            galleryViewEl.reset();
-            this.relayout();
+                    _this.$el.html(JST['src/js/templates/layouts/property.html']({
+                        property: _this.property,
+                        moreContent: JST['src/js/templates/elements/propertyFloorPlans.html']({
+                            floor_plans: _this.property.attributes.floor_plans
+                        }),
+                        guestCardForm: guestCardFormEl.getHTML()
+                    }));
+                    _this.$el.attr("class", "property");
 
-            // Events
-            this.setResizeEvent();
-            this.setTouchEvents();
-            this.setScrollEvent();
-            this.setVertArrowEvent();
+                    guestCardFormEl.init();
+                    searchBarViewEl.renderToHeader();
+                    _this.setProfileFooter();
+                    galleryViewEl.reset();
+                    _this.relayout();
+
+                    // Events
+                    _this.setResizeEvent();
+                    _this.setTouchEvents();
+                    _this.setScrollEvent();
+                    _this.setVertArrowEvent();
+                }
+            });
         },
 
         /**
@@ -198,7 +219,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 
                 var scrollTop = $(this).scrollTop() * 1.5;
                 var percent = scrollTop/$(window).height();
-                console.log('Percent:', scrollTop/$(window).height());
                 
                 //Add CSS blur to the gallery as the user scrolls the property up
                 $('#gallery').css({
@@ -260,16 +280,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 Navigate.toUrl('/');
                 valid = false;
             }
-
-            this.property = Data.findById(parseInt(decodeURIComponent(location.pathname.split('properties/')[1])));
-            
-            if(this.property === null) {
-                Navigate.toUrl('/');
-                valid = false;
-            }
-
-            galleryViewEl.setPropertyId(this.property.id);
-
             return valid;
         }
     });

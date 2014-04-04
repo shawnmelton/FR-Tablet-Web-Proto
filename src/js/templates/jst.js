@@ -117,9 +117,22 @@ return __p
 
 this["JST"]["src/js/templates/elements/propertyFloorPlans.html"] = function(obj) {
 obj || (obj = {});
-var __t, __p = '', __e = _.escape;
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div id="floorplans" class="bgWhite">\n    <table class="width100">\n        <tr>\n            <td class="alignLeft">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter">1<span class="block">Beds</span></td>\n            <td class="alignCenter">2<span class="block">Baths</span></td>\n            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="alignLeft">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter">1<span class="block">Beds</span></td>\n            <td class="alignCenter">2<span class="block">Baths</span></td>\n            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="alignLeft">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter">1<span class="block">Beds</span></td>\n            <td class="alignCenter">2<span class="block">Baths</span></td>\n            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="alignLeft">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter">1<span class="block">Beds</span></td>\n            <td class="alignCenter">2<span class="block">Baths</span></td>\n            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="alignLeft">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter">1<span class="block">Beds</span></td>\n            <td class="alignCenter">2<span class="block">Baths</span></td>\n            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="alignLeft">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter">1<span class="block">Beds</span></td>\n            <td class="alignCenter">2<span class="block">Baths</span></td>\n            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="alignLeft">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter">1<span class="block">Beds</span></td>\n            <td class="alignCenter">2<span class="block">Baths</span></td>\n            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>\n        </tr>\n        <tr>\n            <td class="alignLeft noBorder">\n                Floor Plan Name\n                <span class="block">more details here</span>\n            </td>\n            <td class="alignCenter noBorder">1<span class="block">Beds</span></td>\n            <td class="alignCenter noBorder">2<span class="block">Baths</span></td>\n            <td class="alignCenter noBorder">$1,500<span class="block">Monthly</span></td>\n        </tr>\n    </table>\n</div>';
+__p += '<div id="floorplans" class="bgWhite">\n    ';
+ for(i = 0; i < floor_plans.length; i++){ ;
+__p += '\n    <table class="width100">\n        <tr>\n            <td class="alignLeft">\n                ' +
+((__t = ( floor_plans[i].name )) == null ? '' : __t) +
+'\n                <a href="#" class="block">more details here</a>\n            </td>\n            <td class="alignCenter">' +
+((__t = ( floor_plans[i].beds )) == null ? '' : __t) +
+'<span class="block">Beds</span></td>\n            <td class="alignCenter">' +
+((__t = ( floor_plans[i].baths )) == null ? '' : __t) +
+'<span class="block">Baths</span></td>\n            <td class="alignCenter">' +
+((__t = ( floor_plans[i].price_low )) == null ? '' : __t) +
+'<span class="block">Monthly</span></td>\n        </tr>\n        <tr><td class="moredetails" colspan="4">More Details</td></tr>\n    </table>\n    ';
+ } ;
+__p += '\n</div>';
 
 }
 return __p
@@ -180,7 +193,7 @@ for(var s = 0; s < numBlocksToPrint && selects; s++) {
 __p += '\n    <div class="basic select ' +
 ((__t = ( first )) == null ? '' : __t) +
 '">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow" property="' +
-((__t = ( selects[s].id )) == null ? '' : __t) +
+((__t = ( selects[s].attributes.homesId )) == null ? '' : __t) +
 '">\n            <div class="front">\n                <img src="' +
 ((__t = ( selects[s].attributes.primaryImage )) == null ? '' : __t) +
 '" class="block width100">\n                <div class="blurImageContainer">\n                    <img src="' +
@@ -202,21 +215,21 @@ __p += '\n    <div class="basic select ' +
         if(!properties[trueIndex]) break;
 ;
 __p += '\n        <div class="basic">\n            <div class="aspect_fill"></div>\n            <div class="element noOverflow" property="' +
-((__t = ( properties[trueIndex].id )) == null ? '' : __t) +
+((__t = ( properties[trueIndex].attributes.homesId )) == null ? '' : __t) +
 '">\n                <div class="front">\n                    <img src="' +
 ((__t = ( properties[trueIndex].attributes.primaryImage )) == null ? '' : __t) +
 '" class="block width100">\n                    <div class="blurImageContainer">\n                        <img src="' +
 ((__t = ( properties[trueIndex].attributes.primaryImage )) == null ? '' : __t) +
 '" class="block width100">                    <p class="desc width100 absolute whiteText">\n                        <strong>' +
-((__t = ( properties[s].attributes.name )) == null ? '' : __t) +
+((__t = ( properties[trueIndex].attributes.name )) == null ? '' : __t) +
 '</strong><br>\n                        ' +
-((__t = ( properties[s].attributes.streetAddress )) == null ? '' : __t) +
+((__t = ( properties[trueIndex].attributes.streetAddress )) == null ? '' : __t) +
 ',' +
-((__t = ( properties[s].attributes.city )) == null ? '' : __t) +
+((__t = ( properties[trueIndex].attributes.city )) == null ? '' : __t) +
 '\n                    </p>\n                    <p class="price absolute whiteText">' +
-((__t = ( properties[s].attributes.price.max )) == null ? '' : __t) +
+((__t = ( properties[trueIndex].attributes.price.max )) == null ? '' : __t) +
 ' - ' +
-((__t = ( properties[s].attributes.price.min )) == null ? '' : __t) +
+((__t = ( properties[trueIndex].attributes.price.min )) == null ? '' : __t) +
 '\n                    </p>\n                    </div>\n                </div>\n                <div class="back">\n                    <ul>\n                        <li>Brand New Floorplans</li>\n                        <li>Resort Style Pool</li>\n                        <li>Stainless Steel Appliances</li>\n                        <li>In-Home Washer &amp; Dryer</li>\n                        <li>Private Pier w/ Access to Canoes, Kayaks, &amp; Fishing</li>\n                        <li>21st Century Kitchens with Granite Countertops</li>\n                    </ul>\n                    <a href="#">Check Availability</a>\n                </div>\n            </div>\n        </div>\n';
 
     }
@@ -260,15 +273,23 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute safariHack"></a>\n<a id="swipeVertArrow" class="block absolute safariHack"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info transWhite80">\n        <h2>' +
-((__t = ( property.name )) == null ? '' : __t) +
+((__t = ( property.attributes.name )) == null ? '' : __t) +
 '</h2>\n        <p class="clickable pointer" section="map">\n            ' +
-((__t = ( property.address )) == null ? '' : __t) +
+((__t = ( property.attributes.streetAddress )) == null ? '' : __t) +
+' ' +
+((__t = ( property.attributes.city )) == null ? '' : __t) +
+', ' +
+((__t = ( property.attributes.state )) == null ? '' : __t) +
+'' +
+((__t = ( property.attributes.zip )) == null ? '' : __t) +
 '<br>\n            <a href="http://maps.google.com?q=' +
 ((__t = ( property.address )) == null ? '' : __t) +
 '" target="_blank">View Map &amp; Directions</a>\n        </p>\n        <p class="clickable pointer" section="floorplans">\n            ' +
-((__t = ( property.type )) == null ? '' : __t) +
-' for ' +
-((__t = ( property.price )) == null ? '' : __t) +
+((__t = ( property.attributes.beds )) == null ? '' : __t) +
+' Beds for ' +
+((__t = ( property.attributes.price.min )) == null ? '' : __t) +
+' - ' +
+((__t = ( property.attributes.price.max )) == null ? '' : __t) +
 '<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p class="clickable pointer" section="reviews">\n            <span id="webReview" class="block reviewStars">4 Reviews</span>\n            <a>View Reviews from the Web</a>\n        </p>\n        <p class="clickable pointer noBorder" section="details">\n            Details<br>\n            <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet arcu pretium, placerat mauris sed, hendrerit eros. Curabitur sed fermentum justo. Pellentesque lobortis, orci ut porttitor luctus, nisi urna pharetra magna.</small>\n        </p>\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n            <div id="buttonSpacer" class="tableCell"></div>\n            <div class="tableCell"><button class="block noBorder blackText width100 alignCenter transWhite80">1-800-555-0123</button></div>\n        </div>\n    </div>\n</section>\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
 ((__t = ( moreContent )) == null ? '' : __t) +
 '</div>\n        <div class="form tableCell vAlignTop">' +

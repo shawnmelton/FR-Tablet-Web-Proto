@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/elements/header', 'tools/device'],
-    function($, Backbone, tsw, footerViewEl, headerViewEl, Device) {
+define(['jquery', 'backbone', 'libs/touchSwipe', 'libs/slick.min', 'views/elements/footer', 'views/elements/header', 'tools/device'],
+    function($, Backbone, tsw, slick, footerViewEl, headerViewEl, Device) {
     var galleryViewEl = Backbone.View.extend({
         galleryEl: null,
         currentImageEl: null,
@@ -7,13 +7,8 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
         bgImgHeight: null,
         contentWidth: null,
         contentHeight: null,
-        images: [
-            '/img/gallery/1-[SIZE].jpg',
-            '/img/gallery/2-[SIZE].jpg',
-            '/img/gallery/3-[SIZE].jpg',
-            '/img/gallery/4-[SIZE].jpg',
-            '/img/gallery/5-[SIZE].jpg'
-        ],
+        images: [],
+        property: null,
         propertyId: null,
         startingLeft: 0,
         startingTop: 0,
@@ -26,7 +21,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
          * The property images should always be first.
          */
         addFirstImage: function(url) {
-            this.currentImageEl = $('<img src="/img/listings/'+ this.propertyId +'-'+ this.bgImgWidth +'.jpg" '+
+            this.currentImageEl = $('<img src="' + this.images[0] + '" '+
                 'width="'+ this.bgImgWidth +'">');
             this.currentImageEl.addClass('first');
 
@@ -177,13 +172,13 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
          */
         reset: function() {
             this.currentImageEl = null;
-            this.images = [
-                '/img/gallery/1-[SIZE].jpg',
-                '/img/gallery/2-[SIZE].jpg',
-                '/img/gallery/3-[SIZE].jpg',
-                '/img/gallery/4-[SIZE].jpg',
-                '/img/gallery/5-[SIZE].jpg'
-            ];
+            console.log('Reset Gallery: ', this.property);
+            this.images = [];
+            var images = this.property.attributes.images;
+            var imageCount = images.length;
+            for(i = 0; i < this.property.attributes.images.length; i++){
+                this.images.push(images[i]);
+            }
         },
 
         /**
@@ -215,6 +210,10 @@ define(['jquery', 'backbone', 'libs/touchSwipe','views/elements/footer', 'views/
                     _this.moveCurrentImage(_this.startingLeft, (-1 * _this.bgImgWidth), 2000);
                 }
             });
+        },
+
+        setProperty: function(property) {
+            this.property = property;
         },
 
         setPropertyId: function(id) {

@@ -6,7 +6,7 @@ for(var s = 0; s < numBlocksToPrint && selects; s++) {
 %>
     <div class="basic select <%= first %>">
         <div class="aspect_fill"></div>
-        <div class="element noOverflow" property="<%= selects[s].id %>">
+        <div class="element noOverflow" property="<%= selects[s].attributes.homesId %>">
             <div class="front">
                 <img src="<%= selects[s].attributes.primaryImage %>" class="block width100">
                 <div class="blurImageContainer">
@@ -31,7 +31,7 @@ for(var s = 0; s < numBlocksToPrint && selects; s++) {
 %>
         <div class="basic">
             <div class="aspect_fill"></div>
-            <div class="element noOverflow" property="<%= properties[trueIndex].id %>">
+            <div class="element noOverflow" property="<%= properties[trueIndex].attributes.homesId %>">
                 <div class="front">
                     <img src="<%= properties[trueIndex].attributes.primaryImage %>" class="block width100">
                     <div class="blurImageContainer">

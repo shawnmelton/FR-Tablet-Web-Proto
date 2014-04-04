@@ -156,10 +156,18 @@
                     font-size: 110%;
                     border-bottom: 1px solid #ccc;
 
-                    >span {
+                    >a {
                         font-size: 70%;
                         color: #044a78;
                         padding-top: 2px;
+                    }
+
+                    &.moredetails{
+                        display: none;
+
+                        &.show{
+                            display: block;
+                        }
                     }
                 }
             }

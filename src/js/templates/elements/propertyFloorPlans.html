@@ -1,76 +1,16 @@
 <div id="floorplans" class="bgWhite">
+    <% for(i = 0; i < floor_plans.length; i++){ %>
     <table class="width100">
         <tr>
             <td class="alignLeft">
-                Floor Plan Name
-                <span class="block">more details here</span>
+                <%= floor_plans[i].name %>
+                <a href="#" class="block">more details here</a>
             </td>
-            <td class="alignCenter">1<span class="block">Beds</span></td>
-            <td class="alignCenter">2<span class="block">Baths</span></td>
-            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>
+            <td class="alignCenter"><%= floor_plans[i].beds %><span class="block">Beds</span></td>
+            <td class="alignCenter"><%= floor_plans[i].baths %><span class="block">Baths</span></td>
+            <td class="alignCenter"><%= floor_plans[i].price_low %><span class="block">Monthly</span></td>
         </tr>
-        <tr>
-            <td class="alignLeft">
-                Floor Plan Name
-                <span class="block">more details here</span>
-            </td>
-            <td class="alignCenter">1<span class="block">Beds</span></td>
-            <td class="alignCenter">2<span class="block">Baths</span></td>
-            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>
-        </tr>
-        <tr>
-            <td class="alignLeft">
-                Floor Plan Name
-                <span class="block">more details here</span>
-            </td>
-            <td class="alignCenter">1<span class="block">Beds</span></td>
-            <td class="alignCenter">2<span class="block">Baths</span></td>
-            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>
-        </tr>
-        <tr>
-            <td class="alignLeft">
-                Floor Plan Name
-                <span class="block">more details here</span>
-            </td>
-            <td class="alignCenter">1<span class="block">Beds</span></td>
-            <td class="alignCenter">2<span class="block">Baths</span></td>
-            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>
-        </tr>
-        <tr>
-            <td class="alignLeft">
-                Floor Plan Name
-                <span class="block">more details here</span>
-            </td>
-            <td class="alignCenter">1<span class="block">Beds</span></td>
-            <td class="alignCenter">2<span class="block">Baths</span></td>
-            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>
-        </tr>
-        <tr>
-            <td class="alignLeft">
-                Floor Plan Name
-                <span class="block">more details here</span>
-            </td>
-            <td class="alignCenter">1<span class="block">Beds</span></td>
-            <td class="alignCenter">2<span class="block">Baths</span></td>
-            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>
-        </tr>
-        <tr>
-            <td class="alignLeft">
-                Floor Plan Name
-                <span class="block">more details here</span>
-            </td>
-            <td class="alignCenter">1<span class="block">Beds</span></td>
-            <td class="alignCenter">2<span class="block">Baths</span></td>
-            <td class="alignCenter">$1,500<span class="block">Monthly</span></td>
-        </tr>
-        <tr>
-            <td class="alignLeft noBorder">
-                Floor Plan Name
-                <span class="block">more details here</span>
-            </td>
-            <td class="alignCenter noBorder">1<span class="block">Beds</span></td>
-            <td class="alignCenter noBorder">2<span class="block">Baths</span></td>
-            <td class="alignCenter noBorder">$1,500<span class="block">Monthly</span></td>
-        </tr>
+        <tr><td class="moredetails" colspan="4">More Details</td></tr>
     </table>
+    <% } %>
 </div>
