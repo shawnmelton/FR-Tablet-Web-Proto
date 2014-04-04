@@ -40,6 +40,54 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             //
         },
 
+        geocodeCallback: function(geocodeResult, userData){
+            var _this = this;
+            var locs = [],
+                pins = [],
+                pinHTML,
+                currentLocation = geocodeResult.results[0].location;
+                    
+            console.log('New Location: ', currentLocation);
+
+            $.each(_this.listings.models, function(i, listing){
+                var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng);
+                if(i%5 === 0){
+                        pinHTML = JST['src/js/templates/elements/pmarker.html']({
+                        image_src: listing.attributes.primaryImage,
+                        count: '5'
+                    });
+                }
+                else{
+                        pinHTML = JST['src/js/templates/elements/marker.html']({
+                            count: '1'
+                        });
+                }
+                var pinOptions = {width: null, height: null, htmlContent: pinHTML}; 
+                var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
+                Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
+                    var propertyIndex = pins.indexOf(e.target);
+                    console.log('Clicked ', propertyIndex, _this.listings.models[propertyIndex].attributes);
+                    //Bring this card to top of list, n-th child, scroll up
+                    //Show info card
+                });
+                _this.map.entities.push(pin);
+                pins.push(pin);
+                locs.push(location);
+            });
+            //Map is initialized
+            _this.mapInitialized = true;
+
+            //Get bounding box from group of pins
+            _this.centerOnPinGroup(locs);
+            Microsoft.Maps.Events.addHandler(_this.map, 'mousemove', _this.mapMoving);
+            Microsoft.Maps.Events.addHandler(_this.map, 'mouseup', function(e){
+                _this.mapMoved(e);
+            });
+
+
+            //ViewChangeEnd
+        },
+
         centerOnPinGroup: function(pins){
             var bounds = new Microsoft.Maps.LocationRect.fromLocations(pins);
 
@@ -66,45 +114,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             Microsoft.Maps.loadModule('Microsoft.Maps.Search', { callback: function(){
                 var zip = decodeURIComponent(location.pathname.split('search/')[1]);
                 var search = new Microsoft.Maps.Search.SearchManager(_this.map);
-                search.geocode({where:zip, count:10, callback:geocodeCallback});
-                function geocodeCallback(geocodeResult, userData)
-                {
-                    var locs = [],
-                        pins = [],
-                        pinHTML,
-                        currentLocation = geocodeResult.results[0].location;
-
-                    $.each(listings.models, function(i, listing){
-                        var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng);
-                        if(i%5 === 0){
-                                pinHTML = JST['src/js/templates/elements/pmarker.html']({
-                                image_src: listing.attributes.primaryImage,
-                                count: '5'
-                            });
-                        }
-                        else{
-                                pinHTML = JST['src/js/templates/elements/marker.html']({
-                                    count: '1'
-                                });
-                        }
-                        var pinOptions = {width: null, height: null, htmlContent: pinHTML}; 
-                        var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
-                        Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
-                            var propertyIndex = pins.indexOf(e.target);
-                            console.log('Clicked ', propertyIndex, _this.listings.models[propertyIndex].attributes);
-                            //Bring this card to top of list, n-th child, scroll up
-                            //Show info card
-                        });
-                        _this.map.entities.push(pin);
-                        pins.push(pin);
-                        locs.push(location);
-                    });
-                    //Map is initialized
-                    _this.mapInitialized = true;
-
-                    //Get bounding box from group of pins
-                    _this.centerOnPinGroup(locs);
-                }
+                search.geocode({where:zip, count:10, callback: function(geocodeResult, userData){
+                    _this.geocodeCallback(geocodeResult, userData);
+                }});
+                
              } 
             });
         },
@@ -113,13 +126,14 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
           return !isNaN(parseFloat(n)) && isFinite(n);
         },
 
-        loadResultsSet: function() {
+        loadResultsSet: function(searchString) {
             var _this = this;
 
 
             //Initialize to zero or increment based on whether
             //or not this is the first call of a new zip code
             if(_this.lastSearchString != _this.searchString || this.currentListingsPage === null){
+                $(this.resultsEl).html('');
                 _this.mapInitialized = false;
                 this.currentListingsPage = 0;
             }
@@ -129,6 +143,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
 
             console.log('Load Results', _this.lastSearchString, _this.searchString);
             console.log('Load page: ', _this.currentListingsPage);
+            console.log('Use: ', searchString);
 
             //Show loading image
             $(_this.resultsEl).addClass('loading');
@@ -137,6 +152,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 limit: _this.listingLimit,
                 start: _this.currentListingsPage*_this.listingLimit
             };
+
+            this.searchString = searchString || this.searchString;
 
             //If search string is numeric, search by zip code
             if(this.isNumeric(this.searchString)){
@@ -203,12 +220,56 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.setUserLocation();
         },
 
+        mapMoved: function(e){
+            var _this = this;
+            var map = this.map;
+            var point = new Microsoft.Maps.Point(e.getX(), e.getY());
+            var loc = e.target.tryPixelToLocation(point);
+            var coords = loc.latitude + ", " + loc.longitude;
+            console.log('Map Moved ', coords);
+
+            $.ajax({
+                url: "http://dev.virtualearth.net/REST/v1/Locations/" + coords,
+                dataType: "jsonp",
+                data: {
+                    key: "AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW"
+                },
+                jsonp: "jsonp",
+                success: function (data) {
+                    var result = data.resourceSets[0];
+                    if (result && result.resources[0]) {
+                        var searchString = result.resources[0].address.locality;
+                        _this.mapInitialized = false;
+                        _this.currentListingsPage = null;
+                        _this.loadResultsSet(searchString);
+                    }
+                }
+            });
+        },
+
+        mapMoving: function(e){
+
+        },
+
         /**
          * Handle what happens when a property is touched/clicked.
          * @propertyId - Integer value.
          */
         onPropertyClick: function(homesId) {
             Navigate.toUrl('/properties/'+homesId);
+        },
+
+        reInitializeMap: function(zip){
+            var _this = this;
+            console.log('Reinitialize: ', zip);
+            Microsoft.Maps.loadModule('Microsoft.Maps.Search', { callback: function(){
+                var search = new Microsoft.Maps.Search.SearchManager(_this.map);
+                search.geocode({where:zip, count:10, callback: function(geocodeResult, userData){
+                    _this.geocodeCallback(geocodeResult, userData);
+                }});
+                
+             } 
+            });
         },
 
         /**
