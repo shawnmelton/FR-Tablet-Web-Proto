@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'libs/touchSwipe', 'libs/slick.min', 'views/elements/footer', 'views/elements/header', 'tools/device'],
-    function($, Backbone, tsw, slick, footerViewEl, headerViewEl, Device) {
+define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views/elements/header', 'tools/device'],
+    function($, Backbone, tsw, footerViewEl, headerViewEl, Device) {
     var galleryViewEl = Backbone.View.extend({
         galleryEl: null,
         currentImageEl: null,
