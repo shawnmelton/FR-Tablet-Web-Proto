@@ -1,5 +1,5 @@
 RewriteEngine on
-RewriteBase /exp/forrent/tablet/
+RewriteBase /
 
 RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteCond %{SCRIPT_FILENAME} !-d

@@ -190,7 +190,7 @@ for(var s = 0; s < numBlocksToPrint && selects; s++) {
     //Remove top padding from the first property
     var first = (s == 0) ? 'first' : '';
 ;
-__p += '\n    <div class="basic select ' +
+__p += '\n<div class="card">\n    <div class="basic select ' +
 ((__t = ( first )) == null ? '' : __t) +
 '">\n        <a href="#" class="flipCardButton">Flip</a>\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow" property="' +
 ((__t = ( selects[s].attributes.homesId )) == null ? '' : __t) +
@@ -208,13 +208,13 @@ __p += '\n    <div class="basic select ' +
 ((__t = ( selects[s].attributes.price.max )) == null ? '' : __t) +
 ' - ' +
 ((__t = ( selects[s].attributes.price.min )) == null ? '' : __t) +
-'\n                    </p>\n                </div>\n            </div>\n            <div class="back">\n                <a href="#">Check Availability</a>\n            </div>\n        </div>\n    </div>\n';
+'\n                    </p>\n                </div>\n            </div>\n            <div class="back">\n                <a href="#">Check Availability</a>\n            </div>\n        </div>\n    </div>\n</div>\n';
 
     for(var p = 0; p < numPropertiesToPrint && properties; p++) {
         var trueIndex = p + s*numPropertiesToPrint;
         if(!properties[trueIndex]) break;
 ;
-__p += '\n        <div class="basic">\n            <a href="#" class="flipCardButton">Flip</a>\n            <div class="aspect_fill"></div>\n            <div class="element noOverflow" property="' +
+__p += '\n    <div class="card">\n        <div class="basic">\n            <a href="#" class="flipCardButton">Flip</a>\n            <div class="aspect_fill"></div>\n            <div class="element noOverflow" property="' +
 ((__t = ( properties[trueIndex].attributes.homesId )) == null ? '' : __t) +
 '">\n                <div class="front">\n                    <img src="' +
 ((__t = ( properties[trueIndex].attributes.primaryImage )) == null ? '' : __t) +
@@ -230,7 +230,7 @@ __p += '\n        <div class="basic">\n            <a href="#" class="flipCardBu
 ((__t = ( properties[trueIndex].attributes.price.max )) == null ? '' : __t) +
 ' - ' +
 ((__t = ( properties[trueIndex].attributes.price.min )) == null ? '' : __t) +
-'\n                    </p>\n                    </div>\n                </div>\n                <div class="back">\n                    <ul>\n                        <li>Brand New Floorplans</li>\n                        <li>Resort Style Pool</li>\n                        <li>Stainless Steel Appliances</li>\n                        <li>In-Home Washer &amp; Dryer</li>\n                        <li>Private Pier w/ Access to Canoes, Kayaks, &amp; Fishing</li>\n                        <li>21st Century Kitchens with Granite Countertops</li>\n                    </ul>\n                    <a href="#">Check Availability</a>\n                </div>\n            </div>\n        </div>\n';
+'\n                    </p>\n                    </div>\n                </div>\n                <div class="back">\n                    <ul>\n                        <li>Brand New Floorplans</li>\n                        <li>Resort Style Pool</li>\n                        <li>Stainless Steel Appliances</li>\n                        <li>In-Home Washer &amp; Dryer</li>\n                        <li>Private Pier w/ Access to Canoes, Kayaks, &amp; Fishing</li>\n                        <li>21st Century Kitchens with Granite Countertops</li>\n                    </ul>\n                    <a href="#">Check Availability</a>\n                </div>\n            </div>\n        </div>\n        <div class="moreInfo">More Info</div>\n    </div>\n';
 
     }
 } 

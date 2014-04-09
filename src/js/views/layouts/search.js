@@ -376,11 +376,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          * Make each property touchable.
          */
         setPropertyClickEvents: function() {
-            var _this = this;
+        var _this = this;
             $('.basic > .element').bind(touchEventType, function() {
-                // $(this).find('div.element').toggleClass('flip');
-                // $('.basic div').not($(this)).removeClass('flip');
-
                 var homesId = $(this).attr('property');
                 if(homesId !== 'undefined' && homesId !== false) {
                     _this.currentListingsPage = null;
@@ -388,8 +385,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 }
             });
             $('.basic > .flipCardButton').bind(touchEventType, function() {
-                $(this).parent().toggleClass('flip');
-                $('.basic div').not($(this).parent()).removeClass('flip');
+                _this.showPropertiesDetails($(this).parent());
             });
         },
 
@@ -427,7 +423,20 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             else {
                 console.log('Browser Doesn\'t Support Geolocation');
             }
-        }
+        },
+
+        showPropertiesDetails: function(card){
+            var listTop = $(this.el).scrollTop();
+            var cardPosition = card.find('.flipCardButton').offset();
+            var cardTop = cardPosition.top;
+            $(this.el).animate({
+                //TODO: Determine top position based on Listings or Split View
+                scrollTop: (cardTop + listTop - 70) + 'px'
+            }, 'fast', function(){
+                $(card).find('.element').addClass('flip');
+            });
+            $('.basic div').not($(this)).removeClass('flip');
+    }
     });
     
     return new searchView();
