@@ -11,6 +11,24 @@
         margin: 0 0 1.5% 1.5%;
         -webkit-transition: width 0.1s;
         -webkit-perspective: 1000;
+
+        >.flipCardButton{
+            position: fixed;
+            top: 5px;
+            right: 5px;
+            height: 29px;
+            width: 44px;
+            text-align: center;
+            padding-top: 15px;
+            background: #F90;
+            color: #FFF;
+            z-index: 10;
+            -webkit-backface-visibility: hidden;
+            
+            &.flip{
+                -webkit-transform: rotateY(180deg);
+            }
+        }
     }
         .basic .aspect_fill {
             padding-top: 75%;

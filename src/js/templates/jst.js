@@ -192,7 +192,7 @@ for(var s = 0; s < numBlocksToPrint && selects; s++) {
 ;
 __p += '\n    <div class="basic select ' +
 ((__t = ( first )) == null ? '' : __t) +
-'">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow" property="' +
+'">\n        <a href="#" class="flipCardButton">Flip</a>\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow" property="' +
 ((__t = ( selects[s].attributes.homesId )) == null ? '' : __t) +
 '">\n            <div class="front">\n                <img src="' +
 ((__t = ( selects[s].attributes.primaryImage )) == null ? '' : __t) +
@@ -214,7 +214,7 @@ __p += '\n    <div class="basic select ' +
         var trueIndex = p + s*numPropertiesToPrint;
         if(!properties[trueIndex]) break;
 ;
-__p += '\n        <div class="basic">\n            <div class="aspect_fill"></div>\n            <div class="element noOverflow" property="' +
+__p += '\n        <div class="basic">\n            <a href="#" class="flipCardButton">Flip</a>\n            <div class="aspect_fill"></div>\n            <div class="element noOverflow" property="' +
 ((__t = ( properties[trueIndex].attributes.homesId )) == null ? '' : __t) +
 '">\n                <div class="front">\n                    <img src="' +
 ((__t = ( properties[trueIndex].attributes.primaryImage )) == null ? '' : __t) +

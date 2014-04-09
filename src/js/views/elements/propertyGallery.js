@@ -16,6 +16,14 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
         lockRightMove: true,
         swipeHorizArrowEl: null,
         swipeDirLeft: true,
+        fullDetailHeight: 365,
+        mapSection: null,
+        floorplansSection: null,
+        teaserSections: null,
+        reviewsSection: null,
+        detailsSection: null,
+        buttonCA: $('#buttonCA'),
+        panelIsCollapsed: false,
 
         /**
          * The property images should always be first.
@@ -39,6 +47,59 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
         },
 
         /**
+         *  Expand or contract the details panel on a property
+         *  @param open <BOOL> 1 - Open panel, 0 - Close
+         */
+        toggleDetailsPanel: function(open, progress){
+            console.log('Progress: ', progress);
+            if(open){
+
+                //Change background opacity of CA button
+                this.buttonCA.css('background-color', 'rgba(233, 125, 14, 1)');
+
+                this.teaserSections.animate({
+                    'opacity' : 1
+                });
+                $('#teaser .info').animate({
+                    'height' : this.fullDetailHeight
+                });
+            }
+            else{
+
+                //Change background opacity of CA button
+                this.buttonCA.css('background-color', 'rgba(233, 125, 14, 0.5)');
+                this.teaserSections.animate({
+                    'opacity' : 0
+                });
+                $('#teaser .info').animate({
+                    'height' : 73
+                });
+            }
+        },
+
+        /**
+         *  Expand or contract the details panel on a property
+         *  @param open <BOOL> 1 - Open panel, 0 - Close
+         */
+        updateDetailsPanel: function(open, progress){
+            if(open){
+                
+                this.floorplansSection.css('opacity', 0);
+                this.reviewsSection.css('opacity', 0);
+                this.detailsSection.css('opacity', 0);
+                $('#teaser .info').height(73);
+
+                //Do things once the panel is fully toggled
+                if(typeof complete == 'function'){
+                    complete();
+                }
+            }
+            else{
+
+            }
+        },
+
+        /**
          * Initialize gallery.
          */
         init: function() {
@@ -59,6 +120,15 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                     this.bgImgHeight = 768;
                     break;
             }
+            //Cache reference to hideable teaser sections
+            //for bulk animations
+            this.teaserSections = $('#teaser .info p[section="reviews"], #teaser .info p[section="floorplans"], #teaser .info p[section="details"]');
+
+            this.mapSection = $('#teaser .info p[section="map"]');
+            this.floorplansSection = $('#teaser .info p[section="floorplans"]');
+            this.reviewsSection = $('#teaser .info p[section="reviews"]');
+            this.detailsSection = $('#teaser .info p[section="details"]');
+            this.buttonCA = $('#buttonCA');
 
             this.contentWidth = $(window).width();
             this.contentHeight = $(window).height() - footerViewEl.getHeight();
@@ -119,11 +189,23 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                 .css('-webkit-transform', 'translate('+ newImgLeft +'px, '+ this.startingTop +'px)');
 
             if(newImgLeft === movePos) {
+                //Only affect Details Panel when swiping
+                //the first image.
+                if(targetImg.hasClass('first')){
+                    var goingLeft = (moveDirection != 'left');
+                    this.toggleDetailsPanel(goingLeft);
+                }
+
+                //Preloading images
                 if(moveDirection === 'left') {
                     this.nextImage();
                 } else {
                     this.prevImage();
                 }
+            }
+            else if(newImgLeft === revertPos && targetImg.hasClass('first')) {
+                var open = (moveDirection === 'left');
+                this.toggleDetailsPanel(open);
             }
 
             setTimeout(function() {
@@ -226,7 +308,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
          *  1. Close menu if its open and user scrolls down property profile page.
          *  2. Activate a footer tab if the user scrolls down page.
          *  3. Deactivate a footer tab if user scrolls up page.
-         */
+         */ 
         setSwipeEvent: function() {
             var _this = this;
             this.galleryEl.swipe({
@@ -245,9 +327,40 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                 },
                 swipeStatus: function(event, phase, direction, distance, duration, fingerCount) {
                     if(direction !== null) {
+                        
+                        var panArea, 
+                            percentPanDistance,
+                            heightDifference,
+                            panelHeight,
+                            buttonOpacity;
+
                         switch(direction.toString().toLowerCase()) {
                             case 'left':
                                 if(!_this.lockLeftMove) {
+
+                                    //Change opacity of floorplans, reviews, and details on pan
+                                    if($(_this.currentImageEl).hasClass('first')) {
+                                        panArea = _this.contentWidth/2;
+                                        percentPanDistance = (panArea - distance) / panArea;
+                                        
+                                        //Only change opacity of the bottom three panels
+                                        _this.teaserSections.css('opacity', percentPanDistance/2);
+
+                                        buttonOpacity = (percentPanDistance < 0.5) ? 0.5 : percentPanDistance;
+
+                                        //Change background opacity of CA button
+                                        _this.buttonCA.css('background', 'rgba(233, 125, 14, ' + buttonOpacity + ')');
+
+                                        //Percent to min-height: 73
+                                        heightDifference = _this.fullDetailHeight - 73;
+                                        panelHeight = percentPanDistance * heightDifference;
+                                        panelHeight = (panelHeight < 73) ? 73 : panelHeight;
+                                        panelHeight = (panelHeight > this.fullDetailHeight) ? this.fullDetailHeight : panelHeight;
+
+                                        //Difference in height * percent
+                                        $('#teaser .info').height(panelHeight);
+                                    }
+
                                     _this.currentImageEl.css('-webkit-transform',
                                         'translate('+ (_this.startingLeft - distance) +'px, '+ _this.startingTop +'px)');
                                 }
@@ -255,6 +368,28 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
 
                             case 'right':
                                 if(!_this.lockRightMove) {
+                                    if($(_this.currentImageEl).next().hasClass('first')){
+                                        panArea = _this.contentWidth/2;
+                                        percentPanDistance = distance / panArea;
+                                        
+                                        //Only change opacity of the bottom three panels
+                                        _this.teaserSections.css('opacity', percentPanDistance/2);
+
+                                        buttonOpacity = (percentPanDistance < 0.5) ? 0.5 : percentPanDistance;
+
+                                        //Change background opacity of CA button
+                                        _this.buttonCA.css('background', 'rgba(233, 125, 14, ' + buttonOpacity + ')');
+
+                                        //Percent to min-height: 73
+                                        heightDifference = _this.fullDetailHeight - 73;
+                                        panelHeight = percentPanDistance * heightDifference;
+                                        panelHeight = (panelHeight < 73) ? 73 : panelHeight;
+                                        panelHeight = (panelHeight > this.fullDetailHeight) ? this.fullDetailHeight : panelHeight;
+
+                                        //Difference in height * percent
+                                        $('#teaser .info').height(panelHeight);
+                                    }
+
                                     _this.currentImageEl.next().css('-webkit-transform', 
                                         'translate(-'+ (_this.bgImgWidth - distance) +'px, '+ _this.startingTop +'px)');
                                 }

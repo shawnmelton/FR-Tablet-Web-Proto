@@ -387,6 +387,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     _this.onPropertyClick(parseInt(homesId));
                 }
             });
+            $('.basic > .flipCardButton').bind(touchEventType, function() {
+                $(this).parent().toggleClass('flip');
+                $('.basic div').not($(this).parent()).removeClass('flip');
+            });
         },
 
         /**

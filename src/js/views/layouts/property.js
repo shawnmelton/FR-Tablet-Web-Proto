@@ -86,6 +86,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         },
 
         render: function(){
+
             if(!this.valid()) {
                 return;
             }
@@ -235,7 +236,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 } else if(!this.linksInactive && $(this).scrollTop() <= 50) {
                     footerViewEl.deactivateAllLinks();
                     this.linksInactive = !this.linksInactive;
-                }
+                } 
             });
         },
 
