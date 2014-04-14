@@ -216,8 +216,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
          * Activate footer link when scrolling down.
          */
         setScrollEvent: function() {
-            $(window).scroll(function() {
-                
+            window.onscroll = function(){
                 var scrollTop = $(this).scrollTop() * 1.5;
                 var percent = scrollTop/$(window).height();
                 
@@ -229,7 +228,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     "filter" : 'blur('+ (percent*10) +'px)',
                     "-o-filter" : 'blur('+ (percent*10) +'px)'
                 });
+            };
 
+            $(window).scroll(function() {
                 if(this.linksInactive && $(this).scrollTop() > 50) {
                     footerViewEl.activateCurrentLink();
                     this.linksInactive = !this.linksInactive;

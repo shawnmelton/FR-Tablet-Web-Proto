@@ -11,24 +11,6 @@
         margin: 0 0 1.5% 1.5%;
         -webkit-transition: width 0.1s;
         -webkit-perspective: 1000;
-
-        >.flipCardButton{
-            position: fixed;
-            top: 5px;
-            right: 5px;
-            height: 29px;
-            width: 44px;
-            text-align: center;
-            padding-top: 15px;
-            background: #F90;
-            color: #FFF;
-            z-index: 10;
-            -webkit-backface-visibility: hidden;
-            
-            &.flip{
-                -webkit-transform: rotateY(180deg);
-            }
-        }
     }
         .basic .aspect_fill {
             padding-top: 75%;
@@ -49,6 +31,32 @@
                 -webkit-transform: rotateY(180deg);
             }
 
+            >.cardButton{
+                position: fixed;
+                top: 5px;
+                height: 29px;
+                width: 44px;
+                color: #FFF;
+                z-index: 10;
+                -webkit-backface-visibility: hidden;
+                -webkit-filter: drop-shadow(0 0 2px #888);
+                filter: drop-shadow(0 0 2px #888);
+
+                > img{
+                    width: 33px;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                &.contact{
+                    right: 0;
+                }
+
+                &.details{
+                    left: 5px;
+                }
+            }
+
             .front, .back {
                 -webkit-backface-visibility: hidden;
                 position: absolute;
@@ -67,6 +75,23 @@
                 -webkit-transform: translate3d(0,0,0);
                 -webkit-transform: rotateY(180deg);
                 box-shadow: 0 0 0 1px #CCC inset;
+
+                >form{
+                    margin: 5%;
+                    width: 90%;
+                    position: absolute;
+
+                    >input{
+                        width: 50%;
+                        float: left;
+                    }
+
+                    >textarea{
+                        width: 43%;
+                        margin-left: 1.5%;
+                        height: 91px;
+                    }
+                }
 
                 >a{
                     position: fixed;
@@ -194,6 +219,31 @@
         margin-top: 0;
     }
 
+    .select.moreInfo{
+        background: #F1F1F1;
+        box-shadow: 0 0 0 1px #CCC inset;
+
+        > img{
+            position: absolute;
+            height: 87%;
+            top: 7%;
+            left: 3.5%;
+        }
+
+        > p{
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            width: 46%;
+        }
+
+        > a{
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            width: 46%;
+        }
+    }
 }
     #map-canvas {
         position: fixed;
@@ -260,7 +310,7 @@
         }
     }
     #results {
-        overflow: auto;
+        overflow: scroll;
         padding-bottom: 20px;
         
         &.loading{

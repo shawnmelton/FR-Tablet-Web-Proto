@@ -20,6 +20,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         listingLimit: 20,
         scrollTriggerDistance: 600,
         morePropertiesExist: false,
+        moreInfoPanel: null,
+        lastPropertyId: null,
 
         /**
          * Locate a property given an id.
@@ -170,10 +172,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     //Remove loading image
                     $(_this.resultsEl).removeClass('loading');
 
-                    console.log('Count: ', _this.listings.totalRecs);
-                    console.log('Response: ', response);
-                    console.log('Load page: ', _this.currentListingsPage);
-
                     var numListings = response.length;
                     _this.morePropertiesExist = (response.length);
                     if(!_this.morePropertiesExist){
@@ -241,6 +239,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                         var searchString = result.resources[0].address.locality;
                         _this.mapInitialized = false;
                         _this.currentListingsPage = null;
+                        _this.lastSearchString = null;
                         _this.loadResultsSet(searchString);
                     }
                 }
@@ -377,15 +376,18 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          */
         setPropertyClickEvents: function() {
         var _this = this;
-            $('.basic > .element').bind(touchEventType, function() {
-                var homesId = $(this).attr('property');
+            $('.basic > .element > .front').bind(touchEventType, function() {
+                var homesId = $(this).parent().attr('property');
                 if(homesId !== 'undefined' && homesId !== false) {
                     _this.currentListingsPage = null;
                     _this.onPropertyClick(parseInt(homesId));
                 }
             });
-            $('.basic > .flipCardButton').bind(touchEventType, function() {
-                _this.showPropertiesDetails($(this).parent());
+            $('.basic > .element > .contact').bind(touchEventType, function(e) {
+                _this.showGuestCard($(this).parent().parent());
+            });
+            $('.basic > .element > .details').bind(touchEventType, function(e) {
+                _this.showPropertyDetails($(this).parent().parent());
             });
         },
 
@@ -425,17 +427,127 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             }
         },
 
-        showPropertiesDetails: function(card){
+        showGuestCard: function(card){
+            
+            $(this).unbind(touchEventType);
+
+            var _this = this;
+            var propertyId = card.find('.element').attr('property');
             var listTop = $(this.el).scrollTop();
-            var cardPosition = card.find('.flipCardButton').offset();
+            var cardPosition = card.find('.contact').offset();
             var cardTop = cardPosition.top;
+            var scrollAdjustment = 70;
+
+            $('.basic div').not($(card).find('.element')).removeClass('flip');
+
             $(this.el).animate({
-                //TODO: Determine top position based on Listings or Split View
-                scrollTop: (cardTop + listTop - 70) + 'px'
-            }, 'fast', function(){
+                scrollTop: (cardTop + listTop - scrollAdjustment) + 'px'
+            }, function(){
+                $(card).find('.element').on('webkitTransitionEnd', function(e){
+                    var cardOffset = $(card).offset();
+                });
+
+                //flip card
                 $(card).find('.element').addClass('flip');
+                
+                // Hide/Remove existing moreInfoPanel
+                if(_this.moreInfoPanel){
+                    _this.moreInfoPanel.animate({
+                        height: 0
+                    }, function(){
+                        _this.moreInfoPanel.remove();
+                        _this.moreInfoPanel = null;
+                    });
+                }
             });
-            $('.basic div').not($(this)).removeClass('flip');
+
+        },
+
+        showMoreInfoPanel: function(card){
+            var propertyId = card.find('.element').attr('property');
+            var cardOffset = $(card).offset();
+            //Load More Details template with property information
+            this.moreInfoPanel = $(JST['src/js/templates/elements/moreInfoPanel.html']({
+                propertyId: propertyId
+            }));
+            this.moreInfoPanel.height(0);
+
+            if($(card).hasClass('select')){
+                $(card).after(this.moreInfoPanel);
+            }
+            if(cardOffset.left < $(card).width()){
+                $(card).next().after(this.moreInfoPanel);
+            }
+            else{
+                $(card).after(this.moreInfoPanel);
+            }
+            this.moreInfoPanel.animate({
+                height: $(card).height()
+            }, function(){
+                $('.basic div').removeClass('flip');
+                this.lastPropertyId = propertyId;
+            });
+        },
+
+        showPropertyDetails: function(card){
+            var _this = this;
+            var propertyId = card.find('.element').attr('property');
+            var listTop = $(this.el).scrollTop();
+            var cardPosition = card.find('.details').offset();
+            var cardTop = cardPosition.top;
+            var cardOffset = $(card).offset();
+            var scrollAdjustment = 70;
+            var cardHeight = $(card).height();
+
+            if(_this.moreInfoPanel && _this.lastPropertyId == propertyId){
+                // Hide/Remove existing moreInfoPanel
+                _this.moreInfoPanel.animate({
+                    height: 0
+                }, function(){
+                    _this.moreInfoPanel.remove();
+                    _this.moreInfoPanel = null;
+                });
+                return;
+            }
+
+            function showMoreInfoPanel(card){
+                //Load More Details template with property information
+                _this.moreInfoPanel = $(JST['src/js/templates/elements/moreInfoPanel.html']({
+                    propertyId: propertyId
+                }));
+                _this.moreInfoPanel.height(0);
+
+                if($(card).hasClass('select')){
+                    $(card).after(_this.moreInfoPanel);
+                }
+                if(cardOffset.left < $(card).width()){
+                    $(card).next().after(_this.moreInfoPanel);
+                }
+                else{
+                    $(card).after(_this.moreInfoPanel);
+                }
+                _this.moreInfoPanel.animate({
+                    height: $(card).height()
+                }, function(){
+                    $('.basic div').removeClass('flip');
+                    _this.lastPropertyId = propertyId;
+                });
+            }
+
+            //Hide/Remove existing moreInfoPanel
+            if(this.moreInfoPanel){
+                this.moreInfoPanel.animate({
+                    height: 0
+                }, function(){
+                    //Clear out and remove old panel
+                    _this.moreInfoPanel.remove();
+                    _this.moreInfoPanel = null;
+                    _this.showMoreInfoPanel(card);
+                });
+            }
+            else{
+                _this.showMoreInfoPanel(card);
+            }
     }
     });
     

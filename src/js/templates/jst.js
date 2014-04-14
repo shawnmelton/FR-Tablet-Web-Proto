@@ -89,6 +89,18 @@ __p += '<div id="menu" class="fixed transition noOverflow">\n    <nav class="rel
 return __p
 };
 
+this["JST"]["src/js/templates/elements/moreInfoPanel.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="basic select moreInfo" id="moreInfo" property="' +
+((__t = ( propertyId )) == null ? '' : __t) +
+'">\n\t<img src="/img/map_sample.png" />\n\t<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>\n\t<a href="#">View Property</a>\n\t<div class="aspect_fill"></div>\n</div>\n';
+
+}
+return __p
+};
+
 this["JST"]["src/js/templates/elements/pmarker.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -190,11 +202,11 @@ for(var s = 0; s < numBlocksToPrint && selects; s++) {
     //Remove top padding from the first property
     var first = (s == 0) ? 'first' : '';
 ;
-__p += '\n<div class="card">\n    <div class="basic select ' +
+__p += '\n    <div class="basic select ' +
 ((__t = ( first )) == null ? '' : __t) +
-'">\n        <a href="#" class="flipCardButton">Flip</a>\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow" property="' +
+'">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow" property="' +
 ((__t = ( selects[s].attributes.homesId )) == null ? '' : __t) +
-'">\n            <div class="front">\n                <img src="' +
+'">\n            <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>\n            <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>\n            <div class="front">\n                <img src="' +
 ((__t = ( selects[s].attributes.primaryImage )) == null ? '' : __t) +
 '" class="block width100">\n                <div class="blurImageContainer">\n                    <img src="' +
 ((__t = ( selects[s].attributes.primaryImage )) == null ? '' : __t) +
@@ -208,15 +220,15 @@ __p += '\n<div class="card">\n    <div class="basic select ' +
 ((__t = ( selects[s].attributes.price.max )) == null ? '' : __t) +
 ' - ' +
 ((__t = ( selects[s].attributes.price.min )) == null ? '' : __t) +
-'\n                    </p>\n                </div>\n            </div>\n            <div class="back">\n                <a href="#">Check Availability</a>\n            </div>\n        </div>\n    </div>\n</div>\n';
+'\n                    </p>\n                </div>\n            </div>\n            <div class="back">\n                <form>\n                    <input type="text" value="Name" placeholder="Name"/>\n                    <input type="text" value="Email" placeholder="Email"/>\n                    <input type="text" value="Phone" placeholder="Phone"/>\n                    <textarea>Question/Comments</textarea>\n                </form>\n                <a href="#">Check Availability</a>\n            </div>\n        </div>\n    </div>\n';
 
     for(var p = 0; p < numPropertiesToPrint && properties; p++) {
         var trueIndex = p + s*numPropertiesToPrint;
         if(!properties[trueIndex]) break;
 ;
-__p += '\n    <div class="card">\n        <div class="basic">\n            <a href="#" class="flipCardButton">Flip</a>\n            <div class="aspect_fill"></div>\n            <div class="element noOverflow" property="' +
+__p += '\n        <div class="basic">\n            <div class="aspect_fill"></div>\n            <div class="element noOverflow" property="' +
 ((__t = ( properties[trueIndex].attributes.homesId )) == null ? '' : __t) +
-'">\n                <div class="front">\n                    <img src="' +
+'">\n            <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>\n            <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>\n                <div class="front">\n                    <img src="' +
 ((__t = ( properties[trueIndex].attributes.primaryImage )) == null ? '' : __t) +
 '" class="block width100">\n                    <div class="blurImageContainer">\n                        <img src="' +
 ((__t = ( properties[trueIndex].attributes.primaryImage )) == null ? '' : __t) +
@@ -230,7 +242,7 @@ __p += '\n    <div class="card">\n        <div class="basic">\n            <a hr
 ((__t = ( properties[trueIndex].attributes.price.max )) == null ? '' : __t) +
 ' - ' +
 ((__t = ( properties[trueIndex].attributes.price.min )) == null ? '' : __t) +
-'\n                    </p>\n                    </div>\n                </div>\n                <div class="back">\n                    <ul>\n                        <li>Brand New Floorplans</li>\n                        <li>Resort Style Pool</li>\n                        <li>Stainless Steel Appliances</li>\n                        <li>In-Home Washer &amp; Dryer</li>\n                        <li>Private Pier w/ Access to Canoes, Kayaks, &amp; Fishing</li>\n                        <li>21st Century Kitchens with Granite Countertops</li>\n                    </ul>\n                    <a href="#">Check Availability</a>\n                </div>\n            </div>\n        </div>\n        <div class="moreInfo">More Info</div>\n    </div>\n';
+'\n                    </p>\n                    </div>\n                </div>\n                <div class="back">\n                    <ul>\n                        <li>Brand New Floorplans</li>\n                        <li>Resort Style Pool</li>\n                        <li>Stainless Steel Appliances</li>\n                        <li>In-Home Washer &amp; Dryer</li>\n                        <li>Private Pier w/ Access to Canoes, Kayaks, &amp; Fishing</li>\n                        <li>21st Century Kitchens with Granite Countertops</li>\n                    </ul>\n                    <a href="#">Check Availability</a>\n                </div>\n            </div>\n        </div>\n';
 
     }
 } 
