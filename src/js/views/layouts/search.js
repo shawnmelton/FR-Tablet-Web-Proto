@@ -385,9 +385,13 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             });
             $('.basic > .element > .contact').bind(touchEventType, function(e) {
                 _this.showGuestCard($(this).parent().parent());
+                e.preventDefault();
+                return false;
             });
             $('.basic > .element > .details').bind(touchEventType, function(e) {
                 _this.showPropertyDetails($(this).parent().parent());
+                e.preventDefault();
+                return false;
             });
         },
 
@@ -438,12 +442,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             var cardTop = cardPosition.top;
             var scrollAdjustment = 70;
 
-            console.log('Card Top: ', cardTop);
-            console.log('List Top: ', listTop);
-
             $('.basic div').not($(card).find('.element')).removeClass('flip');
 
-            $('html, body').animate({
+            $('body').animate({
                 scrollTop: (cardTop - scrollAdjustment) + 'px'
             }, function(){
                 $(card).find('.element').on('webkitTransitionEnd', function(e){
@@ -463,8 +464,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     });
                 }
             });
-            return false;
-
         },
 
         showMoreInfoPanel: function(card){
