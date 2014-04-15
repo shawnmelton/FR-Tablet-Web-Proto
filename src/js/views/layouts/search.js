@@ -341,8 +341,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          */
         setInfiniteScrolling: function() {
             var _this = this;
-            $(this.el).scroll(function(){
-                var distanceScrolled = $(this).scrollTop();
+            $(window).scroll(function(){
+                var distanceScrolled = $(window).scrollTop();
                 var scrollHeight = $(this).height();
                 var scrollThreshold = scrollHeight * _this.currentListingsPage + scrollHeight;
                 // console.log('Content Top: ', distanceScrolled, ', New Threshold: ', scrollThreshold);
@@ -433,15 +433,18 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
 
             var _this = this;
             var propertyId = card.find('.element').attr('property');
-            var listTop = $(this.el).scrollTop();
+            var listTop = $(window).scrollTop();
             var cardPosition = card.find('.contact').offset();
             var cardTop = cardPosition.top;
             var scrollAdjustment = 70;
 
+            console.log('Card Top: ', cardTop);
+            console.log('List Top: ', listTop);
+
             $('.basic div').not($(card).find('.element')).removeClass('flip');
 
-            $(this.el).animate({
-                scrollTop: (cardTop + listTop - scrollAdjustment) + 'px'
+            $('html, body').animate({
+                scrollTop: (cardTop - scrollAdjustment) + 'px'
             }, function(){
                 $(card).find('.element').on('webkitTransitionEnd', function(e){
                     var cardOffset = $(card).offset();
@@ -460,6 +463,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     });
                 }
             });
+            return false;
 
         },
 
