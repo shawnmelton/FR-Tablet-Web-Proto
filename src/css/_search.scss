@@ -32,15 +32,13 @@
             }
 
             >.cardButton{
-                position: fixed;
+                position: absolute;
                 top: 5px;
                 height: 29px;
                 width: 44px;
                 color: #FFF;
                 z-index: 10;
                 -webkit-backface-visibility: hidden;
-                -webkit-filter: drop-shadow(0 0 2px #888);
-                filter: drop-shadow(0 0 2px #888);
 
                 > img{
                     width: 33px;
