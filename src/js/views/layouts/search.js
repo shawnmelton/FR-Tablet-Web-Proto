@@ -447,22 +447,22 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             $('html, body').animate({
                 scrollTop: ($(card).offset().top - scrollAdjustment)
             }, function(){
-                // $(card).find('.element').on('webkitTransitionEnd', function(e){
-                //     var cardOffset = $(card).offset();
-                // });
+                $(card).find('.element').on('webkitTransitionEnd', function(e){
+                    var cardOffset = $(card).offset();
+                });
 
-                // //flip card
-                // $(card).find('.element').addClass('flip');
+                //flip card
+                $(card).find('.element').addClass('flip');
                 
-                // // Hide/Remove existing moreInfoPanel
-                // if(_this.moreInfoPanel){
-                //     _this.moreInfoPanel.animate({
-                //         height: 0
-                //     }, function(){
-                //         _this.moreInfoPanel.remove();
-                //         _this.moreInfoPanel = null;
-                //     });
-                // }
+                // Hide/Remove existing moreInfoPanel
+                if(_this.moreInfoPanel){
+                    _this.moreInfoPanel.animate({
+                        height: 0
+                    }, function(){
+                        _this.moreInfoPanel.remove();
+                        _this.moreInfoPanel = null;
+                    });
+                }
             });
         },
 
