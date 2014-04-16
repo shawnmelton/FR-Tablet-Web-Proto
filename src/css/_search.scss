@@ -28,8 +28,7 @@
             left: 0;
             right: 0;
             overflow: visible;
-            background-color: silver;
-                -webkit-backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
 
             &.flip{
                 -webkit-transform: rotateY(180deg);
@@ -73,7 +72,6 @@
                 -webkit-transform:rotateY(0deg);
             }
             .back{
-                background: #F1F1F1;
                 -webkit-transform: translate3d(0,0,0);
                 -webkit-transform: rotateY(180deg);
                 box-shadow: 0 0 0 1px #CCC inset;
