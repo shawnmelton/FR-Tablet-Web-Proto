@@ -445,7 +445,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             $('.basic div').not($(card).find('.element')).removeClass('flip');
 
             $('html, body').animate({
-                scrollTop: $(card).offset().top
+                scrollTop: ($(card).offset().top - scrollAdjustment)
             }, function(){
                 // $(card).find('.element').on('webkitTransitionEnd', function(e){
                 //     var cardOffset = $(card).offset();
@@ -478,12 +478,13 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             if($(card).hasClass('select')){
                 $(card).after(this.moreInfoPanel);
             }
-            if(cardOffset.left < $(card).width()){
+            else if(cardOffset.left < $(card).width()){
                 $(card).next().after(this.moreInfoPanel);
             }
             else{
                 $(card).after(this.moreInfoPanel);
             }
+            
             this.moreInfoPanel.animate({
                 height: $(card).height()
             }, function(){
