@@ -95,7 +95,7 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div class="basic select moreInfo" id="moreInfo" property="' +
 ((__t = ( propertyId )) == null ? '' : __t) +
-'">\n\t<img src="/img/map_sample.png" />\n\t<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>\n\t<a href="#">View Property</a>\n\t<div class="aspect_fill"></div>\n</div>\n';
+'">\n\t<img src="/img/map_sample.png" />\n\t<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>\n\t<a href="#">View Property</a>\n\t<div class="aspect_fill"></div>\n</div>\n';
 
 }
 return __p

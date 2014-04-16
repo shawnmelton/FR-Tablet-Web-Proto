@@ -484,7 +484,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             else{
                 $(card).after(this.moreInfoPanel);
             }
-            
+
             this.moreInfoPanel.animate({
                 height: $(card).height()
             }, function(){
@@ -512,30 +512,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     _this.moreInfoPanel = null;
                 });
                 return;
-            }
-
-            function showMoreInfoPanel(card){
-                //Load More Details template with property information
-                _this.moreInfoPanel = $(JST['src/js/templates/elements/moreInfoPanel.html']({
-                    propertyId: propertyId
-                }));
-                _this.moreInfoPanel.height(0);
-
-                if($(card).hasClass('select')){
-                    $(card).after(_this.moreInfoPanel);
-                }
-                if(cardOffset.left < $(card).width()){
-                    $(card).next().after(_this.moreInfoPanel);
-                }
-                else{
-                    $(card).after(_this.moreInfoPanel);
-                }
-                _this.moreInfoPanel.animate({
-                    height: $(card).height()
-                }, function(){
-                    $('.basic div').removeClass('flip');
-                    _this.lastPropertyId = propertyId;
-                });
             }
 
             //Hide/Remove existing moreInfoPanel
