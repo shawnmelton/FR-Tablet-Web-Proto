@@ -6,7 +6,7 @@ for(var s = 0; s < numBlocksToPrint && selects; s++) {
 %>
     <div class="basic select <%= first %>">
         <div class="aspect_fill"></div>
-        <div class="element noOverflow" property="<%= selects[s].attributes.homesId %>">
+        <div class="element noOverflow hasTransition" property="<%= selects[s].attributes.homesId %>">
             <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>
             <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>
             <div class="front">
@@ -39,7 +39,7 @@ for(var s = 0; s < numBlocksToPrint && selects; s++) {
 %>
         <div class="basic">
             <div class="aspect_fill"></div>
-            <div class="element noOverflow" property="<%= properties[trueIndex].attributes.homesId %>">
+            <div class="element noOverflow hasTransition" property="<%= properties[trueIndex].attributes.homesId %>">
             <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>
             <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>
                 <div class="front">

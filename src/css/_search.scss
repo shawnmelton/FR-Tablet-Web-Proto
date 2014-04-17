@@ -21,7 +21,6 @@
         }
         .basic .element {
             position: absolute;
-            -webkit-transition: 0.3s;
             -webkit-transform-style: preserve-3d;
             top: 0;
             bottom: 0;
@@ -32,6 +31,28 @@
 
             &.flip{
                 -webkit-transform: rotateY(180deg);
+            }
+
+            &.hasTransition{
+                -webkit-transition: 0.3s;
+            }
+
+            &.noTransition{
+                -webkit-transition: none;
+            }
+
+            &.flipped{
+                -webkit-transform: rotateY(0deg);
+
+                >.front{
+                    display: none;
+                }
+                >.back{
+                    -webkit-transform: rotateY(0deg);
+                }
+                >.cardButton{
+                    display: none;
+                }
             }
 
             >.cardButton{
@@ -141,7 +162,7 @@
             z-index: 1;
             overflow: hidden;
             background: #000;
-
+            border-top: solid 1px rgba(255,255,255,0.5);
 
             >.desc{
                 font-size: 1.5vw;
@@ -275,6 +296,7 @@
                 height: 63px;
                 background:url(../img/pmarker.png);
                 background-size: 67px 63px;
+                -webkit-transition: -webkit-transform 0.3s ease-out;
             }
             &.basic{
                 position: relative;
@@ -283,6 +305,10 @@
                 background:url(../img/marker.png);
                 background-size: 24px 30px;
                 z-index: 1;
+            }
+
+            &.active{
+                -webkit-transform: scale(1.5);
             }
 
             .count{

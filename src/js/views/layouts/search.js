@@ -53,28 +53,34 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
 
             $.each(_this.listings.models, function(i, listing){
                 var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng);
-                if(i%5 === 0){
+                var card = $('.basic:nth-child(' + (i+1) + ')');
+                var isSelect = card.hasClass('select');
+                if(isSelect){
                         pinHTML = JST['src/js/templates/elements/pmarker.html']({
                         image_src: listing.attributes.primaryImage,
-                        count: '5'
+                        count: i+1
                     });
                 }
                 else{
                         pinHTML = JST['src/js/templates/elements/marker.html']({
-                            count: '1'
+                            count: i+1
                         });
                 }
                 var pinOptions = {width: null, height: null, htmlContent: pinHTML}; 
                 var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
-                Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
-                    var propertyIndex = pins.indexOf(e.target);
-                    console.log('Clicked ', propertyIndex, _this.listings.models[propertyIndex].attributes);
-                    //Bring this card to top of list, n-th child, scroll up
-                    //Show info card
-                });
-                _this.map.entities.push(pin);
                 pins.push(pin);
                 locs.push(location);
+                _this.map.entities.push(pin);
+                Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
+                    $('.marker').removeClass('active');
+                    var propertyIndex = pins.indexOf(e.target) + 1;
+                    var card = $('.basic:nth-child(' + propertyIndex + ')');
+                    console.log('Clicked ', card);
+                    console.log(this);
+                    _this.showGuestCard(card);
+
+                    $(pin).find('.marker').addClass('active');
+                });
             });
             //Map is initialized
             _this.mapInitialized = true;
@@ -82,9 +88,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             //Get bounding box from group of pins
             _this.centerOnPinGroup(locs);
             Microsoft.Maps.Events.addHandler(_this.map, 'mousemove', _this.mapMoving);
-            Microsoft.Maps.Events.addHandler(_this.map, 'mouseup', function(e){
-                _this.mapMoved(e);
-            });
+            // Microsoft.Maps.Events.addHandler(_this.map, 'mouseup', function(e){
+            //     _this.mapMoved(e);
+            // });
 
 
             //ViewChangeEnd
@@ -302,6 +308,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.setResizeEvent();
             this.setContentDimensions();
             searchBarViewEl.renderToHeader();
+            this.setDeviceMotionEvent();
         },
 
         /**
@@ -333,6 +340,30 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 this.mapCanvas.css('height', (this.contentHeight - 45) + "px");
                 this.$el.css('height', this.contentHeight + "px");
             }
+        },
+
+        setDeviceMotionEvent: function(){
+            window.addEventListener('devicemotion', function(event) {
+                var x = event.acceleration.x;
+                var y = event.acceleration.y;
+                var z = event.acceleration.z;
+
+                var ralpha = event.rotationRate.alpha;
+                var rbeta = event.rotationRate.beta;
+                var rgamma = event.rotationRate.gamma;
+
+                var interval = event.interval;
+
+                if(Math.abs(rgamma) > 60){
+                    console.log('Tilt: ', rgamma);
+
+            $('.basic div').find('.element').removeClass('flipped');
+            $('.basic div').find('.element').removeClass('noTransition');
+            $('.basic div').find('.element').addClass('hasTransition');
+            $('.basic div').find('.element').removeClass('flip');
+                    
+                }
+            });
         },
 
         /**
@@ -432,7 +463,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         },
 
         showGuestCard: function(card){
-            
+            if(!card) return;
             $(this).unbind(touchEventType);
 
             var _this = this;
@@ -442,13 +473,16 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             var cardTop = cardPosition.top;
             var scrollAdjustment = 70;
 
-            $('.basic div').not($(card).find('.element')).removeClass('flip');
+            $('.basic div').not($(card).find('.element')).attr('class','element noOverflow hasTransition');
 
             $('html, body').animate({
                 scrollTop: ($(card).offset().top - scrollAdjustment)
             }, function(){
-                $(card).find('.element').on('webkitTransitionEnd', function(e){
+                $(card).find('.element').bind('webkitTransitionEnd', function(e){
+                    $(this).unbind('webkitTransitionEnd');
                     var cardOffset = $(card).offset();
+                    $(this).addClass('flipped noTransition');
+                    $(this).removeClass('hasTransition');
                 });
 
                 //flip card
@@ -473,7 +507,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.moreInfoPanel = $(JST['src/js/templates/elements/moreInfoPanel.html']({
                 propertyId: propertyId
             }));
-            this.moreInfoPanel.height(0);
+
+            // this.moreInfoPanel.height(0);
 
             if($(card).hasClass('select')){
                 $(card).after(this.moreInfoPanel);
