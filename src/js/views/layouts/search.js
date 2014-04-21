@@ -4,6 +4,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         el: "#content",
         resultsEl: null,
         contentHeight: 0,
+        pins: [],
         map: null,
         mapCanvas: $('#map-canvas'),
         mapInitialized: false,
@@ -19,6 +20,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         currentSearchListingCount: 0, //How many recs have been loaded, to compare to total
         listingLimit: 20,
         scrollTriggerDistance: 600,
+        newPageScrollTop: 0,
         morePropertiesExist: false,
         moreInfoPanel: null,
         lastPropertyId: null,
@@ -66,20 +68,26 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                             count: i+1
                         });
                 }
-                var pinOptions = {width: null, height: null, htmlContent: pinHTML}; 
+                var pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin"+(i+1)}; 
                 var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
                 pins.push(pin);
                 locs.push(location);
                 _this.map.entities.push(pin);
+                Microsoft.Maps.Events.removeHandler(pin, 'click');
                 Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
                     $('.marker').removeClass('active');
                     var propertyIndex = pins.indexOf(e.target) + 1;
                     var card = $('.basic:nth-child(' + propertyIndex + ')');
-                    console.log('Clicked ', card);
-                    console.log(this);
+                    var pinMarker = $('.pin' + propertyIndex).find('.marker');
+                    
+                    pinMarker.addClass('active');
+                    if(pinMarker.hasClass('premier')){
+                        console.log('Is Premier');
+                    }
+                    else{
+                        console.log('Is Basic');
+                    }
                     _this.showGuestCard(card);
-
-                    $(pin).find('.marker').addClass('active');
                 });
             });
             //Map is initialized
@@ -144,6 +152,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 $(this.resultsEl).html('');
                 _this.mapInitialized = false;
                 this.currentListingsPage = 0;
+                _this.newPageScrollTop = 0;
             }
             else{
                 this.currentListingsPage++;
@@ -204,6 +213,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                         numBlocksToPrint: blocks,          //Change this based or layout options
                         numPropertiesToPrint: blocks       //Change this based or layout options
                     }));
+
+                    _this.newPageScrollTop += $(_this.resultsEl).find('.page').last().height();
 
                     _this.setPropertyClickEvents();
 
@@ -373,13 +384,18 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         setInfiniteScrolling: function() {
             var _this = this;
             $(window).scroll(function(){
+                var isLoading = $(_this.resultsEl).hasClass('loading');
                 var distanceScrolled = $(window).scrollTop();
                 var scrollHeight = $(this).height();
-                var scrollThreshold = scrollHeight * _this.currentListingsPage + scrollHeight;
-                // console.log('Content Top: ', distanceScrolled, ', New Threshold: ', scrollThreshold);
-                if(distanceScrolled >= scrollThreshold && _this.morePropertiesExist) {
+                var scrollThreshold = _this.newPageScrollTop - (scrollHeight * 2);
+                console.log('Page Top: ', _this.newPageScrollTop, ', Scroll Height: ', scrollHeight);
+                console.log('Content Top: ', distanceScrolled, ', New Threshold: ', scrollThreshold);
+                if(!isLoading && distanceScrolled >= scrollThreshold && _this.morePropertiesExist) {
                     // console.log('Load More Results');
                     _this.loadResultsSet();
+                }
+                else{
+                    console.log('Still loading...');
                 }
             });
         },
@@ -473,42 +489,32 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             var cardTop = cardPosition.top;
             var scrollAdjustment = 70;
 
-            $('.basic div').not($(card).find('.element')).attr('class','element noOverflow hasTransition');
-
-            $('html, body').animate({
-                scrollTop: ($(card).offset().top - scrollAdjustment)
-            }, function(){
-                $(card).find('.element').bind('webkitTransitionEnd', function(e){
-                    $(this).unbind('webkitTransitionEnd');
-                    var cardOffset = $(card).offset();
-                    $(this).addClass('flipped noTransition');
-                    $(this).removeClass('hasTransition');
-                });
-
-                //flip card
-                $(card).find('.element').addClass('flip');
-                
-                // Hide/Remove existing moreInfoPanel
-                if(_this.moreInfoPanel){
-                    _this.moreInfoPanel.animate({
-                        height: 0
-                    }, function(){
-                        _this.moreInfoPanel.remove();
-                        _this.moreInfoPanel = null;
-                    });
-                }
+            $('.basic').find('.element').not($(card)).attr('class', 'element noOverflow hasTransition');
+            
+            $(card).find('.element').bind('webkitTransitionEnd', function(e){
+                $(this).unbind('webkitTransitionEnd');
+                var cardOffset = $(card).offset();
+                $(this).addClass('flipped noTransition');
+                $(this).removeClass('hasTransition');
             });
+            $(card).find('.element').addClass('flip');
+
+            $('html, body').scrollTop($(card).offset().top - scrollAdjustment);
         },
 
         showMoreInfoPanel: function(card){
             var propertyId = card.find('.element').attr('property');
             var cardOffset = $(card).offset();
+            var scrollAdjustment = 70;
+
+            $('.basic').find('.element').not($(card)).attr('class', 'element noOverflow hasTransition');
+            $('html, body').scrollTop($(card).offset().top - scrollAdjustment);
+
             //Load More Details template with property information
             this.moreInfoPanel = $(JST['src/js/templates/elements/moreInfoPanel.html']({
                 propertyId: propertyId
             }));
-
-            // this.moreInfoPanel.height(0);
+            this.moreInfoPanel.height(0);
 
             if($(card).hasClass('select')){
                 $(card).after(this.moreInfoPanel);
@@ -523,7 +529,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.moreInfoPanel.animate({
                 height: $(card).height()
             }, function(){
-                $('.basic div').removeClass('flip');
                 this.lastPropertyId = propertyId;
             });
         },
@@ -531,12 +536,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         showPropertyDetails: function(card){
             var _this = this;
             var propertyId = card.find('.element').attr('property');
-            var listTop = $(this.el).scrollTop();
-            var cardPosition = card.find('.details').offset();
-            var cardTop = cardPosition.top;
-            var cardOffset = $(card).offset();
-            var scrollAdjustment = 70;
-            var cardHeight = $(card).height();
 
             if(_this.moreInfoPanel && _this.lastPropertyId == propertyId){
                 // Hide/Remove existing moreInfoPanel
@@ -551,17 +550,13 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
 
             //Hide/Remove existing moreInfoPanel
             if(this.moreInfoPanel){
-                this.moreInfoPanel.animate({
-                    height: 0
-                }, function(){
-                    //Clear out and remove old panel
-                    _this.moreInfoPanel.remove();
-                    _this.moreInfoPanel = null;
-                    _this.showMoreInfoPanel(card);
-                });
+                this.moreInfoPanel.height(0).remove();
+                _this.showMoreInfoPanel(card);
+                _this.showGuestCard(card);
             }
             else{
                 _this.showMoreInfoPanel(card);
+                _this.showGuestCard(card);
             }
     }
     });

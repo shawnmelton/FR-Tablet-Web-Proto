@@ -195,7 +195,7 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-
+__p += '<div class="page">\n';
 
 for(var s = 0; s < numBlocksToPrint && selects; s++) {
     if(!selects[s]) break;
@@ -247,7 +247,17 @@ __p += '\n        <div class="basic">\n            <div class="aspect_fill"></di
     }
 } 
 ;
+__p += '\n</div>';
 
+}
+return __p
+};
+
+this["JST"]["src/js/templates/elements/searchResultsGroupPlaceholder.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '    <div class="basic select">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>\n            <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n        <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>\n        <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>\n            <div class="front"></div>\n            <div class="back"></div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n        <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>\n        <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>\n            <div class="front"></div>\n            <div class="back"></div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n        <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>\n        <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>\n            <div class="front"></div>\n            <div class="back"></div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n        <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>\n        <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>\n            <div class="front"></div>\n            <div class="back"></div>\n    </div>';
 
 }
 return __p
