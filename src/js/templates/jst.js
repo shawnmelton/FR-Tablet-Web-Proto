@@ -220,7 +220,7 @@ __p += '\n    <div class="basic select ' +
 ((__t = ( selects[s].attributes.price.max )) == null ? '' : __t) +
 ' - ' +
 ((__t = ( selects[s].attributes.price.min )) == null ? '' : __t) +
-'\n                    </p>\n                </div>\n            </div>\n            <div class="back">\n                <form>\n                    <input type="text" value="Name" placeholder="Name"/>\n                    <input type="text" value="Email" placeholder="Email"/>\n                    <input type="text" value="Phone" placeholder="Phone"/>\n                    <textarea>Question/Comments</textarea>\n                </form>\n                <a href="#">Check Availability</a>\n            </div>\n        </div>\n    </div>\n';
+'\n                    </p>\n                </div>\n            </div>\n            <div class="back">\n                <form>\n                    <input type="text" value="Name" placeholder="Name"/>\n                    <input type="text" value="Email" placeholder="Email"/>\n                    <input type="text" value="Phone" placeholder="Phone"/>\n                    <textarea>Question/Comments</textarea>\n                </form>\n                <a class="ca_button" href="#">Check Availability</a>\n            </div>\n        </div>\n    </div>\n';
 
     for(var p = 0; p < numPropertiesToPrint && properties; p++) {
         var trueIndex = p + s*numPropertiesToPrint;
@@ -242,7 +242,7 @@ __p += '\n        <div class="basic">\n            <div class="aspect_fill"></di
 ((__t = ( properties[trueIndex].attributes.price.max )) == null ? '' : __t) +
 ' - ' +
 ((__t = ( properties[trueIndex].attributes.price.min )) == null ? '' : __t) +
-'\n                    </p>\n                    </div>\n                </div>\n                <div class="back">\n                    <ul>\n                        <li>Brand New Floorplans</li>\n                        <li>Resort Style Pool</li>\n                        <li>Stainless Steel Appliances</li>\n                        <li>In-Home Washer &amp; Dryer</li>\n                        <li>Private Pier w/ Access to Canoes, Kayaks, &amp; Fishing</li>\n                        <li>21st Century Kitchens with Granite Countertops</li>\n                    </ul>\n                    <a href="#">Check Availability</a>\n                </div>\n            </div>\n        </div>\n';
+'\n                    </p>\n                    </div>\n                </div>\n                <div class="back">\n                    <ul>\n                        <li>Brand New Floorplans</li>\n                        <li>Resort Style Pool</li>\n                        <li>Stainless Steel Appliances</li>\n                        <li>In-Home Washer &amp; Dryer</li>\n                        <li>Private Pier w/ Access to Canoes, Kayaks, &amp; Fishing</li>\n                        <li>21st Century Kitchens with Granite Countertops</li>\n                    </ul>\n                    <a class="ca_button" href="#">Check Availability</a>\n                </div>\n            </div>\n        </div>\n';
 
     }
 } 

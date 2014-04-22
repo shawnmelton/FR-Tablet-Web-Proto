@@ -21,6 +21,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         listingLimit: 20,
         scrollTriggerDistance: 600,
         newPageScrollTop: 0,
+        cardsPerHalfPage: 0,
         morePropertiesExist: false,
         moreInfoPanel: null,
         lastPropertyId: null,
@@ -57,16 +58,22 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng);
                 var card = $('.basic:nth-child(' + (i+1) + ')');
                 var isSelect = card.hasClass('select');
-                if(isSelect){
-                        pinHTML = JST['src/js/templates/elements/pmarker.html']({
-                        image_src: listing.attributes.primaryImage,
-                        count: i+1
-                    });
-                }
-                else{
-                        pinHTML = JST['src/js/templates/elements/marker.html']({
+                var inViewPort = (i <= _this.cardsPerHalfPage);
+                if(inViewPort){
+                    if(isSelect){
+                            pinHTML = JST['src/js/templates/elements/pmarker.html']({
+                            image_src: listing.attributes.primaryImage,
                             count: i+1
                         });
+                    }
+                    else{
+                            pinHTML = JST['src/js/templates/elements/marker.html']({
+                                count: i+1
+                            });
+                    }
+                }
+                else{
+                    pinHTML = "<div class='marker simple'></div>";
                 }
                 var pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin"+(i+1)}; 
                 var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
@@ -76,9 +83,11 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 Microsoft.Maps.Events.removeHandler(pin, 'click');
                 Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
                     $('.marker').removeClass('active');
-                    var propertyIndex = pins.indexOf(e.target) + 1;
+                    var propertyIndex = i + 1;
                     var card = $('.basic:nth-child(' + propertyIndex + ')');
                     var pinMarker = $('.pin' + propertyIndex).find('.marker');
+
+                    console.log('Card: ', card);
                     
                     pinMarker.addClass('active');
                     if(pinMarker.hasClass('premier')){
@@ -213,7 +222,12 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                         numBlocksToPrint: blocks,          //Change this based or layout options
                         numPropertiesToPrint: blocks       //Change this based or layout options
                     }));
+                    var pageHeight = $(_this.resultsEl).find('.page').last().height();
+                    var cardCount = $(_this.resultsEl).find('.page').last().find('.basic').length;
+                    var cardRowHeight = $(_this.resultsEl).find('.page').last().find('.first').height();
+                    console.log(cardCount, ' Cards, Height: ', cardRowHeight);
 
+                    _this.cardsPerHalfPage = cardCount/2;
                     _this.newPageScrollTop += $(_this.resultsEl).find('.page').last().height();
 
                     _this.setPropertyClickEvents();
@@ -348,7 +362,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 this.mapCanvas.removeClass('portrait');
 
                 //If Landscape, set height by window height
-                this.mapCanvas.css('height', (this.contentHeight - 45) + "px");
+                this.mapCanvas.css('height', (this.contentHeight - (this.contentHeight*0.01)) + "px");
                 this.$el.css('height', this.contentHeight + "px");
             }
         },
@@ -430,6 +444,11 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     _this.onPropertyClick(parseInt(homesId));
                 }
             });
+            $('.basic > .element > .back > .ca_button').bind(touchEventType, function(e) {
+                _this.hideGuestCard($(this).parent().parent().parent());
+                e.preventDefault();
+                return false;
+            });
             $('.basic > .element > .contact').bind(touchEventType, function(e) {
                 _this.showGuestCard($(this).parent().parent());
                 e.preventDefault();
@@ -475,6 +494,15 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             // Browser doesn't support Geolocation
             else {
                 console.log('Browser Doesn\'t Support Geolocation');
+            }
+        },
+
+        hideGuestCard: function(card){
+            card.find('.element').attr('class', 'element noOverflow flip');
+            setTimeout(func, 100);
+            function func() {
+                card.find('.element').addClass('hasTransition');
+                card.find('.element').removeClass('flip');
             }
         },
 
