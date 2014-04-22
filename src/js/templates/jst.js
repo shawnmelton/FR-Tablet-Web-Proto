@@ -71,9 +71,9 @@ this["JST"]["src/js/templates/elements/marker.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class=\'marker basic\'>\n    <span class=\'count\'>' +
+__p += '<span class=\'marker basic\'>\n    <span class=\'count\'>' +
 ((__t = ( count )) == null ? '' : __t) +
-'</span>\n</div>';
+'</span>\n</span>';
 
 }
 return __p
@@ -105,11 +105,11 @@ this["JST"]["src/js/templates/elements/pmarker.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class=\'marker premier\'>\n\t<span class=\'img_container\'><img src=\'' +
+__p += '<span class=\'marker premier\'>\n\t<span class=\'img_container\'><img src=\'' +
 ((__t = ( image_src )) == null ? '' : __t) +
-'\' /></span>\n\t<div class=\'marker basic\'><span class=\'count\'>' +
+'\' /></span>\n\t<span class=\'marker basic\'><span class=\'count\'>' +
 ((__t = ( count )) == null ? '' : __t) +
-'</span></div>\n</div>';
+'</span></span>\n</span>';
 
 }
 return __p

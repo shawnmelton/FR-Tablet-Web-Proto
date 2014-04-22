@@ -73,7 +73,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     }
                 }
                 else{
-                    pinHTML = "<div class='marker simple'></div>";
+                    pinHTML = "<span class='marker simple'></span>";
                 }
                 var pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin"+(i+1)}; 
                 var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
@@ -84,14 +84,17 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
                     $('.marker').removeClass('active');
                     var propertyIndex = i + 1;
-                    var card = $('.basic:nth-child(' + propertyIndex + ')');
+                    var card = (i === 0) ? $('div.basic').first() : $('div.basic:nth-child(' + propertyIndex + ')');
                     var pinMarker = $('.pin' + propertyIndex).find('.marker');
 
                     console.log('Card: ', card);
-                    
+
                     pinMarker.addClass('active');
                     if(pinMarker.hasClass('premier')){
                         console.log('Is Premier');
+                    }
+                    else if(pinMarker.hasClass('simple')){
+                        console.log('Is Simple');
                     }
                     else{
                         console.log('Is Basic');
@@ -509,11 +512,19 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         showGuestCard: function(card){
             if(!card) return;
             $(this).unbind(touchEventType);
-
+            var cardIndex = card.index();
+            var pinMarker = $('.pin' + (cardIndex+1)).find('.marker');
+            pinMarker.addClass('active');
+            console.log('Pin ', pinMarker);
             var _this = this;
             var propertyId = card.find('.element').attr('property');
             var listTop = $(window).scrollTop();
             var cardPosition = card.find('.contact').offset();
+            if(!cardPosition){
+                console.log('Show loader');
+                console.log('Load next page, and on load, scroll to that card');
+            }
+
             var cardTop = cardPosition.top;
             var scrollAdjustment = 70;
 
