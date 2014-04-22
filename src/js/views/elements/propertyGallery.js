@@ -16,7 +16,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
         lockRightMove: true,
         swipeHorizArrowEl: null,
         swipeDirLeft: true,
-        fullDetailHeight: 365,
+        fullDetailHeight: 410,
         mapSection: null,
         floorplansSection: null,
         teaserSections: null,

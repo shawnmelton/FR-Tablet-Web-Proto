@@ -51,8 +51,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 pins = [],
                 pinHTML,
                 currentLocation = geocodeResult.results[0].location;
-                    
-            console.log('New Location: ', currentLocation);
 
             $.each(_this.listings.models, function(i, listing){
                 var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng);
@@ -87,18 +85,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     var card = (i === 0) ? $('div.basic').first() : $('div.basic:nth-child(' + propertyIndex + ')');
                     var pinMarker = $('.pin' + propertyIndex).find('.marker');
 
-                    console.log('Card: ', card);
-
                     pinMarker.addClass('active');
-                    if(pinMarker.hasClass('premier')){
-                        console.log('Is Premier');
-                    }
-                    else if(pinMarker.hasClass('simple')){
-                        console.log('Is Simple');
-                    }
-                    else{
-                        console.log('Is Basic');
-                    }
                     _this.showGuestCard(card);
                 });
             });
@@ -217,6 +204,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     var blocks = 4;
 
                     $('.table > div > div > div').unbind(touchEventType);
+                    _this.resultsEl.html('');
                     _this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroup.html']({
                         startIndex: this.propertyIndex,
                         selects: (numListings >= blocks) ? _this.listings.slice(0,blocks) : _this.listings.slice(0,numListings),
@@ -332,11 +320,75 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             }, false);
 
             this.resultsEl = $(document.getElementById('results'));
+            this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroupPlaceholder.html']);
             this.setInfiniteScrolling();
             this.setResizeEvent();
             this.setContentDimensions();
             searchBarViewEl.renderToHeader();
             this.setDeviceMotionEvent();
+        },
+
+        plotMapPoints: function(locations){
+            var _this = this;
+            var locs = [],
+                pins = [],
+                pinHTML,
+                currentLocation = geocodeResult.results[0].location;
+
+            $.each(_this.listings.models, function(i, listing){
+                var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng);
+                var card = $('.basic:nth-child(' + (i+1) + ')');
+                var isSelect = card.hasClass('select');
+                var inViewPort = (i < _this.cardsPerHalfPage);
+                if(inViewPort){
+                    if(isSelect){
+                            pinHTML = JST['src/js/templates/elements/pmarker.html']({
+                            image_src: listing.attributes.primaryImage,
+                            count: i+1
+                        });
+                    }
+                    else{
+                            pinHTML = JST['src/js/templates/elements/marker.html']({
+                                count: i+1
+                            });
+                    }
+                }
+                else{
+                    pinHTML = "<span class='marker simple'></span>";
+                }
+                var pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin"+(i+1)}; 
+                var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
+                pins.push(pin);
+                locs.push(location);
+                _this.map.entities.push(pin);
+                Microsoft.Maps.Events.removeHandler(pin, 'click');
+                Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
+                    $('.marker').removeClass('active');
+                    var propertyIndex = i + 1;
+                    var card = (i === 0) ? $('div.basic').first() : $('div.basic:nth-child(' + propertyIndex + ')');
+                    var pinMarker = $('.pin' + propertyIndex).find('.marker');
+
+                    console.log('Card: ', card);
+
+                    pinMarker.addClass('active');
+                    if(pinMarker.hasClass('premier')){
+                        console.log('Is Premier');
+                    }
+                    else if(pinMarker.hasClass('simple')){
+                        console.log('Is Simple');
+                    }
+                    else{
+                        console.log('Is Basic');
+                    }
+                    _this.showGuestCard(card);
+                });
+            });
+            //Map is initialized
+            _this.mapInitialized = true;
+
+            //Get bounding box from group of pins
+            _this.centerOnPinGroup(locs);
+            Microsoft.Maps.Events.addHandler(_this.map, 'mousemove', _this.mapMoving);
         },
 
         /**
@@ -405,14 +457,18 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 var distanceScrolled = $(window).scrollTop();
                 var scrollHeight = $(this).height();
                 var scrollThreshold = _this.newPageScrollTop - (scrollHeight * 2);
-                console.log('Page Top: ', _this.newPageScrollTop, ', Scroll Height: ', scrollHeight);
-                console.log('Content Top: ', distanceScrolled, ', New Threshold: ', scrollThreshold);
                 if(!isLoading && distanceScrolled >= scrollThreshold && _this.morePropertiesExist) {
                     // console.log('Load More Results');
                     _this.loadResultsSet();
                 }
                 else{
                     console.log('Still loading...');
+                }
+
+                if(distanceScrolled >= _this.newPageScrollTop/2){
+                    console.log('Page Top: ', _this.newPageScrollTop, ', Scroll Height: ', scrollHeight);
+                    console.log('Content Top: ', distanceScrolled, ', New Threshold: ', scrollThreshold);
+                    console.log('Update Map');
                 }
             });
         },
@@ -516,7 +572,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             var cardIndex = card.index();
             var pinMarker = $('.pin' + (cardIndex+1)).find('.marker');
             pinMarker.addClass('active');
-            console.log('Pin ', pinMarker);
+            
             var _this = this;
             var propertyId = card.find('.element').attr('property');
             var listTop = $(window).scrollTop();

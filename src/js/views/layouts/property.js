@@ -117,7 +117,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                         moreContent: JST['src/js/templates/elements/propertyFloorPlans.html']({
                             floor_plans: _this.property.attributes.floor_plans
                         }),
-                        guestCardForm: guestCardFormEl.getHTML()
+                        guestCardForm: guestCardFormEl.getHTML(),
+                        isSelect: true
                     }));
                     _this.$el.attr("class", "property");
 
