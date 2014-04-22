@@ -58,7 +58,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng);
                 var card = $('.basic:nth-child(' + (i+1) + ')');
                 var isSelect = card.hasClass('select');
-                var inViewPort = (i <= _this.cardsPerHalfPage);
+                var inViewPort = (i < _this.cardsPerHalfPage);
                 if(inViewPort){
                     if(isSelect){
                             pinHTML = JST['src/js/templates/elements/pmarker.html']({
@@ -510,6 +510,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         },
 
         showGuestCard: function(card){
+            $('.marker').removeClass('active');
             if(!card) return;
             $(this).unbind(touchEventType);
             var cardIndex = card.index();
