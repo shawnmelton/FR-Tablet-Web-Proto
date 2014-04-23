@@ -16,7 +16,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
         lockRightMove: true,
         swipeHorizArrowEl: null,
         swipeDirLeft: true,
-        fullDetailHeight: 410,
+        fullDetailHeight: 300,
         mapSection: null,
         floorplansSection: null,
         teaserSections: null,
@@ -72,7 +72,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                     'opacity' : 0
                 });
                 $('#teaser .info').animate({
-                    'height' : 70
+                    'height' : 80
                 });
             }
         },
@@ -87,7 +87,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                 this.floorplansSection.css('opacity', 0);
                 this.reviewsSection.css('opacity', 0);
                 this.detailsSection.css('opacity', 0);
-                $('#teaser .info').height(70);
+                $('#teaser .info').height(80);
 
                 //Do things once the panel is fully toggled
                 if(typeof complete == 'function'){
@@ -122,8 +122,8 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
             }
             //Cache reference to hideable teaser sections
             //for bulk animations
-            this.teaserSections = $('#teaser .info p[section="reviews"], #teaser .info p[section="floorplans"], #teaser .info p[section="details"]');
-
+            this.teaserSections = $('#teaser .info p[section="reviews"], #teaser .info p[section="floorplans"], #teaser .info div[section="video"], #teaser .info p[section="details"]');
+            this.fullDetailHeight = $('#teaser .info').height();
             this.mapSection = $('#teaser .info p[section="map"]');
             this.floorplansSection = $('#teaser .info p[section="floorplans"]');
             this.reviewsSection = $('#teaser .info p[section="reviews"]');
@@ -341,20 +341,20 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                                     //Change opacity of floorplans, reviews, and details on pan
                                     if($(_this.currentImageEl).hasClass('first')) {
                                         panArea = _this.contentWidth/2;
-                                        percentPanDistance = (panArea - distance) / panArea;
+                                        percentPanDistance = (panArea - distance*2) / panArea;
                                         
                                         //Only change opacity of the bottom three panels
-                                        _this.teaserSections.css('opacity', percentPanDistance/2);
+                                        _this.teaserSections.css('opacity', percentPanDistance);
 
                                         buttonOpacity = (percentPanDistance < 0.5) ? 0.5 : percentPanDistance;
 
                                         //Change background opacity of CA button
                                         _this.buttonCA.css('background', 'rgba(233, 125, 14, ' + buttonOpacity + ')');
 
-                                        //Percent to min-height: 70
-                                        heightDifference = _this.fullDetailHeight - 70;
+                                        //Percent to min-height: 80
+                                        heightDifference = _this.fullDetailHeight;
                                         panelHeight = percentPanDistance * heightDifference;
-                                        panelHeight = (panelHeight < 70) ? 70 : panelHeight;
+                                        panelHeight = (panelHeight < 80) ? 80 : panelHeight;
                                         panelHeight = (panelHeight > this.fullDetailHeight) ? this.fullDetailHeight : panelHeight;
 
                                         //Difference in height * percent
@@ -370,20 +370,20 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                                 if(!_this.lockRightMove) {
                                     if($(_this.currentImageEl).next().hasClass('first')){
                                         panArea = _this.contentWidth/2;
-                                        percentPanDistance = distance / panArea;
+                                        percentPanDistance = distance*2 / panArea;
                                         
                                         //Only change opacity of the bottom three panels
-                                        _this.teaserSections.css('opacity', percentPanDistance/2);
+                                        _this.teaserSections.css('opacity', percentPanDistance);
 
                                         buttonOpacity = (percentPanDistance < 0.5) ? 0.5 : percentPanDistance;
 
                                         //Change background opacity of CA button
                                         _this.buttonCA.css('background', 'rgba(233, 125, 14, ' + buttonOpacity + ')');
 
-                                        //Percent to min-height: 70
-                                        heightDifference = _this.fullDetailHeight - 70;
+                                        //Percent to min-height: 80
+                                        heightDifference = _this.fullDetailHeight;
                                         panelHeight = percentPanDistance * heightDifference;
-                                        panelHeight = (panelHeight < 70) ? 70 : panelHeight;
+                                        panelHeight = (panelHeight < 80) ? 80 : panelHeight;
                                         panelHeight = (panelHeight > this.fullDetailHeight) ? this.fullDetailHeight : panelHeight;
 
                                         //Difference in height * percent

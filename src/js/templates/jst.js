@@ -263,6 +263,16 @@ __p += '<div class="results_placeholder">\n    <div class="basic select">\n     
 return __p
 };
 
+this["JST"]["src/js/templates/elements/videoLightbox.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div id="video_lightbox">\n    <div class="video_container">\n    \t<video id="video" preload="auto" controls>\n\t\t\t<source  width=\'600\' height=\'300\' src=\'/video/video_medium.m4v\'  />\n\t\t</video>\n    </div>\n    <a href="#!" class="close_button">CLOSE</a>\n</div>';
+
+}
+return __p
+};
+
 this["JST"]["src/js/templates/layouts/home.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -295,7 +305,7 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute safariHack"></a>\n<a id="swipeVertArrow" class="block absolute safariHack"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info transWhite80">\n        <h2>' +
+__p += '<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute safariHack"></a>\n<a id="swipeVertArrow" class="block absolute safariHack"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info">\n        <h2>' +
 ((__t = ( property.attributes.name )) == null ? '' : __t) +
 '</h2>\n        <p class="clickable pointer" section="map">\n            ' +
 ((__t = ( property.attributes.streetAddress )) == null ? '' : __t) +
@@ -315,9 +325,13 @@ __p += '<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArro
 ((__t = ( property.attributes.price.max )) == null ? '' : __t) +
 '<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p class="clickable pointer" section="reviews">\n            <span id="webReview" class="block reviewStars">4 Reviews</span>\n            <a>View Reviews from the Web</a>\n        </p>\n        ';
  if(isSelect) { ;
-__p += '\n        <p class="clickable pointer" section="video">\n            <a>View Video Fullscreen</a>\n        </p>\n        ';
+__p += '\n        <div class="clickable pointer" section="video">\n            <div class="video_thumb" style="background-image: url(' +
+((__t = ( property.attributes.images[2] )) == null ? '' : __t) +
+')">\n                <img src="/img/play_button.png" />\n            </div>\n        </div>\n        ';
  } ;
-__p += '\n        <p class="clickable pointer noBorder" section="details">\n            Details<br>\n            <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet arcu pretium, placerat mauris sed, hendrerit eros. Curabitur sed fermentum justo. Pellentesque lobortis, orci ut porttitor luctus, nisi urna pharetra magna.</small>\n        </p>\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
+__p += '\n        <p class="clickable pointer noBorder" section="details">\n            Details<br>\n            <small>' +
+((__t = ( property.attributes.floor_plans[0].description )) == null ? '' : __t) +
+'</small>\n        </p>\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
 ((__t = ( moreContent )) == null ? '' : __t) +
 '</div>\n        <div class="form tableCell vAlignTop">' +
 ((__t = ( guestCardForm )) == null ? '' : __t) +

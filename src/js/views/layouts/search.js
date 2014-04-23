@@ -319,6 +319,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
 
             this.resultsEl = $(document.getElementById('results'));
             this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroupPlaceholder.html']);
+            this.resultsEl.find('.basic').each(function(i){
+                console.log('Basic ', i);
+                $(this).fadeIn().delay(500).fadeOut();
+            });
             this.setInfiniteScrolling();
             this.setResizeEvent();
             this.setContentDimensions();

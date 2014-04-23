@@ -70,6 +70,29 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             this.moveToMore();
         },
 
+        onCloseVideoButtonClick: function(){
+            $('#video_lightbox').removeClass('show');
+            $('body').unbind('mousewheel');
+        },
+
+        /**
+         * Show video lightbox and load video
+         */
+        onVideoThumbnailClick: function() {
+            $('#video_lightbox').addClass('show');
+            video.play();
+            if(isMobileDevice){
+                console.log('Mobile Device!');
+            }
+            else{
+                $('body').on({'mousewheel': function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                });
+            }
+        },
+
         /**
          * Catch the event when the user clicks on a section of the Property teaser
          * Teaser is the section that displays on top of the property image.
@@ -111,7 +134,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     // Reset elements for this property view.
                     _this.moreEl = null;
                     _this.moreContentEl = null;
-
                     _this.$el.html(JST['src/js/templates/layouts/property.html']({
                         property: _this.property,
                         moreContent: JST['src/js/templates/elements/propertyFloorPlans.html']({
@@ -121,6 +143,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                         isSelect: true
                     }));
                     _this.$el.attr("class", "property");
+                    $('body').prepend(JST['src/js/templates/elements/videoLightbox.html']);
 
                     guestCardFormEl.init();
                     searchBarViewEl.renderToHeader();
@@ -255,7 +278,19 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             });
 
             // Check Availability Button.
-            $(document.getElementById('buttonCA')).bind(touchEventType, function(ev) {
+            $('#teaser .info div[section="video"]').bind(touchEventType, function(ev) {
+                ev.preventDefault();
+                _this.onVideoThumbnailClick();
+            });
+
+            // Check Availability Button.
+            $('.close_button').bind(touchEventType, function(ev) {
+                ev.preventDefault();
+                _this.onCloseVideoButtonClick();
+            });
+
+            // Show Video
+            $(document.getElementById('video')).bind(touchEventType, function(ev) {
                 ev.preventDefault();
                 _this.onCheckAvailabilityClick();
             });
