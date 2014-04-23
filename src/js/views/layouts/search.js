@@ -120,7 +120,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             var mapOptions = {
                 credentials:"AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW",
                 mapTypeId: Microsoft.Maps.MapTypeId.road,
-                zoom: 15,
+                zoom: 16,
                 showScalebar: false
             };
             this.map = new Microsoft.Maps.Map(document.getElementById("map-canvas"), mapOptions);
@@ -144,11 +144,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         loadResultsSet: function(searchString) {
             var _this = this;
 
-
             //Initialize to zero or increment based on whether
             //or not this is the first call of a new zip code
             if(_this.lastSearchString != _this.searchString || this.currentListingsPage === null){
-                $(this.resultsEl).html('');
                 _this.mapInitialized = false;
                 this.currentListingsPage = 0;
                 _this.newPageScrollTop = 0;
@@ -185,6 +183,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 success: function(response){
                     //Remove loading image
                     $(_this.resultsEl).removeClass('loading');
+                    $('.results_placeholder').remove();
 
                     var numListings = response.length;
                     _this.morePropertiesExist = (response.length);
@@ -204,7 +203,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     var blocks = 4;
 
                     $('.table > div > div > div').unbind(touchEventType);
-                    _this.resultsEl.html('');
                     _this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroup.html']({
                         startIndex: this.propertyIndex,
                         selects: (numListings >= blocks) ? _this.listings.slice(0,blocks) : _this.listings.slice(0,numListings),

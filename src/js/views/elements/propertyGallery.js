@@ -72,7 +72,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                     'opacity' : 0
                 });
                 $('#teaser .info').animate({
-                    'height' : 73
+                    'height' : 70
                 });
             }
         },
@@ -87,7 +87,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                 this.floorplansSection.css('opacity', 0);
                 this.reviewsSection.css('opacity', 0);
                 this.detailsSection.css('opacity', 0);
-                $('#teaser .info').height(73);
+                $('#teaser .info').height(70);
 
                 //Do things once the panel is fully toggled
                 if(typeof complete == 'function'){
@@ -351,10 +351,10 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                                         //Change background opacity of CA button
                                         _this.buttonCA.css('background', 'rgba(233, 125, 14, ' + buttonOpacity + ')');
 
-                                        //Percent to min-height: 73
-                                        heightDifference = _this.fullDetailHeight - 73;
+                                        //Percent to min-height: 70
+                                        heightDifference = _this.fullDetailHeight - 70;
                                         panelHeight = percentPanDistance * heightDifference;
-                                        panelHeight = (panelHeight < 73) ? 73 : panelHeight;
+                                        panelHeight = (panelHeight < 70) ? 70 : panelHeight;
                                         panelHeight = (panelHeight > this.fullDetailHeight) ? this.fullDetailHeight : panelHeight;
 
                                         //Difference in height * percent
@@ -380,10 +380,10 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                                         //Change background opacity of CA button
                                         _this.buttonCA.css('background', 'rgba(233, 125, 14, ' + buttonOpacity + ')');
 
-                                        //Percent to min-height: 73
-                                        heightDifference = _this.fullDetailHeight - 73;
+                                        //Percent to min-height: 70
+                                        heightDifference = _this.fullDetailHeight - 70;
                                         panelHeight = percentPanDistance * heightDifference;
-                                        panelHeight = (panelHeight < 73) ? 73 : panelHeight;
+                                        panelHeight = (panelHeight < 70) ? 70 : panelHeight;
                                         panelHeight = (panelHeight > this.fullDetailHeight) ? this.fullDetailHeight : panelHeight;
 
                                         //Difference in height * percent
