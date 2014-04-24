@@ -290,6 +290,11 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 _this.onCloseVideoButtonClick();
             });
 
+            $('#video_lightbox').bind(touchEventType, function(e){
+                e.preventDefault();
+                _this.onCloseVideoButtonClick();
+            });
+
             // Show Video
             $(document.getElementById('video')).bind(touchEventType, function(ev) {
                 ev.preventDefault();

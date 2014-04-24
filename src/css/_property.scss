@@ -39,6 +39,16 @@
         opacity: 1;
         z-index: 100;
         pointer-events: all;
+
+        >.video_container{
+            pointer-events: all;
+
+            >video{
+                pointer-events: all;
+                display: block;
+            }
+        }
+
     }
 
     >.video_container{
@@ -54,6 +64,7 @@
         >video{
             width: 100%;
             height: 100%;
+            display: none;
         }
     }
 
@@ -145,7 +156,7 @@
         }
 
         >.buttons {
-            margin-top: 15px;
+            margin-top: 0;
 
             .tableCell {
                 width: 48%;
