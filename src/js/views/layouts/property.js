@@ -144,7 +144,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     }));
                     _this.$el.attr("class", "property");
                     _this.$el.prepend(JST['src/js/templates/elements/videoLightbox.html']);
-                    $('#video_lightbox').height($(window).height());
 
                     guestCardFormEl.init();
                     searchBarViewEl.renderToHeader();
@@ -165,16 +164,19 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
          * Set the content height for this page.
          */
         setContentDimensions: function() {
-            this.contentHeight = $(window).height() - footerViewEl.getHeight();
+            this.contentHeight = $(window).height();
 
-            if(navigator.userAgent.match(/iPod|iPhone|iPad/i) &&
-                navigator.userAgent.match(/Safari/i) && !(navigator.userAgent.match(/Chrome/i) ||
-                navigator.userAgent.match(/CriOS/i))) {
-                this.contentHeight -= 30;
+            if(WURFL.form_factor == 'Tablet'){
+                this.contentHeight -= (footerViewEl.getHeight());
+            }
+            else{
+                console.log(WURFL);
             }
 
-            this.$el.children('section').css('height', this.contentHeight +"px");
-            this.$el.css('height', this.contentHeight +"px");
+            this.$el.height(this.contentHeight);
+            this.$el.children('section').height(this.contentHeight);
+            $('#video_lightbox').height($(window).height());
+            $('body').height($(window).height());
         },
 
         /**

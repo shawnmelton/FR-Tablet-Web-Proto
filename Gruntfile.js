@@ -128,6 +128,23 @@ module.exports = (function(grunt) {
                     livereload: true
                 }
             }
+        },
+        'ftp-deploy': {
+          build: {
+            auth: {
+              host: 'tantopic.com',
+              port: 21,
+              authKey: 'key1'
+            },
+            src: '/Users/danielburke/Documents/Development/DE/Sites/Forrent/FR-Tablet-Web-Proto/dist',
+            dest: 'domains/tantopic.com/html/',
+            exclusions: ['/Users/danielburke/Documents/Development/DE/Sites/Forrent/FR-Tablet-Web-Proto/dist/**/.DS_Store',
+            '/Users/danielburke/Documents/Development/DE/Sites/Forrent/FR-Tablet-Web-Proto/dist/**/.htaccess',
+            '/Users/danielburke/Documents/Development/DE/Sites/Forrent/FR-Tablet-Web-Proto/dist/js',
+            '/Users/danielburke/Documents/Development/DE/Sites/Forrent/FR-Tablet-Web-Proto/dist/css',
+            '/Users/danielburke/Documents/Development/DE/Sites/Forrent/FR-Tablet-Web-Proto/dist/img',
+            '/Users/danielburke/Documents/Development/DE/Sites/Forrent/FR-Tablet-Web-Proto/dist/api.php']
+          }
         }
     });
 
@@ -146,9 +163,10 @@ module.exports = (function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-embed');
     grunt.loadNpmTasks('grunt-image-embed');
+    grunt.loadNpmTasks('grunt-ftp-deploy');
 
     grunt.registerTask('default', [
-        'jst', 'jshint', 'requirejs', 'uglify', 'sass', 'imagemin', 'imageEmbed', 'htmlmin', 'embed'
+        'jst', 'jshint', 'requirejs', 'uglify', 'sass', 'imagemin', 'imageEmbed', 'htmlmin', 'embed', 'ftp-deploy'
     ]);
 
     grunt.registerTask('cleanup', ['clean']);

@@ -305,7 +305,7 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute safariHack"></a>\n<a id="swipeVertArrow" class="block absolute safariHack"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info">\n        <h2>' +
+__p += '<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute safariHack"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info">\n        <h2>' +
 ((__t = ( property.attributes.name )) == null ? '' : __t) +
 '</h2>\n        <p class="clickable pointer" section="map">\n            ' +
 ((__t = ( property.attributes.streetAddress )) == null ? '' : __t) +
@@ -331,7 +331,7 @@ __p += '\n        <div class="clickable pointer" section="video">\n            <
  } ;
 __p += '\n        <p class="clickable pointer noBorder" section="details">\n            Details<br>\n            <small>' +
 ((__t = ( property.attributes.floor_plans[0].description )) == null ? '' : __t) +
-'</small>\n        </p>\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
+'</small>\n        </p>\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
 ((__t = ( moreContent )) == null ? '' : __t) +
 '</div>\n        <div class="form tableCell vAlignTop">' +
 ((__t = ( guestCardForm )) == null ? '' : __t) +

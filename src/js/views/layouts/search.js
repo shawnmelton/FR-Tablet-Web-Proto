@@ -321,8 +321,15 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroupPlaceholder.html']);
             this.resultsEl.find('.basic').each(function(i){
                 console.log('Basic ', i);
-                $(this).delay(i * 200).fadeOut('slow').fadeIn('slow').fadeOut('slow').fadeIn('slow');
+                pulsate(this, i);
             });
+
+            function pulsate(card, i){
+                $(card).delay(i * 200).fadeOut('slow').fadeIn('slow', function(){
+                    console.log('done');
+                });
+            }
+
             this.setInfiniteScrolling();
             this.setResizeEvent();
             this.setContentDimensions();

@@ -7,7 +7,7 @@ html {
     &.home1024 { background: url(../img/home-bg-1024.jpg) no-repeat top center; }
     &.home768 { background: url(../img/home-bg-768.jpg) no-repeat top center; }
 }
-    #content { padding-top: 50px; z-index: 1; }
+    #content { z-index: 1; }
     #map-canvas {
         width: 100%;
         position: absolute;
