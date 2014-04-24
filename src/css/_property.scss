@@ -83,11 +83,12 @@
     #teaser {
         width: 43%;
         min-width: 300px;
-        padding-left: 3%;
+        max-width: 400px;
+        padding-left: 15px;
 
         >div.info {
-            padding: 20px 0 0;
-            margin: 3% 0 0;
+            padding: 10px 0 0;
+            margin: 0;
             overflow:hidden;
 
             >h2 {

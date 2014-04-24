@@ -143,7 +143,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                         isSelect: true
                     }));
                     _this.$el.attr("class", "property");
-                    $('body').prepend(JST['src/js/templates/elements/videoLightbox.html']);
+                    _this.$el.prepend(JST['src/js/templates/elements/videoLightbox.html']);
+                    $('#video_lightbox').height($(window).height());
 
                     guestCardFormEl.init();
                     searchBarViewEl.renderToHeader();
