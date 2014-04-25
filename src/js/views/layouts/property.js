@@ -98,9 +98,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
          * Teaser is the section that displays on top of the property image.
          */
         onTeaserSectionClick: function(pEl) {
-            footerViewEl.setCurrentLink(pEl.attr('section'));
+            //Set tab:  pEl.attr('section')
             this.moveToMore();
-            this.loadSection(pEl.attr('section'));  
+            //Load Section:  pEl.attr('section')
         },
 
         relayout: function() {
@@ -147,7 +147,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
 
                     guestCardFormEl.init();
                     searchBarViewEl.renderToHeader();
-                    _this.setProfileFooter();
                     galleryViewEl.reset();
                     _this.relayout();
 
@@ -167,7 +166,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             this.contentHeight = $(window).height();
 
             if(WURFL.form_factor == 'Tablet'){
-                this.contentHeight -= (footerViewEl.getHeight());
+
             }
             else{
                 console.log(WURFL);
@@ -177,48 +176,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             this.$el.children('section').height(this.contentHeight);
             $('#video_lightbox').height($(window).height());
             $('body').height($(window).height());
-        },
-
-        /**
-         * Load footer with links that will take the user to additional property information.
-         */
-        setProfileFooter: function() {
-            footerViewEl.render([{
-                rel: 'floorplans',
-                text: 'Floor Plans &amp; Prices'
-            }, {
-                rel: 'details',
-                text: 'Details'
-            }, {
-                rel: 'reviews',
-                text: 'Reviews'
-            }, {
-                rel: 'map',
-                text: 'Map &amp; Directions'
-            }, {
-                rel: 'share',
-                text: 'Share',
-                cls: 'notNav share'
-            }, {
-                rel: 'availability',
-                text: 'Check Availability',
-                cls: 'availability'
-            }]);
-
-            var _this = this;
-            $('footer a').bind(touchEventType, function() {
-                if($(this).hasClass('notNav')) {
-                    // Share Button
-                } else {
-                    _this.moveToMore();
-
-                    if($(this).attr('rel') !== 'availability') {
-                        _this.loadSection($(this).attr('rel'));
-                    }
-                }
-            });
-
-            footerViewEl.makeSticky();
         },
 
         /**
@@ -240,7 +197,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         },
 
         /**
-         * Activate footer link when scrolling down.
+         * 
          */
         setScrollEvent: function() {
             window.onscroll = function(){
@@ -256,16 +213,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     "-o-filter" : 'blur('+ (percent*10) +'px)'
                 });
             };
-
-            $(window).scroll(function() {
-                if(this.linksInactive && $(this).scrollTop() > 50) {
-                    footerViewEl.activateCurrentLink();
-                    this.linksInactive = !this.linksInactive;
-                } else if(!this.linksInactive && $(this).scrollTop() <= 50) {
-                    footerViewEl.deactivateAllLinks();
-                    this.linksInactive = !this.linksInactive;
-                } 
-            });
         },
 
         /**
