@@ -166,7 +166,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             this.contentHeight = $(window).height();
 
             if(WURFL.form_factor == 'Tablet'){
-
+                console.log('Tablet');
+                this.contentHeight -= 20;
             }
             else{
                 console.log(WURFL);
@@ -175,7 +176,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             this.$el.height(this.contentHeight);
             this.$el.children('section').height(this.contentHeight);
             $('#video_lightbox').height($(window).height());
-            $('body').height($(window).height());
+            // $('body').height($(window).height());
         },
 
         /**

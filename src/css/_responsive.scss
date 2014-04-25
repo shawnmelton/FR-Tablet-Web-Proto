@@ -98,6 +98,14 @@
     footer {
         height: 40px;
 
+        >a{
+            line-height: 40px;
+        }
+        
+        >p{
+            line-height: 40px;
+        }
+
         >nav {
             >div {
               >a { height: 40px; }
