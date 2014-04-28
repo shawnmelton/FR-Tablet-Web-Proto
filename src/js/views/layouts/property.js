@@ -46,6 +46,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
          * Move down the page to the more section for additional property content.
          */
         moveToMore: function() {
+            var moreArrow = $(document.getElementById('moreInfoArrow'));
             if(this.moreEl === null) {
                 this.moreEl = $(document.getElementById('more'));
                 this.moreContentEl = $(document.getElementById('moreContent'));
@@ -58,8 +59,24 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 console.log("Body");
                 $('body').animate({
                     scrollTop: moreElTopPos +'px'
-                },  500);
+                }, 500, function(){
+                    moreArrow.addClass('back');
+                    moreArrow.find('span').html('Back To Profile');
+                });
             }
+        },
+
+        /**
+         * Move down the page to the more section for additional property content.
+         */
+        moveToTop: function() {
+            var moreArrow = $(document.getElementById('moreInfoArrow'));
+            $('body').animate({
+                scrollTop: '0px'
+            }, 500, function(){
+                moreArrow.removeClass('back');
+                moreArrow.find('span').html('More Info');
+            });
         },
 
         /**
@@ -164,19 +181,21 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
          */
         setContentDimensions: function() {
             this.contentHeight = $(window).height();
+            var moreInfoHeight = this.contentHeight - $('footer').height();
 
             if(WURFL.form_factor == 'Tablet'){
                 console.log('Tablet');
                 this.contentHeight -= 20;
+                moreInfoHeight -= 20;
             }
             else{
                 console.log(WURFL);
             }
 
             this.$el.height(this.contentHeight);
-            this.$el.children('section').height(this.contentHeight);
+            this.$el.children('section#teaser').height(this.contentHeight);
+            this.$el.children('section#more').height(moreInfoHeight);
             $('#video_lightbox').height($(window).height());
-            // $('body').height($(window).height());
         },
 
         /**
@@ -201,10 +220,22 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
          * 
          */
         setScrollEvent: function() {
+            var _this = this;
             window.onscroll = function(){
+                var moreArrow = $(document.getElementById('moreInfoArrow'));
                 var scrollTop = $(this).scrollTop() * 1.5;
                 var percent = scrollTop/$(window).height();
-                
+                if($(this).scrollTop() >= ($(window).height() * 0.85)){
+                    moreArrow.addClass('back');
+                    moreArrow.find('span').html('Back To Profile');
+                    _this.setBackToTopEvent();
+                }
+                else{
+                    moreArrow.removeClass('back');
+                    moreArrow.find('span').html('More Info');
+                    _this.setVertArrowEvent();
+                }
+
                 //Add CSS blur to the gallery as the user scrolls the property up
                 $('#gallery').css({
                     "-webkit-filter" : 'blur('+ (percent*10) +'px)',
@@ -257,10 +288,26 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
          */
         setVertArrowEvent: function() {
             var _this = this;
-            var vertArrow = $(document.getElementById('swipeVertArrow'));
-            vertArrow.unbind(touchEventType);
-            vertArrow.bind(touchEventType, function() {
+            var moreArrow = $(document.getElementById('moreInfoArrow'));
+            moreArrow.unbind(touchEventType);
+            moreArrow.bind(touchEventType, function(){
                 _this.moveToMore();
+                moreArrow.unbind(touchEventType);
+                _this.setBackToTopEvent();
+            });
+        },
+
+        /**
+         * Scroll down the page to the additional content when the down arrow is touched.
+         */
+        setBackToTopEvent: function() {
+            var _this = this;
+            var moreArrow = $(document.getElementById('moreInfoArrow'));
+            moreArrow.unbind(touchEventType);
+            moreArrow.bind(touchEventType, function() {
+                _this.moveToTop();
+                moreArrow.unbind(touchEventType);
+                _this.setVertArrowEvent();
             });
         },
 
