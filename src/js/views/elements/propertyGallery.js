@@ -355,10 +355,11 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                                         heightDifference = _this.fullDetailHeight;
                                         panelHeight = percentPanDistance * heightDifference;
                                         panelHeight = (panelHeight < 80) ? 80 : panelHeight;
-                                        panelHeight = (panelHeight > this.fullDetailHeight) ? this.fullDetailHeight : panelHeight;
+                                        panelHeight = (panelHeight > _this.fullDetailHeight) ? _this.fullDetailHeight : panelHeight;
 
                                         //Difference in height * percent
                                         $('#teaser .info').height(panelHeight);
+                                        console.log('Teaser Height: ', panelHeight);
                                     }
 
                                     _this.currentImageEl.css('-webkit-transform',
@@ -384,10 +385,11 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                                         heightDifference = _this.fullDetailHeight;
                                         panelHeight = percentPanDistance * heightDifference;
                                         panelHeight = (panelHeight < 80) ? 80 : panelHeight;
-                                        panelHeight = (panelHeight > this.fullDetailHeight) ? this.fullDetailHeight : panelHeight;
+                                        panelHeight = (panelHeight > _this.fullDetailHeight) ? _this.fullDetailHeight : panelHeight;
 
                                         //Difference in height * percent
                                         $('#teaser .info').height(panelHeight);
+                                        console.log('Teaser Height: ', panelHeight);
                                     }
 
                                     _this.currentImageEl.next().css('-webkit-transform', 
