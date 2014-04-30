@@ -10,39 +10,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         linksInactive: true,
 
         /**
-         * Load the content specific to the section that was clicked on.
-         */
-        loadSection: function(section) {
-            if(this.moreEl === null) {
-                this.moreEl = $(document.getElementById('more'));
-                this.moreContentEl = $(document.getElementById('moreContent'));
-            }
-
-            // Load content from template instead.
-            switch(section) {
-                case 'floorplans': 
-                    this.moreContentEl.html(JST['src/js/templates/elements/propertyFloorPlans.html']());
-                    break;
-
-                case 'reviews':
-                    this.moreContentEl.html(JST['src/js/templates/elements/propertyReviews.html']());
-                    break;
-
-                case 'details':
-                    this.moreContentEl.html(JST['src/js/templates/elements/propertyDetails.html']({
-                        property: this.property
-                    }));
-                    break;
-
-                case 'map':
-                    this.moreContentEl.html(JST['src/js/templates/elements/propertyMap.html']({
-                        propertyAddress: this.property.address
-                    }));
-                    break;
-            }
-        },
-
-        /**
          * Move down the page to the more section for additional property content.
          */
         moveToMore: function() {
@@ -52,7 +19,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 this.moreContentEl = $(document.getElementById('moreContent'));
             }
 
-            var moreElTopPos = this.moreEl.position().top;
+            var moreElTopPos = this.moreEl.position().top - $('footer').height();
 
             // Don't scroll to the More section unless the user isn't close.
             if($('body').scrollTop() < (moreElTopPos - 50)) {
@@ -153,8 +120,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     _this.moreContentEl = null;
                     _this.$el.html(JST['src/js/templates/layouts/property.html']({
                         property: _this.property,
-                        moreContent: JST['src/js/templates/elements/propertyFloorPlans.html']({
-                            floor_plans: _this.property.attributes.floor_plans
+                        moreContent: JST['src/js/templates/elements/propertyInfo.html']({
+                            floor_plans: _this.property.attributes.floor_plans,
+                            property: _this.property,
+                            propertyAddress: _this.property.address
                         }),
                         guestCardForm: guestCardFormEl.getHTML(),
                         isSelect: true
@@ -193,8 +162,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             }
 
             this.$el.height(this.contentHeight);
-            this.$el.children('section#teaser').height(this.contentHeight);
+            // this.$el.children('section#teaser').height(this.contentHeight);
             this.$el.children('section#more').height(moreInfoHeight);
+            this.$el.children('section#more').css('top', $(window).height());
             $('#video_lightbox').height($(window).height());
         },
 
@@ -274,6 +244,11 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             $('#video_lightbox').bind(touchEventType, function(e){
                 e.preventDefault();
                 _this.onCloseVideoButtonClick();
+            });
+
+            $('#video_lightbox, #video').bind('touchmove', function(e){
+                e.preventDefault();
+                return false;
             });
 
             // Show Video

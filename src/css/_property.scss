@@ -93,11 +93,12 @@
     }
 
     #teaser {
+        position: absolute;
         width: 43%;
         min-width: 300px;
         max-width: 400px;
         padding-left: 15px;
-        //padding-top: 50px;
+        -webkit-transform: translate3d(0,0,0);
 
         >div.info {
             padding: 10px 0 0;
@@ -182,8 +183,16 @@
     }
 
     #more {
-        .tableCell.form { width: 30%; background-color: #FFF;}
+        .tableCell.form { width: 30%;}
     }
+        #moreContent{
+            >h2{
+                font-size: 24px;
+                line-height: 24px;
+                background-color: rgba(255, 255, 255, 0.5);
+                padding: 10px 0 10px 30px;
+            }
+        }
 
         #propertyNav {
             padding: 5%;
@@ -194,8 +203,6 @@
         #guestCard {
             padding: 5.5%;
             width: 90%;
-            height: 50%;
-            top: 50%;
             background: #f2a468;
             color: #FFF;
 
