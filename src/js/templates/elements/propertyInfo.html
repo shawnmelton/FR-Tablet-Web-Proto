@@ -1,0 +1,58 @@
+<h2>Details</h2>
+<div id="details" class="bgWhite">
+    <table class="width100">
+        <tr>
+            <td class="name alignLeft vAlignMiddle"><%= property.name %></td>
+            <td class="alignCenter vAlignMiddle">1<span class="block">Beds</span></td>
+            <td class="alignCenter vAlignMiddle">2<span class="block">Baths</span></td>
+            <td class="alignCenter vAlignMiddle">$1,500<span class="block">Monthly</span></td>
+        </tr>
+    </table>
+    <p>Curabitur eleifend nisi lobortis, adipiscing mauris in, venenatis ipsum. Sed suscipit nisi ut tincidunt facilisis. Praesent ligula mi, cursus eu gravida nec, consequat id sapien. Vestibulum adipiscing quis mi quis mollis. In condimentum consequat felis, sit amet gravida massa elementum quis. Ut suscipit aliquet dolor, vitae laoreet nibh mollis non. Aenean diam justo, pretium et odio a, fermentum tempus metus.</p>
+</div>
+<h2>Floor Plans</h2>
+<div id="floorplans" class="bgWhite">
+    <% for(i = 0; i < floor_plans.length; i++){ %>
+    <table class="width100">
+        <tr>
+            <td class="alignLeft">
+                <%= floor_plans[i].name %>
+                <a href="#" class="block">more details here</a>
+            </td>
+            <td class="alignCenter"><%= floor_plans[i].beds %><span class="block">Beds</span></td>
+            <td class="alignCenter"><%= floor_plans[i].baths %><span class="block">Baths</span></td>
+            <td class="alignCenter"><%= floor_plans[i].price_low %><span class="block">Monthly</span></td>
+        </tr>
+        <tr><td class="moredetails" colspan="4">More Details</td></tr>
+    </table>
+    <% } %>
+</div>
+<h2>Reviews</h2>
+<div id="reviews" class="bgWhite">
+    <p class="noBorder reviewStars">
+        <strong class="block">Apartment is Fantastic</strong>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.
+        <span class="block">From Google Places</span>
+    </p>
+    <p class="reviewStars">
+        <strong class="block">Apartment is Fantastic</strong>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.
+        <span class="block">From Google Places</span>
+    </p>
+    <p class="reviewStars">
+        <strong class="block">Apartment is Fantastic</strong>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.
+        <span class="block">From Google Places</span>
+    </p>
+    <p class="reviewStars">
+        <strong class="block">Apartment is Fantastic</strong>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.
+        <span class="block">From Google Places</span>
+    </p>
+</div>
+<h2>Map</h2>
+<div id="map" class="clearFix bgWhite">
+    <img src="/img/google-map.png" class="width100">
+    <a href="https://maps.google.com?q=<%= propertyAddress %>" target="_blank" class="block right">Get Directions</a>
+    <p><%= propertyAddress %></p>
+</div>

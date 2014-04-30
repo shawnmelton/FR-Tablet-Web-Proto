@@ -61,7 +61,7 @@ this["JST"]["src/js/templates/elements/guestCardForm.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form id="guestCard" method="post" action="" class="bgWhite absolute height100">\n    <h3>Check Availability</h3>\n    <fieldset>\n        <input type="text" placeholder="Full Name" name="fullName" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Email Address" name="emailAddress" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Phone Number" name="phoneNumber" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <textarea placeholder="I am interested in more information about this property." name="comments" class="width100 borderBox"></textarea>\n    </fieldset>\n    <fieldset>\n        <button type="submit" class="width100 borderBox whiteText alignCenter">Check Availability</button>\n    </fieldset>\n</form>';
+__p += '<form id="guestCard" method="post" action="" class="absolute height100">\n    <h3>Check Availability</h3>\n    <fieldset>\n        <input type="text" placeholder="Full Name" name="fullName" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Email Address" name="emailAddress" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Phone Number" name="phoneNumber" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <textarea placeholder="I am interested in more information about this property." name="comments" class="width100 borderBox"></textarea>\n    </fieldset>\n    <fieldset>\n        <button type="submit" class="width100 borderBox whiteText alignCenter">Check Availability</button>\n    </fieldset>\n</form>';
 
 }
 return __p
@@ -145,6 +145,35 @@ __p += '\n    <table class="width100">\n        <tr>\n            <td class="ali
 '<span class="block">Monthly</span></td>\n        </tr>\n        <tr><td class="moredetails" colspan="4">More Details</td></tr>\n    </table>\n    ';
  } ;
 __p += '\n</div>';
+
+}
+return __p
+};
+
+this["JST"]["src/js/templates/elements/propertyInfo.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<h2>Details</h2>\n<div id="details" class="bgWhite">\n    <table class="width100">\n        <tr>\n            <td class="name alignLeft vAlignMiddle">' +
+((__t = ( property.name )) == null ? '' : __t) +
+'</td>\n            <td class="alignCenter vAlignMiddle">1<span class="block">Beds</span></td>\n            <td class="alignCenter vAlignMiddle">2<span class="block">Baths</span></td>\n            <td class="alignCenter vAlignMiddle">$1,500<span class="block">Monthly</span></td>\n        </tr>\n    </table>\n    <p>Curabitur eleifend nisi lobortis, adipiscing mauris in, venenatis ipsum. Sed suscipit nisi ut tincidunt facilisis. Praesent ligula mi, cursus eu gravida nec, consequat id sapien. Vestibulum adipiscing quis mi quis mollis. In condimentum consequat felis, sit amet gravida massa elementum quis. Ut suscipit aliquet dolor, vitae laoreet nibh mollis non. Aenean diam justo, pretium et odio a, fermentum tempus metus.</p>\n</div>\n<h2>Floor Plans</h2>\n<div id="floorplans" class="bgWhite">\n    ';
+ for(i = 0; i < floor_plans.length; i++){ ;
+__p += '\n    <table class="width100">\n        <tr>\n            <td class="alignLeft">\n                ' +
+((__t = ( floor_plans[i].name )) == null ? '' : __t) +
+'\n                <a href="#" class="block">more details here</a>\n            </td>\n            <td class="alignCenter">' +
+((__t = ( floor_plans[i].beds )) == null ? '' : __t) +
+'<span class="block">Beds</span></td>\n            <td class="alignCenter">' +
+((__t = ( floor_plans[i].baths )) == null ? '' : __t) +
+'<span class="block">Baths</span></td>\n            <td class="alignCenter">' +
+((__t = ( floor_plans[i].price_low )) == null ? '' : __t) +
+'<span class="block">Monthly</span></td>\n        </tr>\n        <tr><td class="moredetails" colspan="4">More Details</td></tr>\n    </table>\n    ';
+ } ;
+__p += '\n</div>\n<h2>Reviews</h2>\n<div id="reviews" class="bgWhite">\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>\n<h2>Map</h2>\n<div id="map" class="clearFix bgWhite">\n    <img src="/img/google-map.png" class="width100">\n    <a href="https://maps.google.com?q=' +
+((__t = ( propertyAddress )) == null ? '' : __t) +
+'" target="_blank" class="block right">Get Directions</a>\n    <p>' +
+((__t = ( propertyAddress )) == null ? '' : __t) +
+'</p>\n</div>';
 
 }
 return __p
@@ -331,11 +360,11 @@ __p += '\n        <div class="clickable pointer" section="video">\n            <
  } ;
 __p += '\n        <p class="clickable pointer noBorder" section="details">\n            Details<br>\n            <small>' +
 ((__t = ( property.attributes.floor_plans[0].description )) == null ? '' : __t) +
-'</small>\n        </p>\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
+'</small>\n        </p>\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="topShadow hidden"></div>\n    <div id="moreContent" class="vAlignTop">\n        ' +
 ((__t = ( moreContent )) == null ? '' : __t) +
-'</div>\n        <div class="form relative tableCell vAlignTop">\n            <div id="propertyNav"></div>\n            ' +
+'\n    </div>\n    <div class="botShadow">\n        <p>Scroll For More</p>\n    </div>\n    <div id="sideNav" class="form relative vAlignTop">\n        <div id="propertyNav"></div>\n        ' +
 ((__t = ( guestCardForm )) == null ? '' : __t) +
-'\n        </div>\n    </div>\n</section>';
+'\n    </div>\n</section>';
 
 }
 return __p
