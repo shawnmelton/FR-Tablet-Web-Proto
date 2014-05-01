@@ -192,6 +192,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         setScrollEvent: function() {
             var _this = this;
             window.onscroll = function(){
+                console.log('Scolling...');
+
                 var moreArrow = $(document.getElementById('moreInfoArrow'));
                 var scrollTop = $(this).scrollTop() * 1.5;
                 var percent = scrollTop/$(window).height();
@@ -215,6 +217,14 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     "-o-filter" : 'blur('+ (percent*10) +'px)'
                 });
             };
+
+            $('video').bind('touchmove', function(e){
+                console.log('Touch Move');
+                if($('#video_lightbox.show').length){
+                    e.preventDefault();
+                    return false;
+                }
+            });
         },
 
         /**
@@ -249,6 +259,12 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             $('#video_lightbox, #video').bind('touchmove', function(e){
                 e.preventDefault();
                 return false;
+            });
+
+            $('.moreDetailsButton').bind(touchEventType, function(ev){
+                $('.moreDetails').removeClass('show');
+                var moreDetailsPanel = $(this).parent().parent().parent().find('.moreDetails');
+                moreDetailsPanel.toggleClass('show');
             });
 
             // Show Video

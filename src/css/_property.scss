@@ -280,11 +280,12 @@
                         padding-top: 2px;
                     }
 
-                    &.moredetails{
+                    &.moreDetails{
+                        padding: 20px;
                         display: none;
 
                         &.show{
-                            display: block;
+                            display: table-cell;
                         }
                     }
                 }

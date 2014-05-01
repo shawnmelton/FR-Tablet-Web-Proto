@@ -161,13 +161,17 @@ __p += '<h2>Details</h2>\n<div id="details" class="bgWhite">\n    <table class="
  for(i = 0; i < floor_plans.length; i++){ ;
 __p += '\n    <table class="width100">\n        <tr>\n            <td class="alignLeft">\n                ' +
 ((__t = ( floor_plans[i].name )) == null ? '' : __t) +
-'\n                <a href="#" class="block">more details here</a>\n            </td>\n            <td class="alignCenter">' +
+'\n                <a href="#!" class="block moreDetailsButton">more details here</a>\n            </td>\n            <td class="alignCenter">' +
 ((__t = ( floor_plans[i].beds )) == null ? '' : __t) +
 '<span class="block">Beds</span></td>\n            <td class="alignCenter">' +
 ((__t = ( floor_plans[i].baths )) == null ? '' : __t) +
 '<span class="block">Baths</span></td>\n            <td class="alignCenter">' +
 ((__t = ( floor_plans[i].price_low )) == null ? '' : __t) +
-'<span class="block">Monthly</span></td>\n        </tr>\n        <tr><td class="moredetails" colspan="4">More Details</td></tr>\n    </table>\n    ';
+'<span class="block">Monthly</span></td>\n        </tr>\n        <tr><td class="moreDetails" colspan="4">\n            <img src="' +
+((__t = ( floor_plans[i].image )) == null ? '' : __t) +
+'" />\n            <p>' +
+((__t = ( floor_plans[i].description )) == null ? '' : __t) +
+'</p>\n        </td></tr>\n    </table>\n    ';
  } ;
 __p += '\n</div>\n<h2>Reviews</h2>\n<div id="reviews" class="bgWhite">\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>\n<h2>Map</h2>\n<div id="map" class="clearFix bgWhite">\n    <img src="/img/google-map.png" class="width100">\n    <a href="https://maps.google.com?q=' +
 ((__t = ( propertyAddress )) == null ? '' : __t) +
