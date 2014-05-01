@@ -261,10 +261,19 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 return false;
             });
 
-            $('.moreDetailsButton').bind(touchEventType, function(ev){
-                $('.moreDetails').removeClass('show');
-                var moreDetailsPanel = $(this).parent().parent().parent().find('.moreDetails');
-                moreDetailsPanel.toggleClass('show');
+            $('#floorplans tr').bind(touchEventType, function(ev){
+                var details = $(this).next().find('.moreDetails');
+                var label = $(this).find('.moreDetailsButton');
+                if(details.hasClass('show')){
+                    details.removeClass('show');
+                    $('.moreDetailsButton').text('more details here');
+                }
+                else{
+                    $('.moreDetails').removeClass('show');
+                    $('.moreDetailsButton').text('more details here');
+                    details.addClass('show');
+                    label.text('close');
+                }
             });
 
             // Show Video
