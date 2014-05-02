@@ -312,6 +312,9 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
         setSwipeEvent: function() {
             var _this = this;
             this.galleryEl.swipe({
+                click: function(event) {
+                    console.log(_this.currentImageEl);
+                },
                 swipeLeft: function(event, direction, distance, duration, fingerCount) {
                     if(!_this.lockLeftMove) {
                         _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, distance);

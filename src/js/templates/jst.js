@@ -183,10 +183,22 @@ __p += '\n    <table class="width100">\n        <tr>\n            <td class="ali
 ((__t = ( floor_plans[i].description )) == null ? '' : __t) +
 '</p>\n        </td></tr>\n    </table>\n    ';
  } ;
-__p += '\n</div>\n<h2>Reviews</h2>\n<div id="reviews" class="bgWhite">\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>\n<h2>Map</h2>\n<div id="map" class="clearFix bgWhite">\n    <div id="property-map"></div>\n    <a href="https://maps.google.com?q=' +
-((__t = ( property.attributes.propertyAddress )) == null ? '' : __t) +
+__p += '\n</div>\n<h2>Reviews</h2>\n<div id="reviews" class="bgWhite">\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>\n<h2>Map</h2>\n<div id="map" class="clearFix bgWhite">\n    <div id="property-map"></div>\n    <a href="http://maps.apple.com/?daddr=' +
+((__t = ( property.attributes.streetAddress )) == null ? '' : __t) +
+', ' +
+((__t = ( property.attributes.city )) == null ? '' : __t) +
+', ' +
+((__t = ( property.attributes.state )) == null ? '' : __t) +
+' ' +
+((__t = ( property.attributes.zip )) == null ? '' : __t) +
 '" target="_blank" class="block right">Get Directions</a>\n    <p>' +
-((__t = ( property.attributes.propertyAddress )) == null ? '' : __t) +
+((__t = ( property.attributes.streetAddress )) == null ? '' : __t) +
+', ' +
+((__t = ( property.attributes.city )) == null ? '' : __t) +
+', ' +
+((__t = ( property.attributes.state )) == null ? '' : __t) +
+' ' +
+((__t = ( property.attributes.zip )) == null ? '' : __t) +
 '</p>\n</div>';
 
 }
