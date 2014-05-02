@@ -3,6 +3,7 @@ footer {
     left: 0;
     height: 50px;
     color: #FFF;
+    -webkit-transform: translate3d(0,0,0);
 
     &.sticky { position: absolute; }
 

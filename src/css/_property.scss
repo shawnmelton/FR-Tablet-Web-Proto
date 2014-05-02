@@ -93,11 +93,12 @@
     }
 
     #teaser {
+        position: absolute;
         width: 43%;
         min-width: 300px;
         max-width: 400px;
         padding-left: 15px;
-        //padding-top: 50px;
+        -webkit-transform: translate3d(0,0,0);
 
         >div.info {
             padding: 10px 0 0;
@@ -183,66 +184,13 @@
 
     #more {
         #moreContent{
-            float: left;
-            width: 70%;
-            height: 100%;
-            overflow: scroll;
-            -webkit-overflow-scrolling: touch;
-
             >h2{
-                height: 40px;
-                color: #FFF;
-                font-size: 36px;
-                line-height: 40px;
+                font-size: 24px;
+                line-height: 24px;
+                background-color: rgba(255, 255, 255, 0.5);
+                padding: 10px 0 10px 30px;
             }
         }
-
-        .topShadow{
-            position: absolute;
-            top: -5px;
-            left: 0;
-            width: 75%;
-            height: 5px;
-            margin-left: -5%;
-            z-index: 10;
-            box-shadow: 0 0 10px #000;
-            -webkit-transition: opacity 0.3s;
-
-            &.hidden{
-                opacity: 0;
-            }
-        }
-
-        .botShadow{
-            position: absolute;
-            bottom: -50px;
-            left: 0;
-            width: 75%;
-            height: 50px;
-            margin-left: -5%;
-            z-index: 100;
-            box-shadow: 0 0 50px #000;
-            -webkit-transition: opacity 0.3s;
-
-            &.hidden{
-                opacity: 0;
-            }
-
-            >p{
-                margin-top: -35px;
-                text-align: center;
-                color: #FFF;
-                font-weight: bold;
-                font-size: 20px;
-            }
-        }
-
-        #sideNav{
-            float: right;
-            width: 30%;
-            height: 100%;
-        }
-    }
 
         #propertyNav {
             padding: 5%;
@@ -253,8 +201,6 @@
         #guestCard {
             padding: 5%;
             width: 90%;
-            height: 45%;
-            top: 50%;
             background: #f2a468;
             color: #FFF;
 
@@ -324,7 +270,6 @@
                 td {
                     padding: 15px 30px;
                     font-size: 110%;
-                    border-bottom: 1px solid #ccc;
 
                     >a {
                         font-size: 70%;
@@ -332,11 +277,34 @@
                         padding-top: 2px;
                     }
 
-                    &.moredetails{
-                        display: none;
+                    &.moreDetails{
+                        padding: 0 20px;
+                        text-align: center;
+                        border: none;
+                        -webkit-transition: padding 0.5s;
+                        border-bottom: 1px solid #ccc;
+
+                        >img{
+                            -webkit-transition: height 0.5s;
+                            height: 0;
+                        }
+                        >p{
+                            height: 0;
+                            text-align: left;
+                            -webkit-transition: height 0.5s;
+                            overflow: hidden;
+                        }
 
                         &.show{
-                            display: block;
+                            display: table-cell;
+                            padding: 20px;
+                        
+                            >img{
+                                height: 240px;
+                            }
+                            >p{
+                                height: auto;
+                            }
                         }
                     }
                 }
@@ -414,3 +382,4 @@
                 line-height: 30px;
             }
         }
+    }

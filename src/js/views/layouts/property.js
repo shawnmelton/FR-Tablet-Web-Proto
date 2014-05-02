@@ -10,39 +10,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         linksInactive: true,
 
         /**
-         * Load the content specific to the section that was clicked on.
-         */
-        loadSection: function(section) {
-            if(this.moreEl === null) {
-                this.moreEl = $(document.getElementById('more'));
-                this.moreContentEl = $(document.getElementById('moreContent'));
-            }
-
-            // Load content from template instead.
-            switch(section) {
-                case 'floorplans': 
-                    this.moreContentEl.html(JST['src/js/templates/elements/propertyFloorPlans.html']());
-                    break;
-
-                case 'reviews':
-                    this.moreContentEl.html(JST['src/js/templates/elements/propertyReviews.html']());
-                    break;
-
-                case 'details':
-                    this.moreContentEl.html(JST['src/js/templates/elements/propertyDetails.html']({
-                        property: this.property
-                    }));
-                    break;
-
-                case 'map':
-                    this.moreContentEl.html(JST['src/js/templates/elements/propertyMap.html']({
-                        propertyAddress: this.property.address
-                    }));
-                    break;
-            }
-        },
-
-        /**
          * Move down the page to the more section for additional property content.
          */
         moveToMore: function() {
@@ -52,7 +19,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 this.moreContentEl = $(document.getElementById('moreContent'));
             }
 
-            var moreElTopPos = this.moreEl.position().top;
+            var moreElTopPos = this.moreEl.position().top - $('footer').height();
 
             // Don't scroll to the More section unless the user isn't close.
             if($('body').scrollTop() < (moreElTopPos - 50)) {
@@ -215,8 +182,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             }
 
             this.$el.height(this.contentHeight);
-            this.$el.children('section#teaser').height(this.contentHeight);
+            // this.$el.children('section#teaser').height(this.contentHeight);
             this.$el.children('section#more').height(moreInfoHeight);
+            this.$el.children('section#more').css('top', $(window).height());
             $('#video_lightbox').height($(window).height());
         },
 
@@ -244,6 +212,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         setScrollEvent: function() {
             var _this = this;
             window.onscroll = function(){
+                console.log('Scolling...');
+
                 var moreArrow = $(document.getElementById('moreInfoArrow'));
                 var scrollTop = $(this).scrollTop() * 1.5;
                 var percent = scrollTop/$(window).height();
@@ -268,6 +238,14 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     "-o-filter" : 'blur('+ blurAmount +'px)',
                 });
             };
+
+            $('video').bind('touchmove', function(e){
+                console.log('Touch Move');
+                if($('#video_lightbox.show').length){
+                    e.preventDefault();
+                    return false;
+                }
+            });
         },
 
         /**
@@ -297,6 +275,26 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             $('#video_lightbox').bind(touchEventType, function(e){
                 e.preventDefault();
                 _this.onCloseVideoButtonClick();
+            });
+
+            $('#video_lightbox, #video').bind('touchmove', function(e){
+                e.preventDefault();
+                return false;
+            });
+
+            $('#floorplans tr').bind(touchEventType, function(ev){
+                var details = $(this).next().find('.moreDetails');
+                var label = $(this).find('.moreDetailsButton');
+                if(details.hasClass('show')){
+                    details.removeClass('show');
+                    $('.moreDetailsButton').text('more details here');
+                }
+                else{
+                    $('.moreDetails').removeClass('show');
+                    $('.moreDetailsButton').text('more details here');
+                    details.addClass('show');
+                    label.text('close');
+                }
             });
 
             // Show Video

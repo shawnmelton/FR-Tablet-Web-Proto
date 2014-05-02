@@ -17,13 +17,16 @@
         <tr>
             <td class="alignLeft">
                 <%= floor_plans[i].name %>
-                <a href="#" class="block">more details here</a>
+                <a href="#!" class="block moreDetailsButton">more details here</a>
             </td>
             <td class="alignCenter"><%= floor_plans[i].beds %><span class="block">Beds</span></td>
             <td class="alignCenter"><%= floor_plans[i].baths %><span class="block">Baths</span></td>
             <td class="alignCenter"><%= floor_plans[i].price_low %><span class="block">Monthly</span></td>
         </tr>
-        <tr><td class="moredetails" colspan="4">More Details</td></tr>
+        <tr><td class="moreDetails" colspan="4">
+            <img src="<%= floor_plans[i].image %>" />
+            <p><%= floor_plans[i].description %></p>
+        </td></tr>
     </table>
     <% } %>
 </div>
