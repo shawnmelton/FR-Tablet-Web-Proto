@@ -225,8 +225,6 @@
     }
 
     #more {
-        .tableCell.form { width: 30%;}
-    }
         #moreContent{
             >h2{
                 font-size: 24px;
@@ -239,11 +237,11 @@
         #propertyNav {
             padding: 5%;
             width: 90%;
-            height: 50%;
-            background-color: rgba(255,255,255,0.9);
+            height: 45%;
+            background-color: rgba(255,255,255,0.8);
         }
         #guestCard {
-            padding: 5.5%;
+            padding: 5%;
             width: 90%;
             background: #f2a468;
             color: #FFF;
@@ -432,3 +430,4 @@
                 line-height: 30px;
             }
         }
+    }

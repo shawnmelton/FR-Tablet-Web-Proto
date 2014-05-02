@@ -61,7 +61,7 @@ this["JST"]["src/js/templates/elements/guestCardForm.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form id="guestCard" method="post" action="" class="bgWhite absolute height100">\n    <h3>Check Availability</h3>\n    <fieldset>\n        <input type="text" placeholder="Full Name" name="fullName" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Email Address" name="emailAddress" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Phone Number" name="phoneNumber" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <textarea placeholder="I am interested in more information about this property." name="comments" class="width100 borderBox"></textarea>\n    </fieldset>\n    <fieldset>\n        <button type="submit" class="width100 borderBox whiteText alignCenter">Check Availability</button>\n    </fieldset>\n</form>';
+__p += '<form id="guestCard" method="post" action="" class="absolute height100">\n    <h3>Check Availability</h3>\n    <fieldset>\n        <input type="text" placeholder="Full Name" name="fullName" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Email Address" name="emailAddress" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Phone Number" name="phoneNumber" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <textarea placeholder="I am interested in more information about this property." name="comments" class="width100 borderBox"></textarea>\n    </fieldset>\n    <fieldset>\n        <button type="submit" class="width100 borderBox whiteText alignCenter">Check Availability</button>\n    </fieldset>\n</form>';
 
 }
 return __p
@@ -386,11 +386,11 @@ __p += '\n        <div class="clickable pointer" section="video">\n            <
  } ;
 __p += '\n        <p class="clickable pointer noBorder" section="details">\n            Details<br>\n            <small>' +
 ((__t = ( property.attributes.floor_plans[0].description )) == null ? '' : __t) +
-'</small>\n        </p>\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
+'</small>\n        </p>\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="topShadow hidden"></div>\n    <div id="moreContent" class="vAlignTop">\n        ' +
 ((__t = ( moreContent )) == null ? '' : __t) +
-'</div>\n        <div class="form relative tableCell vAlignTop">\n            ' +
+'\n    </div>\n    <div class="botShadow">\n        <p>Scroll For More</p>\n    </div>\n    <div id="sideNav" class="form relative vAlignTop">\n        <div id="propertyNav"></div>\n        ' +
 ((__t = ( guestCardForm )) == null ? '' : __t) +
-'\n        </div>\n    </div>\n</section>';
+'\n    </div>\n</section>';
 
 }
 return __p

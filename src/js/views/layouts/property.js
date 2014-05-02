@@ -64,6 +64,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             $('body').animate({
                 scrollTop: '0px'
             }, 500, function(){
+                $('#moreContent').scrollTop(0);
                 moreArrow.removeClass('back');
                 moreArrow.find('span').html('More Info');
             });
@@ -115,11 +116,30 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             galleryViewEl.update();
         },
 
+        relayoutMoreContent: function(){
+
+        },
+
         render: function(){
 
             if(!this.valid()) {
                 return;
             }
+
+            document.addEventListener("touchmove", ScrollStart, false);
+            document.addEventListener("scroll", ScrollStart, false);
+
+            function ScrollStart(e) {
+                if($(e.target).parents('#moreContent').length > 0 && $('#moreContent').scrollTop() > 40) {
+                    $('.botShadow').addClass('hidden');
+                    $('.topShadow').removeClass('hidden');
+                }
+                else{
+                    $('.botShadow').removeClass('hidden');
+                    $('.topShadow').addClass('hidden');
+                }
+            }
+
             var _this = this;
             var propertyId = parseInt(decodeURIComponent(location.pathname.split('properties/')[1]));
             this.listings = new ListingCollection();
@@ -227,18 +247,19 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     _this.setBackToTopEvent();
                 }
                 else{
+                    $('#moreContent').scrollTop(0);
                     moreArrow.removeClass('back');
                     moreArrow.find('span').html('More Info');
                     _this.setVertArrowEvent();
                 }
-
+                var blurAmount = (percent*10 > 15) ? 15 : percent*10;
                 //Add CSS blur to the gallery as the user scrolls the property up
                 $('#gallery').css({
-                    "-webkit-filter" : 'blur('+ (percent*10) +'px)',
-                    "-moz-filter" : 'blur('+ (percent*10) +'px)',
-                    "-MS-filter" : 'blur('+ (percent*10) +'px)',
-                    "filter" : 'blur('+ (percent*10) +'px)',
-                    "-o-filter" : 'blur('+ (percent*10) +'px)'
+                    "-webkit-filter" : 'blur('+ blurAmount +'px)',
+                    "-moz-filter" : 'blur('+ blurAmount +'px)',
+                    "-MS-filter" : 'blur('+ blurAmount +'px)',
+                    "filter" : 'blur('+ blurAmount +'px)',
+                    "-o-filter" : 'blur('+ blurAmount +'px)',
                 });
             };
 
