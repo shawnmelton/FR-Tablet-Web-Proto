@@ -374,11 +374,11 @@ __p += '\n        <div class="clickable pointer" section="video">\n            <
  } ;
 __p += '\n        <p class="clickable pointer noBorder" section="details">\n            Details<br>\n            <small>' +
 ((__t = ( property.attributes.floor_plans[0].description )) == null ? '' : __t) +
-'</small>\n        </p>\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="topShadow hidden"></div>\n    <div id="moreContent" class="vAlignTop">\n        ' +
+'</small>\n        </p>\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
 ((__t = ( moreContent )) == null ? '' : __t) +
-'\n    </div>\n    <div class="botShadow">\n        <p>Scroll For More</p>\n    </div>\n    <div id="sideNav" class="form relative vAlignTop">\n        <div id="propertyNav"></div>\n        ' +
+'</div>\n        <div class="form relative tableCell vAlignTop">\n            ' +
 ((__t = ( guestCardForm )) == null ? '' : __t) +
-'\n    </div>\n</section>';
+'\n        </div>\n    </div>\n</section>';
 
 }
 return __p
