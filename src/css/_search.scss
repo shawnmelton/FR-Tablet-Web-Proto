@@ -289,61 +289,62 @@
                 left: 0;
             }
         }
+    }
+    
 
-        .marker{
+    .marker{
+        top: 0;
+        left: 0;
+        position: absolute;
+        z-index: 1;
+        -webkit-transition: -webkit-transform 0.2s ease-out;
+
+        &.premier{
+            top: -63px;
+            left: -57px;
+            width:67px;
+            height: 63px;
+            background:url(../img/pmarker.png);
+            background-size: 67px 63px;
+        }
+        &.basic{
+            width:24px;
+            height: 30px;
+            background:url(../img/marker.png);
+            background-size: 24px 30px;
+        }
+        &.simple{
+            width: 12px;
+            height: 12px;
+            background:url(../img/smarker.png);
+            background-size: 12px 12px;
+        }
+
+        &.active{
+            -webkit-transform: scale(1.5);
+            z-index: 1000;
+        }
+
+        .count{
+            position: absolute;
             top: 0;
             left: 0;
-            position: absolute;
-            z-index: 1;
-            -webkit-transition: -webkit-transform 0.2s ease-out;
-
-            &.premier{
-                top: -63px;
-                left: -57px;
-                width:67px;
-                height: 63px;
-                background:url(../img/pmarker.png);
-                background-size: 67px 63px;
-            }
-            &.basic{
-                width:24px;
-                height: 30px;
-                background:url(../img/marker.png);
-                background-size: 24px 30px;
-            }
-            &.simple{
-                width: 12px;
-                height: 12px;
-                background:url(../img/smarker.png);
-                background-size: 12px 12px;
-            }
-
-            &.active{
-                -webkit-transform: scale(1.5);
-                z-index: 1000;
-            }
-
-            .count{
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 24px;
-                height: 24px;
-                text-align: center;
-                margin-top: 6px;
-                font-size: 12px;
-                color: #000;
-                font-weight: bold;
-            }
-            .img_container{
-                float: left;
-                width: 52px;
-                height: 33px;
-                margin: 18px 0 0 12px;
-                overflow: hidden;
-                >img{
-                    width: 100%;
-                }
+            width: 24px;
+            height: 24px;
+            text-align: center;
+            margin-top: 6px;
+            font-size: 12px;
+            color: #000;
+            font-weight: bold;
+        }
+        .img_container{
+            float: left;
+            width: 52px;
+            height: 33px;
+            margin: 18px 0 0 12px;
+            overflow: hidden;
+            >img{
+                width: 100%;
             }
         }
     }

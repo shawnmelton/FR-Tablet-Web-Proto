@@ -3,11 +3,34 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
     function($, Backbone, tmplts, searchBarViewEl, footerViewEl, Navigate, Data, galleryViewEl, guestCardFormEl, ListingModel, ListingCollection){
     var propertyView = Backbone.View.extend({
         el: "#content",
+        map: null,
         property: null,
         moreEl: null,
         moreContentEl: null,
         contentHeight: 0,
         linksInactive: true,
+
+        initializePropertyMap: function(){
+            var _this = this;
+            var location = new Microsoft.Maps.Location(this.property.attributes.lat, this.property.attributes.lng);
+            var mapOptions = {
+                credentials:"AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW",
+                mapTypeId: Microsoft.Maps.MapTypeId.road,
+                zoom: 16,
+                showScalebar: false,
+                center: location
+            };
+            this.map = new Microsoft.Maps.Map(document.getElementById("property-map"), mapOptions);
+
+            var pinHTML = JST['src/js/templates/elements/pmarker.html']({
+                image_src: _this.property.attributes.primaryImage,
+                count: '1'
+            });
+            var pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin1"}; 
+            var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
+            this.map.entities.push(pin);
+
+        },
 
         /**
          * Move down the page to the more section for additional property content.
@@ -130,7 +153,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     }));
                     _this.$el.attr("class", "property");
                     _this.$el.prepend(JST['src/js/templates/elements/videoLightbox.html']);
-
+                    _this.$el.prepend(JST['src/js/templates/elements/photoLightbox.html']);
+                    _this.initializePropertyMap();
                     guestCardFormEl.init();
                     searchBarViewEl.renderToHeader();
                     galleryViewEl.reset();
