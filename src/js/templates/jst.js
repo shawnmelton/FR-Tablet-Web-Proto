@@ -101,6 +101,16 @@ __p += '<div class="basic select moreInfo" id="moreInfo" property="' +
 return __p
 };
 
+this["JST"]["src/js/templates/elements/photoLightbox.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div id="photo_lightbox">\n    <div class="photo_container">\n    </div>\n    <a href="#!" class="close_button">CLOSE</a>\n</div>';
+
+}
+return __p
+};
+
 this["JST"]["src/js/templates/elements/pmarker.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
