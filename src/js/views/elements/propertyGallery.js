@@ -173,6 +173,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                     }
                     else{
                         _this.photoLightbox.removeClass('show');
+                        _this.photoLightbox.width(container.width());
                     }
                 },
                 doubleTap: function(ev, image){
