@@ -3,6 +3,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
     var galleryViewEl = Backbone.View.extend({
         galleryEl: null,
         currentImageEl: null,
+        currentImageIndex: 0,
         bgImgWidth: null,
         bgImgHeight: null,
         contentWidth: null,
@@ -24,6 +25,8 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
         detailsSection: null,
         buttonCA: $('#buttonCA'),
         panelIsCollapsed: false,
+        videoLightbox: null,
+        photoLightbox: null,
 
         /**
          * The property images should always be first.
@@ -130,11 +133,21 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
             this.detailsSection = $('#teaser .info p[section="details"]');
             this.buttonCA = $('#buttonCA');
 
+            this.photoLightbox = $('#photo_lightbox');
+            // this.photoLightbox.bind('click', function(ev){
+            //     $(this).removeClass('show');
+            // });
+            this.photoLightbox.bind('touchmove', function(ev){
+                ev.preventDefault();
+                return false;
+            });
+
             this.contentWidth = $(window).width();
             this.contentHeight = $(window).height() - footerViewEl.getHeight();
 
             this.addFirstImage();
             this.setSwipeEvent();
+            this.setLightBoxSwipeEvent();
             this.setHorizArrowEvent();
         },
 
@@ -145,7 +158,39 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
          * @return img <Image Object> Image that was just created and added to the DOM.
          */
         loadImage: function(url, nextEl) {
+            var _this = this;
             var img = $('<img src="'+ url +'" width="'+ this.bgImgWidth +'">');
+            var newImg= document.createElement('img');
+            newImg.src= img.attr('src');
+            var container = $('<div class="photo_container"></div>');
+            container.width($('#content').width());
+
+            $(newImg).swipe({
+                click: function(ev){
+                    console.log('Click');
+                    if($(ev.target).hasClass('scaledOut')){
+                        $(ev.target).removeClass('scaledOut');
+                    }
+                    else{
+                        _this.photoLightbox.removeClass('show');
+                    }
+                },
+                doubleTap: function(ev, image){
+                    $(image).toggleClass('scaledOut');
+                },
+                pinchStatus: null
+            });
+
+            function zoomImage(event, direction, distance, duration, fingerCount, zoom, last){
+                if(fingerCount >= 2){
+                    $(event.target).css('-webkit-transform', 'scale(' + last + ')');
+                }
+            }
+
+            container.append(newImg);
+            this.photoLightbox.append(container);
+            this.photoLightbox.width($('#content').width() * this.photoLightbox.find('.photo_container').length);
+
             nextEl.before(img);
             this.centerImage(img);
             return img;
@@ -155,6 +200,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
          * Load the next image in the set.
          */
         loadNextImage: function() {
+            console.log('Load Next Image');
             if(this.images.length > 0) {
                 var img = this.loadImage(this.images.pop().replace('[SIZE]', this.bgImgWidth),
                     this.galleryEl.children('img').first());
@@ -311,7 +357,43 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
          */ 
         setSwipeEvent: function() {
             var _this = this;
+            var imageCount = this.galleryEl.children('img').length;
             this.galleryEl.swipe({
+                click: function(event) {
+
+                    var contentWidth = $('#content').width();
+                    var contentHeight = $('#content').height();
+                    imageCount = _this.galleryEl.children('img').length;
+
+                    //Add 'show' class to Lightbox
+                    //Set lightbox height to content height
+                    //Loop over Gallery Images
+                    //Check to make sure image isn't added
+                    //Set image container width to content width
+                    //Add image container with image inside
+                    //Adjust Lightbox width to image count * content width
+                    //Set Lightbox offset to that of the image that was clicked
+                    /*Add other images as user swipes*/
+
+                    $(_this.photoLightbox).addClass('show');
+                    $(_this.photoLightbox).height(contentHeight);
+
+                    for(i=0; i < imageCount; i++){
+                        var currentImage = $(_this.galleryEl.children('img')[i]);
+                        var imageAlreadyAdded = $(_this.photoLightbox).has('img[src="' + currentImage.attr('src') + '"]').length;
+                        //Check if this image has already been added
+                        if(!imageAlreadyAdded){
+                            var img= document.createElement('img');
+                            img.src= currentImage.attr('src');
+                            var container = $('<div class="photo_container"></div>');
+                            container.width(contentWidth);
+                            container.append(img);
+                            $(_this.photoLightbox).append(container);
+                        }
+                    }
+
+                    $(_this.photoLightbox).width(contentWidth * imageCount);
+                },
                 swipeLeft: function(event, direction, distance, duration, fingerCount) {
                     if(!_this.lockLeftMove) {
                         _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, distance);
@@ -403,6 +485,91 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                 fingers: 1,
                 allowPageScroll: 'vertical'
             });
+        },
+
+
+        setLightBoxSwipeEvent: function() {
+
+            var _this = this;
+            var IMG_WIDTH = $('#content').width(),
+                imageCount = 0,
+                currentImg=0,
+                imageLock = false,
+                speed=500;
+
+            this.photoLightbox.swipe( {
+                triggerOnTouchEnd : true,
+                swipeStatus : swipeStatus,
+                // click : close,
+                allowPageScroll:"vertical"
+            });
+
+            // function close(){
+            //     _this.photoLightbox.removeClass('show');
+            // }
+
+            function swipeStatus(event, phase, direction, distance, fingers)
+            {
+                imageCount = _this.photoLightbox.find('.photo_container').length;
+                //If we are moving before swipe, and we are going L or R, then manually drag the images
+                if( phase=="move" && (direction=="left" || direction=="right") )
+                {
+                    var duration=0;
+
+                    if (direction == "left")
+                        scrollImages((IMG_WIDTH * currentImg) + distance, duration);
+
+                    else if (direction == "right")
+                        scrollImages((IMG_WIDTH * currentImg) - distance, duration);
+                }
+
+                //Else, cancel means snap back to the begining
+                else if ( phase == "cancel")
+                {
+                    scrollImages(IMG_WIDTH * currentImg, speed);
+                }
+
+                //Else end means the swipe was completed, so move to the next image
+                else if ( phase =="end" )
+                {
+                    if (direction == "right")
+                        previousImage();
+                    else if (direction == "left")
+                        nextImage();
+                }
+            }
+
+            function previousImage()
+            {
+                currentImg = Math.max(currentImg-1, 0);
+                scrollImages( IMG_WIDTH * currentImg, speed);
+            }
+
+            function nextImage()
+            {
+                currentImg = Math.min(currentImg+1, imageCount-1);
+                scrollImages( IMG_WIDTH * currentImg, speed);
+                _this.loadNextImage();
+            }
+
+            /**
+             * Manually update the position of the imgs on drag
+             */
+            function scrollImages(distance, duration)
+            {
+                if(!imageLock){
+                    _this.photoLightbox.css("-webkit-transition-duration", (duration/1000).toFixed(1) + "s");
+
+                    //inverse the number we set in the css
+                    var value = (distance<0 ? "" : "-") + Math.abs(distance).toString();
+                    _this.photoLightbox.bind('webkitTransitionEnded', function(){
+                        imageLock = false;
+                        _this.photoLightbox.unbind('webkitTransitionEnded');
+                        _this.photoLightbox.find('.scaledOut').removeClass('scaledOut');
+                    });
+                    _this.photoLightbox.css("-webkit-transform", "translate3d("+value +"px,0px,0px)");
+                }
+            }
         },
 
         /**

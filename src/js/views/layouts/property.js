@@ -9,6 +9,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         moreContentEl: null,
         contentHeight: 0,
         linksInactive: true,
+        listings: null,
 
         initializePropertyMap: function(){
             var _this = this;
@@ -16,9 +17,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             var mapOptions = {
                 credentials:"AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW",
                 mapTypeId: Microsoft.Maps.MapTypeId.road,
-                zoom: 16,
+                zoom: 12,
                 showScalebar: false,
-                center: location
+                center: location,
+                disableUserInput: true
             };
             this.map = new Microsoft.Maps.Map(document.getElementById("property-map"), mapOptions);
 
@@ -30,6 +32,37 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
             this.map.entities.push(pin);
 
+        },
+
+        loadResultsSet: function(searchString) {
+            var _this = this;
+
+            var searchOptions = {
+                limit: 10,
+                start: 0,
+                city: _this.property.attributes.city
+            };
+
+            this.listings = new ListingCollection();
+            this.listings.fetch({
+                data: $.param(searchOptions),
+                success: function(response){
+                    console.log('Got more listings: ', _this.listings);
+                    $.each(_this.listings.models, function(i, listing){
+                        var locs = [],
+                            pins = [],
+                            location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng),
+                            pinHTML = "<span class='marker simple'></span>",
+                            pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin"+(i+1)},
+                            pin = new Microsoft.Maps.Pushpin(location, pinOptions);
+
+                        pins.push(pin);
+                        locs.push(location);
+                        _this.map.entities.push(pin);
+
+                    });
+                }
+            });
         },
 
         /**
@@ -185,6 +218,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     _this.setTouchEvents();
                     _this.setScrollEvent();
                     _this.setVertArrowEvent();
+
+                    //Get more listings
+                    _this.loadResultsSet();
                 }
             });
         },
