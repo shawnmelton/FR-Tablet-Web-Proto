@@ -19,16 +19,21 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 mapTypeId: Microsoft.Maps.MapTypeId.road,
                 zoom: 12,
                 showScalebar: false,
-                center: location,
-                disableUserInput: true
+                showDashboard: false,
+                center: location
             };
             this.map = new Microsoft.Maps.Map(document.getElementById("property-map"), mapOptions);
+
+            
+            Microsoft.Maps.Events.addHandler(_this.map, 'mousemove', function(e){
+                return false;
+            });
 
             var pinHTML = JST['src/js/templates/elements/pmarker.html']({
                 image_src: _this.property.attributes.primaryImage,
                 count: '1'
             });
-            var pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin1"}; 
+            var pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin1 property"}; 
             var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
             this.map.entities.push(pin);
 
@@ -60,6 +65,42 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                         locs.push(location);
                         _this.map.entities.push(pin);
 
+                        Microsoft.Maps.Events.removeHandler(pin, 'click');
+                        Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
+
+                            Microsoft.Maps.Events.removeHandler(pin, 'click');
+                            Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
+                                _this.preload(listing.attributes.homesId, function(){
+                                    Navigate.toUrl('/properties/'+listing.attributes.homesId);
+                                });
+                            });
+
+                            var newPinHTML = JST['src/js/templates/elements/large_marker.html']({
+                                image_src: listing.attributes.primaryImage,
+                                property: listing.attributes
+                            });
+
+                            console.log('Property Info ', listing);
+
+                            $('.marker.large').parent().not('.property').html("<span class='marker simple'></span>");
+
+                            var propertyIndex = i + 1;
+                            var pinMarker = $('.pin' + propertyIndex + ' > .marker');
+                            pinMarker.parent().html(newPinHTML);
+                            pinMarker.addClass('active');
+
+                            pinMarker.find('.img_container').swipe( {
+                                triggerOnTouchEnd : true,
+                                swipeStatus : function(event, phase, direction, distance, fingers){
+                                    console.log('Photo Distance', distance);
+                                },
+                                allowPageScroll:"vertical"
+                            });
+
+                            //CENTER MAP ON THIS PROPERTY
+                            _this.map.setView({ center: location });
+                        });
+
                     });
                 }
             });
@@ -68,24 +109,18 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         /**
          * Move down the page to the more section for additional property content.
          */
-        moveToMore: function() {
-            var moreArrow = $(document.getElementById('moreInfoArrow'));
-            if(this.moreEl === null) {
-                this.moreEl = $(document.getElementById('more'));
-                this.moreContentEl = $(document.getElementById('moreContent'));
-            }
+        moveToMore: function(section) {
+            var sectionEl = $('#' + section);
+            var moreElTopPos = (sectionEl.position().top + $('#content').height()) - $('footer').height();
 
-            var moreElTopPos = this.moreEl.position().top - $('footer').height();
+            console.log(section, ' top: ', sectionEl.position().top);
 
             // Don't scroll to the More section unless the user isn't close.
             if($('body').scrollTop() < (moreElTopPos - 50)) {
                 console.log("Body");
                 $('body').animate({
                     scrollTop: moreElTopPos +'px'
-                }, 500, function(){
-                    moreArrow.addClass('back');
-                    moreArrow.find('span').html('Back To Profile');
-                });
+                }, 500);
             }
         },
 
@@ -108,7 +143,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
          * property teaser.
          */
         onCheckAvailabilityClick: function() {
-            this.moveToMore();
+            this.moveToMore('details');
         },
 
         onCloseVideoButtonClick: function(){
@@ -140,7 +175,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
          */
         onTeaserSectionClick: function(pEl) {
             //Set tab:  pEl.attr('section')
-            this.moveToMore();
+            this.moveToMore(pEl.attr('section'));
             //Load Section:  pEl.attr('section')
         },
 
@@ -221,6 +256,40 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
 
                     //Get more listings
                     _this.loadResultsSet();
+                }
+            });
+        },
+
+        preload: function(propertyId, done){
+            var newListing = new ListingCollection();
+            newListing.fetch({
+                data: $.param({
+                    homesId: propertyId
+                }),
+                success: function(response){
+                    var thisProperty = response.models[0];
+                    
+                    if(thisProperty === null) {
+                        return false;
+                    }
+                    var pageContent = JST['src/js/templates/layouts/property.html']({
+                        property: thisProperty,
+                        moreContent: JST['src/js/templates/elements/propertyInfo.html']({
+                            floor_plans: thisProperty.attributes.floor_plans,
+                            property: thisProperty,
+                            propertyAddress: thisProperty.address
+                        }),
+                        guestCardForm: null,
+                        isSelect: true
+                    }, function(){
+                        console.log('Content Loaded');
+                    });
+
+                    //Run callback
+                    if(typeof(done) == "function"){
+                        console.log('Call Callback');
+                        done();
+                    }
                 }
             });
         },
@@ -372,7 +441,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             var moreArrow = $(document.getElementById('moreInfoArrow'));
             moreArrow.unbind(touchEventType);
             moreArrow.bind(touchEventType, function(){
-                _this.moveToMore();
+                _this.moveToMore('details');
                 moreArrow.unbind(touchEventType);
                 _this.setBackToTopEvent();
             });

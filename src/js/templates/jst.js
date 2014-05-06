@@ -67,6 +67,30 @@ __p += '<form id="guestCard" method="post" action="" class="absolute height100">
 return __p
 };
 
+this["JST"]["src/js/templates/elements/large_marker.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<span class=\'marker large\'>\n\t<span class=\'img_container\'><img src=\'' +
+((__t = ( image_src )) == null ? '' : __t) +
+'\' /></span>\n\t<div>\n\t\t<h3>' +
+((__t = ( property.name )) == null ? '' : __t) +
+'</h3>\n\t\t<h5>' +
+((__t = ( property.streetAddress )) == null ? '' : __t) +
+', ' +
+((__t = ( property.zip )) == null ? '' : __t) +
+'</h5>\n\t\t<h6>' +
+((__t = ( property.beds )) == null ? '' : __t) +
+' Beds for ' +
+((__t = ( property.price.min )) == null ? '' : __t) +
+' - ' +
+((__t = ( property.price.max )) == null ? '' : __t) +
+'</h6>\n\t</div>\n\t<a href="#1">View Property</a>\n</span>';
+
+}
+return __p
+};
+
 this["JST"]["src/js/templates/elements/marker.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;

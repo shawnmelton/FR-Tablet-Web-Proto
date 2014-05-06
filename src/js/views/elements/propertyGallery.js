@@ -190,7 +190,9 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
 
             container.append(newImg);
             this.photoLightbox.append(container);
-            this.photoLightbox.width($('#content').width() * this.photoLightbox.find('.photo_container').length);
+
+            //Set full length to handle all images
+            _this.photoLightbox.width(container.width() * _this.photoLightbox.find('.photo_container').length);
 
             nextEl.before(img);
             this.centerImage(img);

@@ -87,6 +87,7 @@
     pointer-events: none;
     -webkit-transition: opacity 0.3s;
     -webkit-transition: -webkit-transform 0.5s;
+    overflow: hidden;
 
     .photo_container{
         float: left;
@@ -110,6 +111,7 @@
         opacity: 1;
         z-index: 100;
         pointer-events: all;
+        overflow: visible;
     }
     &.back{
         z-index: 0;
@@ -435,5 +437,68 @@
                 margin: 0;
                 height: 35px;
                 line-height: 30px;
+            }
+
+            .marker{
+                top: 0;
+                left: 0;
+                position: absolute;
+                z-index: 1;
+                -webkit-transition: -webkit-transform 0.2s ease-out;
+
+                &.large{
+                    top: -190px;
+                    left: -145px;
+                    width: 300px;
+                    height: 200px;
+                    background:url(../img/large_marker.png);
+                    background-size: 300px 200px;
+                
+                    .img_container{
+                        position: absolute;
+                        width: 290px;
+                        height: 175px;
+                        margin: 5px;
+                        overflow: hidden;
+                        z-index: 0;
+                        >img{
+                            width: 100%;
+                        }
+                    }
+
+                    >div{
+                        position: absolute;
+                        z-index: 1;
+                        background: #FFF;
+                        top: 120px;
+                        left: 5px;
+                        width: 280px;
+                        height: 50px;
+                        padding: 5px;
+                        background: rgba(255,255,255,0.8);
+
+                        >h3{
+                            font-size: 18px;
+                        }
+
+                        >h5, h6{
+                            font-size: 14px;
+                            color: #666;
+                        }
+
+                        >h5{
+                            color: #F90;
+                        }
+                    }
+
+                    >a{
+                        position: absolute;
+                        font-size: 14px;
+                        color: #000;
+                        bottom: 30px;
+                        right: 13px;
+                        z-index: 2;
+                    }
+                }
             }
         }
