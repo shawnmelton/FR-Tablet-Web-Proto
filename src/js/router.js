@@ -95,12 +95,13 @@ define(['jquery', 'backbone', 'views/elements/header', 'views/elements/footer', 
     var initialize = function(){
         window.appRouter = new AppRouter();
         var usePushState = !!(window.history && window.history.pushState);
+
+        if ( history.pushState ) history.pushState( {}, document.title, location.href );
+
         Backbone.history.start({
             pushState: usePushState,
             hashChange: usePushState
         });
-        
-        if ( history.pushState ) history.pushState( {}, document.title, location.href );
     };
     
     return {
