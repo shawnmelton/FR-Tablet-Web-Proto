@@ -508,6 +508,11 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             $('.basic > .element > .front').bind(touchEventType, function() {
                 var homesId = $(this).parent().attr('property');
                 if(homesId !== 'undefined' && homesId !== false) {
+                    //Get property index
+                    
+                    window.lastPropertyIndex = $('.basic > .element > .front').index();
+                    window.currentListings = _this.listings;
+
                     _this.currentListingsPage = null;
                     _this.onPropertyClick(parseInt(homesId));
                 }

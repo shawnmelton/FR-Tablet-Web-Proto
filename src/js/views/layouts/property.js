@@ -196,6 +196,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 return;
             }
 
+            console.log('Property Index: ', window.lastPropertyIndex);
+            console.log('Properties: ', window.currentListings);
+
             document.addEventListener("touchmove", ScrollStart, false);
             document.addEventListener("scroll", ScrollStart, false);
 

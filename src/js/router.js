@@ -99,6 +99,8 @@ define(['jquery', 'backbone', 'views/elements/header', 'views/elements/footer', 
             pushState: usePushState,
             hashChange: usePushState
         });
+        
+        if ( history.pushState ) history.pushState( {}, document.title, location.href );
     };
     
     return {
