@@ -40,7 +40,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         },
 
         loadResultsSet: function(searchString) {
-            var _this = this;
+            var _this = this,
+                locs = [],
+                pins = [];
 
             var searchOptions = {
                 limit: 10,
@@ -54,53 +56,53 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 success: function(response){
                     console.log('Got more listings: ', _this.listings);
                     $.each(_this.listings.models, function(i, listing){
-                        var locs = [],
-                            pins = [],
-                            location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng),
-                            pinHTML = "<span class='marker simple'></span>",
-                            pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin"+(i+1)},
-                            pin = new Microsoft.Maps.Pushpin(location, pinOptions);
+                        if(listing.attributes.streetAddress != _this.property.attributes.streetAddress){
+                            var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng),
+                                pinHTML = "<span class='marker simple'></span>",
+                                pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin"+(i+1)},
+                                pin = new Microsoft.Maps.Pushpin(location, pinOptions);
 
-                        pins.push(pin);
-                        locs.push(location);
-                        _this.map.entities.push(pin);
-
-                        Microsoft.Maps.Events.removeHandler(pin, 'click');
-                        Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
+                            pins.push(pin);
+                            locs.push(location);
+                            _this.map.entities.push(pin);
 
                             Microsoft.Maps.Events.removeHandler(pin, 'click');
                             Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
-                                _this.preload(listing.attributes.homesId, function(){
-                                    Navigate.toUrl('/properties/'+listing.attributes.homesId);
+
+                                Microsoft.Maps.Events.removeHandler(pin, 'click');
+                                Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
+                                    _this.preload(listing.attributes.homesId, function(){
+                                        console.log('Go to URL');
+                                        Navigate.toUrl('/properties/'+listing.attributes.homesId);
+                                    });
                                 });
+
+                                var newPinHTML = JST['src/js/templates/elements/large_marker.html']({
+                                    image_src: listing.attributes.primaryImage,
+                                    property: listing.attributes
+                                });
+
+                                console.log('Property Info ', listing);
+
+                                $('.marker.large').parent().not('.property').html("<span class='marker simple'></span>");
+
+                                var propertyIndex = i + 1;
+                                var pinMarker = $('.pin' + propertyIndex + ' > .marker');
+                                pinMarker.parent().html(newPinHTML);
+                                pinMarker.addClass('active');
+
+                                pinMarker.find('.img_container').swipe( {
+                                    triggerOnTouchEnd : true,
+                                    swipeStatus : function(event, phase, direction, distance, fingers){
+                                        console.log('Photo Distance', distance);
+                                    },
+                                    allowPageScroll:"vertical"
+                                });
+
+                                //CENTER MAP ON THIS PROPERTY
+                                _this.map.setView({ center: location });
                             });
-
-                            var newPinHTML = JST['src/js/templates/elements/large_marker.html']({
-                                image_src: listing.attributes.primaryImage,
-                                property: listing.attributes
-                            });
-
-                            console.log('Property Info ', listing);
-
-                            $('.marker.large').parent().not('.property').html("<span class='marker simple'></span>");
-
-                            var propertyIndex = i + 1;
-                            var pinMarker = $('.pin' + propertyIndex + ' > .marker');
-                            pinMarker.parent().html(newPinHTML);
-                            pinMarker.addClass('active');
-
-                            pinMarker.find('.img_container').swipe( {
-                                triggerOnTouchEnd : true,
-                                swipeStatus : function(event, phase, direction, distance, fingers){
-                                    console.log('Photo Distance', distance);
-                                },
-                                allowPageScroll:"vertical"
-                            });
-
-                            //CENTER MAP ON THIS PROPERTY
-                            _this.map.setView({ center: location });
-                        });
-
+                        }
                     });
                 }
             });
@@ -261,6 +263,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         },
 
         preload: function(propertyId, done){
+            //Stub in preloader
+            this.$el.html(JST['src/js/templates/layouts/propertyPlaceholder.html']);
+
             var newListing = new ListingCollection();
             newListing.fetch({
                 data: $.param({
@@ -281,8 +286,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                         }),
                         guestCardForm: null,
                         isSelect: true
-                    }, function(){
-                        console.log('Content Loaded');
                     });
 
                     //Run callback

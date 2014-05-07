@@ -420,6 +420,16 @@ __p += '\n        <p class="clickable pointer noBorder" section="details">\n    
 return __p
 };
 
+this["JST"]["src/js/templates/layouts/propertyPlaceholder.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute safariHack"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info">\n        <h2></h2>\n        <p class="clickable pointer" section="map"><a href="#!" target="_blank">View Map &amp; Directions</a></p>\n        <p class="clickable pointer" section="floorplans"><a>View Floor Plans &amp; Prices</a></p>\n        <p class="clickable pointer" section="reviews">\n            <span id="webReview" class="block reviewStars">4 Reviews</span>\n            <a>View Reviews from the Web</a>\n        </p>\n        <div class="clickable pointer" section="video">\n            <div class="video_thumb">\n                <img src="/img/play_button.png" />\n            </div>\n        </div>\n        <p class="clickable pointer noBorder" section="details">\n            Details<br>\n            <small></small>\n        </p>\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>';
+
+}
+return __p
+};
+
 this["JST"]["src/js/templates/layouts/search.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
