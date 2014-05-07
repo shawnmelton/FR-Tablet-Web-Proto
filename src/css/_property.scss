@@ -440,11 +440,6 @@
             }
 
             .marker{
-                top: 0;
-                left: 0;
-                position: absolute;
-                z-index: 1;
-                -webkit-transition: -webkit-transform 0.2s ease-out;
 
                 &.large{
                     top: -190px;

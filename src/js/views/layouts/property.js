@@ -24,11 +24,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             };
             this.map = new Microsoft.Maps.Map(document.getElementById("property-map"), mapOptions);
 
-            
-            Microsoft.Maps.Events.addHandler(_this.map, 'mousemove', function(e){
-                return false;
-            });
-
             var pinHTML = JST['src/js/templates/elements/pmarker.html']({
                 image_src: _this.property.attributes.primaryImage,
                 count: '1'
@@ -36,6 +31,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             var pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin1 property"}; 
             var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
             this.map.entities.push(pin);
+            this.map.setView({ center: location });
 
         },
 
@@ -65,6 +61,26 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                             pins.push(pin);
                             locs.push(location);
                             _this.map.entities.push(pin);
+                            var bounds = new Microsoft.Maps.LocationRect.fromLocations(locs);
+
+                            //CENTER MAP ON THIS PROPERTY
+                            // _this.map.setView({ center: location });
+                            // console.log('Property ', i);
+                            // if(i+1 == _this.listings.length){
+                            //     //Set map bounds
+                            //     _this.map.setView({
+                            //         bounds: bounds
+                            //     });
+                            // }
+
+                            // Microsoft.Maps.Events.addHandler(_this.map, 'mousemove', function(e){
+                            //     //Set map bounds
+                            //     _this.map.setView({
+                            //         bounds: bounds
+                            //     });
+                            //     e.preventDefault();
+                            //     return false;
+                            // });
 
                             Microsoft.Maps.Events.removeHandler(pin, 'click');
                             Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
@@ -98,9 +114,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                                     },
                                     allowPageScroll:"vertical"
                                 });
-
-                                //CENTER MAP ON THIS PROPERTY
-                                _this.map.setView({ center: location });
                             });
                         }
                     });
