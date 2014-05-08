@@ -207,7 +207,7 @@ __p += '\n    <table class="width100">\n        <tr>\n            <td class="ali
 ((__t = ( floor_plans[i].description )) == null ? '' : __t) +
 '</p>\n        </td></tr>\n    </table>\n    ';
  } ;
-__p += '\n</div>\n<h2>Reviews</h2>\n<div id="reviews" class="bgWhite">\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>\n<h2>Map</h2>\n<div id="map" class="clearFix bgWhite">\n    <div id="property-map"></div>\n    <a href="http://maps.apple.com/?daddr=' +
+__p += '\n</div>\n<h2>Reviews</h2>\n<div id="reviews" class="bgWhite">\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>\n<h2>\nMap\n<a href="http://maps.apple.com/?daddr=' +
 ((__t = ( property.attributes.streetAddress )) == null ? '' : __t) +
 ',' +
 ((__t = ( property.attributes.city )) == null ? '' : __t) +
@@ -215,7 +215,7 @@ __p += '\n</div>\n<h2>Reviews</h2>\n<div id="reviews" class="bgWhite">\n    <p c
 ((__t = ( property.attributes.state )) == null ? '' : __t) +
 ' ' +
 ((__t = ( property.attributes.zip )) == null ? '' : __t) +
-'" target="_blank" id="getDirectionsButton" class="block right">Get Directions</a>\n    <p>' +
+'" target="_blank" id="getDirectionsButton" class="block right">Get Directions</a>\n</h2>\n<div id="map" class="clearFix bgWhite">\n    <div id="property-map"></div>\n    <p>' +
 ((__t = ( property.attributes.streetAddress )) == null ? '' : __t) +
 ',' +
 ((__t = ( property.attributes.city )) == null ? '' : __t) +
@@ -342,11 +342,21 @@ __p += '<div class="results_placeholder">\n    <div class="basic select">\n     
 return __p
 };
 
+this["JST"]["src/js/templates/elements/sendToCellForm.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<form id="sendToCell" method="post" action="" class="absoluteCenter height100">\n    <h3>Send Me A Text!</h3>\n    <fieldset>\n        <input type="text" placeholder="Mobile Number" name="mobileNumber" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <button id="sendToCellButton" type="button" class="width100 borderBox whiteText alignCenter sendToCellButton">Send Now</button>\n    </fieldset>\n</form>';
+
+}
+return __p
+};
+
 this["JST"]["src/js/templates/elements/videoLightbox.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="video_lightbox">\n    <div class="video_container">\n    \t<video id="video" preload="auto" controls>\n\t\t\t<source  width=\'600\' height=\'300\' src=\'/video/video_medium.m4v\'  />\n\t\t</video>\n    </div>\n    <a href="#!" class="close_button">CLOSE</a>\n</div>';
+__p += '<div id="video_lightbox">\n    <div class="video_container absoluteCenter">\n    \t<video id="video" preload="auto" controls>\n\t\t\t<source  width=\'600\' height=\'300\' src=\'/video/video_medium.m4v\'  />\n\t\t</video>\n    </div>\n    <a href="#!" class="close_button">CLOSE</a>\n</div>';
 
 }
 return __p

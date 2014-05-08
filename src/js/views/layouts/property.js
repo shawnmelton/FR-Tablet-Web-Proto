@@ -235,7 +235,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 }),
                 success: function(response){
                     _this.property = response.models[0];
-                    
+                                        
                     if(_this.property === null) {
                         Navigate.toUrl('/');
                         valid = false;
@@ -260,6 +260,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     _this.$el.attr("class", "property");
                     _this.$el.prepend(JST['src/js/templates/elements/videoLightbox.html']);
                     _this.$el.prepend(JST['src/js/templates/elements/photoLightbox.html']);
+
+                    _this.$el.prepend($('<div class="lightbox"></div>'));
+                    $('.lightbox').prepend(JST['src/js/templates/elements/sendToCellForm.html']);
+
                     _this.initializePropertyMap();
                     guestCardFormEl.init();
                     searchBarViewEl.renderToHeader();
@@ -274,6 +278,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
 
                     //Get more listings
                     _this.loadResultsSet();
+
+                    $('[name="keywords"]').val(_this.property.attributes.city);
+                    $('#searchBar button').text('Back');
                 }
             });
         },
@@ -443,6 +450,24 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     details.addClass('show');
                     label.text('close');
                 }
+            });
+
+            $('#sendToCellButton').bind(touchEventType, function(ev){
+                $(this).removeClass('show');
+                $('body').animate({
+                    scrollTop: '0px'
+                }, 500);
+            });
+            $('#buttonCA').bind(touchEventType, function(ev){
+                $('.lightbox').addClass('show');
+                $('.lightbox').bind(touchEventType, function(ev){
+                    if($(ev.target).hasClass('lightbox') || $(ev.target).hasClass('sendToCellButton')){
+                        $(this).removeClass('show');
+                        $('body').animate({
+                            scrollTop: '0px'
+                        }, 500);
+                    }
+                });
             });
 
             // Show Video

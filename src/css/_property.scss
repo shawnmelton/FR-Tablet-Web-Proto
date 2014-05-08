@@ -1,4 +1,9 @@
-
+.absoluteCenter{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+}
 #content.property {
     >a {
         background-repeat: no-repeat;
@@ -23,6 +28,27 @@
         }
     }
 }
+
+.lightbox{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+    -webkit-transition: opacity 0.5s;
+    -webkit-transition: -webkit-transform 0.5s;
+
+    &.show{
+        opacity: 1;
+        z-index: 100;
+        pointer-events: all;
+    }
+}
+
 #video_lightbox{
     position: absolute;
     top: 0;
@@ -48,17 +74,12 @@
                 display: block;
             }
         }
-
     }
 
     >.video_container{
         position: absolute;
         width: 600px;
         height: 400px;
-        top: 50%;
-        margin-top: -200px;
-        left: 50%;
-        margin-left: -300px;
         background-color: #000;
 
         >video{
@@ -124,6 +145,71 @@
         color: #FFF;
     }
 }
+
+#sendToCell {
+    padding: 20px;
+    width: 200px;
+    background: #f2a468;
+    color: #FFF;
+
+    >h3 {
+        margin-bottom: 2px;
+        font-size: 120%;
+    }
+
+    >p {
+        margin: 3px 0 12px;
+        color: #044a78;
+        font-size: 80%;
+    }
+
+    >fieldset {
+        margin: 0;
+
+        ::-webkit-input-placeholder {
+           color: #FFF;
+        }
+
+        :-moz-placeholder { /* Firefox 18- */
+           color: #FFF;  
+        }
+
+        ::-moz-placeholder {  /* Firefox 19+ */
+           color: #FFF;  
+        }
+
+        :-ms-input-placeholder {  
+           color: #FFF;  
+        }
+
+        >input, >textarea {
+            padding: 5px;
+            margin-top: 10px;
+            border: none;
+            background: rgba(255,255,255,0.15);
+            -webkit-border-radius: 0;
+            border-radius: 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        >input { font-size: 90%; }
+
+        >textarea {
+            font-size: 80%;
+            height: 75px;
+        }
+
+        >button {
+            background: #e97d0e;
+            border: 1px solid #dc6104;
+            padding: 8px 5px;
+            margin-top: 10px;
+
+            &.touched { background: #c60; }
+        }
+    }
+}
     #gallery {
         top: 0;
         bottom: 0;
@@ -157,7 +243,7 @@
             >h2 {
                 font-size: 130%;
                 padding: 10px 20px 0;
-                background-color: rgba(255,255,255,0.8)
+                background-color: rgba(255,255,255,0.8);
             }
 
             >p, >div {
@@ -240,6 +326,16 @@
                 line-height: 24px;
                 background-color: rgba(255, 255, 255, 0.5);
                 padding: 10px 0 10px 30px;
+
+                a {
+                    padding: 0px 10px;
+                    border-radius: 5px;
+                    border: 1px solid #aaa;
+                    background: #ddd;
+                    color: #333;
+                    margin: 0 10px;
+                    font-size: 14px;
+                }
             }
         }
 
@@ -414,27 +510,19 @@
         /***************/
 
         #map {
-            padding: 25px;
+            padding: 0;
 
             >#property-map{
                 position: relative;
-                width: 96%;
+                width: 100%;
                 height: 300px;
-                margin: 2%;
-                background: #F90;
-            }
-            >a {
-                padding: 7px 20px;
-                border-radius: 5px;
-                border: 1px solid #aaa;
-                background: #ddd;
-                color: #333;
+                margin: 0 0 10px 0;
             }
             >p {
                 background: url(../img/map-pin.png) no-repeat 0 0;
                 padding-left: 30px;
                 font-size: 110%;
-                margin: 0;
+                margin: 0 0 0 10px;
                 height: 35px;
                 line-height: 30px;
             }

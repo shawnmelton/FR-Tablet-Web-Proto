@@ -335,6 +335,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.setContentDimensions();
             searchBarViewEl.renderToHeader();
             this.setDeviceMotionEvent();
+
+            $('#searchBar button').text('Search');
         },
 
         plotMapPoints: function(locations){
