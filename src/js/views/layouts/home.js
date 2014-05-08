@@ -1,10 +1,11 @@
 define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tools/data', 'tools/navigate',
-    'tools/device'
-], function($, Backbone, tmplts, searchBarViewEl, Data, Navigate, Device) {
+    'tools/device', 'models/listing','collections/listings'
+], function($, Backbone, tmplts, searchBarViewEl, Data, Navigate, Device, ListingModel, ListingCollection) {
     var homeView = Backbone.View.extend({
         el: "#content",
         contentHeight: 0,
         map: null,
+        featuredListings: null,
 
         /**
          * Display the device appropriate background image according to the size of the layout.
@@ -27,29 +28,64 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
 
         },
 
-        render: function() {
-            this.$el.empty();
-            $('#map-canvas').removeClass('showMap');
+        getFeaturedProperties: function(){
+            var _this = this;
             function getLocation()
             {
                 if (navigator.geolocation){
                     navigator.geolocation.getCurrentPosition(showPosition);
                 }
                 else{
-                    x.innerHTML="Geolocation is not supported by this browser.";
+                    console.log("Geolocation is not supported by this browser.");
                 }
             }
             function showPosition(position){
-                console.log("Latitude: " + position.coords.latitude + 
-                "<br>Longitude: " + position.coords.longitude);    
-            }
+                var lat = position.coords.latitude.toString().substring(0,6);
+                var lng = position.coords.longitude.toString().substring(0,7);
+                console.log("Latitude: " + lat + 
+                "<br>Longitude: " + lng); 
 
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&sensor=false&key=AIzaSyAud0d5aoF02nsLFR9mLtR1KkKEZ-7DzGw',
+                    success: function(response){
+                        var cityName = response.results[4].address_components[1].long_name;
+                        var searchOptions = {
+                            limit: 4,
+                            start: 0,
+                            city: cityName
+                        };
+                        $('[name="keywords"]').val(cityName);
+
+                        _this.featuredListings = new ListingCollection();
+                        _this.featuredListings.fetch({
+                            data: $.param(searchOptions),
+                            success: function(response){
+                                //Remove loading image
+                                console.log(_this.featuredListings);
+
+                                _this.$el.append(JST['src/js/templates/layouts/home.html']({
+                                    properties: _this.featuredListings.models
+                                }));
+                                _this.setFeaturedClickEvents();
+                            }
+                        });  
+                    }
+                }); 
+            }
             getLocation();
+        },
+
+        onPropertyClick: function(){
+
+        },
+
+        render: function() {
+            this.$el.empty();
+            this.getFeaturedProperties();
+            if($('#map-canvas').length) $('#map-canvas').removeClass('showMap');
 
             searchBarViewEl.renderToContent();
-            this.$el.append(JST['src/js/templates/layouts/home.html']({
-                properties: Data.get('basic', 4)
-            }));
 
             this.$el.attr("class", "home");
             this.displayBGImg();
@@ -65,6 +101,16 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.$el.find("div.property").bind(touchEventType, function(event) {
                 event.preventDefault();
                 Navigate.toUrl('/properties/' + $(this).attr('property'));
+            });
+        },
+
+        setFeaturedClickEvents: function(){
+            var _this = this;
+            $('.property').bind(touchEventType, function() {
+                var homesId = $(this).attr('property');
+                if(homesId !== 'undefined' && homesId !== false) {
+                    Navigate.toUrl('/properties/'+parseInt(homesId));
+                }
             });
         },
 

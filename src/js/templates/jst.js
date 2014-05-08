@@ -370,17 +370,17 @@ with (obj) {
 __p += '<section class="fixed noOverflow clearFix">\n';
  _.each(properties, function(property) { ;
 __p += '\n    <div property="' +
-((__t = ( property.id )) == null ? '' : __t) +
-'" class="relative noOverflow property borderBox whiteText left pointer">\n        <img src="/img/listings/' +
-((__t = ( property.id )) == null ? '' : __t) +
-'-612.jpg" alt="' +
-((__t = ( property.name )) == null ? '' : __t) +
+((__t = ( property.attributes.homesId )) == null ? '' : __t) +
+'" class="relative noOverflow property borderBox whiteText left pointer">\n        <img src="' +
+((__t = ( property.attributes.primaryImage )) == null ? '' : __t) +
+'" alt="' +
+((__t = ( property.attributes.name )) == null ? '' : __t) +
 '" class="block width100">\n        <p class="absolute width100 fadingGradient">\n            <strong>' +
-((__t = ( property.name )) == null ? '' : __t) +
+((__t = ( property.attributes.name )) == null ? '' : __t) +
 '</strong><br>\n            ' +
-((__t = ( property.location )) == null ? '' : __t) +
+((__t = ( property.attributes.location )) == null ? '' : __t) +
 '<br>\n            ' +
-((__t = ( property.type )) == null ? '' : __t) +
+((__t = ( property.attributes.type )) == null ? '' : __t) +
 '\n        </p>\n    </div>\n';
  }); ;
 __p += '\n</section>';
