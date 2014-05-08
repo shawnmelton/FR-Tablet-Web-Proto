@@ -23,11 +23,30 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             document.getElementsByTagName('html')[0].className = clsName;
         },
 
+        getLocation: function(){
+
+        },
+
         render: function() {
             this.$el.empty();
+            $('#map-canvas').removeClass('showMap');
+            function getLocation()
+            {
+                if (navigator.geolocation){
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                }
+                else{
+                    x.innerHTML="Geolocation is not supported by this browser.";
+                }
+            }
+            function showPosition(position){
+                console.log("Latitude: " + position.coords.latitude + 
+                "<br>Longitude: " + position.coords.longitude);    
+            }
+
+            getLocation();
 
             searchBarViewEl.renderToContent();
-
             this.$el.append(JST['src/js/templates/layouts/home.html']({
                 properties: Data.get('basic', 4)
             }));

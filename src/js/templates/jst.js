@@ -346,7 +346,7 @@ this["JST"]["src/js/templates/elements/sendToCellForm.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form id="sendToCell" method="post" action="" class="absoluteCenter height100">\n    <h3>Send Me A Text!</h3>\n    <fieldset>\n        <input type="text" placeholder="Mobile Number" name="mobileNumber" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <button id="sendToCellButton" type="button" class="width100 borderBox whiteText alignCenter sendToCellButton">Send Now</button>\n    </fieldset>\n</form>';
+__p += '<form id="sendToCell" method="post" action="" class="absoluteCenter height100">\n    <h3>Send Me A Text!</h3>\n    <fieldset>\n        <input type="tel" placeholder="Mobile Number" name="mobileNumber" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <button id="sendToCellButton" type="button" class="width100 borderBox whiteText alignCenter sendToCellButton">Send Now</button>\n    </fieldset>\n</form>';
 
 }
 return __p

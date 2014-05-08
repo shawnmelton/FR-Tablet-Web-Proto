@@ -205,6 +205,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
 
         render: function(){
 
+            $('#map-canvas').removeClass('showMap');
+            
             if(!this.valid()) {
                 return;
             }
