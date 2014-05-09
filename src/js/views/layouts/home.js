@@ -25,6 +25,15 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         },
 
         getLocation: function(){
+            if (navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(showPosition);
+            }
+            else{
+                console.log("Geolocation is not supported by this browser.");
+            }
+        },
+
+        showPosition: function(){
 
         },
 
@@ -67,6 +76,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                                 _this.$el.append(JST['src/js/templates/layouts/home.html']({
                                     properties: _this.featuredListings.models
                                 }));
+
+                                $('#video_lightbox').height($(window).height());
+
                                 _this.setFeaturedClickEvents();
                             }
                         });  
@@ -84,7 +96,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.$el.empty();
             this.getFeaturedProperties();
             if($('#map-canvas').length) $('#map-canvas').removeClass('showMap');
-
+            this.$el.prepend(JST['src/js/templates/elements/videoLightbox.html']);
             searchBarViewEl.renderToContent();
 
             this.$el.attr("class", "home");
@@ -106,7 +118,22 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
 
         setFeaturedClickEvents: function(){
             var _this = this;
-            $('.property').bind(touchEventType, function() {
+            var videoLightbox = $('#video_lightbox');
+
+            $('.property .playButton').bind(touchEventType, function(ev){
+                videoLightbox.addClass('show');
+                videoLightbox.not('video, .video_container').bind(touchEventType, function(ev){
+                    $(this).removeClass('show');
+                });
+            });
+
+            $('.property').bind(touchEventType, function(ev) {
+                //Reject click event if user clicked Play Button
+                if(ev.target == $('.playButton')[0]){
+                    console.log('Clicked Play button!');
+                    return false;
+                }
+
                 var homesId = $(this).attr('property');
                 if(homesId !== 'undefined' && homesId !== false) {
                     Navigate.toUrl('/properties/'+parseInt(homesId));

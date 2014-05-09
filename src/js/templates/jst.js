@@ -368,10 +368,15 @@ var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
 __p += '<section class="fixed noOverflow clearFix">\n';
- _.each(properties, function(property) { ;
+ 
+	var i = 0;
+	_.each(properties, function(property) { 
+;
 __p += '\n    <div property="' +
 ((__t = ( property.attributes.homesId )) == null ? '' : __t) +
-'" class="relative noOverflow property borderBox whiteText left pointer">\n        <img src="' +
+'" class="relative noOverflow property borderBox whiteText left pointer">\n    \t' +
+((__t = ( (i==1) ? '<img src="/img/play_button.png" class="absoluteCenter playButton" />' : '' )) == null ? '' : __t) +
+'\n        <img src="' +
 ((__t = ( property.attributes.primaryImage )) == null ? '' : __t) +
 '" alt="' +
 ((__t = ( property.attributes.name )) == null ? '' : __t) +
@@ -382,7 +387,10 @@ __p += '\n    <div property="' +
 '<br>\n            ' +
 ((__t = ( property.attributes.type )) == null ? '' : __t) +
 '\n        </p>\n    </div>\n';
- }); ;
+	
+	i++;
+	}); 
+;
 __p += '\n</section>';
 
 }

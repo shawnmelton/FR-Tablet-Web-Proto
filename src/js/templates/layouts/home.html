@@ -1,6 +1,10 @@
 <section class="fixed noOverflow clearFix">
-<% _.each(properties, function(property) { %>
+<% 
+	var i = 0;
+	_.each(properties, function(property) { 
+%>
     <div property="<%= property.attributes.homesId %>" class="relative noOverflow property borderBox whiteText left pointer">
+    	<%= (i==1) ? '<img src="/img/play_button.png" class="absoluteCenter playButton" />' : '' %>
         <img src="<%= property.attributes.primaryImage %>" alt="<%= property.attributes.name %>" class="block width100">
         <p class="absolute width100 fadingGradient">
             <strong><%= property.attributes.name %></strong><br>
@@ -8,5 +12,8 @@
             <%= property.attributes.type %>
         </p>
     </div>
-<% }); %>
+<%	
+	i++;
+	}); 
+%>
 </section>
