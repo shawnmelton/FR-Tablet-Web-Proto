@@ -166,20 +166,71 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
             container.width($('#content').width());
 
             $(newImg).swipe({
-                click: function(ev){
-                    console.log('Click');
-                    if($(ev.target).hasClass('scaledOut')){
-                        $(ev.target).removeClass('scaledOut');
-                    }
-                    else{
-                        _this.photoLightbox.removeClass('show');
-                        _this.photoLightbox.width(container.width());
-                    }
-                },
                 doubleTap: function(ev, image){
-                    $(image).toggleClass('scaledOut');
+                    $(image).toggleClass('scaled');
                 },
-                pinchStatus: null
+                pinchStatus: function(event, phase, direction, distance , duration , fingerCount, pinchZoom) {
+                    console.log("Pinch zoom scale "+pinchZoom+"  <br/>Distance pinched "+distance+" <br/>Direction " + direction);
+                    $(this).unbind('webkitTransitionEnded');
+
+                    //Tap action
+                    if(fingerCount == 1){
+                        console.log('Tap Action');
+                        if(phase == 'end'){
+                            if($(this).hasClass('scaled')){
+                                $(this).css('-webkit-transform', 'scale(1)');
+                                $(this).bind('webkitTransitionEnd', function(ev){
+                                    $(this).removeClass('scaled');
+                                    console.log('Scaled Back To 1');
+                                });
+                            }
+                            else{
+                                _this.photoLightbox.removeClass('show');
+                                _this.photoLightbox.width(container.width());
+                            }
+                        }
+                        console.log('Phase: ', phase);
+                    }
+                    //Pinch/Move Action
+                    else if(fingerCount > 1){
+                        if(!$(this).hasClass('scaled')){
+                            if(phase === 'end'){
+                                if(pinchZoom < 1){
+                                    console.log('Scale Up Smooth');
+                                    $(this).addClass('scaled');
+                                    $(this).css('-webkit-transform', 'scale(1)');
+                                    $(this).bind('webkitTransitionEnd', function(ev){
+
+                                        $(this).removeClass('scaled');
+                                    });
+                                }
+                            }
+                            else if(phase == 'move'){
+                                $(this).css('-webkit-transform', 'scale(' + pinchZoom + ')');
+                                $(this).addClass('scaled');
+                            }
+                        }
+                    }
+                },
+                // swipeStatus: function(event, phase, direction, distance, fingers){
+                //     console.log("Swipe Status: "+phase+", direction: "+direction+", distance: "+distance)
+                //     imageCount = _this.photoLightbox.find('.photo_container').length;
+                //     if(fingers == 1){
+                //         if( phase=="move" && (direction=="left" || direction=="right" || direction=="up" || direction=="down") )
+                //         {
+                //             var duration=0;
+
+                //             if (direction == "left")
+                //                 $(this).css("-webkit-transform", "translate3d("+value +"px,0px,0px)");
+                //             else if (direction == "right")
+                //                 $(this).css("-webkit-transform", "translate3d("+ (-1*value) +"px,0px,0px)");
+                //             else if (direction == 'down')
+                //                 $(this).css("-webkit-transform", "translate3d(0px,"+ value +"px,0px)");
+                //             else if (direction == 'up')
+                //                 $(this).css("-webkit-transform", "translate3d(0px,"+ (-1*value) +"px,0px)");
+                //         }
+                //     }
+                // }
             });
 
             function zoomImage(event, direction, distance, duration, fingerCount, zoom, last){

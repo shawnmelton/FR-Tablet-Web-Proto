@@ -120,7 +120,17 @@
             top: 0;
             left: 0;
             height: 100%;
-            -webkit-transition: -webkit-transform 0.5s;
+
+            &.panned{
+
+            }
+
+            &.scaled{
+                -webkit-transition: -webkit-transform 0.5s;
+            }
+
+            &.scaledIn{
+            }
 
             &.scaledOut{
                 -webkit-transform: scale(2.5);

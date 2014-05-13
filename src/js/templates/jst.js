@@ -426,9 +426,7 @@ __p += '\n        <div class="clickable pointer" section="video">\n            <
 ((__t = ( property.attributes.images[2] )) == null ? '' : __t) +
 ')">\n                <img src="/img/play_button.png" />\n            </div>\n        </div>\n        ';
  } ;
-__p += '\n        <p class="clickable pointer noBorder" section="details">\n            Details<br>\n            <small>' +
-((__t = ( property.attributes.floor_plans[0].description )) == null ? '' : __t) +
-'</small>\n        </p>\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
+__p += '\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
 ((__t = ( moreContent )) == null ? '' : __t) +
 '</div>\n        <div class="form relative tableCell vAlignTop">\n            ' +
 ((__t = ( guestCardForm )) == null ? '' : __t) +

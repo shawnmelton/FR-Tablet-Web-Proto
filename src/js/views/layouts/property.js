@@ -106,14 +106,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                                 var pinMarker = $('.pin' + propertyIndex + ' > .marker');
                                 pinMarker.parent().html(newPinHTML);
                                 pinMarker.addClass('active');
-
-                                pinMarker.find('.img_container').swipe( {
-                                    triggerOnTouchEnd : true,
-                                    swipeStatus : function(event, phase, direction, distance, fingers){
-                                        console.log('Photo Distance', distance);
-                                    },
-                                    allowPageScroll:"vertical"
-                                });
                             });
                         }
                     });
