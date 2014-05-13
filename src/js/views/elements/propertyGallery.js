@@ -170,9 +170,10 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                     $(image).toggleClass('scaled');
                 },
                 pinchStatus: function(event, phase, direction, distance , duration , fingerCount, pinchZoom) {
-                    console.log('Fingers: ', fingerCount, ', Direction: ', direction);
 
                     $(this).unbind('webkitTransitionEnded');
+
+                    console.log('Fingers: ', fingerCount, ', distance: ', distance, ', direction: ', direction);
 
                     //Tap action
                     if(fingerCount == 1){
@@ -181,11 +182,21 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                                 $(this).css('-webkit-transform', 'scale(1)');
                                 $(this).bind('webkitTransitionEnd', function(ev){
                                     $(this).removeClass('scaled');
+                                    _this.photoLightbox.removeClass('scaled');
                                 });
                             }
-                            else{
+                            else if(!_this.photoLightbox.hasClass('panning')){
                                 _this.photoLightbox.removeClass('show');
                                 _this.photoLightbox.width(container.width());
+                            }
+                            else{
+                                _this.photoLightbox.removeClass('panning');
+                            }
+                        }
+                        else if(phase == 'move'){
+                            _this.photoLightbox.addClass('panning');
+                            if($(this).hasClass('scaled')){
+                                _this.photoLightbox.addClass('scaled');
                             }
                         }
                     }
@@ -543,6 +554,10 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
 
             function swipeStatus(event, phase, direction, distance, fingers)
             {
+
+                //Do not scroll images if images are scaled
+                if(_this.photoLightbox.hasClass('scaled')) return false;
+
                 imageCount = _this.photoLightbox.find('.photo_container').length;
                 //If we are moving before swipe, and we are going L or R, then manually drag the images
                 if( phase=="move" && (direction=="left" || direction=="right") )
@@ -590,15 +605,18 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
              */
             function scrollImages(distance, duration)
             {
+                _this.photoLightbox.unbind('webkitTransitionEnded');
                 if(!imageLock){
                     _this.photoLightbox.css("-webkit-transition-duration", (duration/1000).toFixed(1) + "s");
 
                     //inverse the number we set in the css
                     var value = (distance<0 ? "" : "-") + Math.abs(distance).toString();
                     _this.photoLightbox.bind('webkitTransitionEnded', function(){
+                        console.log('Done Panning');
                         imageLock = false;
                         _this.photoLightbox.unbind('webkitTransitionEnded');
                         _this.photoLightbox.find('.scaledOut').removeClass('scaledOut');
+                        _this.photoLightbox.removeClass('panning');
                     });
                     _this.photoLightbox.css("-webkit-transform", "translate3d("+value +"px,0px,0px)");
                 }
