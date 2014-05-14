@@ -106,6 +106,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
          * Initialize gallery.
          */
         init: function() {
+            var _this = this;
             this.galleryEl = $(document.getElementById('gallery'));
             switch(Device.getType()) {
                 case 'retina':
@@ -123,6 +124,12 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                     this.bgImgHeight = 768;
                     break;
             }
+
+            //Check for orientation
+            window.addEventListener("orientationchange", function() {
+                _this.setContentDimensions();
+            }, false);
+
             //Cache reference to hideable teaser sections
             //for bulk animations
             this.teaserSections = $('#teaser .info p[section="reviews"], #teaser .info p[section="floorplans"], #teaser .info div[section="video"], #teaser .info p[section="details"]');
@@ -364,6 +371,20 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
             }
 
             this.swipeDirLeft = !this.swipeDirLeft;
+        },
+
+        /**
+         * Set the content height for this page.
+         */
+        setContentDimensions: function() {
+            this.contentHeight = $(window).height();
+            console.log('Content Height: ', this.contentHeight, ', Orientation: ', window.orientation);
+            if(window.orientation == 90 || window.orientation == -90){
+                console.log('Landscape');
+            }
+            else{
+                console.log('Portrait');
+            }
         },
 
         /**
