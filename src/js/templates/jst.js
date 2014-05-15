@@ -189,9 +189,9 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<h2>Details</h2>\n<div id="details" class="bgWhite">\n    <table class="width100">\n        <tr>\n            <td class="name alignLeft vAlignMiddle">' +
+__p += '<h2>Details</h2>\n<div id="details">\n    <table class="width100">\n        <tr>\n            <td class="name alignLeft vAlignMiddle">' +
 ((__t = ( property.name )) == null ? '' : __t) +
-'</td>\n            <td class="alignCenter vAlignMiddle">1<span class="block">Beds</span></td>\n            <td class="alignCenter vAlignMiddle">2<span class="block">Baths</span></td>\n            <td class="alignCenter vAlignMiddle">$1,500<span class="block">Monthly</span></td>\n        </tr>\n    </table>\n    <p>Curabitur eleifend nisi lobortis, adipiscing mauris in, venenatis ipsum. Sed suscipit nisi ut tincidunt facilisis. Praesent ligula mi, cursus eu gravida nec, consequat id sapien. Vestibulum adipiscing quis mi quis mollis. In condimentum consequat felis, sit amet gravida massa elementum quis. Ut suscipit aliquet dolor, vitae laoreet nibh mollis non. Aenean diam justo, pretium et odio a, fermentum tempus metus.</p>\n</div>\n<h2>Floor Plans</h2>\n<div id="floorplans" class="bgWhite">\n    ';
+'</td>\n            <td class="alignCenter vAlignMiddle">1<span class="block">Beds</span></td>\n            <td class="alignCenter vAlignMiddle">2<span class="block">Baths</span></td>\n            <td class="alignCenter vAlignMiddle">$1,500<span class="block">Monthly</span></td>\n        </tr>\n    </table>\n    <p>Curabitur eleifend nisi lobortis, adipiscing mauris in, venenatis ipsum. Sed suscipit nisi ut tincidunt facilisis. Praesent ligula mi, cursus eu gravida nec, consequat id sapien. Vestibulum adipiscing quis mi quis mollis. In condimentum consequat felis, sit amet gravida massa elementum quis. Ut suscipit aliquet dolor, vitae laoreet nibh mollis non. Aenean diam justo, pretium et odio a, fermentum tempus metus.</p>\n</div>\n<h2>Floor Plans</h2>\n<div id="floorplans">\n    ';
  for(i = 0; i < floor_plans.length; i++){ ;
 __p += '\n    <table class="width100">\n        <tr>\n            <td class="alignLeft">\n                ' +
 ((__t = ( floor_plans[i].name )) == null ? '' : __t) +
@@ -207,7 +207,7 @@ __p += '\n    <table class="width100">\n        <tr>\n            <td class="ali
 ((__t = ( floor_plans[i].description )) == null ? '' : __t) +
 '</p>\n        </td></tr>\n    </table>\n    ';
  } ;
-__p += '\n</div>\n<h2>Reviews</h2>\n<div id="reviews" class="bgWhite">\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>\n<h2>\nMap\n<a href="http://maps.apple.com/?daddr=' +
+__p += '\n</div>\n<h2>Reviews</h2>\n<div id="reviews">\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>\n<h2>\nMap\n<a href="#!" class="sendToCell block right" id="buttonCA">Send to Cell</a>\n<a href="http://maps.apple.com/?daddr=' +
 ((__t = ( property.attributes.streetAddress )) == null ? '' : __t) +
 ',' +
 ((__t = ( property.attributes.city )) == null ? '' : __t) +
@@ -215,7 +215,7 @@ __p += '\n</div>\n<h2>Reviews</h2>\n<div id="reviews" class="bgWhite">\n    <p c
 ((__t = ( property.attributes.state )) == null ? '' : __t) +
 ' ' +
 ((__t = ( property.attributes.zip )) == null ? '' : __t) +
-'" target="_blank" id="getDirectionsButton" class="block right">Get Directions</a>\n</h2>\n<div id="map" class="clearFix bgWhite">\n    <div id="property-map"></div>\n    <p>' +
+'" target="_blank" id="getDirectionsButton" class="block right">Get Directions</a>\n</h2>\n<div id="map" class="clearFix">\n    <div id="property-map"></div>\n    <p>' +
 ((__t = ( property.attributes.streetAddress )) == null ? '' : __t) +
 ',' +
 ((__t = ( property.attributes.city )) == null ? '' : __t) +
@@ -356,7 +356,9 @@ this["JST"]["src/js/templates/elements/videoLightbox.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="video_lightbox">\n    <div class="video_container absoluteCenter">\n    \t<video id="video" preload="auto" controls>\n\t\t\t<source  width=\'600\' height=\'300\' src=\'/video/video_medium.m4v\'  />\n\t\t</video>\n    </div>\n    <a href="#!" class="close_button">CLOSE</a>\n</div>';
+__p += '<div id="video_lightbox">\n    <div class="video_container absoluteCenter">\n    \t<video id="video" preload="auto" controls>\n\t\t\t<source  width=\'600\' height=\'300\' src=\'' +
+((__t = ( source )) == null ? '' : __t) +
+'\'  />\n\t\t</video>\n    </div>\n    <a href="#!" class="close_button">CLOSE</a>\n</div>';
 
 }
 return __p
@@ -421,12 +423,12 @@ __p += '<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArro
 ' - ' +
 ((__t = ( property.attributes.price.max )) == null ? '' : __t) +
 '<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p class="clickable pointer" section="reviews">\n            <span id="webReview" class="block reviewStars">4 Reviews</span>\n            <a>View Reviews from the Web</a>\n        </p>\n        ';
- if(isSelect) { ;
+ if(property.attributes.video.length) { ;
 __p += '\n        <div class="clickable pointer" section="video">\n            <div class="video_thumb" style="background-image: url(' +
 ((__t = ( property.attributes.images[2] )) == null ? '' : __t) +
 ')">\n                <img src="/img/play_button.png" />\n            </div>\n        </div>\n        ';
  } ;
-__p += '\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
+__p += '\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
 ((__t = ( moreContent )) == null ? '' : __t) +
 '</div>\n        <div class="form relative tableCell vAlignTop">\n            ' +
 ((__t = ( guestCardForm )) == null ? '' : __t) +
@@ -440,7 +442,7 @@ this["JST"]["src/js/templates/layouts/propertyPlaceholder.html"] = function(obj)
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute safariHack"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info">\n        <h2></h2>\n        <p class="clickable pointer" section="map"><a href="#!" target="_blank">View Map &amp; Directions</a></p>\n        <p class="clickable pointer" section="floorplans"><a>View Floor Plans &amp; Prices</a></p>\n        <p class="clickable pointer" section="reviews">\n            <span id="webReview" class="block reviewStars">4 Reviews</span>\n            <a>View Reviews from the Web</a>\n        </p>\n        <div class="clickable pointer" section="video">\n            <div class="video_thumb">\n                <img src="/img/play_button.png" />\n            </div>\n        </div>\n        <p class="clickable pointer noBorder" section="details">\n            Details<br>\n            <small></small>\n        </p>\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>';
+__p += '<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute safariHack"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info">\n        <h2></h2>\n        <p class="clickable pointer" section="map"><a href="#!" target="_blank">View Map &amp; Directions</a></p>\n        <p class="clickable pointer" section="floorplans"><a>View Floor Plans &amp; Prices</a></p>\n        <p class="clickable pointer" section="reviews">\n            <span id="webReview" class="block reviewStars">4 Reviews</span>\n            <a>View Reviews from the Web</a>\n        </p>\n    </div>\n</section>';
 
 }
 return __p

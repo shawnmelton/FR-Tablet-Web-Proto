@@ -156,6 +156,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         onCloseVideoButtonClick: function(){
             $('#video_lightbox').removeClass('show');
             $('body').unbind('mousewheel');
+            video.stop();
         },
 
         /**
@@ -187,6 +188,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         },
 
         relayout: function() {
+            console.log('Set Content Dimensions');
             this.setContentDimensions();
             galleryViewEl.update();
         },
@@ -252,7 +254,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                         isSelect: true
                     }));
                     _this.$el.attr("class", "property");
-                    _this.$el.prepend(JST['src/js/templates/elements/videoLightbox.html']);
+                    _this.$el.prepend(JST['src/js/templates/elements/videoLightbox.html']({
+                        source: _this.property.attributes.video
+                    }));
                     _this.$el.prepend(JST['src/js/templates/elements/photoLightbox.html']);
 
                     _this.$el.prepend($('<div class="lightbox"></div>'));
@@ -330,11 +334,25 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 console.log(WURFL);
             }
 
+            if(window.orientation == 90 || window.orientation == -90){
+                console.log('Landscape: ', this.contentHeight);
+                $('.photo_container img').removeClass('relativeCenter');
+                $('.photo_container img').removeClass('width100');
+                $('.photo_container img').addClass('height100');
+            }
+            else{
+                console.log('Portrait: ', this.contentHeight);
+                $('.photo_container img').addClass('width100');
+                $('.photo_container img').removeClass('height100');
+                $('.photo_container img').removeClass('relativeCenter');
+            }
+
             this.$el.height(this.contentHeight);
-            // this.$el.children('section#teaser').height(this.contentHeight);
             this.$el.children('section#more').height(moreInfoHeight);
             this.$el.children('section#more').css('top', $(window).height());
             $('#video_lightbox').height($(window).height());
+            $('#photo_lightbox').height(this.contentHeight);
+            $('.photo_container').width($(window).width());
         },
 
         /**
@@ -446,20 +464,26 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 }
             });
 
+
             $('#sendToCellButton').bind(touchEventType, function(ev){
                 $(this).removeClass('show');
-                $('body').animate({
-                    scrollTop: '0px'
-                }, 500);
+                if(isMobileDevice){
+                    $('body').animate({
+                        scrollTop: '0px'
+                    }, 500);
+                }
             });
+
             $('#buttonCA').bind(touchEventType, function(ev){
                 $('.lightbox').addClass('show');
                 $('.lightbox').bind(touchEventType, function(ev){
                     if($(ev.target).hasClass('lightbox') || $(ev.target).hasClass('sendToCellButton')){
                         $(this).removeClass('show');
-                        $('body').animate({
-                            scrollTop: '0px'
-                        }, 500);
+                        if(isMobileDevice){
+                            $('body').animate({
+                                scrollTop: '0px'
+                            }, 500);
+                        }
                     }
                 });
             });

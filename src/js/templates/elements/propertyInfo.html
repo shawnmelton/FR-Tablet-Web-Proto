@@ -1,5 +1,5 @@
 <h2>Details</h2>
-<div id="details" class="bgWhite">
+<div id="details">
     <table class="width100">
         <tr>
             <td class="name alignLeft vAlignMiddle"><%= property.name %></td>
@@ -11,7 +11,7 @@
     <p>Curabitur eleifend nisi lobortis, adipiscing mauris in, venenatis ipsum. Sed suscipit nisi ut tincidunt facilisis. Praesent ligula mi, cursus eu gravida nec, consequat id sapien. Vestibulum adipiscing quis mi quis mollis. In condimentum consequat felis, sit amet gravida massa elementum quis. Ut suscipit aliquet dolor, vitae laoreet nibh mollis non. Aenean diam justo, pretium et odio a, fermentum tempus metus.</p>
 </div>
 <h2>Floor Plans</h2>
-<div id="floorplans" class="bgWhite">
+<div id="floorplans">
     <% for(i = 0; i < floor_plans.length; i++){ %>
     <table class="width100">
         <tr>
@@ -31,7 +31,7 @@
     <% } %>
 </div>
 <h2>Reviews</h2>
-<div id="reviews" class="bgWhite">
+<div id="reviews">
     <p class="noBorder reviewStars">
         <strong class="block">Apartment is Fantastic</strong>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.
@@ -55,9 +55,10 @@
 </div>
 <h2>
 Map
+<a href="#!" class="sendToCell block right" id="buttonCA">Send to Cell</a>
 <a href="http://maps.apple.com/?daddr=<%= property.attributes.streetAddress %>,<%= property.attributes.city %>,<%= property.attributes.state %> <%= property.attributes.zip %>" target="_blank" id="getDirectionsButton" class="block right">Get Directions</a>
 </h2>
-<div id="map" class="clearFix bgWhite">
+<div id="map" class="clearFix">
     <div id="property-map"></div>
     <p><%= property.attributes.streetAddress %>,<%= property.attributes.city %>,<%= property.attributes.state %> <%= property.attributes.zip %></p>
 </div>
