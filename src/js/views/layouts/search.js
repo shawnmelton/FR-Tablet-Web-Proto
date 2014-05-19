@@ -143,6 +143,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
 
         loadResultsSet: function(searchString) {
             var _this = this;
+            $('#map-loader').removeClass('hidden');
 
             //Initialize to zero or increment based on whether
             //or not this is the first call of a new zip code
@@ -226,6 +227,12 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     if(!_this.mapInitialized){
                         _this.initializeMap(_this.listings);
                     }
+
+                    $('#map-loader').addClass('hidden');
+                },
+                error: function(error){
+                    console.log('Error: ', error);
+                    $('#map-loader').addClass('hidden');  
                 }
             });
         },
@@ -306,6 +313,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             //Check for "Show Map" setting
             this.$el.addClass('showMap');
             this.mapCanvas.addClass('showMap');
+            $('#map-container').show();
 
             //Toggle browse/split-map view
             $('#currentLocationButton').click(function(){
@@ -314,7 +322,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
 
             //Check for orientation
             window.addEventListener("orientationchange", function() {
-                this.setContentDimensions();
+                _this.setContentDimensions();
             }, false);
 
             this.resultsEl = $(document.getElementById('results'));
@@ -417,6 +425,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             if($(window).width() <= 768 || window.orientation === 0 || window.orientation === 180){
                 this.$el.addClass('portrait');
                 this.mapCanvas.addClass('portrait');
+                $('#map-container').addClass('portrait');
 
                 //If Portrait, the height is set by percentage,
                 //so we need to clear out the inline css text
@@ -426,6 +435,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             else{
                 this.$el.removeClass('portrait');
                 this.mapCanvas.removeClass('portrait');
+                $('#map-container').removeClass('portrait');
 
                 //If Landscape, set height by window height
                 this.mapCanvas.css('height', (this.contentHeight - (this.contentHeight*0.01)) + "px");

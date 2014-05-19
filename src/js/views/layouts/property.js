@@ -197,6 +197,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
 
         render: function(){
 
+            $('#map-container').hide();
             $('#map-canvas').removeClass('showMap');
             
             if(!this.valid()) {

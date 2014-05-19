@@ -184,7 +184,7 @@
         width: 62%;
 
         >.aspect_fill {
-            padding-top: 36%; /* 4:3 aspect ratio */
+            padding-top: 36.3%; /* 4:3 aspect ratio */
         }
         >img {
             top: -25%;
@@ -218,8 +218,8 @@
         &.portrait{
             width: 100%;
             height: 50%;
-            position: fixed;
-            top: 50%;
+            position: absolute;
+            margin-top: 60%;
             padding: 0;
 
             .basic {
@@ -232,7 +232,7 @@
                 width: 64%;
             }
                 .select .aspect_fill {
-                    padding-top: 36%;
+                    padding-top: 36.3%;
                 }
         }
     }
@@ -267,11 +267,35 @@
         }
     }
 }
+#map-container{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: #eaeaea;
+    overflow: hidden;
+    z-index: 0;
+
+    &.portrait{
+        width: 100%;
+        height: 50%;
+        left: 0;
+        z-index: 2;
+
+        .map_loader{
+            margin: 0 0 0 1.5%;
+            left: 0;
+            width: 97%;
+        }
+    }
+
     #map-canvas {
-        position: fixed;
+        position: absolute;
         top: 60px;
-        left: 50%;
-        width: 49%;
+        left: 0;
+        height: 100%;
+        width: 100%;
         margin: 0 0 1% 1%;
         background: url(../img/large_map_sample.png) center;
         background-size: auto 100%;
@@ -283,14 +307,39 @@
             //This code is only necessary for desktop resizing
             //as it is taken care of by orientation media query
             &.portrait{
-                height: 42.5%;
+                position: absolute;
+                top: 0;
+                height: 97%;
                 width: 97%;
                 margin: 0 0 1% 1.5%;
                 left: 0;
             }
         }
     }
-    
+
+    .map_loader{
+        position: absolute;
+        right: 0;
+        bottom: 2%;
+        width: 99%;
+        height: 60px;
+        padding: 0;
+        margin: 0;
+        background: rgba(139, 185, 255, 0.9);
+        -webkit-transition: opacity 0.3s;
+
+        >span{
+            position: absolute;
+            color: #FFF;
+            font-size: 4vw;
+            margin: 15px;
+        }
+
+        &.hidden{
+            opacity: 0;
+        }
+    }
+}
 
     .marker{
         top: 0;
@@ -347,16 +396,6 @@
                 width: 100%;
             }
         }
-    }
-
-    .map_loader{
-        position: fixed;
-        width: 100%;
-        background: rgba(23, 116, 255, 0.23);
-        bottom: 0;
-        color: #FFF;
-        font-size: 2vw;
-        padding: 1%;
     }
 
     #results {
