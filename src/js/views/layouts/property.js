@@ -163,7 +163,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
          */
         onVideoThumbnailClick: function() {
             $('#video_lightbox').addClass('show');
-            video.play();
             if(isMobileDevice){
                 console.log('Mobile Device!');
             }
@@ -236,8 +235,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                         valid = false;
                     }
 
-                    console.log('Property: ', _this.property);
                     galleryViewEl.setProperty(_this.property);
+
+                    console.log('Video URL: ', _this.property.attributes.video);
 
                     // Reset elements for this property view.
                     _this.moreEl = null;
@@ -249,7 +249,22 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                             property: _this.property,
                             propertyAddress: _this.property.address
                         }),
+                        detailsSection: '',
+                        floorplansSection: '',
+                        reviewsSection:'',
+                        mapSection:'',
                         guestCardForm: guestCardFormEl.getHTML(),
+                        communitySpotlight: (_this.property.attributes.video.length > 0) ? JST['src/js/templates/elements/communitySpotlight.html']({
+                            video_source: _this.property.attributes.video
+                        }) : '',
+                        propertyGallery: JST['src/js/templates/elements/propertyGallery.html']({
+                            images: _this.property.attributes.images
+                        }),
+                        propertyManagement: JST['src/js/templates/elements/propertyManagement.html']({
+                            management_info: ''
+                        }),
+                        officeHours: '',
+                        petPolicy: '',
                         isSelect: true
                     }));
                     _this.$el.attr("class", "property");

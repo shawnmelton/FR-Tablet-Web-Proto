@@ -180,13 +180,13 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
 
                     $(this).unbind('webkitTransitionEnded');
 
-                    console.log('Fingers: ', fingerCount, ', distance: ', distance, ', direction: ', direction);
+                    // console.log('Fingers: ', fingerCount, ', distance: ', distance, ', direction: ', direction);
 
                     //Tap action
                     if(fingerCount == 1){
                         if(phase == 'end'){
                             if($(this).hasClass('scaled')){
-                                $(this).css('-webkit-transform', 'scale(1)');
+                                $(this).css('-webkit-transform', 'scale(1) translateX(-50%) translateY(-50%)');
                                 $(this).bind('webkitTransitionEnd', function(ev){
                                     $(this).removeClass('scaled');
                                     _this.photoLightbox.removeClass('scaled');
@@ -213,7 +213,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                             if(phase === 'end'){
                                 if(pinchZoom < 1){
                                     $(this).addClass('scaled');
-                                    $(this).css('-webkit-transform', 'scale(1)');
+                                    $(this).css('-webkit-transform', 'scale(1) translateX(-50%) translateY(-50%)');
                                     $(this).bind('webkitTransitionEnd', function(ev){
 
                                         $(this).removeClass('scaled');

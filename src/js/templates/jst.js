@@ -31,6 +31,18 @@ __p += '\n                </select></div>\n                <div class="tableCell
 return __p
 };
 
+this["JST"]["src/js/templates/elements/communitySpotlight.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div id="communitySpotlight" class="moreInfoSection">\n\t<h3 class="sectionTitle">COMMUNITY SPOTLIGHT</h3>\n\t<video id="video" preload="auto" controls>\n\t\t<source  width=\'100%\' src=\'' +
+((__t = ( video_source )) == null ? '' : __t) +
+'\'  />\n\t</video>\n</div>';
+
+}
+return __p
+};
+
 this["JST"]["src/js/templates/elements/footerProfile.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -61,7 +73,7 @@ this["JST"]["src/js/templates/elements/guestCardForm.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form id="guestCard" method="post" action="" class="absolute height100">\n    <h3>Check Availability</h3>\n    <fieldset>\n        <input type="text" placeholder="Full Name" name="fullName" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Email Address" name="emailAddress" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Phone Number" name="phoneNumber" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <textarea placeholder="I am interested in more information about this property." name="comments" class="width100 borderBox"></textarea>\n    </fieldset>\n    <fieldset>\n        <button type="submit" class="width100 borderBox whiteText alignCenter">Check Availability</button>\n    </fieldset>\n</form>';
+__p += '<form id="guestCard" method="post" action="" class="height100">\n    <h3>Check Availability</h3>\n    <fieldset>\n        <input type="text" placeholder="Full Name" name="fullName" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Email Address" name="emailAddress" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Phone Number" name="phoneNumber" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <textarea placeholder="I am interested in more information about this property." name="comments" class="width100 borderBox"></textarea>\n    </fieldset>\n    <fieldset>\n        <button type="submit" class="width100 borderBox whiteText alignCenter">Check Availability</button>\n    </fieldset>\n</form>';
 
 }
 return __p
@@ -184,6 +196,25 @@ __p += '\n</div>';
 return __p
 };
 
+this["JST"]["src/js/templates/elements/propertyGallery.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div id="propertyGallery" class="moreInfoSection">\n\t<h3 class="sectionTitle">PROPERTY GALLERY</h3>\n\t<div class="galleryPhotos">\n    ';
+ 
+    var max_length = (images.length > 6) ? 6 : images.length;
+    for(i = 0; i < max_length; i++){ ;
+__p += '\n    \t<img src="' +
+((__t = ( images[i] )) == null ? '' : __t) +
+'" />\n    ';
+ } ;
+__p += '\n\t</div>\n</div>';
+
+}
+return __p
+};
+
 this["JST"]["src/js/templates/elements/propertyInfo.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -207,7 +238,7 @@ __p += '\n    <table class="width100">\n        <tr>\n            <td class="ali
 ((__t = ( floor_plans[i].description )) == null ? '' : __t) +
 '</p>\n        </td></tr>\n    </table>\n    ';
  } ;
-__p += '\n</div>\n<h2>Reviews</h2>\n<div id="reviews" class="bgWhite">\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>\n<h2>\nMap\n<a href="http://maps.apple.com/?daddr=' +
+__p += '\n</div>\n<h2>Reviews</h2>\n<div id="reviews" class="bgWhite">\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>\n<h2>\nMap\n<a href="#!" id="buttonCA" class="block right">Send Me A Text!</a>\n<a href="http://maps.apple.com/?daddr=' +
 ((__t = ( property.attributes.streetAddress )) == null ? '' : __t) +
 ',' +
 ((__t = ( property.attributes.city )) == null ? '' : __t) +
@@ -224,6 +255,16 @@ __p += '\n</div>\n<h2>Reviews</h2>\n<div id="reviews" class="bgWhite">\n    <p c
 ' ' +
 ((__t = ( property.attributes.zip )) == null ? '' : __t) +
 '</p>\n</div>';
+
+}
+return __p
+};
+
+this["JST"]["src/js/templates/elements/propertyManagement.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div id="propertyManagement" class="moreInfoSection">\n\t<h3 class="sectionTitle">PROPERTY MANAGEMENT</h3>\n\t<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>\n</div>';
 
 }
 return __p
@@ -421,15 +462,25 @@ __p += '<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArro
 ' - ' +
 ((__t = ( property.attributes.price.max )) == null ? '' : __t) +
 '<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p class="clickable pointer" section="reviews">\n            <span id="webReview" class="block reviewStars">4 Reviews</span>\n            <a>View Reviews from the Web</a>\n        </p>\n        ';
- if(isSelect) { ;
+ if(property.attributes.video.length) { ;
 __p += '\n        <div class="clickable pointer" section="video">\n            <div class="video_thumb" style="background-image: url(' +
 ((__t = ( property.attributes.images[2] )) == null ? '' : __t) +
 ')">\n                <img src="/img/play_button.png" />\n            </div>\n        </div>\n        ';
  } ;
-__p += '\n    </div>\n    <div class="buttons table width100">\n        <div class="tableRow">\n            <div class="tableCell"><button id="buttonCA" class="block noBorder whiteText width100 alignCenter">Check Availability</button></div>\n        </div>\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
+__p += '\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
 ((__t = ( moreContent )) == null ? '' : __t) +
 '</div>\n        <div class="form relative tableCell vAlignTop">\n            ' +
 ((__t = ( guestCardForm )) == null ? '' : __t) +
+'\n            ' +
+((__t = ( communitySpotlight )) == null ? '' : __t) +
+'\n            ' +
+((__t = ( propertyGallery )) == null ? '' : __t) +
+'\n            ' +
+((__t = ( propertyManagement )) == null ? '' : __t) +
+'\n            ' +
+((__t = ( officeHours )) == null ? '' : __t) +
+'\n            ' +
+((__t = ( petPolicy )) == null ? '' : __t) +
 '\n        </div>\n    </div>\n</section>';
 
 }

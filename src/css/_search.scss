@@ -275,6 +275,7 @@
     height: 100%;
     background: #eaeaea;
     overflow: hidden;
+    display: none;
     z-index: 0;
 
     &.portrait{
@@ -327,6 +328,7 @@
         margin: 0;
         background: rgba(139, 185, 255, 0.9);
         -webkit-transition: opacity 0.3s;
+        display: none;
 
         >span{
             position: absolute;

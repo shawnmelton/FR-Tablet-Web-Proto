@@ -112,14 +112,17 @@
 
     .photo_container{
         float: left;
+        position: relative;
         height: 100%;
         text-align: center;
         overflow: hidden;
 
         >img {
-            top: 0;
-            left: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
             height: 100%;
+            -webkit-transform: translateX(-50%) translateY(-50%);
 
             &.panned{
 
@@ -343,8 +346,13 @@
                     border: 1px solid #aaa;
                     background: #ddd;
                     color: #333;
-                    margin: 0 10px;
+                    margin: 0 10px 0 0;
                     font-size: 14px;
+
+                    &#buttonCA{
+                        background-color: #e97d0e;
+                        color: #FFF;
+                    }
                 }
             }
         }
@@ -416,6 +424,34 @@
                     margin-top: 10px;
 
                     &.touched { background: #c60; }
+                }
+            }
+        }
+
+        .moreInfoSection{
+            float: left;
+            margin: 20px 0% 1% 1.5%;
+            
+            >video{
+                width: 99%;
+            }
+
+            >h3{
+                padding: 2% 1%;
+                color: #FFF;
+            }
+
+            >p{
+                font-size: 12px;
+                color: #FFF;
+            }
+
+            >.galleryPhotos{
+                >img{
+                    float: left;
+                    width: 47%;
+                    height: 100px;
+                    margin: 1.2% 1.5%;
                 }
             }
         }
