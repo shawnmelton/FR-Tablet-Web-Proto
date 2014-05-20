@@ -220,9 +220,11 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<h2>Details</h2>\n<div id="details" class="bgWhite">\n    <table class="width100">\n        <tr>\n            <td class="name alignLeft vAlignMiddle">' +
+__p += '<div id="details" class="section">\n    <h2>Details</h2>\n    <table class="width100">\n        <tr>\n            <td class="name alignLeft vAlignMiddle">' +
 ((__t = ( property.name )) == null ? '' : __t) +
-'</td>\n            <td class="alignCenter vAlignMiddle">1<span class="block">Beds</span></td>\n            <td class="alignCenter vAlignMiddle">2<span class="block">Baths</span></td>\n            <td class="alignCenter vAlignMiddle">$1,500<span class="block">Monthly</span></td>\n        </tr>\n    </table>\n    <p>Curabitur eleifend nisi lobortis, adipiscing mauris in, venenatis ipsum. Sed suscipit nisi ut tincidunt facilisis. Praesent ligula mi, cursus eu gravida nec, consequat id sapien. Vestibulum adipiscing quis mi quis mollis. In condimentum consequat felis, sit amet gravida massa elementum quis. Ut suscipit aliquet dolor, vitae laoreet nibh mollis non. Aenean diam justo, pretium et odio a, fermentum tempus metus.</p>\n</div>\n<h2>Floor Plans</h2>\n<div id="floorplans" class="bgWhite">\n    ';
+'</td>\n            <td class="alignCenter vAlignMiddle">1<span class="block">Beds</span></td>\n            <td class="alignCenter vAlignMiddle">2<span class="block">Baths</span></td>\n            <td class="alignCenter vAlignMiddle">$1,500<span class="block">Monthly</span></td>\n        </tr>\n    </table>\n    <p>Curabitur eleifend nisi lobortis, adipiscing mauris in, venenatis ipsum. Sed suscipit nisi ut tincidunt facilisis. Praesent ligula mi, cursus eu gravida nec, consequat id sapien. Vestibulum adipiscing quis mi quis mollis. In condimentum consequat felis, sit amet gravida massa elementum quis. Ut suscipit aliquet dolor, vitae laoreet nibh mollis non. Aenean diam justo, pretium et odio a, fermentum tempus metus.</p>\n\n    <p class="pet_details">' +
+((__t = ( property.attributes.pet_policy )) == null ? '' : __t) +
+'</p>\n    <p class="hours">\n        Office Hours\n        <ul>\n            <li>Monday - Friday 10am - 6pm</li>\n        </ul>\n    </p>\n</div>\n\n<div id="floorplans" class="section">\n    <h2>Floor Plans</h2>\n    ';
  for(i = 0; i < floor_plans.length; i++){ ;
 __p += '\n    <table class="width100">\n        <tr>\n            <td class="alignLeft">\n                ' +
 ((__t = ( floor_plans[i].name )) == null ? '' : __t) +
@@ -238,7 +240,13 @@ __p += '\n    <table class="width100">\n        <tr>\n            <td class="ali
 ((__t = ( floor_plans[i].description )) == null ? '' : __t) +
 '</p>\n        </td></tr>\n    </table>\n    ';
  } ;
-__p += '\n</div>\n<h2>Reviews</h2>\n<div id="reviews" class="bgWhite">\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>\n<h2>\nMap\n<a href="#!" id="buttonCA" class="block right">Send Me A Text!</a>\n<a href="http://maps.apple.com/?daddr=' +
+__p += '\n</div>\n\n<div id="amenities" class="section">\n    <h2>Features & Amenities</h2>\n    <ul>\n    ';
+ for(i = 0; i < property.attributes.features.length; i++){ ;
+__p += '\n        <li>' +
+((__t = ( property.attributes.features[i].name )) == null ? '' : __t) +
+'</li>\n    ';
+ } ;
+__p += '\n    </ul>\n</div>\n\n<div id="reviews" class="section">\n    <h2>Reviews</h2>\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>\n\n<div id="map" class="clearFix section">\n    <h2>\n    Map\n    <a href="#!" id="buttonCA" class="block right">Send Me A Text!</a>\n    <a href="http://maps.apple.com/?daddr=' +
 ((__t = ( property.attributes.streetAddress )) == null ? '' : __t) +
 ',' +
 ((__t = ( property.attributes.city )) == null ? '' : __t) +
@@ -246,7 +254,7 @@ __p += '\n</div>\n<h2>Reviews</h2>\n<div id="reviews" class="bgWhite">\n    <p c
 ((__t = ( property.attributes.state )) == null ? '' : __t) +
 ' ' +
 ((__t = ( property.attributes.zip )) == null ? '' : __t) +
-'" target="_blank" id="getDirectionsButton" class="block right">Get Directions</a>\n</h2>\n<div id="map" class="clearFix bgWhite">\n    <div id="property-map"></div>\n    <p>' +
+'" target="_blank" id="getDirectionsButton" class="block right">Get Directions</a>\n    </h2>\n    <div id="property-map"></div>\n    <p>' +
 ((__t = ( property.attributes.streetAddress )) == null ? '' : __t) +
 ',' +
 ((__t = ( property.attributes.city )) == null ? '' : __t) +
@@ -264,7 +272,7 @@ this["JST"]["src/js/templates/elements/propertyManagement.html"] = function(obj)
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="propertyManagement" class="moreInfoSection">\n\t<h3 class="sectionTitle">PROPERTY MANAGEMENT</h3>\n\t<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>\n</div>';
+__p += '<div id="propertyManagement" class="moreInfoSection">\n\t<h3 class="sectionTitle">PROPERTY MANAGEMENT</h3>\n\t<h2 >Prudential Towne Realty</h3>\n\t<img src="" />\n\t<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>\n</div>';
 
 }
 return __p

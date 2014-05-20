@@ -281,6 +281,8 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
             // Revert changes if the user does not drag far enought.          
             var newImgLeft = (distance < parseInt(this.contentWidth * 0.12)) ? revertPos : movePos;
 
+            console.log('Index: ', targetImg.index());
+
             targetImg
                 .addClass('moving')
                 .css('-webkit-transform', 'translate('+ newImgLeft +'px, '+ this.startingTop +'px)');
@@ -425,7 +427,6 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
             var imageCount = this.galleryEl.children('img').length;
             this.galleryEl.swipe({
                 click: function(event) {
-
                     var contentWidth = $('#content').width();
                     var contentHeight = $('#content').height();
                     imageCount = _this.galleryEl.children('img').length;
@@ -484,7 +485,6 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                         switch(direction.toString().toLowerCase()) {
                             case 'left':
                                 if(!_this.lockLeftMove) {
-
                                     //Change opacity of floorplans, reviews, and details on pan
                                     if($(_this.currentImageEl).hasClass('first')) {
                                         panArea = _this.contentWidth/2;

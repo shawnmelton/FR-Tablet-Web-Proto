@@ -274,6 +274,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     _this.$el.prepend($('<div class="lightbox"></div>'));
                     $('.lightbox').prepend(JST['src/js/templates/elements/sendToCellForm.html']);
 
+                    $('.galleryPhotos>img').click(function(){
+                        console.log($(this).index());
+                    });
+
                     _this.initializePropertyMap();
                     guestCardFormEl.init();
                     searchBarViewEl.renderToHeader();

@@ -1,5 +1,5 @@
-<h2>Details</h2>
-<div id="details" class="bgWhite">
+<div id="details" class="section">
+    <h2>Details</h2>
     <table class="width100">
         <tr>
             <td class="name alignLeft vAlignMiddle"><%= property.name %></td>
@@ -9,9 +9,18 @@
         </tr>
     </table>
     <p>Curabitur eleifend nisi lobortis, adipiscing mauris in, venenatis ipsum. Sed suscipit nisi ut tincidunt facilisis. Praesent ligula mi, cursus eu gravida nec, consequat id sapien. Vestibulum adipiscing quis mi quis mollis. In condimentum consequat felis, sit amet gravida massa elementum quis. Ut suscipit aliquet dolor, vitae laoreet nibh mollis non. Aenean diam justo, pretium et odio a, fermentum tempus metus.</p>
+
+    <p class="pet_details"><%= property.attributes.pet_policy %></p>
+    <p class="hours">
+        Office Hours
+        <ul>
+            <li>Monday - Friday 10am - 6pm</li>
+        </ul>
+    </p>
 </div>
-<h2>Floor Plans</h2>
-<div id="floorplans" class="bgWhite">
+
+<div id="floorplans" class="section">
+    <h2>Floor Plans</h2>
     <% for(i = 0; i < floor_plans.length; i++){ %>
     <table class="width100">
         <tr>
@@ -30,8 +39,18 @@
     </table>
     <% } %>
 </div>
-<h2>Reviews</h2>
-<div id="reviews" class="bgWhite">
+
+<div id="amenities" class="section">
+    <h2>Features & Amenities</h2>
+    <ul>
+    <% for(i = 0; i < property.attributes.features.length; i++){ %>
+        <li><%= property.attributes.features[i].name %></li>
+    <% } %>
+    </ul>
+</div>
+
+<div id="reviews" class="section">
+    <h2>Reviews</h2>
     <p class="noBorder reviewStars">
         <strong class="block">Apartment is Fantastic</strong>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.
@@ -53,12 +72,13 @@
         <span class="block">From Google Places</span>
     </p>
 </div>
-<h2>
-Map
-<a href="#!" id="buttonCA" class="block right">Send Me A Text!</a>
-<a href="http://maps.apple.com/?daddr=<%= property.attributes.streetAddress %>,<%= property.attributes.city %>,<%= property.attributes.state %> <%= property.attributes.zip %>" target="_blank" id="getDirectionsButton" class="block right">Get Directions</a>
-</h2>
-<div id="map" class="clearFix bgWhite">
+
+<div id="map" class="clearFix section">
+    <h2>
+    Map
+    <a href="#!" id="buttonCA" class="block right">Send Me A Text!</a>
+    <a href="http://maps.apple.com/?daddr=<%= property.attributes.streetAddress %>,<%= property.attributes.city %>,<%= property.attributes.state %> <%= property.attributes.zip %>" target="_blank" id="getDirectionsButton" class="block right">Get Directions</a>
+    </h2>
     <div id="property-map"></div>
     <p><%= property.attributes.streetAddress %>,<%= property.attributes.city %>,<%= property.attributes.state %> <%= property.attributes.zip %></p>
 </div>

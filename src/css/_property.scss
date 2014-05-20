@@ -331,27 +331,33 @@
     }
 
     #more {
+        background-color: rgba(0,0,0,0.5);
         .tableCell.form { width: 30%;}
     }
         #moreContent{
-            >h2{
-                font-size: 24px;
-                line-height: 24px;
-                background-color: rgba(255, 255, 255, 0.5);
-                padding: 10px 0 10px 30px;
+            >.section{
+                color: #FFF;
+                float: left;
+                width: 100%;
 
-                a {
-                    padding: 0px 10px;
-                    border-radius: 5px;
-                    border: 1px solid #aaa;
-                    background: #ddd;
-                    color: #333;
-                    margin: 0 10px 0 0;
-                    font-size: 14px;
+                h2{
+                    font-size: 24px;
+                    line-height: 24px;
+                    padding: 10px 0 10px 30px;
 
-                    &#buttonCA{
-                        background-color: #e97d0e;
-                        color: #FFF;
+                    a {
+                        padding: 0px 10px;
+                        border-radius: 5px;
+                        border: 1px solid #aaa;
+                        background: #ddd;
+                        color: #333;
+                        margin: 0 10px 0 0;
+                        font-size: 14px;
+
+                        &#buttonCA{
+                            background-color: #e97d0e;
+                            color: #FFF;
+                        }
                     }
                 }
             }
@@ -504,10 +510,23 @@
             }
         }
 
+        #amenities{
+            >ul{
+                float: left;
+
+                >li{
+                    float: left;
+                    width: 40%;
+                    padding: 4px 0%;
+                    margin: 0 0% 0 7%;
+                    list-style-type: disc;
+                    font-size: 14px;
+                }
+            }
+        }
         /**************/
 
         #reviews {
-            padding: 15px;
 
             >p {
                 padding: 20px 25px 20px 25px;
@@ -532,7 +551,6 @@
         /**************/
 
         #details {
-            padding: 25px 25px 35px;
 
             >table {
                 margin-bottom: 20px;
