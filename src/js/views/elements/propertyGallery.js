@@ -125,11 +125,6 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                     break;
             }
 
-            //Check for orientation
-            window.addEventListener("orientationchange", function() {
-                _this.setContentDimensions();
-            }, false);
-
             //Cache reference to hideable teaser sections
             //for bulk animations
             this.teaserSections = $('#teaser .info p[section="reviews"], #teaser .info p[section="floorplans"], #teaser .info div[section="video"], #teaser .info p[section="details"]');
@@ -141,9 +136,6 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
             this.buttonCA = $('#buttonCA');
 
             this.photoLightbox = $('#photo_lightbox');
-            // this.photoLightbox.bind('click', function(ev){
-            //     $(this).removeClass('show');
-            // });
             this.photoLightbox.bind('touchmove', function(ev){
                 ev.preventDefault();
                 return false;
@@ -167,8 +159,16 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
         loadImage: function(url, nextEl) {
             var _this = this;
             var img = $('<img src="'+ url +'" width="'+ this.bgImgWidth +'">');
-            var newImg= document.createElement('img');
+            var newImg = document.createElement('img');
             newImg.src= img.attr('src');
+
+            if(window.orientation === 0 || window.orientation === 180){
+                newImg.className = 'relativeCenter width100';
+            }
+            else{
+                newImg.className = 'height100';
+            }
+            
             var container = $('<div class="photo_container"></div>');
             container.width($('#content').width());
 
@@ -376,20 +376,6 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
         },
 
         /**
-         * Set the content height for this page.
-         */
-        setContentDimensions: function() {
-            this.contentHeight = $(window).height();
-            console.log('Content Height: ', this.contentHeight, ', Orientation: ', window.orientation);
-            if(window.orientation == 90 || window.orientation == -90){
-                console.log('Landscape');
-            }
-            else{
-                console.log('Portrait');
-            }
-        },
-
-        /**
          * If the swipe arrow is touched, advance the photo gallery in the appropriate direction.
          */
         setHorizArrowEvent: function() {
@@ -449,16 +435,23 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                         var imageAlreadyAdded = $(_this.photoLightbox).has('img[src="' + currentImage.attr('src') + '"]').length;
                         //Check if this image has already been added
                         if(!imageAlreadyAdded){
-                            var img= document.createElement('img');
-                            img.src= currentImage.attr('src');
+                            var newImg= document.createElement('img');
+                            newImg.src= currentImage.attr('src');
+
+                            if(window.orientation === 0 || window.orientation === 180){
+                                newImg.className = 'relativeCenter width100';
+                            }
+                            else{
+                                newImg.className = 'height100';
+                            }
                             var container = $('<div class="photo_container"></div>');
-                            container.width(contentWidth);
-                            container.append(img);
+                            container.width($(window).width());
+                            container.append(newImg);
                             $(_this.photoLightbox).append(container);
                         }
                     }
 
-                    $(_this.photoLightbox).width(contentWidth * imageCount);
+                    $(_this.photoLightbox).width($(window).width() * imageCount);
                 },
                 swipeLeft: function(event, direction, distance, duration, fingerCount) {
                     if(!_this.lockLeftMove) {

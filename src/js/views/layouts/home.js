@@ -62,6 +62,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                         var searchOptions = {
                             limit: 4,
                             start: 0,
+                            product: 'Select',
                             city: cityName
                         };
                         $('[name="keywords"]').val(cityName);
