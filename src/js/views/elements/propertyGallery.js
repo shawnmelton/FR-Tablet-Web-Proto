@@ -32,13 +32,64 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
          * The property images should always be first.
          */
         addFirstImage: function(url) {
-            this.currentImageEl = $('<img src="' + this.images[0] + '" '+
+            this.currentImageEl = $('<img src="' + this.images.shift() + '" '+
                 'width="'+ this.bgImgWidth +'">');
             this.currentImageEl.addClass('first');
 
             this.galleryEl.prepend(this.currentImageEl);
             this.loadNextImage();
             this.loadNextImage();
+        },
+
+        /**
+         *  Open photo lightbox to a specific image
+         *  @param index <int>
+         */
+        openImageInLightbox: function(index){
+            var _this = this;
+            var imageCount = this.galleryEl.children('img').length;
+            _this.currentImageIndex = index;
+
+            //Add 'show' class to Lightbox
+            //Set lightbox height to content height
+            //Loop over Gallery Images
+            //Check to make sure image isn't added
+            //Set image container width to content width
+            //Add image container with image inside
+            //Adjust Lightbox width to image count * content width
+            //Set Lightbox offset to that of the image that was clicked
+            /*Add other images as user swipes*/
+
+            $(_this.photoLightbox).addClass('show');
+
+            for(i=0; i < imageCount; i++){
+                var currentImage = $(_this.galleryEl.children('img')[i]);
+                var imageAlreadyAdded = $(_this.photoLightbox).has('img[src="' + currentImage.attr('src') + '"]').length;
+                //Check if this image has already been added
+                if(!imageAlreadyAdded){
+                    var newImg= document.createElement('img');
+                    newImg.src= currentImage.attr('src');
+
+                    if(window.orientation === 0 || window.orientation === 180){
+                        newImg.className = 'relativeCenter width100';
+                    }
+                    else{
+                        newImg.className = 'height100';
+                    }
+                    var container = $('<div class="photo_container"></div>');
+                    container.width($(window).width());
+                    container.append(newImg);
+                    $(_this.photoLightbox).prepend(container);
+                }
+            }
+
+            //Update lightbox container width to hold all images
+            $(_this.photoLightbox).width($(window).width() * imageCount);
+
+            //Move lightbox to desired image
+            var offset = -1 * index * $(window).width();
+            _this.photoLightbox.css("-webkit-transition-duration", "0s");
+            _this.photoLightbox.css("-webkit-transform", "translate3d("+ offset +"px,0px,0px)");
         },
 
         /**
@@ -180,7 +231,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
 
                     $(this).unbind('webkitTransitionEnded');
 
-                    // console.log('Fingers: ', fingerCount, ', distance: ', distance, ', direction: ', direction);
+                    console.log('Fingers: ', fingerCount, ', distance: ', distance, ', direction: ', direction);
 
                     //Tap action
                     if(fingerCount == 1){
@@ -253,7 +304,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
         loadNextImage: function() {
             console.log('Load Next Image');
             if(this.images.length > 0) {
-                var img = this.loadImage(this.images.pop().replace('[SIZE]', this.bgImgWidth),
+                var img = this.loadImage(this.images.shift().replace('[SIZE]', this.bgImgWidth),
                     this.galleryEl.children('img').first());
 
                 if(this.images.length === 0) {
@@ -280,8 +331,6 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
 
             // Revert changes if the user does not drag far enought.          
             var newImgLeft = (distance < parseInt(this.contentWidth * 0.12)) ? revertPos : movePos;
-
-            console.log('Index: ', targetImg.index());
 
             targetImg
                 .addClass('moving')
@@ -416,42 +465,8 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                     var contentWidth = $('#content').width();
                     var contentHeight = $('#content').height();
                     imageCount = _this.galleryEl.children('img').length;
-
-                    //Add 'show' class to Lightbox
-                    //Set lightbox height to content height
-                    //Loop over Gallery Images
-                    //Check to make sure image isn't added
-                    //Set image container width to content width
-                    //Add image container with image inside
-                    //Adjust Lightbox width to image count * content width
-                    //Set Lightbox offset to that of the image that was clicked
-                    /*Add other images as user swipes*/
-
-                    $(_this.photoLightbox).addClass('show');
-                    // $(_this.photoLightbox).height(contentHeight);
-
-                    for(i=0; i < imageCount; i++){
-                        var currentImage = $(_this.galleryEl.children('img')[i]);
-                        var imageAlreadyAdded = $(_this.photoLightbox).has('img[src="' + currentImage.attr('src') + '"]').length;
-                        //Check if this image has already been added
-                        if(!imageAlreadyAdded){
-                            var newImg= document.createElement('img');
-                            newImg.src= currentImage.attr('src');
-
-                            if(window.orientation === 0 || window.orientation === 180){
-                                newImg.className = 'relativeCenter width100';
-                            }
-                            else{
-                                newImg.className = 'height100';
-                            }
-                            var container = $('<div class="photo_container"></div>');
-                            container.width($(window).width());
-                            container.append(newImg);
-                            $(_this.photoLightbox).append(container);
-                        }
-                    }
-
-                    $(_this.photoLightbox).width($(window).width() * imageCount);
+                    var imageIndex = imageCount - $(_this.currentImageEl).index() - 1;
+                    _this.openImageInLightbox(imageIndex);
                 },
                 swipeLeft: function(event, direction, distance, duration, fingerCount) {
                     if(!_this.lockLeftMove) {
@@ -579,16 +594,16 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                     var duration=0;
 
                     if (direction == "left")
-                        scrollImages((IMG_WIDTH * currentImg) + distance, duration);
+                        scrollImages((IMG_WIDTH * _this.currentImageIndex) + distance, duration);
 
                     else if (direction == "right")
-                        scrollImages((IMG_WIDTH * currentImg) - distance, duration);
+                        scrollImages((IMG_WIDTH * _this.currentImageIndex) - distance, duration);
                 }
 
                 //Else, cancel means snap back to the begining
                 else if ( phase == "cancel")
                 {
-                    scrollImages(IMG_WIDTH * currentImg, speed);
+                    scrollImages(IMG_WIDTH * _this.currentImageIndex, speed);
                 }
 
                 //Else end means the swipe was completed, so move to the next image
@@ -603,15 +618,17 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
 
             function previousImage()
             {
-                currentImg = Math.max(currentImg-1, 0);
-                scrollImages( IMG_WIDTH * currentImg, speed);
+                _this.currentImageIndex = Math.max(_this.currentImageIndex-1, 0);
+                scrollImages( IMG_WIDTH * _this.currentImageIndex, speed);
+                _this.moveCurrentImage(_this.startingLeft, (-1 * _this.bgImgWidth), 2000);
             }
 
             function nextImage()
             {
-                currentImg = Math.min(currentImg+1, imageCount-1);
-                scrollImages( IMG_WIDTH * currentImg, speed);
+                _this.currentImageIndex = Math.min(_this.currentImageIndex+1, imageCount-1);
+                scrollImages( IMG_WIDTH * _this.currentImageIndex, speed);
                 _this.loadNextImage();
+                _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, 2000);
             }
 
             /**

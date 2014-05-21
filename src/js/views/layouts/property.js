@@ -278,10 +278,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     _this.$el.prepend($('<div class="lightbox"></div>'));
                     $('.lightbox').prepend(JST['src/js/templates/elements/sendToCellForm.html']);
 
-                    $('.galleryPhotos>img').click(function(){
-                        console.log($(this).index());
-                    });
-
                     _this.initializePropertyMap();
                     guestCardFormEl.init();
                     searchBarViewEl.renderToHeader();
@@ -371,7 +367,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             this.$el.children('section#more').height(moreInfoHeight);
             this.$el.children('section#more').css('top', $(window).height());
             $('#video_lightbox').height($(window).height());
-            $('#photo_lightbox').height(this.contentHeight);
             $('.photo_container').width($(window).width());
         },
 
@@ -506,6 +501,11 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                         }
                     }
                 });
+            });
+
+            $('.galleryPhotos>img').click(function(){
+                console.log($(this).index());
+                galleryViewEl.openImageInLightbox($(this).index());
             });
 
             // Show Video
