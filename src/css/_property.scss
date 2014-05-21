@@ -445,19 +445,21 @@
         .moreInfoSection{
             float: left;
             margin: 20px 0% 1% 1.5%;
+            color: #FFF;
             
             >video{
                 width: 99%;
             }
 
-            >h3{
-                padding: 2% 1%;
-                color: #FFF;
+            >h3, h4{
+                padding: 0 1% 1%;
+                font-size: 18px;
             }
 
             >p{
                 font-size: 12px;
-                color: #FFF;
+                padding: 1%;
+                margin: 0;
             }
 
             >.galleryPhotos{
@@ -576,7 +578,17 @@
                 }
             }
 
-            >p { line-height: 18px; }
+            >p { 
+                line-height: 18px;
+                margin: 20px;
+            }
+
+            >ul{
+                float: left;
+                width: 45%;
+                margin: 0;
+                padding: 2.5%;
+            }
         }
 
         /***************/

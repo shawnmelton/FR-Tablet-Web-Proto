@@ -97,7 +97,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.$el.empty();
             this.getFeaturedProperties();
             if($('#map-canvas').length) $('#map-canvas').removeClass('showMap');
-            this.$el.prepend(JST['src/js/templates/elements/videoLightbox.html']);
+            this.$el.prepend(JST['src/js/templates/elements/videoLightbox.html']({
+                source: ''
+            }));
             searchBarViewEl.renderToContent();
 
             this.$el.attr("class", "home");

@@ -319,7 +319,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
          * @revertPos The position of the image will go if it reverts back to previous position.
          * @distance How far the image was swiped by the user.
          */
-        moveCurrentImage: function(movePos, revertPos, distance) {
+        moveCurrentImage: function(movePos, revertPos, distance, nonAnimated) {
             var moveDirection = (revertPos === this.startingLeft) ? 'left' : 'right';
 
             // Locked.  Don't move.
@@ -332,9 +332,11 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
             // Revert changes if the user does not drag far enought.          
             var newImgLeft = (distance < parseInt(this.contentWidth * 0.12)) ? revertPos : movePos;
 
-            targetImg
-                .addClass('moving')
-                .css('-webkit-transform', 'translate('+ newImgLeft +'px, '+ this.startingTop +'px)');
+            targetImg.css('-webkit-transform', 'translate('+ newImgLeft +'px, '+ this.startingTop +'px)');
+            
+            if(!nonAnimated){
+                targetImg.addClass('moving');
+            }
 
             if(newImgLeft === movePos) {
                 //Only affect Details Panel when swiping
@@ -620,7 +622,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
             {
                 _this.currentImageIndex = Math.max(_this.currentImageIndex-1, 0);
                 scrollImages( IMG_WIDTH * _this.currentImageIndex, speed);
-                _this.moveCurrentImage(_this.startingLeft, (-1 * _this.bgImgWidth), 2000);
+                _this.moveCurrentImage(_this.startingLeft, (-1 * _this.bgImgWidth), 2000, true); //send 'true' as the parameter for 'nonAnimated'
             }
 
             function nextImage()
@@ -628,7 +630,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                 _this.currentImageIndex = Math.min(_this.currentImageIndex+1, imageCount-1);
                 scrollImages( IMG_WIDTH * _this.currentImageIndex, speed);
                 _this.loadNextImage();
-                _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, 2000);
+                _this.moveCurrentImage((-1 * _this.bgImgWidth), _this.startingLeft, 2000, true);
             }
 
             /**
