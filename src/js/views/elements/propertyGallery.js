@@ -442,7 +442,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                     /*Add other images as user swipes*/
 
                     $(_this.photoLightbox).addClass('show');
-                    $(_this.photoLightbox).height(contentHeight);
+                    // $(_this.photoLightbox).height(contentHeight);
 
                     for(i=0; i < imageCount; i++){
                         var currentImage = $(_this.galleryEl.children('img')[i]);
