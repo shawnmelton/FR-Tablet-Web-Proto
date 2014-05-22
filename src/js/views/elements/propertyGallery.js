@@ -76,6 +76,9 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                     else{
                         newImg.className = 'height100';
                     }
+
+                    $(newImg).unbind();
+                    _this.setPhotoSwipeEvent(newImg);
                     var container = $('<div class="photo_container"></div>');
                     if(container){
                         container.width($(window).width());
@@ -222,66 +225,8 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                 newImg.className = 'height100';
             }
 
-            $(newImg).swipe({
-                doubleTap: function(ev, image){
-                    $(image).toggleClass('scaled');
-                },
-                pinchStatus: function(event, phase, direction, distance , duration , fingerCount, pinchZoom) {
-
-                    $(this).unbind('webkitTransitionEnded');
-
-                    console.log('Fingers: ', fingerCount, ', distance: ', distance, ', direction: ', direction);
-
-                    //Tap action
-                    if(fingerCount == 1){
-                        if(phase == 'end'){
-                            if($(this).hasClass('scaled')){
-                                $(this).css('-webkit-transform', 'scale(1) translateX(-50%) translateY(-50%)');
-                                $(this).bind('webkitTransitionEnd', function(ev){
-                                    $(this).removeClass('scaled');
-                                    _this.photoLightbox.removeClass('scaled');
-                                });
-                            }
-                            else if(!_this.photoLightbox.hasClass('panning')){
-                                _this.photoLightbox.removeClass('show');
-                                _this.photoLightbox.width(container.width());
-                            }
-                            else{
-                                _this.photoLightbox.removeClass('panning');
-                            }
-                        }
-                        else if(phase == 'move'){
-                            _this.photoLightbox.addClass('panning');
-                            if($(this).hasClass('scaled')){
-                                _this.photoLightbox.addClass('scaled');
-                            }
-                        }
-                    }
-                    //Pinch/Move Action
-                    else if(fingerCount > 1){
-                        if(!$(this).hasClass('scaled')){
-                            if(phase === 'end'){
-                                if(pinchZoom < 1){
-                                    $(this).addClass('scaled');
-                                    $(this).css('-webkit-transform', 'scale(1) translateX(-50%) translateY(-50%)');
-                                    $(this).bind('webkitTransitionEnd', function(ev){
-
-                                        $(this).removeClass('scaled');
-                                    });
-                                }
-                                else{
-                                    $(this).addClass('scaled');
-                                }
-                            }
-                            else if(phase == 'move'){
-                                $(this).css('-webkit-transform', 'scale(' + pinchZoom + ')');
-                            }
-                        }
-                    }
-                }
-            });
-
-            
+            $(newImg).unbind();
+            _this.setPhotoSwipeEvent(newImg);
             var container = $('<div class="photo_container"></div>');
             if(container){
                 container.width($('#content').width());
@@ -658,6 +603,69 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                     _this.photoLightbox.css("-webkit-transform", "translate3d("+value +"px,0px,0px)");
                 }
             }
+        },
+
+        /**
+         * Detect pinch and tap events (both recognized by 'pinchStatus')
+         * to control zooming and closing of the Photo Lightbox
+         */ 
+        setPhotoSwipeEvent: function(photo){
+            var _this = this;
+            $(photo).swipe({
+                pinchStatus: function(event, phase, direction, distance , duration , fingerCount, pinchZoom) {
+
+                    $(this).unbind('webkitTransitionEnded');
+
+                    console.log('Fingers: ', fingerCount, ', distance: ', distance, ', direction: ', direction);
+
+                    //Tap action
+                    if(fingerCount == 1){
+                        if(phase == 'end'){
+                            if($(this).hasClass('scaled')){
+                                $(this).css('-webkit-transform', 'scale(1) translateX(-50%) translateY(-50%)');
+                                $(this).bind('webkitTransitionEnd', function(ev){
+                                    $(this).removeClass('scaled');
+                                    _this.photoLightbox.removeClass('scaled');
+                                });
+                            }
+                            else if(!_this.photoLightbox.hasClass('panning')){
+                                _this.photoLightbox.removeClass('show');
+                                _this.photoLightbox.width(_this.contentWidth);
+                            }
+                            else{
+                                _this.photoLightbox.removeClass('panning');
+                            }
+                        }
+                        else if(phase == 'move'){
+                            _this.photoLightbox.addClass('panning');
+                            if($(this).hasClass('scaled')){
+                                _this.photoLightbox.addClass('scaled');
+                            }
+                        }
+                    }
+                    //Pinch/Move Action
+                    else if(fingerCount > 1){
+                        if(!$(this).hasClass('scaled')){
+                            if(phase === 'end'){
+                                if(pinchZoom < 1){
+                                    $(this).addClass('scaled');
+                                    $(this).css('-webkit-transform', 'scale(1) translateX(-50%) translateY(-50%)');
+                                    $(this).bind('webkitTransitionEnd', function(ev){
+
+                                        $(this).removeClass('scaled');
+                                    });
+                                }
+                                else{
+                                    $(this).addClass('scaled');
+                                }
+                            }
+                            else if(phase == 'move'){
+                                $(this).css('-webkit-transform', 'scale(' + pinchZoom + ') translateX(-50%) translateY(-50%)');
+                            }
+                        }
+                    }
+                }
+            });
         },
 
         /**
