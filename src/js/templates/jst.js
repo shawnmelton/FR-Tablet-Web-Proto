@@ -241,7 +241,9 @@ __p += '\n    <table class="width100">\n        <tr>\n            <td class="ali
 '</p>\n        </td></tr>\n    </table>\n    ';
  } ;
 __p += '\n</div>\n\n<div id="amenities" class="section">\n    <h2>Features & Amenities</h2>\n    <ul>\n    ';
- for(i = 0; i < property.attributes.features.length; i++){ ;
+ 
+    if(!property.attributes.features) return false;
+    for(i = 0; i < property.attributes.features.length; i++){ ;
 __p += '\n        <li>' +
 ((__t = ( property.attributes.features[i].name )) == null ? '' : __t) +
 '</li>\n    ';

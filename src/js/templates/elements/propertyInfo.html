@@ -48,7 +48,9 @@
 <div id="amenities" class="section">
     <h2>Features & Amenities</h2>
     <ul>
-    <% for(i = 0; i < property.attributes.features.length; i++){ %>
+    <% 
+    if(!property.attributes.features) return false;
+    for(i = 0; i < property.attributes.features.length; i++){ %>
         <li><%= property.attributes.features[i].name %></li>
     <% } %>
     </ul>

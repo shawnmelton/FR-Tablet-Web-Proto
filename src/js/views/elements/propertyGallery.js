@@ -77,9 +77,11 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                         newImg.className = 'height100';
                     }
                     var container = $('<div class="photo_container"></div>');
-                    container.width($(window).width());
-                    container.append(newImg);
-                    $(_this.photoLightbox).prepend(container);
+                    if(container){
+                        container.width($(window).width());
+                        container.append(newImg);
+                        $(_this.photoLightbox).prepend(container);
+                    }
                 }
             }
 
@@ -219,9 +221,6 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
             else{
                 newImg.className = 'height100';
             }
-            
-            var container = $('<div class="photo_container"></div>');
-            container.width($('#content').width());
 
             $(newImg).swipe({
                 doubleTap: function(ev, image){
@@ -282,15 +281,20 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                 }
             });
 
-            container.append(newImg);
-            this.photoLightbox.append(container);
+            
+            var container = $('<div class="photo_container"></div>');
+            if(container){
+                container.width($('#content').width());
+                container.append(newImg);
+                this.photoLightbox.append(container);
 
-            //Set full length to handle all images
-            if(_this.photoLightbox.hasClass('show')){
-                _this.photoLightbox.width(container.width() * _this.photoLightbox.find('.photo_container').length);
-            }
-            else{
-                _this.photoLightbox.width(container.width());
+                //Set full length to handle all images
+                if(_this.photoLightbox.hasClass('show')){
+                    _this.photoLightbox.width(container.width() * _this.photoLightbox.find('.photo_container').length);
+                }
+                else{
+                    _this.photoLightbox.width(container.width());
+                }
             }
 
             nextEl.before(img);
