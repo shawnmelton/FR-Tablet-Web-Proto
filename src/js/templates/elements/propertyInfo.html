@@ -1,3 +1,6 @@
+
+<% console.log('Load Details'); %>
+
 <div id="details" class="section">
     <h2>Details</h2>
     <table class="width100">
@@ -24,6 +27,8 @@
     </ul>
 </div>
 
+<% console.log('Load Floorplans'); %>
+
 <div id="floorplans" class="section">
     <h2>Floor Plans</h2>
     <% for(i = 0; i < floor_plans.length; i++){ %>
@@ -45,16 +50,22 @@
     <% } %>
 </div>
 
+<% console.log('Load Amenities'); %>
+
 <div id="amenities" class="section">
     <h2>Features & Amenities</h2>
     <ul>
     <% 
-    if(!property.attributes.features) return false;
-    for(i = 0; i < property.attributes.features.length; i++){ %>
+    if(typeof property.attributes.features !== 'undefined') {
+    console.log('Trying to load amenities: ', property.attributes.features);
+    for(i = 0; i < property.attributes.features.length; i++){ 
+    %>
         <li><%= property.attributes.features[i].name %></li>
-    <% } %>
+    <% } } %>
     </ul>
 </div>
+
+<% console.log('Load Reviews'); %>
 
 <div id="reviews" class="section">
     <h2>Reviews</h2>
@@ -79,6 +90,8 @@
         <span class="block">From Google Places</span>
     </p>
 </div>
+
+<% console.log('Load Map'); %>
 
 <div id="map" class="clearFix section">
     <h2>

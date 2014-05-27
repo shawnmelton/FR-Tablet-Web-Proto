@@ -10,10 +10,14 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         contentHeight: 0,
         linksInactive: true,
         listings: null,
+        mapInitialized: false,
 
         initializePropertyMap: function(){
             var _this = this;
+            
             var location = new Microsoft.Maps.Location(this.property.attributes.lat, this.property.attributes.lng);
+            
+            if(!location) return false;
             var mapOptions = {
                 credentials:"AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW",
                 mapTypeId: Microsoft.Maps.MapTypeId.road,
@@ -22,7 +26,14 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 showDashboard: false,
                 center: location
             };
-            this.map = new Microsoft.Maps.Map(document.getElementById("property-map"), mapOptions);
+            
+            var propertyMap = document.getElementById("property-map");
+            if(!propertyMap) return false;
+            
+            console.log('Can getz map Element!');
+
+            this.map = new Microsoft.Maps.Map(propertyMap, mapOptions);
+
 
             var pinHTML = JST['src/js/templates/elements/pmarker.html']({
                 image_src: _this.property.attributes.primaryImage,
@@ -32,7 +43,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
             this.map.entities.push(pin);
             this.map.setView({ center: location });
-
+            this.mapInitialized = this.map;
         },
 
         loadResultsSet: function(searchString) {
@@ -60,6 +71,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
 
                             pins.push(pin);
                             locs.push(location);
+
+                            if(!_this.mapInitialized) return false;
+
                             _this.map.entities.push(pin);
                             var bounds = new Microsoft.Maps.LocationRect.fromLocations(locs);
 
@@ -238,8 +252,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     }
 
                     galleryViewEl.setProperty(_this.property);
-
-                    console.log('Video URL: ', _this.property.attributes.video);
                     var hasVideo = (typeof _this.property.attributes.video !== 'undefined');
 
                     // Reset elements for this property view.
@@ -250,7 +262,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                         moreContent: JST['src/js/templates/elements/propertyInfo.html']({
                             floor_plans: _this.property.attributes.floor_plans,
                             property: _this.property,
-                            propertyAddress: _this.property.address
+                            propertyAddress: _this.property.streetAddress
                         }),
                         detailsSection: '',
                         floorplansSection: '',
@@ -270,20 +282,23 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                         petPolicy: '',
                         isSelect: true
                     }));
+
                     _this.$el.attr("class", "property");
-                    _this.$el.prepend(JST['src/js/templates/elements/videoLightbox.html']({
-                        source: _this.property.attributes.video
-                    }));
+                    if(hasVideo){
+                        _this.$el.prepend(JST['src/js/templates/elements/videoLightbox.html']({
+                            source: _this.property.attributes.video
+                        }));
+                    }
                     _this.$el.prepend(JST['src/js/templates/elements/photoLightbox.html']);
 
                     _this.$el.prepend($('<div class="lightbox"></div>'));
                     $('.lightbox').prepend(JST['src/js/templates/elements/sendToCellForm.html']);
-
-                    _this.initializePropertyMap();
+                    
                     guestCardFormEl.init();
-                    searchBarViewEl.renderToHeader();
+                    searchBarViewEl.renderToHeader();                    
                     galleryViewEl.reset();
                     _this.relayout();
+
 
                     // Events
                     _this.setResizeEvent();
@@ -293,8 +308,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
 
                     //Get more listings
                     _this.loadResultsSet();
-
-                    console.log('Render Content');
+                    _this.initializePropertyMap();
 
                     $('[name="keywords"]').val(_this.property.attributes.city);
                     $('#searchBar button').text('Back');
