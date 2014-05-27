@@ -240,6 +240,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     galleryViewEl.setProperty(_this.property);
 
                     console.log('Video URL: ', _this.property.attributes.video);
+                    var hasVideo = (typeof _this.property.attributes.video !== 'undefined');
 
                     // Reset elements for this property view.
                     _this.moreEl = null;
@@ -256,7 +257,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                         reviewsSection:'',
                         mapSection:'',
                         guestCardForm: guestCardFormEl.getHTML(),
-                        communitySpotlight: (_this.property.attributes.video.length > 0) ? JST['src/js/templates/elements/communitySpotlight.html']({
+                        communitySpotlight: (hasVideo) ? JST['src/js/templates/elements/communitySpotlight.html']({
                             video_source: _this.property.attributes.video
                         }) : '',
                         propertyGallery: JST['src/js/templates/elements/propertyGallery.html']({
@@ -293,6 +294,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     //Get more listings
                     _this.loadResultsSet();
 
+                    console.log('Render Content');
+
                     $('[name="keywords"]').val(_this.property.attributes.city);
                     $('#searchBar button').text('Back');
                 }
@@ -302,7 +305,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         preload: function(propertyId, done){
             //Stub in preloader
             this.$el.html(JST['src/js/templates/layouts/propertyPlaceholder.html']);
-
             var newListing = new ListingCollection();
             newListing.fetch({
                 data: $.param({
@@ -314,6 +316,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     if(thisProperty === null) {
                         return false;
                     }
+
+                    var hasVideo = (typeof thisProperty.attributes.video !== 'undefined');
                     var pageContent = JST['src/js/templates/layouts/property.html']({
                         property: thisProperty,
                         moreContent: JST['src/js/templates/elements/propertyInfo.html']({
@@ -321,7 +325,22 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                             property: thisProperty,
                             propertyAddress: thisProperty.address
                         }),
-                        guestCardForm: null,
+                        detailsSection: '',
+                        floorplansSection: '',
+                        reviewsSection:'',
+                        mapSection:'',
+                        guestCardForm: guestCardFormEl.getHTML(),
+                        communitySpotlight: (hasVideo) ? JST['src/js/templates/elements/communitySpotlight.html']({
+                            video_source: thisProperty.attributes.video
+                        }) : '',
+                        propertyGallery: JST['src/js/templates/elements/propertyGallery.html']({
+                            images: thisProperty.attributes.images
+                        }),
+                        propertyManagement: JST['src/js/templates/elements/propertyManagement.html']({
+                            management_info: ''
+                        }),
+                        officeHours: '',
+                        petPolicy: '',
                         isSelect: true
                     });
 
@@ -332,6 +351,33 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     }
                 }
             });
+        },
+
+        retrieveProperty: function(homesId){
+            // Check browser support
+            if (typeof(Storage) != "undefined")
+            {
+                // Retrieve
+                var property = localStorage.getItem(homesId);
+                console.log('Property: ', property);
+            }
+            else
+            {
+                console.log("Sorry, your browser does not support Web Storage...");
+            }
+        },
+
+        saveProperty: function(property){
+            // Check browser support
+            if (typeof(Storage) != "undefined")
+            {
+                // Store
+                localStorage.setItem(property.attributes.homesId, property);
+            }
+            else
+            {
+                console.log("Sorry, your browser does not support Web Storage...");
+            }
         },
 
         /**

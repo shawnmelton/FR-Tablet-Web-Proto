@@ -18,6 +18,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
         swipeHorizArrowEl: null,
         swipeDirLeft: true,
         fullDetailHeight: 300,
+        minDetailHeight: 100,
         mapSection: null,
         floorplansSection: null,
         teaserSections: null,
@@ -85,6 +86,9 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                         container.append(newImg);
                         $(_this.photoLightbox).prepend(container);
                     }
+                    else{
+                        console.log('No Container');
+                    }
                 }
             }
 
@@ -131,7 +135,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                     'opacity' : 0
                 });
                 $('#teaser .info').animate({
-                    'height' : 80
+                    'height' : this.minDetailHeight
                 });
             }
         },
@@ -146,7 +150,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                 this.floorplansSection.css('opacity', 0);
                 this.reviewsSection.css('opacity', 0);
                 this.detailsSection.css('opacity', 0);
-                $('#teaser .info').height(80);
+                $('#teaser .info').height(this.minDetailHeight);
 
                 //Do things once the panel is fully toggled
                 if(typeof complete == 'function'){
@@ -231,7 +235,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
             if(container){
                 container.width($('#content').width());
                 container.append(newImg);
-                this.photoLightbox.append(container);
+                _this.photoLightbox.append(container);
 
                 //Set full length to handle all images
                 if(_this.photoLightbox.hasClass('show')){
@@ -240,6 +244,9 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                 else{
                     _this.photoLightbox.width(container.width());
                 }
+            }
+            else{
+                console.log('No Container');
             }
 
             nextEl.before(img);
@@ -457,10 +464,10 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                                         //Change background opacity of CA button
                                         _this.buttonCA.css('background', 'rgba(233, 125, 14, ' + buttonOpacity + ')');
 
-                                        //Percent to min-height: 80
+                                        //Percent to min-height: 100
                                         heightDifference = _this.fullDetailHeight;
                                         panelHeight = percentPanDistance * heightDifference;
-                                        panelHeight = (panelHeight < 80) ? 80 : panelHeight;
+                                        panelHeight = (panelHeight < _this.minDetailHeight) ? _this.minDetailHeight : panelHeight;
                                         panelHeight = (panelHeight > _this.fullDetailHeight) ? _this.fullDetailHeight : panelHeight;
 
                                         //Difference in height * percent
@@ -487,10 +494,10 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                                         //Change background opacity of CA button
                                         _this.buttonCA.css('background', 'rgba(233, 125, 14, ' + buttonOpacity + ')');
 
-                                        //Percent to min-height: 80
+                                        //Percent to min-height: 100
                                         heightDifference = _this.fullDetailHeight;
                                         panelHeight = percentPanDistance * heightDifference;
-                                        panelHeight = (panelHeight < 80) ? 80 : panelHeight;
+                                        panelHeight = (panelHeight < _this.minDetailHeight) ? _this.minDetailHeight : panelHeight;
                                         panelHeight = (panelHeight > _this.fullDetailHeight) ? _this.fullDetailHeight : panelHeight;
 
                                         //Difference in height * percent
@@ -534,7 +541,8 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
 
             function swipeStatus(event, phase, direction, distance, fingers)
             {
-
+                IMG_WIDTH = $('#content').width();
+                console.log('Image Slide Width: ', IMG_WIDTH);
                 //Do not scroll images if images are scaled
                 if(_this.photoLightbox.hasClass('scaled')) return false;
 

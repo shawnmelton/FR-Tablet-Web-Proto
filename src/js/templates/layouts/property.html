@@ -15,7 +15,7 @@
             <span id="webReview" class="block reviewStars">4 Reviews</span>
             <a>View Reviews from the Web</a>
         </p>
-        <% if(property.attributes.video.length) { %>
+        <% if(typeof property.attributes.video !== 'undefined') { %>
         <div class="clickable pointer" section="video">
             <div class="video_thumb" style="background-image: url(<%= property.attributes.images[2] %>)">
                 <img src="/img/play_button.png" />
