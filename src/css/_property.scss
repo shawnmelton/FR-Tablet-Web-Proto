@@ -127,7 +127,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            height: 100%;
+            height: auto;
             -webkit-transform: translateX(-50%) translateY(-50%);
 
             &.height100{
@@ -551,7 +551,7 @@
 
                 >span {
                     margin-top: 8px;
-                    color: #044a78;
+                    color: #80CCFF;
                     font-size: 80%;
                 }
             }
@@ -572,7 +572,7 @@
 
                     >span {
                         font-size: 70%;
-                        color: #044a78;
+                        color: #80CCFF;
                         padding-top: 2px;
                     }
                 }

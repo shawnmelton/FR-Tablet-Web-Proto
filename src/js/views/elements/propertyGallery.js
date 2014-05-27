@@ -219,6 +219,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
         loadImage: function(url, nextEl) {
             var _this = this;
             var img = $('<img src="'+ url +'" width="'+ this.bgImgWidth +'">');
+
             var newImg = document.createElement('img');
             newImg.src= img.attr('src');
 
