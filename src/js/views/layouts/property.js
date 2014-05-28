@@ -3,6 +3,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
     function($, Backbone, tmplts, searchBarViewEl, footerViewEl, Navigate, Data, galleryViewEl, guestCardFormEl, ListingModel, ListingCollection){
     var propertyView = Backbone.View.extend({
         el: "#content",
+        video: null,
         map: null,
         property: null,
         moreEl: null,
@@ -168,9 +169,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         },
 
         onCloseVideoButtonClick: function(){
+            $('video')[0].pause();
             $('#video_lightbox').removeClass('show');
             $('body').unbind('mousewheel');
-            video.stop();
         },
 
         /**
@@ -288,6 +289,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                         _this.$el.prepend(JST['src/js/templates/elements/videoLightbox.html']({
                             source: _this.property.attributes.video
                         }));
+
+                        _this.video = document.getElementById('video');
+                        console.log('Has Video: ', _this.video);
                     }
                     _this.$el.prepend(JST['src/js/templates/elements/photoLightbox.html']);
 

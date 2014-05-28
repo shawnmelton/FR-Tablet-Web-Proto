@@ -1,4 +1,7 @@
 <% if(typeof property.attributes.video !== 'undefined') { %>
+<video id="background_video" preload="auto"  autoplay loop>
+    <source src='<%= property.attributes.video %>' type="video/mp4"/>
+</video>
 <img src="/img/play_button.png" class="absoluteCenter" id="videoPlayButton" />
 <% } %>
 <div id="gallery" class="fixed noOverflow"></div>

@@ -235,23 +235,12 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
             }
 
             if(newImgLeft === movePos) {
-                //Only affect Details Panel when swiping
-                //the first image.
-                if(targetImg.hasClass('first')){
-                    var goingLeft = (moveDirection != 'left');
-                    this.toggleDetailsPanel(goingLeft);
-                }
-
                 //Preloading images
                 if(moveDirection === 'left') {
                     this.nextImage();
                 } else {
                     this.prevImage();
                 }
-            }
-            else if(newImgLeft === revertPos && targetImg.hasClass('first')) {
-                var open = (moveDirection === 'left');
-                this.toggleDetailsPanel(open);
             }
 
             setTimeout(function() {
@@ -427,10 +416,6 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                 // click : close,
                 allowPageScroll:"vertical"
             });
-
-            // function close(){
-            //     _this.photoLightbox.removeClass('show');
-            // }
 
             function swipeStatus(event, phase, direction, distance, fingers)
             {

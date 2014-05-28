@@ -57,11 +57,13 @@
     <ul>
     <% 
     if(typeof property.attributes.features !== 'undefined') {
-    console.log('Trying to load amenities: ', property.attributes.features);
-    for(i = 0; i < property.attributes.features.length; i++){ 
+        for(i = 0; i < property.attributes.features.length; i++){ 
     %>
         <li><%= property.attributes.features[i].name %></li>
-    <% } } %>
+    <% 
+        } 
+    } 
+    %>
     </ul>
 </div>
 

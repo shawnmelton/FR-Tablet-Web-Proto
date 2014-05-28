@@ -249,13 +249,15 @@ __p += '\n</div>\n\n';
 __p += '\n\n<div id="amenities" class="section">\n    <h2>Features & Amenities</h2>\n    <ul>\n    ';
  
     if(typeof property.attributes.features !== 'undefined') {
-    console.log('Trying to load amenities: ', property.attributes.features);
-    for(i = 0; i < property.attributes.features.length; i++){ 
+        for(i = 0; i < property.attributes.features.length; i++){ 
     ;
 __p += '\n        <li>' +
 ((__t = ( property.attributes.features[i].name )) == null ? '' : __t) +
 '</li>\n    ';
- } } ;
+ 
+        } 
+    } 
+    ;
 __p += '\n    </ul>\n</div>\n\n';
  console.log('Load Reviews'); ;
 __p += '\n\n<div id="reviews" class="section">\n    <h2>Reviews</h2>\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>\n\n';
@@ -469,7 +471,9 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
  if(typeof property.attributes.video !== 'undefined') { ;
-__p += '\n<img src="/img/play_button.png" class="absoluteCenter" id="videoPlayButton" />\n';
+__p += '\n<video id="background_video" preload="auto"  autoplay loop>\n    <source src=\'' +
+((__t = ( property.attributes.video )) == null ? '' : __t) +
+'\' type="video/mp4"/>\n</video>\n<img src="/img/play_button.png" class="absoluteCenter" id="videoPlayButton" />\n';
  } ;
 __p += '\n<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute safariHack"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info">\n        <h2>' +
 ((__t = ( property.attributes.name )) == null ? '' : __t) +
