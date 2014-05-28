@@ -11,6 +11,7 @@
     -webkit-transform: translateX(-50%) translateY(-50%);
 }
 #content.property {
+    background-color: #000;
     >a {
         background-repeat: no-repeat;
         background-position: 0 0;
@@ -237,6 +238,10 @@
         }
     }
 }
+    #videoPlayButton{
+        z-index: 10;
+    }
+
     #gallery {
         top: 0;
         bottom: 0;
@@ -245,6 +250,8 @@
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
         -webkit-transition: -webkit-filter 1s;
+        -webkit-mask-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0,0,0,1)), to(rgba(0,0,0,0.5)));
+        background-color: #000;
 
         >img {
             position: absolute;
@@ -258,7 +265,7 @@
         position: absolute;
         width: 43%;
         min-width: 300px;
-        max-width: 400px;
+        max-width: 600px;
         padding-left: 15px;
         -webkit-transform: translate3d(0,0,0);
 
@@ -268,45 +275,33 @@
             overflow:hidden;
 
             >h2 {
-                font-size: 130%;
+                font-size: 40px;
+                font-weight: bold;
                 padding: 10px 20px 0;
-                background-color: rgba(255,255,255,0.8);
+                color: #FFF;
+                text-shadow: 1px 1px 1px #000, 0 0 1em #000;
+                //background-color: rgba(255,255,255,0.8);
             }
 
             >p, >div {
+                width: 80%;
+                min-width: 300px;
+                max-width: 600px;
                 position: relative;
                 padding: 10px 20px;
                 margin: 0 0 4px 0;
                 padding-right: 60px;
 
                 &.clickable {
-                    background: rgba(255,255,255,0.8) url(../img/arrow-down.png) no-repeat 95% 50%;
+                    //background: rgba(255,255,255,0.8) url(../img/arrow-down.png) no-repeat 95% 50%;
+                    color: #FFF;
+                    background: url(../img/arrow-down.png) no-repeat 95% 50%;
 
                     &.touched { background-color: #fff; }
 
                     &[section=video]{
                         padding: 60px 20px;
                     }
-
-                    >.video_thumb{
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        overflow: hidden;
-                        background-size: 100% auto;
-                        background-position-y: 65%;
-
-                        >img{
-                            position: absolute;
-                            left: 50%;
-                            margin-left: -40px;
-                            top: 50%;
-                            margin-top: -40px;
-                        }
-                    }
-
                 }
 
                 >#webReview {

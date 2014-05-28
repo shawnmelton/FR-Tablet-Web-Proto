@@ -503,7 +503,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             });
 
             // Check Availability Button.
-            $('#teaser .info div[section="video"]').bind(touchEventType, function(ev) {
+            $('#videoPlayButton').bind(touchEventType, function(ev) {
                 ev.preventDefault();
                 _this.onVideoThumbnailClick();
             });

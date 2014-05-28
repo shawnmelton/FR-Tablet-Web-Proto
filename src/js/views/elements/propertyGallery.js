@@ -110,59 +110,6 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
         },
 
         /**
-         *  Expand or contract the details panel on a property
-         *  @param open <BOOL> 1 - Open panel, 0 - Close
-         */
-        toggleDetailsPanel: function(open, progress){
-            console.log('Progress: ', progress);
-            if(open){
-
-                //Change background opacity of CA button
-                this.buttonCA.css('background-color', 'rgba(233, 125, 14, 1)');
-
-                this.teaserSections.animate({
-                    'opacity' : 1
-                });
-                $('#teaser .info').animate({
-                    'height' : this.fullDetailHeight
-                });
-            }
-            else{
-
-                //Change background opacity of CA button
-                this.buttonCA.css('background-color', 'rgba(233, 125, 14, 0.5)');
-                this.teaserSections.animate({
-                    'opacity' : 0
-                });
-                $('#teaser .info').animate({
-                    'height' : this.minDetailHeight
-                });
-            }
-        },
-
-        /**
-         *  Expand or contract the details panel on a property
-         *  @param open <BOOL> 1 - Open panel, 0 - Close
-         */
-        updateDetailsPanel: function(open, progress){
-            if(open){
-                
-                this.floorplansSection.css('opacity', 0);
-                this.reviewsSection.css('opacity', 0);
-                this.detailsSection.css('opacity', 0);
-                $('#teaser .info').height(this.minDetailHeight);
-
-                //Do things once the panel is fully toggled
-                if(typeof complete == 'function'){
-                    complete();
-                }
-            }
-            else{
-
-            }
-        },
-
-        /**
          * Initialize gallery.
          */
         init: function() {
@@ -184,15 +131,7 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                     this.bgImgHeight = 768;
                     break;
             }
-
-            //Cache reference to hideable teaser sections
-            //for bulk animations
-            this.teaserSections = $('#teaser .info p[section="reviews"], #teaser .info p[section="floorplans"], #teaser .info div[section="video"], #teaser .info p[section="details"]');
-            this.fullDetailHeight = $('#teaser .info').height();
-            this.mapSection = $('#teaser .info p[section="map"]');
-            this.floorplansSection = $('#teaser .info p[section="floorplans"]');
-            this.reviewsSection = $('#teaser .info p[section="reviews"]');
-            this.detailsSection = $('#teaser .info p[section="details"]');
+            
             this.buttonCA = $('#buttonCA');
 
             this.photoLightbox = $('#photo_lightbox');
@@ -452,30 +391,6 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                         switch(direction.toString().toLowerCase()) {
                             case 'left':
                                 if(!_this.lockLeftMove) {
-                                    //Change opacity of floorplans, reviews, and details on pan
-                                    if($(_this.currentImageEl).hasClass('first')) {
-                                        panArea = _this.contentWidth/2;
-                                        percentPanDistance = (panArea - distance*2) / panArea;
-                                        
-                                        //Only change opacity of the bottom three panels
-                                        _this.teaserSections.css('opacity', percentPanDistance);
-
-                                        buttonOpacity = (percentPanDistance < 0.5) ? 0.5 : percentPanDistance;
-
-                                        //Change background opacity of CA button
-                                        _this.buttonCA.css('background', 'rgba(233, 125, 14, ' + buttonOpacity + ')');
-
-                                        //Percent to min-height: 100
-                                        heightDifference = _this.fullDetailHeight;
-                                        panelHeight = percentPanDistance * heightDifference;
-                                        panelHeight = (panelHeight < _this.minDetailHeight) ? _this.minDetailHeight : panelHeight;
-                                        panelHeight = (panelHeight > _this.fullDetailHeight) ? _this.fullDetailHeight : panelHeight;
-
-                                        //Difference in height * percent
-                                        $('#teaser .info').height(panelHeight);
-                                        console.log('Teaser Height: ', panelHeight);
-                                    }
-
                                     _this.currentImageEl.css('-webkit-transform',
                                         'translate('+ (_this.startingLeft - distance) +'px, '+ _this.startingTop +'px)');
                                 }
@@ -483,29 +398,6 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
 
                             case 'right':
                                 if(!_this.lockRightMove) {
-                                    if($(_this.currentImageEl).next().hasClass('first')){
-                                        panArea = _this.contentWidth/2;
-                                        percentPanDistance = distance*2 / panArea;
-                                        
-                                        //Only change opacity of the bottom three panels
-                                        _this.teaserSections.css('opacity', percentPanDistance);
-
-                                        buttonOpacity = (percentPanDistance < 0.5) ? 0.5 : percentPanDistance;
-
-                                        //Change background opacity of CA button
-                                        _this.buttonCA.css('background', 'rgba(233, 125, 14, ' + buttonOpacity + ')');
-
-                                        //Percent to min-height: 100
-                                        heightDifference = _this.fullDetailHeight;
-                                        panelHeight = percentPanDistance * heightDifference;
-                                        panelHeight = (panelHeight < _this.minDetailHeight) ? _this.minDetailHeight : panelHeight;
-                                        panelHeight = (panelHeight > _this.fullDetailHeight) ? _this.fullDetailHeight : panelHeight;
-
-                                        //Difference in height * percent
-                                        $('#teaser .info').height(panelHeight);
-                                        console.log('Teaser Height: ', panelHeight);
-                                    }
-
                                     _this.currentImageEl.next().css('-webkit-transform', 
                                         'translate(-'+ (_this.bgImgWidth - distance) +'px, '+ _this.startingTop +'px)');
                                 }
@@ -660,7 +552,6 @@ define(['jquery', 'backbone', 'libs/touchSwipe', 'views/elements/footer', 'views
                                     $(this).addClass('scaled');
                                     $(this).css('-webkit-transform', 'scale(1) translateX(-50%) translateY(-50%)');
                                     $(this).bind('webkitTransitionEnd', function(ev){
-
                                         $(this).removeClass('scaled');
                                     });
                                 }

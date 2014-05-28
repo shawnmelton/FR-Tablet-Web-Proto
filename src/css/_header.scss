@@ -21,12 +21,11 @@ header {
         }
 
         &#menuBtn {
-            background: url(../img/menu-button.png) no-repeat center center;
-            left: 0;
+            background: url(../img/menu-button.png) no-repeat left center;
+            left: -20;
             top: 0;
             height: 50px;
             width: 50px;
-            border-right: 1px solid #eaeaea;
         }
 
         &.touched { background-color: #fff; }

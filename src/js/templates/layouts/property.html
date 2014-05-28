@@ -1,3 +1,6 @@
+<% if(typeof property.attributes.video !== 'undefined') { %>
+<img src="/img/play_button.png" class="absoluteCenter" id="videoPlayButton" />
+<% } %>
 <div id="gallery" class="fixed noOverflow"></div>
 <a id="swipeHorizArrow" class="block absolute safariHack"></a>
 <section id="teaser" class="relative borderBox noOverflow">
@@ -15,13 +18,6 @@
             <span id="webReview" class="block reviewStars">4 Reviews</span>
             <a>View Reviews from the Web</a>
         </p>
-        <% if(typeof property.attributes.video !== 'undefined') { %>
-        <div class="clickable pointer" section="video">
-            <div class="video_thumb" style="background-image: url(<%= property.attributes.images[2] %>)">
-                <img src="/img/play_button.png" />
-            </div>
-        </div>
-        <% } %>
     </div>
 </section>
 
