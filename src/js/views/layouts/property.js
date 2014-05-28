@@ -168,9 +168,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         },
 
         onCloseVideoButtonClick: function(){
+            $('video')[0].pause();
             $('#video_lightbox').removeClass('show');
             $('body').unbind('mousewheel');
-            video.stop();
         },
 
         /**
