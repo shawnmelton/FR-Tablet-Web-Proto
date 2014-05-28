@@ -245,6 +245,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 }),
                 success: function(response){
                     _this.property = response.models[0];
+                    guestCardFormEl.init(_this.property);
                                         
                     if(_this.property === null) {
                         Navigate.toUrl('/');
@@ -294,7 +295,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     _this.$el.prepend($('<div class="lightbox"></div>'));
                     $('.lightbox').prepend(JST['src/js/templates/elements/sendToCellForm.html']);
                     
-                    guestCardFormEl.init();
                     searchBarViewEl.renderToHeader();                    
                     galleryViewEl.reset();
                     _this.relayout();

@@ -73,7 +73,9 @@ this["JST"]["src/js/templates/elements/guestCardForm.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form id="guestCard" method="post" action="" class="height100">\n    <h3>Check Availability</h3>\n    <fieldset>\n        <input type="text" placeholder="Full Name" name="fullName" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Email Address" name="emailAddress" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Phone Number" name="phoneNumber" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <textarea placeholder="I am interested in more information about this property." name="comments" class="width100 borderBox"></textarea>\n    </fieldset>\n    <fieldset>\n        <button type="submit" class="width100 borderBox whiteText alignCenter">Check Availability</button>\n    </fieldset>\n</form>';
+__p += '<form id="guestCard" method="post" action="" class="height100">\n    <h3>Check Availability</h3>\n    <fieldset>\n        <input type="text" placeholder="Full Name" name="fullName" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Email Address" name="emailAddress" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <input type="text" placeholder="Phone Number" name="phoneNumber" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <textarea placeholder="I am interested in more information about ' +
+((__t = ( property.attributes.name )) == null ? '' : __t) +
+'." name="comments" class="width100 borderBox"></textarea>\n    </fieldset>\n    <fieldset>\n        <button type="submit" class="width100 borderBox whiteText alignCenter">Check Availability</button>\n    </fieldset>\n</form>';
 
 }
 return __p
