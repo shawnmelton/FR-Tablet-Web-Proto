@@ -35,6 +35,16 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         onButtonClick: function(button) {
             this.toggleDrawer();
 
+            var amenities = $("input[name='amenities[]']:checkbox:checked").map(function(){
+                return $(this).val();
+            }).get(); // <----
+            console.log('Amenities: ', amenities);
+
+            var propertyTypes = $("input[name='propertyTypes[]']:checkbox:checked").map(function(){
+                return $(this).val();
+            }).get(); // <----
+            console.log('Property Types: ', propertyTypes);
+
             var formField = $('#searchBar input');
             if(button.hasClass('blue') && formField.length) {
                 Navigate.toUrl('/search/'+ formField.val());
@@ -55,16 +65,28 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
         },
 
         render: function() {
-            this.$el.append(JST['src/js/templates/elements/advancedSearch.html']());
+            this.$el.append(JST['src/js/templates/elements/advancedSearch.html']({
+                apartmentAmenities: JST['src/js/templates/elements/apartmentAmenitiesOptions.html'](),
+                communityAmenities: JST['src/js/templates/elements/communityAmenitiesOptions.html'](),
+                petAmenities: JST['src/js/templates/elements/petAmenitiesOptions.html'](),
+                propertyTypesAmenities: JST['src/js/templates/elements/propertyTypesAmenitiesOptions.html'](),
+                photosVideosAmenities: JST['src/js/templates/elements/photosVideosAmenitiesOptions.html'](),
+            }));
             this.displaying = false;
             this.drawerEl = $(document.getElementById('advancedSearch'));
-
+            $('#advancedSearch').on({'mousewheel': function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
             // If the drawer is on a view where it needs to remain at the top of the page, then make that setting now.
             if(this.sticky) {
                 this.drawerEl.addClass('sticky');
             }
 
             this.setEvents();
+
+
         },
 
         /**
@@ -91,9 +113,37 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
          * Toggle the advanced search drawer to display or hide.
          */
         toggleDrawer: function() {
-            var newHeight = 200;
+            var newHeight = $(window).height();
             if(this.displaying === true) {
                 newHeight = 0;
+                $('#teaser, footer').animate({
+                    opacity: 1
+                }, function(){
+
+                });
+
+                $('#gallery').css({
+                    "-webkit-filter" : 'blur(0px)',
+                    "-moz-filter" : 'blur(0px)',
+                    "-MS-filter" : 'blur(0px)',
+                    "filter" : 'blur(0px)',
+                    "-o-filter" : 'blur(0px)'
+                });
+            }
+            else{
+                $('#teaser, footer').animate({
+                    opacity: 0
+                }, function(){
+
+                });
+
+                $('#gallery').css({
+                    "-webkit-filter" : 'blur(10px)',
+                    "-moz-filter" : 'blur(10px)',
+                    "-MS-filter" : 'blur(10px)',
+                    "filter" : 'blur(10px)',
+                    "-o-filter" : 'blur(10px)'
+                });
             }
 
             if(this.drawerEl === null) {
