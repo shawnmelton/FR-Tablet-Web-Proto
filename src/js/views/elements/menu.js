@@ -23,11 +23,11 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
 
             // Removed this just for testing purposes until a 
             // "Switch View" button is added
-            // if(this.displaying === null) {
-            //     this.render();
-            // }
+            if(this.displaying === null) {
+                this.render();
+            }
 
-            // this.toggleMenu();
+            this.toggleMenu();
         },
 
         onMenuLinkClick: function(ev) {
