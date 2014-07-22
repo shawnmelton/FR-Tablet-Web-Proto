@@ -220,9 +220,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 return;
             }
 
-            console.log('Property Index: ', window.lastPropertyIndex);
-            console.log('Properties: ', window.currentListings);
-
             document.addEventListener("touchmove", ScrollStart, false);
             document.addEventListener("scroll", ScrollStart, false);
 
@@ -261,15 +258,28 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     _this.moreContentEl = null;
                     _this.$el.html(JST['src/js/templates/layouts/property.html']({
                         property: _this.property,
-                        moreContent: JST['src/js/templates/elements/propertyInfo.html']({
-                            floor_plans: _this.property.attributes.floor_plans,
-                            property: _this.property,
-                            propertyAddress: _this.property.streetAddress
+                        detailsSection: JST['src/js/templates/elements/propertyDetails.html']({
+                            name: _this.property.name,
+                            beds: _this.property.attributes.beds,
+                            price: _this.property.attributes.price,
+                            description: _this.property.attributes.description,
+                            pet_policy: _this.property.attributes.pet_policy
                         }),
-                        detailsSection: '',
-                        floorplansSection: '',
-                        reviewsSection:'',
-                        mapSection:'',
+                        floorplansSection: JST['src/js/templates/elements/propertyFloorPlans.html']({
+                            floor_plans: _this.property.attributes.floor_plans
+                        }),
+                        amenitiesSection: (typeof _this.property.attributes.features !== 'undefined') ? JST['src/js/templates/elements/propertyAmenities.html']({
+                            features: _this.property.attributes.features
+                        }) : '',
+                        reviewsSection: JST['src/js/templates/elements/propertyReviews.html']({
+                            floor_plans: _this.property.attributes.floor_plans
+                        }),
+                        mapSection: JST['src/js/templates/elements/propertyMap.html']({
+                            streetAddress: _this.property.attributes.streetAddress,
+                            city: _this.property.attributes.city,
+                            state: _this.property.attributes.state,
+                            zip: _this.property.attributes.zip
+                        }),
                         guestCardForm: guestCardFormEl.getHTML(),
                         communitySpotlight: (hasVideo) ? JST['src/js/templates/elements/communitySpotlight.html']({
                             video_source: _this.property.attributes.video
@@ -290,9 +300,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                         _this.$el.prepend(JST['src/js/templates/elements/videoLightbox.html']({
                             source: _this.property.attributes.video
                         }));
-
                         _this.video = document.getElementById('video');
-                        console.log('Has Video: ', _this.video);
                     }
                     _this.$el.prepend(JST['src/js/templates/elements/photoLightbox.html']);
 
@@ -302,7 +310,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     searchBarViewEl.renderToHeader();                    
                     galleryViewEl.reset();
                     _this.relayout();
-
 
                     // Events
                     _this.setResizeEvent();

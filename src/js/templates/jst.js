@@ -41,26 +41,6 @@ __p += '\n                </select></div>\n                <div class="tableCell
 return __p
 };
 
-this["JST"]["src/js/templates/elements/apartmentAmenitiesOptions.html"] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<ul id="apartmentAmenities" class="block-grid p20 searchAmenitiesContent">\n    <li>\n        <label class="unit flexUnit txtN" for="airconditioning">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="1" id="airconditioning">Air Conditioning</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="alarmsystem">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="2" id="alarmsystem">Alarm System</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="tv">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="7" id="tv">Cable or Satellite</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="ceilingfan">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="10" id="ceilingfan">Ceiling Fan</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="dishwasher">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="17" id="dishwasher">Dishwasher</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="extrastorage">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="20" id="extrastorage">Extra Storage</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="fireplace">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="21" id="fireplace">Fireplace</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="furnishedavailable">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="24" id="furnishedavailable">Furnished Available</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="hardwoodfloors">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="28" id="hardwoodfloors">Hardwood Floors</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="wwwhi">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="32" id="wwwhi">High Speed Internet Access</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="microwave">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="36" id="microwave">Microwave</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="patiorbalcony">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="37" id="patiorbalcony">Patio or Balcony</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="view">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="53" id="view">View</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="walkinclosets">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="54" id="walkinclosets">Walk-in Closets</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="washerdryerhook">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="55" id="washerdryerhook">Washer/Dryer Hookups</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="washerdryer">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="56" id="washerdryer">Washer/Dryer in Unit</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="wwwwire">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="87" id="wwwwire">Wireless Internet Access</label>\n    </li>\n</ul>\n';
-
-}
-return __p
-};
-
-this["JST"]["src/js/templates/elements/communityAmenitiesOptions.html"] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<ul id="communityAmenities" class="block-grid  p20 searchAmenitiesContent">\n    <li>\n        <label class="unit flexUnit txtN" for="acceptscreditcardpayments">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="88" id="acceptscreditcardpayments">Accepts Credit Card Payments</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="acceptselectronicpayments">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="89" id="acceptselectronicpayments">Accepts Electronic Payments</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="attuverse">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="100" id="attuverse">AT&amp;T U-verse</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="businesscenter">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="6" id="businesscenter">Business Center</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="closetopublictrans">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="40" id="closetopublictrans">Close to Public Transportation</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="clubhouse">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="11" id="clubhouse">Clubhouse</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="controlledaccess">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="12" id="controlledaccess">Controlled Access</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="coveredparking">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="15" id="coveredparking">Covered Parking</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="disabilityaccess">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="16" id="disabilityaccess">Disability Access</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="doorattendant">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="98" id="doorattendant">Door Attendant</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="elevator">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="19" id="elevator">Elevator</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="fitnesscenter">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="22" id="fitnesscenter">Fitness Center</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="garages">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="25" id="garages">Garages</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="hablamosespanol">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="138" id="hablamosespanol">Hablamos Español</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="laundryfacility">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="33" id="laundryfacility">Laundry Facility</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="nosmoking">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="139" id="nosmoking">No Smoking</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="playground">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="39" id="playground">Playground</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="pool">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="59" id="pool">Pool</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="shorttermlease">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="43" id="shorttermlease">Short Term Lease</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="tenniscourts">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="48" id="tenniscourts">Tennis Courts</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="utilitiesincluded">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="140" id="utilitiesincluded">Utilities Included</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="verizonfios">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="101" id="verizonfios">Verizon FiOS</label>\n    </li>\n\n</ul>\n';
-
-}
-return __p
-};
-
 this["JST"]["src/js/templates/elements/communitySpotlight.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -169,11 +149,51 @@ __p += '<div class="basic select moreInfo" id="moreInfo" property="' +
 return __p
 };
 
-this["JST"]["src/js/templates/elements/petAmenitiesOptions.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/optionsApartmentAmenities.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<ul id="apartmentAmenities" class="block-grid p20 searchAmenitiesContent">\n    <li>\n        <label class="unit flexUnit txtN" for="airconditioning">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="1" id="airconditioning">Air Conditioning</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="alarmsystem">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="2" id="alarmsystem">Alarm System</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="tv">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="7" id="tv">Cable or Satellite</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="ceilingfan">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="10" id="ceilingfan">Ceiling Fan</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="dishwasher">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="17" id="dishwasher">Dishwasher</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="extrastorage">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="20" id="extrastorage">Extra Storage</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="fireplace">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="21" id="fireplace">Fireplace</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="furnishedavailable">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="24" id="furnishedavailable">Furnished Available</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="hardwoodfloors">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="28" id="hardwoodfloors">Hardwood Floors</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="wwwhi">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="32" id="wwwhi">High Speed Internet Access</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="microwave">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="36" id="microwave">Microwave</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="patiorbalcony">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="37" id="patiorbalcony">Patio or Balcony</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="view">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="53" id="view">View</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="walkinclosets">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="54" id="walkinclosets">Walk-in Closets</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="washerdryerhook">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="55" id="washerdryerhook">Washer/Dryer Hookups</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="washerdryer">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="56" id="washerdryer">Washer/Dryer in Unit</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="wwwwire">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="87" id="wwwwire">Wireless Internet Access</label>\n    </li>\n</ul>\n';
+
+}
+return __p
+};
+
+this["JST"]["src/js/templates/elements/optionsCommunityAmenities.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<ul id="communityAmenities" class="block-grid  p20 searchAmenitiesContent">\n    <li>\n        <label class="unit flexUnit txtN" for="acceptscreditcardpayments">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="88" id="acceptscreditcardpayments">Accepts Credit Card Payments</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="acceptselectronicpayments">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="89" id="acceptselectronicpayments">Accepts Electronic Payments</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="attuverse">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="100" id="attuverse">AT&amp;T U-verse</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="businesscenter">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="6" id="businesscenter">Business Center</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="closetopublictrans">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="40" id="closetopublictrans">Close to Public Transportation</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="clubhouse">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="11" id="clubhouse">Clubhouse</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="controlledaccess">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="12" id="controlledaccess">Controlled Access</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="coveredparking">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="15" id="coveredparking">Covered Parking</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="disabilityaccess">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="16" id="disabilityaccess">Disability Access</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="doorattendant">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="98" id="doorattendant">Door Attendant</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="elevator">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="19" id="elevator">Elevator</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="fitnesscenter">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="22" id="fitnesscenter">Fitness Center</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="garages">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="25" id="garages">Garages</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="hablamosespanol">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="138" id="hablamosespanol">Hablamos Español</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="laundryfacility">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="33" id="laundryfacility">Laundry Facility</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="nosmoking">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="139" id="nosmoking">No Smoking</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="playground">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="39" id="playground">Playground</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="pool">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="59" id="pool">Pool</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="shorttermlease">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="43" id="shorttermlease">Short Term Lease</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="tenniscourts">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="48" id="tenniscourts">Tennis Courts</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="utilitiesincluded">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="140" id="utilitiesincluded">Utilities Included</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="verizonfios">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="101" id="verizonfios">Verizon FiOS</label>\n    </li>\n\n</ul>\n';
+
+}
+return __p
+};
+
+this["JST"]["src/js/templates/elements/optionsPetAmenities.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<ul id="petsAmenities" class="block-grid  p20 searchAmenitiesContent">\n    <li>\n        <label class="unit flexUnit txtN" for="catsallowed">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="9" id="catsallowed">Cats Allowed</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="smalldogsallowed">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="44" id="smalldogsallowed">Small Dogs Allowed</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="largedogsallowed">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="91" id="largedogsallowed">Large Dogs Allowed</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="petsallowed">\n            <input type="checkbox" name="amenities[]" class="unit mr5" value="38" id="petsallowed">Pets Allowed</label>\n    </li>\n</ul>\n';
+
+}
+return __p
+};
+
+this["JST"]["src/js/templates/elements/optionsPhotosVideosAmenities.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<ul id="photos-videosAmenities" class="block-grid  p20 searchAmenitiesContent borderBottom">\n    <li>\n        <label class="unit flexUnit txtN" for="multiplephotos">\n            <input type="checkbox" name="Has_Multiple_Photos" class="unit mr5" value="Has_Multiple_Photos" id="multiplephotos">Multiple Photos</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="streamingvideo">\n            <input type="checkbox" name="Has_Community_Theater" class="unit mr5" value="Has_Community_Theater" id="streamingvideo">Streaming Video</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="virtualtour">\n            <input type="checkbox" name="Has_VTour" class="unit mr5" value="Has_VTour" id="virtualtour">Virtual Tour</label>\n    </li>\n</ul>\n';
+
+}
+return __p
+};
+
+this["JST"]["src/js/templates/elements/optionsPropertyTypesAmenities.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<ul id="property-typesAmenities" class="block-grid  p20 searchAmenitiesContent">\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="apartmentcondo">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="1,8" id="apartmentcondo">Apartment/Condo</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="brownstone">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="92" id="brownstone">Brownstone</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="co-op">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="94" id="co-op">Co-Op</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="duplextriplex">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="4,5" id="duplextriplex">Duplex/Triplex</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="efficiencystudio">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="6" id="efficiencystudio">Efficiency/Studio</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="highrise">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="29" id="highrise">High Rise</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="loft">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="10" id="loft">Loft</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="lowrise">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="95" id="lowrise">Low Rise</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="midrise">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="66" id="midrise">Mid Rise</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="newconstruction">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="93" id="newconstruction">New Construction</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="postwar">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="96" id="postwar">Post-War</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="prewar">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="97" id="prewar">Pre-War</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="singlefamilyhome">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="2" id="singlefamilyhome">Single Family Home</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="townhouse">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="7" id="townhouse">Townhouse</label>\n                    </li>\n                </ul>';
 
 }
 return __p
@@ -184,16 +204,6 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div id="photo_lightbox">\n    <a href="#!" class="close_button">CLOSE</a>\n</div>';
-
-}
-return __p
-};
-
-this["JST"]["src/js/templates/elements/photosVideosAmenitiesOptions.html"] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<ul id="photos-videosAmenities" class="block-grid  p20 searchAmenitiesContent borderBottom">\n    <li>\n        <label class="unit flexUnit txtN" for="multiplephotos">\n            <input type="checkbox" name="Has_Multiple_Photos" class="unit mr5" value="Has_Multiple_Photos" id="multiplephotos">Multiple Photos</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="streamingvideo">\n            <input type="checkbox" name="Has_Community_Theater" class="unit mr5" value="Has_Community_Theater" id="streamingvideo">Streaming Video</label>\n    </li>\n    <li>\n        <label class="unit flexUnit txtN" for="virtualtour">\n            <input type="checkbox" name="Has_VTour" class="unit mr5" value="Has_VTour" id="virtualtour">Virtual Tour</label>\n    </li>\n</ul>\n';
 
 }
 return __p
@@ -213,13 +223,46 @@ __p += '<span class=\'marker premier\'>\n\t<span class=\'img_container\'><img sr
 return __p
 };
 
+this["JST"]["src/js/templates/elements/propertyAmenities.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div id="amenities" class="section">\n    <h2>Features & Amenities</h2>\n    <ul>\n    ';
+ 
+    if(typeof features !== 'undefined') {
+        for(i = 0; i < features.length; i++){ 
+    ;
+__p += '\n        <li>' +
+((__t = ( features[i].name )) == null ? '' : __t) +
+'</li>\n    ';
+ 
+        } 
+    } 
+    ;
+__p += '\n    </ul>\n</div>';
+
+}
+return __p
+};
+
 this["JST"]["src/js/templates/elements/propertyDetails.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="details" class="bgWhite">\n    <table class="width100">\n        <tr>\n            <td class="name alignLeft vAlignMiddle">' +
-((__t = ( property.name )) == null ? '' : __t) +
-'</td>\n            <td class="alignCenter vAlignMiddle">1<span class="block">Beds</span></td>\n            <td class="alignCenter vAlignMiddle">2<span class="block">Baths</span></td>\n            <td class="alignCenter vAlignMiddle">$1,500<span class="block">Monthly</span></td>\n        </tr>\n    </table>\n    <p>Curabitur eleifend nisi lobortis, adipiscing mauris in, venenatis ipsum. Sed suscipit nisi ut tincidunt facilisis. Praesent ligula mi, cursus eu gravida nec, consequat id sapien. Vestibulum adipiscing quis mi quis mollis. In condimentum consequat felis, sit amet gravida massa elementum quis. Ut suscipit aliquet dolor, vitae laoreet nibh mollis non. Aenean diam justo, pretium et odio a, fermentum tempus metus.</p>\n</div>';
+__p += '<div id="details" class="section">\n    <h2>Details</h2>\n    <table class="width100">\n        <tr>\n            <td class="name alignLeft vAlignMiddle">' +
+((__t = ( name )) == null ? '' : __t) +
+'</td>\n            <td class="alignCenter vAlignMiddle">' +
+((__t = ( beds )) == null ? '' : __t) +
+'<span class="block"> Beds</span></td>\n            <td class="alignCenter vAlignMiddle">2<span class="block">Baths</span></td>\n            <td class="alignCenter vAlignMiddle">' +
+((__t = ( price.min )) == null ? '' : __t) +
+' - ' +
+((__t = ( price.max )) == null ? '' : __t) +
+'<span class="block">Price</span></td>\n        </tr>\n    </table>\n    <p>' +
+((__t = ( description )) == null ? '' : __t) +
+'</p>\n    <ul>\n        <li><p class="pet_details">' +
+((__t = ( pet_policy )) == null ? '' : __t) +
+'</p></li>\n    </ul>\n    <ul>\n        <li>\n            <p class="hours">\n                Office Hours\n                <ul>\n                    <li>Monday - Friday 10am - 6pm</li>\n                </ul>\n            </p>\n        </li>\n    </ul>\n</div>';
 
 }
 return __p
@@ -230,17 +273,21 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div id="floorplans" class="bgWhite">\n    ';
+__p += '<div id="floorplans" class="section">\n    <h2>Floor Plans</h2>\n    ';
  for(i = 0; i < floor_plans.length; i++){ ;
 __p += '\n    <table class="width100">\n        <tr>\n            <td class="alignLeft">\n                ' +
 ((__t = ( floor_plans[i].name )) == null ? '' : __t) +
-'\n                <a href="#" class="block">more details here</a>\n            </td>\n            <td class="alignCenter">' +
+'\n                <a href="#!" class="block moreDetailsButton">more details here</a>\n            </td>\n            <td class="alignCenter">' +
 ((__t = ( floor_plans[i].beds )) == null ? '' : __t) +
 '<span class="block">Beds</span></td>\n            <td class="alignCenter">' +
 ((__t = ( floor_plans[i].baths )) == null ? '' : __t) +
 '<span class="block">Baths</span></td>\n            <td class="alignCenter">' +
 ((__t = ( floor_plans[i].price_low )) == null ? '' : __t) +
-'<span class="block">Monthly</span></td>\n        </tr>\n        <tr><td class="moredetails" colspan="4">More Details</td></tr>\n    </table>\n    ';
+'<span class="block">Monthly</span></td>\n        </tr>\n        <tr><td class="moreDetails" colspan="4">\n            <img src="' +
+((__t = ( floor_plans[i].image )) == null ? '' : __t) +
+'" />\n            <p>' +
+((__t = ( floor_plans[i].description )) == null ? '' : __t) +
+'</p>\n        </td></tr>\n    </table>\n    ';
  } ;
 __p += '\n</div>';
 
@@ -350,10 +397,22 @@ this["JST"]["src/js/templates/elements/propertyMap.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="map" class="clearFix bgWhite">\n    <img src="/img/google-map.png" class="width100">\n    <a href="https://maps.google.com?q=' +
-((__t = ( propertyAddress )) == null ? '' : __t) +
-'" target="_blank" class="block right">Get Directions</a>\n    <p>' +
-((__t = ( propertyAddress )) == null ? '' : __t) +
+__p += '<div id="map" class="clearFix section">\n    <h2>\n    Map\n    <a href="#!" id="buttonCA" class="block right">Send Me A Text!</a>\n    <a href="http://maps.apple.com/?daddr=' +
+((__t = ( streetAddress )) == null ? '' : __t) +
+',' +
+((__t = ( city )) == null ? '' : __t) +
+',' +
+((__t = ( state )) == null ? '' : __t) +
+' ' +
+((__t = ( zip )) == null ? '' : __t) +
+'" target="_blank" id="getDirectionsButton" class="block right">Get Directions</a>\n    </h2>\n    <div id="property-map"></div>\n    <p>' +
+((__t = ( streetAddress )) == null ? '' : __t) +
+',' +
+((__t = ( city )) == null ? '' : __t) +
+',' +
+((__t = ( state )) == null ? '' : __t) +
+' ' +
+((__t = ( zip )) == null ? '' : __t) +
 '</p>\n</div>';
 
 }
@@ -364,17 +423,7 @@ this["JST"]["src/js/templates/elements/propertyReviews.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="reviews" class="bgWhite">\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>';
-
-}
-return __p
-};
-
-this["JST"]["src/js/templates/elements/propertyTypesAmenitiesOptions.html"] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<ul id="property-typesAmenities" class="block-grid  p20 searchAmenitiesContent">\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="apartmentcondo">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="1,8" id="apartmentcondo">Apartment/Condo</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="brownstone">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="92" id="brownstone">Brownstone</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="co-op">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="94" id="co-op">Co-Op</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="duplextriplex">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="4,5" id="duplextriplex">Duplex/Triplex</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="efficiencystudio">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="6" id="efficiencystudio">Efficiency/Studio</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="highrise">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="29" id="highrise">High Rise</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="loft">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="10" id="loft">Loft</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="lowrise">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="95" id="lowrise">Low Rise</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="midrise">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="66" id="midrise">Mid Rise</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="newconstruction">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="93" id="newconstruction">New Construction</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="postwar">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="96" id="postwar">Post-War</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="prewar">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="97" id="prewar">Pre-War</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="singlefamilyhome">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="2" id="singlefamilyhome">Single Family Home</label>\n                    </li>\n\n                    <li>\n                        <label class="unit flexUnit txtN" for="townhouse">\n                            <input type="checkbox" name="propertyType[]" class="unit mr5" value="7" id="townhouse">Townhouse</label>\n                    </li>\n                </ul>';
+__p += '<div id="reviews" class="section">\n    <h2>Reviews</h2>\n    <p class="noBorder reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n    <p class="reviewStars">\n        <strong class="block">Apartment is Fantastic</strong>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.\n        <span class="block">From Google Places</span>\n    </p>\n</div>';
 
 }
 return __p
@@ -528,16 +577,9 @@ return __p
 
 this["JST"]["src/js/templates/layouts/property.html"] = function(obj) {
 obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
+var __t, __p = '', __e = _.escape;
 with (obj) {
-
- if(typeof property.attributes.video !== 'undefined') { ;
-__p += '\n<video id="background_video" preload="auto"  autoplay loop>\n    <source src=\'' +
-((__t = ( property.attributes.video )) == null ? '' : __t) +
-'\' type="video/mp4"/>\n</video>\n<img src="/img/play_button.png" class="absoluteCenter" id="videoPlayButton" />\n';
- } ;
-__p += '\n<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute safariHack"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info">\n        <h2>' +
+__p += '<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute safariHack"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info">\n        <h2>' +
 ((__t = ( property.attributes.name )) == null ? '' : __t) +
 '</h2>\n        <p class="clickable pointer" section="map">\n            ' +
 ((__t = ( property.attributes.streetAddress )) == null ? '' : __t) +
@@ -555,9 +597,17 @@ __p += '\n<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizAr
 ((__t = ( property.attributes.price.min )) == null ? '' : __t) +
 ' - ' +
 ((__t = ( property.attributes.price.max )) == null ? '' : __t) +
-'<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p class="clickable pointer" section="reviews">\n            <span id="webReview" class="block reviewStars">4 Reviews</span>\n            <a>View Reviews from the Web</a>\n        </p>\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">' +
-((__t = ( moreContent )) == null ? '' : __t) +
-'</div>\n        <div class="form relative tableCell vAlignTop">\n            ' +
+'<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p class="clickable pointer" section="reviews">\n            <span id="webReview" class="block reviewStars">4 Reviews</span>\n            <a>View Reviews from the Web</a>\n        </p>\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">\n            ' +
+((__t = ( detailsSection )) == null ? '' : __t) +
+'\n            ' +
+((__t = ( floorplansSection )) == null ? '' : __t) +
+'\n            ' +
+((__t = ( amenitiesSection )) == null ? '' : __t) +
+'\n            ' +
+((__t = ( mapSection )) == null ? '' : __t) +
+'\n            ' +
+((__t = ( reviewsSection )) == null ? '' : __t) +
+'\n        </div>\n        <div class="form relative tableCell vAlignTop">\n            ' +
 ((__t = ( guestCardForm )) == null ? '' : __t) +
 '\n            ' +
 ((__t = ( communitySpotlight )) == null ? '' : __t) +

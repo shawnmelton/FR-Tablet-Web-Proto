@@ -66,11 +66,11 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
 
         render: function() {
             this.$el.append(JST['src/js/templates/elements/advancedSearch.html']({
-                apartmentAmenities: JST['src/js/templates/elements/apartmentAmenitiesOptions.html'](),
-                communityAmenities: JST['src/js/templates/elements/communityAmenitiesOptions.html'](),
-                petAmenities: JST['src/js/templates/elements/petAmenitiesOptions.html'](),
-                propertyTypesAmenities: JST['src/js/templates/elements/propertyTypesAmenitiesOptions.html'](),
-                photosVideosAmenities: JST['src/js/templates/elements/photosVideosAmenitiesOptions.html'](),
+                apartmentAmenities: JST['src/js/templates/elements/optionsApartmentAmenities.html'](),
+                communityAmenities: JST['src/js/templates/elements/optionsCommunityAmenities.html'](),
+                petAmenities: JST['src/js/templates/elements/optionsPetAmenities.html'](),
+                propertyTypesAmenities: JST['src/js/templates/elements/optionsPropertyTypesAmenities.html'](),
+                photosVideosAmenities: JST['src/js/templates/elements/optionsPhotosVideosAmenities.html'](),
             }));
             this.displaying = false;
             this.drawerEl = $(document.getElementById('advancedSearch'));

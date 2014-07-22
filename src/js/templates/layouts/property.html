@@ -1,9 +1,3 @@
-<% if(typeof property.attributes.video !== 'undefined') { %>
-<video id="background_video" preload="auto"  autoplay loop>
-    <source src='<%= property.attributes.video %>' type="video/mp4"/>
-</video>
-<img src="/img/play_button.png" class="absoluteCenter" id="videoPlayButton" />
-<% } %>
 <div id="gallery" class="fixed noOverflow"></div>
 <a id="swipeHorizArrow" class="block absolute safariHack"></a>
 <section id="teaser" class="relative borderBox noOverflow">
@@ -26,7 +20,13 @@
 
 <section id="more" class="relative borderBox noOverflow table width100 safariHack">
     <div class="tableRow">
-        <div id="moreContent" class="tableCell vAlignTop"><%= moreContent %></div>
+        <div id="moreContent" class="tableCell vAlignTop">
+            <%= detailsSection %>
+            <%= floorplansSection %>
+            <%= amenitiesSection %>
+            <%= reviewsSection %>
+            <%= mapSection %>
+        </div>
         <div class="form relative tableCell vAlignTop">
             <%= guestCardForm %>
             <%= communitySpotlight %>

@@ -1,11 +1,25 @@
-<div id="details" class="bgWhite">
+<div id="details" class="section">
+    <h2>Details</h2>
     <table class="width100">
         <tr>
-            <td class="name alignLeft vAlignMiddle"><%= property.name %></td>
-            <td class="alignCenter vAlignMiddle">1<span class="block">Beds</span></td>
+            <td class="name alignLeft vAlignMiddle"><%= name %></td>
+            <td class="alignCenter vAlignMiddle"><%= beds %><span class="block"> Beds</span></td>
             <td class="alignCenter vAlignMiddle">2<span class="block">Baths</span></td>
-            <td class="alignCenter vAlignMiddle">$1,500<span class="block">Monthly</span></td>
+            <td class="alignCenter vAlignMiddle"><%= price.min %> - <%= price.max %><span class="block">Price</span></td>
         </tr>
     </table>
-    <p>Curabitur eleifend nisi lobortis, adipiscing mauris in, venenatis ipsum. Sed suscipit nisi ut tincidunt facilisis. Praesent ligula mi, cursus eu gravida nec, consequat id sapien. Vestibulum adipiscing quis mi quis mollis. In condimentum consequat felis, sit amet gravida massa elementum quis. Ut suscipit aliquet dolor, vitae laoreet nibh mollis non. Aenean diam justo, pretium et odio a, fermentum tempus metus.</p>
+    <p><%= description %></p>
+    <ul>
+        <li><p class="pet_details"><%= pet_policy %></p></li>
+    </ul>
+    <ul>
+        <li>
+            <p class="hours">
+                Office Hours
+                <ul>
+                    <li>Monday - Friday 10am - 6pm</li>
+                </ul>
+            </p>
+        </li>
+    </ul>
 </div>
