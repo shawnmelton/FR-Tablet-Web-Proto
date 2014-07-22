@@ -25,8 +25,44 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         moreInfoPanel: null,
         lastPropertyId: null,
 
-        isNumeric: function(n){
-          return !isNaN(parseFloat(n)) && isFinite(n);
+        /**
+         * Render the search results view.
+         * Load the first 10 results.
+         */
+        render: function(){
+            var _this = this;
+            this.searchString = decodeURIComponent(location.pathname.split('search/')[1]);
+            this.loadResultsSet();
+            this.setKeywords();
+            this.$el.html(JST['src/js/templates/layouts/search.html']());
+            this.$el.attr("class", "search");
+
+            //Check for "Show Map" setting
+            this.$el.addClass('showMap');
+            this.mapCanvas.addClass('showMap');
+            $('#map-container').show();
+
+            //Check for orientation
+            window.addEventListener("orientationchange", function() {
+                _this.setContentDimensions();
+            }, false);
+
+            this.resultsEl = $(document.getElementById('results'));
+            this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroupPlaceholder.html']);
+            this.resultsEl.find('.basic').each(function(i){
+                pulsate(this, i);
+            });
+
+            function pulsate(card, i){
+                $(card).delay(i * 200).fadeOut('slow').fadeIn('slow');
+            }
+
+            this.setInfiniteScrolling();
+            this.setResizeEvent();
+            this.setContentDimensions();
+            searchBarViewEl.renderToHeader();
+
+            $('#searchBar button').text('Search');
         },
 
         loadResultsSet: function(searchString) {
@@ -73,11 +109,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     var numListings = response.length;
                     _this.morePropertiesExist = (response.length);
                     if(!_this.morePropertiesExist){
-                        //Remove loading class
                         return;
                     }
-
-                    //Properties exist
 
                     //Increment listings shown
                     _this.currentSearchListingCount += numListings;
@@ -123,51 +156,33 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         },
 
         /**
-         * Handle what happens when a property is touched/clicked.
-         * @propertyId - Integer value.
+         * Get the keywords based on the url.
+         * First make sure user did a proper search.
          */
-        onPropertyClick: function(homesId) {
-            Navigate.toUrl('/properties/'+homesId);
+        setKeywords: function() {
+            if(!/^\/search\/[a-z,A-Z,0-9, ,\,,\',\-,\%,\&,\;]+$/i.test(location.pathname)) {
+                Navigate.toUrl('/');          
+            }
+
+            searchBarViewEl.setKeywords(decodeURIComponent(location.pathname.split('search/')[1]));
         },
 
         /**
-         * Render the search results view.
-         * Load the first 10 results.
+         * If the screen is resized, make sure we perform a relayout.
          */
-        render: function(){
+        setResizeEvent: function() {
             var _this = this;
-            this.searchString = decodeURIComponent(location.pathname.split('search/')[1]);
-            this.loadResultsSet();
-            this.setKeywords();
-            this.$el.html(JST['src/js/templates/layouts/search.html']());
-            this.$el.attr("class", "search");
+            var resizeTimeout = null;
+            $(window).resize(function() {
+                if (resizeTimeout !== null) {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = null;
+                }
 
-            //Check for "Show Map" setting
-            this.$el.addClass('showMap');
-            this.mapCanvas.addClass('showMap');
-            $('#map-container').show();
-
-            //Check for orientation
-            window.addEventListener("orientationchange", function() {
-                _this.setContentDimensions();
-            }, false);
-
-            this.resultsEl = $(document.getElementById('results'));
-            this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroupPlaceholder.html']);
-            this.resultsEl.find('.basic').each(function(i){
-                pulsate(this, i);
+                resizeTimeout = setTimeout(function() {
+                    _this.setContentDimensions();
+                }, 250);
             });
-
-            function pulsate(card, i){
-                $(card).delay(i * 200).fadeOut('slow').fadeIn('slow');
-            }
-
-            this.setInfiniteScrolling();
-            this.setResizeEvent();
-            this.setContentDimensions();
-            searchBarViewEl.renderToHeader();
-
-            $('#searchBar button').text('Search');
         },
 
         /**
@@ -231,18 +246,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         },
 
         /**
-         * Get the keywords based on the url.
-         * First make sure user did a proper search.
-         */
-        setKeywords: function() {
-            if(!/^\/search\/[a-z,A-Z,0-9, ,\,,\',\-,\%,\&,\;]+$/i.test(location.pathname)) {
-                Navigate.toUrl('/');          
-            }
-
-            searchBarViewEl.setKeywords(decodeURIComponent(location.pathname.split('search/')[1]));
-        },
-
-        /**
          * Make each property touchable.
          */
         setPropertyClickEvents: function() {
@@ -277,21 +280,11 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         },
 
         /**
-         * If the screen is resized, make sure we perform a relayout.
+         * Handle what happens when a property is touched/clicked.
+         * @propertyId - Integer value.
          */
-        setResizeEvent: function() {
-            var _this = this;
-            var resizeTimeout = null;
-            $(window).resize(function() {
-                if (resizeTimeout !== null) {
-                    clearTimeout(resizeTimeout);
-                    resizeTimeout = null;
-                }
-
-                resizeTimeout = setTimeout(function() {
-                    _this.setContentDimensions();
-                }, 250);
-            });
+        onPropertyClick: function(homesId) {
+            Navigate.toUrl('/properties/'+homesId);
         },
 
         hideGuestCard: function(card){
@@ -392,7 +385,11 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 _this.showMoreInfoPanel(card);
                 _this.showGuestCard(card);
             }
-    }
+        },
+
+        isNumeric: function(n){
+          return !isNaN(parseFloat(n)) && isFinite(n);
+        }
     });
     
     return new searchView();
