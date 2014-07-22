@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tools/navigate', 'tools/data', 'models/listing','collections/listings'],
-    function($, Backbone, tmplts, searchBarViewEl, Navigate, Data, ListingModel, ListingCollection){
+define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'views/elements/fullMap', 'tools/navigate', 'tools/data', 'models/listing','collections/listings'],
+    function($, Backbone, tmplts, searchBarViewEl, fullMapEl, Navigate, Data, ListingModel, ListingCollection){
     var searchView = Backbone.View.extend({
         el: "#content",
         resultsEl: null,
@@ -7,7 +7,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         pins: [],
         map: null,
         mapCanvas: $('#map-canvas'),
-        mapInitialized: false,
         userAddressTerms: null,
         propertyIndex: null,
         searchString: null,
@@ -26,117 +25,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
         moreInfoPanel: null,
         lastPropertyId: null,
 
-        /**
-         * Locate a property given an id.
-         */
-        findById: function(id) {
-
-            var obj = null;
-            this.listings.each(function(property) {
-                if(parseInt(property.get('id')) === id) {
-                    obj = property.toJSON();
-                }
-            });
-
-            return obj;
-        },
-
-        getLocationFromZip: function(address){
-            //
-        },
-
-        geocodeCallback: function(geocodeResult, userData){
-            var _this = this;
-            var locs = [],
-                pins = [],
-                pinHTML,
-                currentLocation = geocodeResult.results[0].location;
-
-            $.each(_this.listings.models, function(i, listing){
-                var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng);
-                var card = $('.basic:nth-child(' + (i+1) + ')');
-                var isSelect = card.hasClass('select');
-                var inViewPort = (i < _this.cardsPerHalfPage);
-                if(inViewPort){
-                    if(isSelect){
-                            pinHTML = JST['src/js/templates/elements/pmarker.html']({
-                            image_src: listing.attributes.primaryImage,
-                            count: i+1
-                        });
-                    }
-                    else{
-                            pinHTML = JST['src/js/templates/elements/marker.html']({
-                                count: i+1
-                            });
-                    }
-                }
-                else{
-                    pinHTML = "<span class='marker simple'></span>";
-                }
-                var pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin"+(i+1)}; 
-                var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
-                pins.push(pin);
-                locs.push(location);
-                _this.map.entities.push(pin);
-                Microsoft.Maps.Events.removeHandler(pin, 'click');
-                Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
-                    $('.marker').removeClass('active');
-                    var propertyIndex = i + 1;
-                    var card = (i === 0) ? $('div.basic').first() : $('div.basic:nth-child(' + propertyIndex + ')');
-                    var pinMarker = $('.pin' + propertyIndex).find('.marker');
-
-                    pinMarker.addClass('active');
-                    _this.showGuestCard(card);
-                });
-            });
-            //Map is initialized
-            _this.mapInitialized = true;
-
-            //Get bounding box from group of pins
-            _this.centerOnPinGroup(locs);
-            Microsoft.Maps.Events.addHandler(_this.map, 'mousemove', _this.mapMoving);
-            // Microsoft.Maps.Events.addHandler(_this.map, 'mouseup', function(e){
-            //     _this.mapMoved(e);
-            // });
-
-
-            //ViewChangeEnd
-        },
-
-        centerOnPinGroup: function(pins){
-            var bounds = new Microsoft.Maps.LocationRect.fromLocations(pins);
-
-            //Set map bounds
-            this.map.setView({
-                bounds: bounds
-            });
-        },
-
-        initializeMap: function(listings) {
-            /**
-             *  TODO: Get Lat/Lng from zip or address and
-             *  pass to the mapOptions
-             */
-            var mapOptions = {
-                credentials:"AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW",
-                mapTypeId: Microsoft.Maps.MapTypeId.road,
-                zoom: 16,
-                showScalebar: false
-            };
-            this.map = new Microsoft.Maps.Map(document.getElementById("map-canvas"), mapOptions);
-
-            var _this = this;
-            Microsoft.Maps.loadModule('Microsoft.Maps.Search', { callback: function(){
-                var zip = decodeURIComponent(location.pathname.split('search/')[1]);
-                var search = new Microsoft.Maps.Search.SearchManager(_this.map);
-                search.geocode({where:zip, count:10, callback: function(geocodeResult, userData){
-                    _this.geocodeCallback(geocodeResult, userData);
-                }});
-                
-             } 
-            });
-        },
-
         isNumeric: function(n){
           return !isNaN(parseFloat(n)) && isFinite(n);
         },
@@ -148,17 +36,13 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             //Initialize to zero or increment based on whether
             //or not this is the first call of a new zip code
             if(_this.lastSearchString != _this.searchString || this.currentListingsPage === null){
-                _this.mapInitialized = false;
+                fullMapEl.mapInitialized = false;
                 this.currentListingsPage = 0;
                 _this.newPageScrollTop = 0;
             }
             else{
                 this.currentListingsPage++;
             }
-
-            console.log('Load Results', _this.lastSearchString, _this.searchString);
-            console.log('Load page: ', _this.currentListingsPage);
-            console.log('Use: ', searchString);
 
             //Show loading image
             $(_this.resultsEl).addClass('loading');
@@ -201,80 +85,41 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     //Update current searched zip
                     _this.lastSearchString = _this.searchString;
 
-                    var blocks = 4;
-
-                    $('.table > div > div > div').unbind(touchEventType);
-                    _this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroup.html']({
-                        startIndex: this.propertyIndex,
-                        selects: (numListings >= blocks) ? _this.listings.slice(0,blocks) : _this.listings.slice(0,numListings),
-                        properties: (numListings > blocks) ? _this.listings.slice(blocks,numListings-blocks) : null,
-                        listings: _this.listings,
-                        numBlocksToPrint: blocks,          //Change this based or layout options
-                        numPropertiesToPrint: blocks       //Change this based or layout options
-                    }));
-                    var pageHeight = $(_this.resultsEl).find('.page').last().height();
-                    var cardCount = $(_this.resultsEl).find('.page').last().find('.basic').length;
-                    var cardRowHeight = $(_this.resultsEl).find('.page').last().find('.first').height();
-                    console.log(cardCount, ' Cards, Height: ', cardRowHeight);
-
-                    _this.cardsPerHalfPage = cardCount/2;
-                    _this.newPageScrollTop += $(_this.resultsEl).find('.page').last().height();
-
-                    _this.setPropertyClickEvents();
-
-                    //Initialize map with listings and 
-                    //center on the group
-                    if(!_this.mapInitialized){
-                        _this.initializeMap(_this.listings);
-                    }
-
-                    $('#map-loader').addClass('hidden');
+                    _this.populateResults(numListings);
                 },
                 error: function(error){
-                    console.log('Error: ', error);
                     $('#map-loader').addClass('hidden');  
                 }
             });
         },
 
-        /**
-         *  Hanldle click on Current Location button
-         *
-         */
-        currentLocationClicked: function(){
-            this.setUserLocation();
-        },
-
-        mapMoved: function(e){
+        populateResults: function(numListings){
             var _this = this;
-            var map = this.map;
-            var point = new Microsoft.Maps.Point(e.getX(), e.getY());
-            var loc = e.target.tryPixelToLocation(point);
-            var coords = loc.latitude + ", " + loc.longitude;
-            console.log('Map Moved ', coords);
+            var blocks = 4;
+            $('.table > div > div > div').unbind(touchEventType);
+             
+            this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroup.html']({
+                startIndex: this.propertyIndex,
+                selects: (numListings >= blocks) ? _this.listings.slice(0,blocks) : _this.listings.slice(0,numListings),
+                properties: (numListings > blocks) ? _this.listings.slice(blocks,numListings-blocks) : null,
+                listings: _this.listings,
+                numBlocksToPrint: blocks,          //Change this based or layout options
+                numPropertiesToPrint: blocks       //Change this based or layout options
+            }));
 
-            $.ajax({
-                url: "http://dev.virtualearth.net/REST/v1/Locations/" + coords,
-                dataType: "jsonp",
-                data: {
-                    key: "AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW"
-                },
-                jsonp: "jsonp",
-                success: function (data) {
-                    var result = data.resourceSets[0];
-                    if (result && result.resources[0]) {
-                        var searchString = result.resources[0].address.locality;
-                        _this.mapInitialized = false;
-                        _this.currentListingsPage = null;
-                        _this.lastSearchString = null;
-                        _this.loadResultsSet(searchString);
-                    }
-                }
-            });
-        },
+            var pageHeight = $(_this.resultsEl).find('.page').last().height();
+            var cardCount = $(_this.resultsEl).find('.page').last().find('.basic').length;
+            var cardRowHeight = $(_this.resultsEl).find('.page').last().find('.first').height();
 
-        mapMoving: function(e){
+            this.cardsPerHalfPage = cardCount/2;
+            this.newPageScrollTop += $(_this.resultsEl).find('.page').last().height();
+            this.setPropertyClickEvents();
 
+            if(!fullMapEl.mapInitialized){
+                fullMapEl.init(_this.listings);
+            }
+
+            $('#map-loader').addClass('hidden');
         },
 
         /**
@@ -283,19 +128,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          */
         onPropertyClick: function(homesId) {
             Navigate.toUrl('/properties/'+homesId);
-        },
-
-        reInitializeMap: function(zip){
-            var _this = this;
-            console.log('Reinitialize: ', zip);
-            Microsoft.Maps.loadModule('Microsoft.Maps.Search', { callback: function(){
-                var search = new Microsoft.Maps.Search.SearchManager(_this.map);
-                search.geocode({where:zip, count:10, callback: function(geocodeResult, userData){
-                    _this.geocodeCallback(geocodeResult, userData);
-                }});
-                
-             } 
-            });
         },
 
         /**
@@ -315,11 +147,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.mapCanvas.addClass('showMap');
             $('#map-container').show();
 
-            //Toggle browse/split-map view
-            $('#currentLocationButton').click(function(){
-                _this.currentLocationClicked();
-            });
-
             //Check for orientation
             window.addEventListener("orientationchange", function() {
                 _this.setContentDimensions();
@@ -328,86 +155,19 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             this.resultsEl = $(document.getElementById('results'));
             this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroupPlaceholder.html']);
             this.resultsEl.find('.basic').each(function(i){
-                console.log('Basic ', i);
                 pulsate(this, i);
             });
 
             function pulsate(card, i){
-                $(card).delay(i * 200).fadeOut('slow').fadeIn('slow', function(){
-                    console.log('done');
-                });
+                $(card).delay(i * 200).fadeOut('slow').fadeIn('slow');
             }
 
             this.setInfiniteScrolling();
             this.setResizeEvent();
             this.setContentDimensions();
             searchBarViewEl.renderToHeader();
-            this.setDeviceMotionEvent();
 
             $('#searchBar button').text('Search');
-        },
-
-        plotMapPoints: function(locations){
-            var _this = this;
-            var locs = [],
-                pins = [],
-                pinHTML,
-                currentLocation = geocodeResult.results[0].location;
-
-            $.each(_this.listings.models, function(i, listing){
-                var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng);
-                var card = $('.basic:nth-child(' + (i+1) + ')');
-                var isSelect = card.hasClass('select');
-                var inViewPort = (i < _this.cardsPerHalfPage);
-                if(inViewPort){
-                    if(isSelect){
-                            pinHTML = JST['src/js/templates/elements/pmarker.html']({
-                            image_src: listing.attributes.primaryImage,
-                            count: i+1
-                        });
-                    }
-                    else{
-                            pinHTML = JST['src/js/templates/elements/marker.html']({
-                                count: i+1
-                            });
-                    }
-                }
-                else{
-                    pinHTML = "<span class='marker simple'></span>";
-                }
-                var pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin"+(i+1)}; 
-                var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
-                pins.push(pin);
-                locs.push(location);
-                _this.map.entities.push(pin);
-                Microsoft.Maps.Events.removeHandler(pin, 'click');
-                Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
-                    $('.marker').removeClass('active');
-                    var propertyIndex = i + 1;
-                    var card = (i === 0) ? $('div.basic').first() : $('div.basic:nth-child(' + propertyIndex + ')');
-                    var pinMarker = $('.pin' + propertyIndex).find('.marker');
-
-                    console.log('Card: ', card);
-
-                    pinMarker.addClass('active');
-                    if(pinMarker.hasClass('premier')){
-                        console.log('Is Premier');
-                    }
-                    else if(pinMarker.hasClass('simple')){
-                        console.log('Is Simple');
-                    }
-                    else{
-                        console.log('Is Basic');
-                    }
-                    _this.showGuestCard(card);
-                });
-            });
-            //Map is initialized
-            _this.mapInitialized = true;
-
-            //Get bounding box from group of pins
-            _this.centerOnPinGroup(locs);
-            Microsoft.Maps.Events.addHandler(_this.map, 'mousemove', _this.mapMoving);
         },
 
         /**
@@ -441,30 +201,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                 this.mapCanvas.css('height', (this.contentHeight - (this.contentHeight*0.01)) + "px");
                 this.$el.css('height', this.contentHeight + "px");
             }
-        },
-
-        setDeviceMotionEvent: function(){
-            window.addEventListener('devicemotion', function(event) {
-                var x = event.acceleration.x;
-                var y = event.acceleration.y;
-                var z = event.acceleration.z;
-
-                var ralpha = event.rotationRate.alpha;
-                var rbeta = event.rotationRate.beta;
-                var rgamma = event.rotationRate.gamma;
-
-                var interval = event.interval;
-
-                if(Math.abs(rgamma) > 60){
-                    console.log('Tilt: ', rgamma);
-
-            $('.basic div').find('.element').removeClass('flipped');
-            $('.basic div').find('.element').removeClass('noTransition');
-            $('.basic div').find('.element').addClass('hasTransition');
-            $('.basic div').find('.element').removeClass('flip');
-                    
-                }
-            });
         },
 
         /**
@@ -504,12 +240,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             }
 
             searchBarViewEl.setKeywords(decodeURIComponent(location.pathname.split('search/')[1]));
-        },
-
-        setMotionDetection: function(){
-            window.ondevicemotion = function(event) {
-
-            };
         },
 
         /**
@@ -562,24 +292,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
                     _this.setContentDimensions();
                 }, 250);
             });
-        },
-
-        setUserLocation: function(){
-            console.log('Show Loader');
-            var _this = this;
-            //First, check for geolocation capability
-            if (navigator.geolocation) {
-                browserSupportFlag = true;
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    console.log('Hide Loader ', position);
-                }, function() {
-                    console.log('No Location Allowed/Found');
-                });
-            }
-            // Browser doesn't support Geolocation
-            else {
-                console.log('Browser Doesn\'t Support Geolocation');
-            }
         },
 
         hideGuestCard: function(card){

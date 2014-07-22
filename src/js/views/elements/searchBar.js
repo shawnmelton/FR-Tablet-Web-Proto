@@ -100,6 +100,7 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate', 'views/elements
 
             var _this = this;
             this.form.submit(function(ev) {
+                console.log('Submit Form');
                 ev.preventDefault();
                 _this.onSearchFormSubmission();
             });
