@@ -1,9 +1,8 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'views/elements/searchBar', 'views/elements/footer',
+define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'views/elements/propertyMap', 'views/elements/searchBar', 'views/elements/footer',
     'tools/navigate', 'tools/data', 'views/elements/propertyGallery','models/listing','collections/listings'],
-    function($, Backbone, tmplts, propertyViewEl, searchBarViewEl, footerViewEl, Navigate, Data, galleryViewEl, ListingModel, ListingCollection){
+    function($, Backbone, tmplts, propertyViewEl, propertyMap, searchBarViewEl, footerViewEl, Navigate, Data, galleryViewEl, ListingModel, ListingCollection){
     var propertyView = Backbone.View.extend({
         el: "#content",
-        video: null,
         map: null,
         property: null,
         moreEl: null,
@@ -11,7 +10,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'v
         contentHeight: 0,
         linksInactive: true,
         listings: null,
-        mapInitialized: false,
 
         initProperty: function(property){
             var _this = this;
@@ -25,67 +23,20 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'v
 
             galleryViewEl.setProperty(property);
             var hasVideo = (typeof property.attributes.video !== 'undefined');
-            _this.$el.html(propertyViewEl.getHTML(property));
-
-            _this.video = document.getElementById('video');
-            _this.$el.attr("class", "property");
-            _this.$el.prepend(JST['src/js/templates/elements/photoLightbox.html']);
+            this.$el.html(propertyViewEl.getHTML(property));
+            this.$el.attr("class", "property");
+            this.$el.prepend(JST['src/js/templates/elements/photoLightbox.html']);
             
+            this.map = propertyMap.init(property);
             searchBarViewEl.renderToHeader();                    
             galleryViewEl.reset();
-            _this.relayout();
+            this.relayout();
 
             // Events
-            _this.setResizeEvent();
-            _this.setTouchEvents();
-            _this.setScrollEvent();
-            _this.setVertArrowEvent();
-
-            //Get more listings
-            _this.loadNearbyListings();
-            _this.initializePropertyMap();
-        },
-
-        initializePropertyMap: function(){
-            var _this = this;
-            var location = new Microsoft.Maps.Location(this.property.attributes.lat, this.property.attributes.lng);
-            if(!location) return false;
-            var mapOptions = {
-                credentials:"AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW",
-                mapTypeId: Microsoft.Maps.MapTypeId.road,
-                zoom: 12,
-                showScalebar: false,
-                showDashboard: false,
-                center: location
-            };
-            var propertyMap = document.getElementById("property-map");
-            if(!propertyMap) return false;
-            this.map = new Microsoft.Maps.Map(propertyMap, mapOptions);
-            var pinHTML = JST['src/js/templates/elements/pmarker.html']({
-                image_src: _this.property.attributes.primaryImage,
-                count: '1'
-            });
-            var pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin1 property"}; 
-            var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
-            this.map.entities.push(pin);
-            this.map.setView({ center: location });
-            this.mapInitialized = this.map;
-        },
-
-        loadNearbyListings: function(searchString) {
-            var _this = this,
-                searchOptions = {
-                    limit: 10,
-                    start: 0,
-                    city: _this.property.attributes.city
-                };
-            this.listings = new ListingCollection();
-            this.listings.fetch({
-                data: $.param(searchOptions),
-                success: function(response){
-                    _this.populateMap(_this.listings);
-                }
-            });
+            this.setResizeEvent();
+            this.setTouchEvents();
+            this.setScrollEvent();
+            this.setVertArrowEvent();
         },
 
         /**
@@ -117,51 +68,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'v
                 $('#moreContent').scrollTop(0);
                 moreArrow.removeClass('back');
                 moreArrow.find('span').html('More Info');
-            });
-        },
-
-        populateMap: function(listings){
-            var _this = this,
-                locs = [],
-                pins = [];
-            $.each(listings.models, function(i, listing){
-                if(listing.attributes.streetAddress != _this.property.attributes.streetAddress){
-                    var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng),
-                        pinHTML = "<span class='marker simple'></span>",
-                        pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin"+(i+1)},
-                        pin = new Microsoft.Maps.Pushpin(location, pinOptions);
-
-                    pins.push(pin);
-                    locs.push(location);
-
-                    if(!_this.mapInitialized) return false;
-
-                    _this.map.entities.push(pin);
-                    var bounds = new Microsoft.Maps.LocationRect.fromLocations(locs);
-
-                    Microsoft.Maps.Events.removeHandler(pin, 'click');
-                    Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
-
-                        Microsoft.Maps.Events.removeHandler(pin, 'click');
-                        Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
-                            _this.preload(listing.attributes.homesId, function(){
-                                Navigate.toUrl('/properties/'+listing.attributes.homesId);
-                            });
-                        });
-
-                        var newPinHTML = JST['src/js/templates/elements/large_marker.html']({
-                            image_src: listing.attributes.primaryImage,
-                            property: listing.attributes
-                        });
-
-                        $('.marker.large').parent().not('.property').html("<span class='marker simple'></span>");
-
-                        var propertyIndex = i + 1;
-                        var pinMarker = $('.pin' + propertyIndex + ' > .marker');
-                        pinMarker.parent().html(newPinHTML);
-                        pinMarker.addClass('active');
-                    });
-                }
             });
         },
 
@@ -336,14 +242,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'v
                     "-o-filter" : 'blur('+ blurAmount +'px)',
                 });
             };
-
-            $('video').bind('touchmove', function(e){
-                console.log('Touch Move');
-                if($('#video_lightbox.show').length){
-                    e.preventDefault();
-                    return false;
-                }
-            });
         },
 
         /**
@@ -378,6 +276,13 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'v
             $('#video_lightbox, #video').bind('touchmove', function(e){
                 e.preventDefault();
                 return false;
+            });
+
+            $('video').bind('touchmove', function(e){
+                if($('#video_lightbox.show').length){
+                    e.preventDefault();
+                    return false;
+                }
             });
 
             $('#floorplans tr').bind(touchEventType, function(ev){

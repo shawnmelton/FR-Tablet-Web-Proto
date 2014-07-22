@@ -1,6 +1,6 @@
 define(['jquery', 'backbone', 'templates/jst', 'tools/navigate','views/elements/guestCardForm'],
     function($, Backbone, tmplts, Navigate, guestCardFormEl){
-    var searchBarViewEl = Backbone.View.extend({
+    var propertyViewEl = Backbone.View.extend({
         getHTML: function(property){
             var _this = this;
             var hasVideo = (typeof property.attributes.video !== 'undefined');
@@ -52,5 +52,5 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate','views/elements/
         }
     });
 
-    return new searchBarViewEl();
+    return new propertyViewEl();
 });
