@@ -1,6 +1,6 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'views/elements/footer',
-    'tools/navigate', 'tools/data', 'views/elements/propertyGallery', 'views/elements/guestCardForm','models/listing','collections/listings'],
-    function($, Backbone, tmplts, searchBarViewEl, footerViewEl, Navigate, Data, galleryViewEl, guestCardFormEl, ListingModel, ListingCollection){
+define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'views/elements/searchBar', 'views/elements/footer',
+    'tools/navigate', 'tools/data', 'views/elements/propertyGallery','models/listing','collections/listings'],
+    function($, Backbone, tmplts, propertyViewEl, searchBarViewEl, footerViewEl, Navigate, Data, galleryViewEl, ListingModel, ListingCollection){
     var propertyView = Backbone.View.extend({
         el: "#content",
         video: null,
@@ -13,11 +13,42 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         listings: null,
         mapInitialized: false,
 
+        initProperty: function(property){
+            var _this = this;
+            if(property === null) {
+                Navigate.toUrl('/');
+                valid = false;
+            }
+
+            $('[name="keywords"]').val(property.attributes.city);
+            $('#searchBar button').text('Back');
+
+            galleryViewEl.setProperty(property);
+            var hasVideo = (typeof property.attributes.video !== 'undefined');
+            _this.$el.html(propertyViewEl.getHTML(property));
+
+            _this.video = document.getElementById('video');
+            _this.$el.attr("class", "property");
+            _this.$el.prepend(JST['src/js/templates/elements/photoLightbox.html']);
+            
+            searchBarViewEl.renderToHeader();                    
+            galleryViewEl.reset();
+            _this.relayout();
+
+            // Events
+            _this.setResizeEvent();
+            _this.setTouchEvents();
+            _this.setScrollEvent();
+            _this.setVertArrowEvent();
+
+            //Get more listings
+            _this.loadNearbyListings();
+            _this.initializePropertyMap();
+        },
+
         initializePropertyMap: function(){
             var _this = this;
-            
             var location = new Microsoft.Maps.Location(this.property.attributes.lat, this.property.attributes.lng);
-            
             if(!location) return false;
             var mapOptions = {
                 credentials:"AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW",
@@ -27,15 +58,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 showDashboard: false,
                 center: location
             };
-            
             var propertyMap = document.getElementById("property-map");
             if(!propertyMap) return false;
-            
-            console.log('Can getz map Element!');
-
             this.map = new Microsoft.Maps.Map(propertyMap, mapOptions);
-
-
             var pinHTML = JST['src/js/templates/elements/pmarker.html']({
                 image_src: _this.property.attributes.primaryImage,
                 count: '1'
@@ -47,83 +72,18 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             this.mapInitialized = this.map;
         },
 
-        loadResultsSet: function(searchString) {
+        loadNearbyListings: function(searchString) {
             var _this = this,
-                locs = [],
-                pins = [];
-
-            var searchOptions = {
-                limit: 10,
-                start: 0,
-                city: _this.property.attributes.city
-            };
-
+                searchOptions = {
+                    limit: 10,
+                    start: 0,
+                    city: _this.property.attributes.city
+                };
             this.listings = new ListingCollection();
             this.listings.fetch({
                 data: $.param(searchOptions),
                 success: function(response){
-                    console.log('Got more listings: ', _this.listings);
-                    $.each(_this.listings.models, function(i, listing){
-                        if(listing.attributes.streetAddress != _this.property.attributes.streetAddress){
-                            var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng),
-                                pinHTML = "<span class='marker simple'></span>",
-                                pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin"+(i+1)},
-                                pin = new Microsoft.Maps.Pushpin(location, pinOptions);
-
-                            pins.push(pin);
-                            locs.push(location);
-
-                            if(!_this.mapInitialized) return false;
-
-                            _this.map.entities.push(pin);
-                            var bounds = new Microsoft.Maps.LocationRect.fromLocations(locs);
-
-                            //CENTER MAP ON THIS PROPERTY
-                            // _this.map.setView({ center: location });
-                            // console.log('Property ', i);
-                            // if(i+1 == _this.listings.length){
-                            //     //Set map bounds
-                            //     _this.map.setView({
-                            //         bounds: bounds
-                            //     });
-                            // }
-
-                            // Microsoft.Maps.Events.addHandler(_this.map, 'mousemove', function(e){
-                            //     //Set map bounds
-                            //     _this.map.setView({
-                            //         bounds: bounds
-                            //     });
-                            //     e.preventDefault();
-                            //     return false;
-                            // });
-
-                            Microsoft.Maps.Events.removeHandler(pin, 'click');
-                            Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
-
-                                Microsoft.Maps.Events.removeHandler(pin, 'click');
-                                Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
-                                    _this.preload(listing.attributes.homesId, function(){
-                                        console.log('Go to URL');
-                                        Navigate.toUrl('/properties/'+listing.attributes.homesId);
-                                    });
-                                });
-
-                                var newPinHTML = JST['src/js/templates/elements/large_marker.html']({
-                                    image_src: listing.attributes.primaryImage,
-                                    property: listing.attributes
-                                });
-
-                                console.log('Property Info ', listing);
-
-                                $('.marker.large').parent().not('.property').html("<span class='marker simple'></span>");
-
-                                var propertyIndex = i + 1;
-                                var pinMarker = $('.pin' + propertyIndex + ' > .marker');
-                                pinMarker.parent().html(newPinHTML);
-                                pinMarker.addClass('active');
-                            });
-                        }
-                    });
+                    _this.populateMap(_this.listings);
                 }
             });
         },
@@ -157,6 +117,51 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 $('#moreContent').scrollTop(0);
                 moreArrow.removeClass('back');
                 moreArrow.find('span').html('More Info');
+            });
+        },
+
+        populateMap: function(listings){
+            var _this = this,
+                locs = [],
+                pins = [];
+            $.each(listings.models, function(i, listing){
+                if(listing.attributes.streetAddress != _this.property.attributes.streetAddress){
+                    var location = new Microsoft.Maps.Location(listing.attributes.lat, listing.attributes.lng),
+                        pinHTML = "<span class='marker simple'></span>",
+                        pinOptions = {width: null, height: null, htmlContent: pinHTML, typeName: "pin"+(i+1)},
+                        pin = new Microsoft.Maps.Pushpin(location, pinOptions);
+
+                    pins.push(pin);
+                    locs.push(location);
+
+                    if(!_this.mapInitialized) return false;
+
+                    _this.map.entities.push(pin);
+                    var bounds = new Microsoft.Maps.LocationRect.fromLocations(locs);
+
+                    Microsoft.Maps.Events.removeHandler(pin, 'click');
+                    Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
+
+                        Microsoft.Maps.Events.removeHandler(pin, 'click');
+                        Microsoft.Maps.Events.addHandler(pin, 'click', function(e){
+                            _this.preload(listing.attributes.homesId, function(){
+                                Navigate.toUrl('/properties/'+listing.attributes.homesId);
+                            });
+                        });
+
+                        var newPinHTML = JST['src/js/templates/elements/large_marker.html']({
+                            image_src: listing.attributes.primaryImage,
+                            property: listing.attributes
+                        });
+
+                        $('.marker.large').parent().not('.property').html("<span class='marker simple'></span>");
+
+                        var propertyIndex = i + 1;
+                        var pinMarker = $('.pin' + propertyIndex + ' > .marker');
+                        pinMarker.parent().html(newPinHTML);
+                        pinMarker.addClass('active');
+                    });
+                }
             });
         },
 
@@ -202,36 +207,15 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         },
 
         relayout: function() {
-            console.log('Set Content Dimensions');
             this.setContentDimensions();
             galleryViewEl.update();
         },
 
-        relayoutMoreContent: function(){
-
-        },
-
         render: function(){
-
             $('#map-container').hide();
             $('#map-canvas').removeClass('showMap');
-            
             if(!this.valid()) {
                 return;
-            }
-
-            document.addEventListener("touchmove", ScrollStart, false);
-            document.addEventListener("scroll", ScrollStart, false);
-
-            function ScrollStart(e) {
-                if($(e.target).parents('#moreContent').length > 0 && $('#moreContent').scrollTop() > 40) {
-                    $('.botShadow').addClass('hidden');
-                    $('.topShadow').removeClass('hidden');
-                }
-                else{
-                    $('.botShadow').removeClass('hidden');
-                    $('.topShadow').addClass('hidden');
-                }
             }
 
             var _this = this;
@@ -243,86 +227,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 }),
                 success: function(response){
                     _this.property = response.models[0];
-                    guestCardFormEl.init(_this.property);
-                                        
-                    if(_this.property === null) {
-                        Navigate.toUrl('/');
-                        valid = false;
-                    }
-
-                    galleryViewEl.setProperty(_this.property);
-                    var hasVideo = (typeof _this.property.attributes.video !== 'undefined');
-
-                    // Reset elements for this property view.
-                    _this.moreEl = null;
-                    _this.moreContentEl = null;
-                    _this.$el.html(JST['src/js/templates/layouts/property.html']({
-                        property: _this.property,
-                        detailsSection: JST['src/js/templates/elements/propertyDetails.html']({
-                            name: _this.property.name,
-                            beds: _this.property.attributes.beds,
-                            price: _this.property.attributes.price,
-                            description: _this.property.attributes.description,
-                            pet_policy: _this.property.attributes.pet_policy
-                        }),
-                        floorplansSection: JST['src/js/templates/elements/propertyFloorPlans.html']({
-                            floor_plans: _this.property.attributes.floor_plans
-                        }),
-                        amenitiesSection: (typeof _this.property.attributes.features !== 'undefined') ? JST['src/js/templates/elements/propertyAmenities.html']({
-                            features: _this.property.attributes.features
-                        }) : '',
-                        reviewsSection: JST['src/js/templates/elements/propertyReviews.html']({
-                            floor_plans: _this.property.attributes.floor_plans
-                        }),
-                        mapSection: JST['src/js/templates/elements/propertyMap.html']({
-                            streetAddress: _this.property.attributes.streetAddress,
-                            city: _this.property.attributes.city,
-                            state: _this.property.attributes.state,
-                            zip: _this.property.attributes.zip
-                        }),
-                        guestCardForm: guestCardFormEl.getHTML(),
-                        communitySpotlight: (hasVideo) ? JST['src/js/templates/elements/communitySpotlight.html']({
-                            video_source: _this.property.attributes.video
-                        }) : '',
-                        propertyGallery: JST['src/js/templates/elements/propertyGallery.html']({
-                            images: _this.property.attributes.images
-                        }),
-                        propertyManagement: JST['src/js/templates/elements/propertyManagement.html']({
-                            management_info: ''
-                        }),
-                        officeHours: '',
-                        petPolicy: '',
-                        isSelect: true
-                    }));
-
-                    _this.$el.attr("class", "property");
-                    if(hasVideo){
-                        _this.$el.prepend(JST['src/js/templates/elements/videoLightbox.html']({
-                            source: _this.property.attributes.video
-                        }));
-                        _this.video = document.getElementById('video');
-                    }
-                    _this.$el.prepend(JST['src/js/templates/elements/photoLightbox.html']);
-
-                    _this.$el.prepend($('<div class="lightbox"></div>'));
-                    $('.lightbox').prepend(JST['src/js/templates/elements/sendToCellForm.html']);
-                    
-                    searchBarViewEl.renderToHeader();                    
-                    galleryViewEl.reset();
-                    _this.relayout();
-
-                    // Events
-                    _this.setResizeEvent();
-                    _this.setTouchEvents();
-                    _this.setScrollEvent();
-                    _this.setVertArrowEvent();
-
-                    //Get more listings
-                    _this.loadResultsSet();
-                    _this.initializePropertyMap();
-
-                    $('[name="keywords"]').val(_this.property.attributes.city);
-                    $('#searchBar button').text('Back');
+                    _this.initProperty(_this.property);
                 }
             });
         },
@@ -336,39 +241,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     homesId: propertyId
                 }),
                 success: function(response){
-                    var thisProperty = response.models[0];
-                    
-                    if(thisProperty === null) {
-                        return false;
-                    }
-
-                    var hasVideo = (typeof thisProperty.attributes.video !== 'undefined');
-                    var pageContent = JST['src/js/templates/layouts/property.html']({
-                        property: thisProperty,
-                        moreContent: JST['src/js/templates/elements/propertyInfo.html']({
-                            floor_plans: thisProperty.attributes.floor_plans,
-                            property: thisProperty,
-                            propertyAddress: thisProperty.address
-                        }),
-                        detailsSection: '',
-                        floorplansSection: '',
-                        reviewsSection:'',
-                        mapSection:'',
-                        guestCardForm: guestCardFormEl.getHTML(),
-                        communitySpotlight: (hasVideo) ? JST['src/js/templates/elements/communitySpotlight.html']({
-                            video_source: thisProperty.attributes.video
-                        }) : '',
-                        propertyGallery: JST['src/js/templates/elements/propertyGallery.html']({
-                            images: thisProperty.attributes.images
-                        }),
-                        propertyManagement: JST['src/js/templates/elements/propertyManagement.html']({
-                            management_info: ''
-                        }),
-                        officeHours: '',
-                        petPolicy: '',
-                        isSelect: true
-                    });
-
                     //Run callback
                     if(typeof(done) == "function"){
                         console.log('Call Callback');
@@ -376,33 +248,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                     }
                 }
             });
-        },
-
-        retrieveProperty: function(homesId){
-            // Check browser support
-            if (typeof(Storage) != "undefined")
-            {
-                // Retrieve
-                var property = localStorage.getItem(homesId);
-                console.log('Property: ', property);
-            }
-            else
-            {
-                console.log("Sorry, your browser does not support Web Storage...");
-            }
-        },
-
-        saveProperty: function(property){
-            // Check browser support
-            if (typeof(Storage) != "undefined")
-            {
-                // Store
-                localStorage.setItem(property.attributes.homesId, property);
-            }
-            else
-            {
-                console.log("Sorry, your browser does not support Web Storage...");
-            }
         },
 
         /**
@@ -575,7 +420,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             });
 
             $('.galleryPhotos>img').click(function(){
-                console.log($(this).index());
                 galleryViewEl.openImageInLightbox($(this).index());
             });
 

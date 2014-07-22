@@ -522,7 +522,7 @@ this["JST"]["src/js/templates/elements/sendToCellForm.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<form id="sendToCell" method="post" action="" class="absoluteCenter height100">\n    <h3>Send Me A Text!</h3>\n    <fieldset>\n        <input type="tel" placeholder="Mobile Number" name="mobileNumber" class="width100 borderBox">\n    </fieldset>\n    <fieldset>\n        <button id="sendToCellButton" type="button" class="width100 borderBox whiteText alignCenter sendToCellButton">Send Now</button>\n    </fieldset>\n</form>';
+__p += '<div class="lightbox">\n    <form id="sendToCell" method="post" action="" class="absoluteCenter height100">\n        <h3>Send Me A Text!</h3>\n        <fieldset>\n            <input type="tel" placeholder="Mobile Number" name="mobileNumber" class="width100 borderBox">\n        </fieldset>\n        <fieldset>\n            <button id="sendToCellButton" type="button" class="width100 borderBox whiteText alignCenter sendToCellButton">Send Now</button>\n        </fieldset>\n    </form>\n</div>';
 
 }
 return __p
@@ -579,7 +579,11 @@ this["JST"]["src/js/templates/layouts/property.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute safariHack"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info">\n        <h2>' +
+__p +=
+((__t = ( lightbox )) == null ? '' : __t) +
+'\n' +
+((__t = ( videoLightbox )) == null ? '' : __t) +
+'\n<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute safariHack"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info">\n        <h2>' +
 ((__t = ( property.attributes.name )) == null ? '' : __t) +
 '</h2>\n        <p class="clickable pointer" section="map">\n            ' +
 ((__t = ( property.attributes.streetAddress )) == null ? '' : __t) +
@@ -600,13 +604,13 @@ __p += '<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArro
 '<br>\n            <a>View Floor Plans &amp; Prices</a>\n        </p>\n        <p class="clickable pointer" section="reviews">\n            <span id="webReview" class="block reviewStars">4 Reviews</span>\n            <a>View Reviews from the Web</a>\n        </p>\n    </div>\n</section>\n\n<section id="more" class="relative borderBox noOverflow table width100 safariHack">\n    <div class="tableRow">\n        <div id="moreContent" class="tableCell vAlignTop">\n            ' +
 ((__t = ( detailsSection )) == null ? '' : __t) +
 '\n            ' +
-((__t = ( floorplansSection )) == null ? '' : __t) +
-'\n            ' +
 ((__t = ( amenitiesSection )) == null ? '' : __t) +
 '\n            ' +
-((__t = ( mapSection )) == null ? '' : __t) +
+((__t = ( floorplansSection )) == null ? '' : __t) +
 '\n            ' +
 ((__t = ( reviewsSection )) == null ? '' : __t) +
+'\n            ' +
+((__t = ( mapSection )) == null ? '' : __t) +
 '\n        </div>\n        <div class="form relative tableCell vAlignTop">\n            ' +
 ((__t = ( guestCardForm )) == null ? '' : __t) +
 '\n            ' +
