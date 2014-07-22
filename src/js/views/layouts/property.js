@@ -17,18 +17,14 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'v
                 Navigate.toUrl('/');
                 valid = false;
             }
-
             $('[name="keywords"]').val(property.attributes.city);
             $('#searchBar button').text('Back');
-
-            galleryViewEl.setProperty(property);
-            var hasVideo = (typeof property.attributes.video !== 'undefined');
             this.$el.html(propertyViewEl.getHTML(property));
             this.$el.attr("class", "property");
             this.$el.prepend(JST['src/js/templates/elements/photoLightbox.html']);
-            
             this.map = propertyMap.init(property);
-            searchBarViewEl.renderToHeader();                    
+            searchBarViewEl.renderToHeader(); 
+            galleryViewEl.setProperty(property);                   
             galleryViewEl.reset();
             this.relayout();
 
@@ -45,12 +41,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'v
         moveToMore: function(section) {
             var sectionEl = $('#' + section);
             var moreElTopPos = (sectionEl.position().top + $('#content').height()) - $('footer').height();
-
-            console.log(section, ' top: ', sectionEl.position().top);
-
             // Don't scroll to the More section unless the user isn't close.
             if($('body').scrollTop() < (moreElTopPos - 50)) {
-                console.log("Body");
                 $('body').animate({
                     scrollTop: moreElTopPos +'px'
                 }, 500);
@@ -90,10 +82,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'v
          */
         onVideoThumbnailClick: function() {
             $('#video_lightbox').addClass('show');
-            if(isMobileDevice){
-                console.log('Mobile Device!');
-            }
-            else{
+            if(!isMobileDevice){
                 $('body').on({'mousewheel': function(e) {
                         e.preventDefault();
                         e.stopPropagation();
@@ -164,22 +153,16 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'v
             var moreInfoHeight = this.contentHeight - $('footer').height();
 
             if(WURFL.form_factor == 'Tablet'){
-                console.log('Tablet');
                 this.contentHeight -= 20;
                 moreInfoHeight -= 20;
             }
-            else{
-                console.log(WURFL);
-            }
 
             if(window.orientation == 90 || window.orientation == -90){
-                console.log('Landscape: ', this.contentHeight);
                 $('.photo_container img').removeClass('relativeCenter');
                 $('.photo_container img').removeClass('width100');
                 $('.photo_container img').addClass('height100');
             }
             else{
-                console.log('Portrait: ', this.contentHeight);
                 $('.photo_container img').addClass('width100');
                 $('.photo_container img').removeClass('height100');
                 $('.photo_container img').removeClass('relativeCenter');
@@ -216,8 +199,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'v
         setScrollEvent: function() {
             var _this = this;
             window.onscroll = function(){
-                console.log('Scolling...');
-
                 var moreArrow = $(document.getElementById('moreInfoArrow'));
                 var scrollTop = $(this).scrollTop() * 1.5;
                 var percent = scrollTop/$(window).height();
