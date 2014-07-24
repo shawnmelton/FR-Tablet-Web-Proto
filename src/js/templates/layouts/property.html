@@ -1,5 +1,8 @@
 <%= lightbox %>
 <%= videoLightbox %>
+<% if(typeof property.attributes.video !== 'undefined') { %>
+<img src="/img/play_button.png" class="absoluteCenter" id="videoPlayButton" />
+<% } %>
 <div id="gallery" class="fixed noOverflow"></div>
 <a id="swipeHorizArrow" class="block absolute safariHack"></a>
 <section id="teaser" class="relative borderBox noOverflow">

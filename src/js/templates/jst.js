@@ -577,13 +577,18 @@ return __p
 
 this["JST"]["src/js/templates/layouts/property.html"] = function(obj) {
 obj || (obj = {});
-var __t, __p = '', __e = _.escape;
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
 with (obj) {
 __p +=
 ((__t = ( lightbox )) == null ? '' : __t) +
 '\n' +
 ((__t = ( videoLightbox )) == null ? '' : __t) +
-'\n<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute safariHack"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info">\n        <h2>' +
+'\n';
+ if(typeof property.attributes.video !== 'undefined') { ;
+__p += '\n<img src="/img/play_button.png" class="absoluteCenter" id="videoPlayButton" />\n';
+ } ;
+__p += '\n<div id="gallery" class="fixed noOverflow"></div>\n<a id="swipeHorizArrow" class="block absolute safariHack"></a>\n<section id="teaser" class="relative borderBox noOverflow">\n    <div class="info">\n        <h2>' +
 ((__t = ( property.attributes.name )) == null ? '' : __t) +
 '</h2>\n        <p class="clickable pointer" section="map">\n            ' +
 ((__t = ( property.attributes.streetAddress )) == null ? '' : __t) +
