@@ -30,8 +30,62 @@ The prototype uses a number of open source projects to work properly:
 * [FTP-Deploy] - Grunt task for code deployment over ftp
 * [jQuery] - duh 
 
+CSS, Js, HTML, and most IMGs are compressed and minified all into one index.html file and placed in the `/dist folder`.
+
+
 Structure
 --------------
+
+The vast majority of the application code is found in the `/src` folder, inside which you'll find the following structure:
+
+#####/css _(SASS files prefixed by "_")
+#####/img _(Some site images)_
+#####/js
+ - #####/collections
+ - #####/libs
+ - #####/models
+ - #####/templates _(Here lies all HTML)_
+ - #####/tools
+ - #####/views _(Here lies most of the application logic)_
+  - #####/elements
+    - #####/options _(for use in Adv Search)_
+    - #####/property
+    - #####/search
+  - #####/layouts _(Main layouts: Home, Search, Property)_
+ - #####app.js
+ - #####boostrap.js
+ - #####router.js
+
+*****If a file is not in an individual folder, then it is used for multiple views
+
+#### Home
+ * Search
+ * Featured Properties
+ * Video Lightbox
+
+#### Search Results (List/Map View)
+ * Full Interactive Map 
+ * Search Resulst Group (Cards)
+    * 
+
+
+#### Property Profile `(/js/views/property.js)`
+The various components of the property view are loaded in `/js/views/elements/propertyView.js`.
+ * Property Info
+ * Main Gallery
+ * Video Lightbox
+ * Photo Lightbox
+ * **Below The Fold**
+    * Details
+    * Features
+    * Floorplans
+    * Reviews
+    * Map
+    * Guestcard Form
+    * Mini Video Player (Community Spotlight)
+    * Mini Photo Gallery
+    * Property Management
+
 
 
 
