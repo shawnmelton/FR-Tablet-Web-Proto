@@ -41,20 +41,20 @@ The vast majority of the application code is found in the `/src` folder, inside 
 #####/css _(SASS files prefixed by "_")
 #####/img _(Some site images)_
 #####/js
- - #####/collections
- - #####/libs
- - #####/models
- - #####/templates _(Here lies all HTML)_
- - #####/tools
- - #####/views _(Here lies most of the application logic)_
-  - #####/elements
-    - #####/options _(for use in Adv Search)_
-    - #####/property
-    - #####/search
-  - #####/layouts _(Main layouts: Home, Search, Property)_
- - #####app.js
- - #####boostrap.js
- - #####router.js
+ - /collections
+ - /libs
+ - /models
+ - /templates _(Here lies all HTML)_
+ - /tools
+ - /views _(Here lies most of the application logic)_
+  - /elements
+    - /options _(for use in Adv Search)_
+    - /property
+    - /search
+  - /layouts _(Main layouts: Home, Search, Property)_
+ - app.js
+ - boostrap.js
+ - router.js
 
 *****If a file is not in an individual folder, then it is used for multiple views
 
