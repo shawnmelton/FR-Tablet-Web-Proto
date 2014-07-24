@@ -38,6 +38,7 @@ Structure
 
 The vast majority of the application code is found in the `/src` folder, inside which you'll find the following structure:
 
+
 #####/css _(SASS files prefixed by "_")
 #####/img _(Some site images)_
 #####/js
@@ -55,6 +56,7 @@ The vast majority of the application code is found in the `/src` folder, inside 
  - app.js
  - boostrap.js
  - router.js
+
 
 *****If a file is not in an individual folder, then it is used for multiple views
 
