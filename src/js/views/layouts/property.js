@@ -11,22 +11,99 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'v
         linksInactive: true,
         listings: null,
 
-        preload: function(propertyId, done){
-            //Stub in preloader
-            this.$el.html(JST['src/js/templates/layouts/propertyPlaceholder.html']);
-            var newListing = new ListingCollection();
-            newListing.fetch({
-                data: $.param({
-                    homesId: propertyId
-                }),
-                success: function(response){
-                    //Run callback
-                    if(typeof(done) == "function"){
-                        console.log('Call Callback');
-                        done();
-                    }
-                }
+        initProperty: function(property){
+            var _this = this;
+            if(property === null) {
+                Navigate.toUrl('/');
+                valid = false;
+            }
+            $('[name="keywords"]').val(property.attributes.city);
+            $('#searchBar button').text('Back');
+            this.$el.html(propertyViewEl.getHTML(property));
+            this.$el.attr("class", "property");
+            this.$el.prepend(JST['src/js/templates/elements/photoLightbox.html']);
+            this.map = propertyMap.init(property);
+            searchBarViewEl.renderToHeader(); 
+            galleryViewEl.setProperty(property);                   
+            galleryViewEl.reset();
+            this.relayout();
+
+            // Events
+            this.setResizeEvent();
+            this.setTouchEvents();
+            this.setScrollEvent();
+            this.setVertArrowEvent();
+        },
+
+        /**
+         * Move down the page to the more section for additional property content.
+         */
+        moveToMore: function(section) {
+            var sectionEl = $('#' + section);
+            var moreElTopPos = (sectionEl.position().top + $('#content').height()) - $('footer').height();
+            // Don't scroll to the More section unless the user isn't close.
+            if($('body').scrollTop() < (moreElTopPos - 50)) {
+                $('body').animate({
+                    scrollTop: moreElTopPos +'px'
+                }, 500);
+            }
+        },
+
+        /**
+         * Move down the page to the more section for additional property content.
+         */
+        moveToTop: function() {
+            var moreArrow = $(document.getElementById('moreInfoArrow'));
+            $('body').animate({
+                scrollTop: '0px'
+            }, 500, function(){
+                $('#moreContent').scrollTop(0);
+                moreArrow.removeClass('back');
+                moreArrow.find('span').html('More Info');
             });
+        },
+
+        /**
+         * Handle what happens when the user clicks on the Check Availability button in the
+         * property teaser.
+         */
+        onCheckAvailabilityClick: function() {
+            this.moveToMore('details');
+        },
+
+        onCloseVideoButtonClick: function(){
+            $('video')[0].pause();
+            $('#video_lightbox').removeClass('show');
+            $('body').unbind('mousewheel');
+        },
+
+        /**
+         * Show video lightbox and load video
+         */
+        onVideoThumbnailClick: function() {
+            $('#video_lightbox').addClass('show');
+            if(!isMobileDevice){
+                $('body').on({'mousewheel': function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                });
+            }
+        },
+
+        /**
+         * Catch the event when the user clicks on a section of the Property teaser
+         * Teaser is the section that displays on top of the property image.
+         */
+        onTeaserSectionClick: function(pEl) {
+            //Set tab:  pEl.attr('section')
+            this.moveToMore(pEl.attr('section'));
+            //Load Section:  pEl.attr('section')
+        },
+
+        relayout: function() {
+            this.setContentDimensions();
+            galleryViewEl.update();
         },
 
         render: function(){
@@ -50,37 +127,23 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'v
             });
         },
 
-        initProperty: function(property){
-            var _this = this;
-            if(property === null) {
-                Navigate.toUrl('/');
-                valid = false;
-            }
-            $('[name="keywords"]').val(property.attributes.city);
-            $('#searchBar button').text('Back');
-            
-            this.$el.html(propertyViewEl.getHTML(property));
-            this.$el.attr("class", "property");
-            this.$el.prepend(JST['src/js/templates/elements/photoLightbox.html']);
-            
-            this.map = propertyMap.init(property);
-            searchBarViewEl.renderToHeader(); 
-            galleryViewEl.setProperty(property);                   
-            galleryViewEl.reset();
-            this.relayout();
-
-            // Events
-            this.setResizeEvent();
-            this.setScrollEvent();
-            this.setVertArrowEvent();
-            this.setTouchEvents();
+        preload: function(propertyId, done){
+            //Stub in preloader
+            this.$el.html(JST['src/js/templates/layouts/propertyPlaceholder.html']);
+            var newListing = new ListingCollection();
+            newListing.fetch({
+                data: $.param({
+                    homesId: propertyId
+                }),
+                success: function(response){
+                    //Run callback
+                    if(typeof(done) == "function"){
+                        console.log('Call Callback');
+                        done();
+                    }
+                }
+            });
         },
-
-        relayout: function() {
-            this.setContentDimensions();
-            galleryViewEl.update();
-        },
-
 
         /**
          * Set the content height for this page.
@@ -160,20 +223,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'v
                     "-o-filter" : 'blur('+ blurAmount +'px)',
                 });
             };
-        },
-
-        /**
-         * Scroll down the page to the additional content when the down arrow is touched.
-         */
-        setVertArrowEvent: function() {
-            var _this = this;
-            var moreArrow = $(document.getElementById('moreInfoArrow'));
-            moreArrow.unbind(touchEventType);
-            moreArrow.bind(touchEventType, function(){
-                _this.moveToMore('details');
-                moreArrow.unbind(touchEventType);
-                _this.setBackToTopEvent();
-            });
         },
 
         /**
@@ -268,69 +317,17 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'v
         },
 
         /**
-         * Move down the page to the more section for additional property content.
+         * Scroll down the page to the additional content when the down arrow is touched.
          */
-        moveToMore: function(section) {
-            var sectionEl = $('#' + section);
-            var moreElTopPos = (sectionEl.position().top + $('#content').height()) - $('footer').height();
-            // Don't scroll to the More section unless the user isn't close.
-            if($('body').scrollTop() < (moreElTopPos - 50)) {
-                $('body').animate({
-                    scrollTop: moreElTopPos +'px'
-                }, 500);
-            }
-        },
-
-        /**
-         * Move down the page to the more section for additional property content.
-         */
-        moveToTop: function() {
+        setVertArrowEvent: function() {
+            var _this = this;
             var moreArrow = $(document.getElementById('moreInfoArrow'));
-            $('body').animate({
-                scrollTop: '0px'
-            }, 500, function(){
-                $('#moreContent').scrollTop(0);
-                moreArrow.removeClass('back');
-                moreArrow.find('span').html('More Info');
+            moreArrow.unbind(touchEventType);
+            moreArrow.bind(touchEventType, function(){
+                _this.moveToMore('details');
+                moreArrow.unbind(touchEventType);
+                _this.setBackToTopEvent();
             });
-        },
-
-        /**
-         * Handle what happens when the user clicks on the Check Availability button in the
-         * property teaser.
-         */
-        onCheckAvailabilityClick: function() {
-            this.moveToMore('details');
-        },
-
-        onCloseVideoButtonClick: function(){
-            $('video')[0].pause();
-            $('#video_lightbox').removeClass('show');
-            $('body').unbind('mousewheel');
-        },
-
-        /**
-         * Show video lightbox and load video
-         */
-        onVideoThumbnailClick: function() {
-            $('#video_lightbox').addClass('show');
-            if(!isMobileDevice){
-                $('body').on({'mousewheel': function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    }
-                });
-            }
-        },
-
-        /**
-         * Catch the event when the user clicks on a section of the Property teaser
-         * Teaser is the section that displays on top of the property image.
-         */
-        onTeaserSectionClick: function(pEl) {
-            //Set tab:  pEl.attr('section')
-            this.moveToMore(pEl.attr('section'));
-            //Load Section:  pEl.attr('section')
         },
 
         /**
