@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/elements/propertyView', 'views/elements/propertyMap', 'views/elements/searchBar', 'views/elements/footer',
-    'tools/navigate', 'tools/data', 'views/elements/propertyGallery','models/listing','collections/listings'],
+define(['jquery', 'backbone', 'templates/jst', 'views/elements/property/propertyView', 'views/elements/property/propertyMap', 'views/elements/search/searchBar', 'views/elements/footer',
+    'tools/navigate', 'tools/data', 'views/elements/property/propertyGallery','models/listing','collections/listings'],
     function($, Backbone, tmplts, propertyViewEl, propertyMap, searchBarViewEl, footerViewEl, Navigate, Data, galleryViewEl, ListingModel, ListingCollection){
     var propertyView = Backbone.View.extend({
         el: "#content",

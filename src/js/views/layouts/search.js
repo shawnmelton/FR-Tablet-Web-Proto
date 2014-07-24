@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'views/elements/fullMap', 'tools/navigate', 'tools/data', 'models/listing','collections/listings'],
+define(['jquery', 'backbone', 'templates/jst', 'views/elements/search/searchBar', 'views/elements/search/fullMap', 'tools/navigate', 'tools/data', 'models/listing','collections/listings'],
     function($, Backbone, tmplts, searchBarViewEl, fullMapEl, Navigate, Data, ListingModel, ListingCollection){
     var searchView = Backbone.View.extend({
         el: "#content",
@@ -98,7 +98,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             var blocks = 4;
             $('.table > div > div > div').unbind(touchEventType);
              
-            this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroup.html']({
+            this.resultsEl.append(JST['src/js/templates/elements/search/searchResultsGroup.html']({
                 startIndex: this.propertyIndex,
                 selects: (numListings >= blocks) ? _this.listings.slice(0,blocks) : _this.listings.slice(0,numListings),
                 properties: (numListings > blocks) ? _this.listings.slice(blocks,numListings-blocks) : null,
@@ -153,7 +153,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             }, false);
 
             this.resultsEl = $(document.getElementById('results'));
-            this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroupPlaceholder.html']);
+            this.resultsEl.append(JST['src/js/templates/elements/search/searchResultsGroupPlaceholder.html']);
             this.resultsEl.find('.basic').each(function(i){
                 pulsate(this, i);
             });

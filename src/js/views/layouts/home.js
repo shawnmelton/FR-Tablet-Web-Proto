@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tools/data', 'tools/navigate',
+define(['jquery', 'backbone', 'templates/jst', 'views/elements/search/searchBar', 'tools/data', 'tools/navigate',
     'tools/device', 'models/listing','collections/listings'
 ], function($, Backbone, tmplts, searchBarViewEl, Data, Navigate, Device, ListingModel, ListingCollection) {
     var homeView = Backbone.View.extend({

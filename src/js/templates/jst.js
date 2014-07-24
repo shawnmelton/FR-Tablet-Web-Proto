@@ -1,58 +1,5 @@
 this["JST"] = this["JST"] || {};
 
-this["JST"]["src/js/templates/elements/advancedSearch.html"] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-__p += '<div id="advancedSearch">\n    <div class="clearFix noOverflow">\n        <h3>Refine Your Search</h3>\n        <div class="table">\n            <div class="tableRow">\n                <div class="tableCell noPadLeft"><select>\n                    <option value="">Beds</option>\n                    <option value="Studio">Studio</option>\n                    <option value="1">1 Bed</option>\n                    <option value="2">2 Beds</option>\n                    <option value="3">3 Beds</option>\n                    <option value="4+">4+ Beds</option>\n                </select></div>\n                <div class="tableCell"><select>\n                    <option value="">Baths</option>\n                    <option value="1">1+ Baths</option>\n                    <option value="2">2+ Baths</option>\n                    <option value="3">3+ Baths</option>\n                </select></div>\n                <div class="tableCell"><select>\n                    <option value="">Price: Low</option>\n                    ';
- var price = 250; while(price <= 3000) { ;
-__p += '\n                        <option value="' +
-((__t = ( price )) == null ? '' : __t) +
-'">' +
-((__t = ( price )) == null ? '' : __t) +
-'</option>\n                        ';
- price += 250; ;
-__p += '\n                    ';
- } ;
-__p += '\n                </select></div>\n                <div class="tableCell">&nbsp; to &nbsp;</div>\n                <div class="tableCell"><select>\n                    <option value="">Price: Max</option>\n                    ';
- var price = 500; while(price <= 5000) { ;
-__p += '\n                        <option value="' +
-((__t = ( price )) == null ? '' : __t) +
-'">' +
-((__t = ( price )) == null ? '' : __t) +
-'</option>\n                        ';
- price += 250; ;
-__p += '\n                    ';
- } ;
-__p += '\n                </select></div>\n                <div class="tableCell noPadRight"><select>\n                    <option value="">Apartment &amp; Community Amenities</option>\n                </select></div>\n            </div>\n        </div>\n        \n        <div class="table">\n            <div class="tableRow">\n                <div class="tableCell noPadLeft">\n                    ' +
-((__t = ( apartmentAmenities )) == null ? '' : __t) +
-'\n                </div>\n                <div class="tableCell noPadLeft">\n                    ' +
-((__t = ( communityAmenities )) == null ? '' : __t) +
-'\n                </div>\n                <div class="tableCell noPadLeft">\n                    ' +
-((__t = ( petAmenities )) == null ? '' : __t) +
-'\n                </div>\n                <div class="tableCell noPadLeft">\n                    ' +
-((__t = ( propertyTypesAmenities )) == null ? '' : __t) +
-'\n                </div>\n                <div class="tableCell noPadLeft">\n                    ' +
-((__t = ( photosVideosAmenities )) == null ? '' : __t) +
-'\n                </div>\n            </div>\n        </div>\n        <div class="buttons">\n            <button>Cancel</button> &nbsp;\n            <button class="blue">Apply</button>\n        </div>\n    </div>\n    <span></span>\n</div>';
-
-}
-return __p
-};
-
-this["JST"]["src/js/templates/elements/communitySpotlight.html"] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div id="communitySpotlight" class="moreInfoSection">\n\t<h3 class="sectionTitle">COMMUNITY SPOTLIGHT</h3>\n\t<video id="video" preload="auto" controls>\n\t\t<source  width=\'100%\' src=\'' +
-((__t = ( video_source )) == null ? '' : __t) +
-'\'  />\n\t</video>\n</div>';
-
-}
-return __p
-};
-
 this["JST"]["src/js/templates/elements/footerProfile.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -149,7 +96,7 @@ __p += '<div class="basic select moreInfo" id="moreInfo" property="' +
 return __p
 };
 
-this["JST"]["src/js/templates/elements/optionsApartmentAmenities.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/options/optionsApartmentAmenities.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -159,7 +106,7 @@ __p += '<ul id="apartmentAmenities" class="block-grid p20 searchAmenitiesContent
 return __p
 };
 
-this["JST"]["src/js/templates/elements/optionsCommunityAmenities.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/options/optionsCommunityAmenities.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -169,7 +116,7 @@ __p += '<ul id="communityAmenities" class="block-grid  p20 searchAmenitiesConten
 return __p
 };
 
-this["JST"]["src/js/templates/elements/optionsPetAmenities.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/options/optionsPetAmenities.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -179,7 +126,7 @@ __p += '<ul id="petsAmenities" class="block-grid  p20 searchAmenitiesContent">\n
 return __p
 };
 
-this["JST"]["src/js/templates/elements/optionsPhotosVideosAmenities.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/options/optionsPhotosVideosAmenities.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -189,7 +136,7 @@ __p += '<ul id="photos-videosAmenities" class="block-grid  p20 searchAmenitiesCo
 return __p
 };
 
-this["JST"]["src/js/templates/elements/optionsPropertyTypesAmenities.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/options/optionsPropertyTypesAmenities.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -223,7 +170,19 @@ __p += '<span class=\'marker premier\'>\n\t<span class=\'img_container\'><img sr
 return __p
 };
 
-this["JST"]["src/js/templates/elements/propertyAmenities.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/property/communitySpotlight.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div id="communitySpotlight" class="moreInfoSection">\n\t<h3 class="sectionTitle">COMMUNITY SPOTLIGHT</h3>\n\t<video id="video" preload="auto" controls>\n\t\t<source  width=\'100%\' src=\'' +
+((__t = ( video_source )) == null ? '' : __t) +
+'\'  />\n\t</video>\n</div>';
+
+}
+return __p
+};
+
+this["JST"]["src/js/templates/elements/property/propertyAmenities.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
@@ -246,7 +205,7 @@ __p += '\n    </ul>\n</div>';
 return __p
 };
 
-this["JST"]["src/js/templates/elements/propertyDetails.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/property/propertyDetails.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -268,7 +227,7 @@ __p += '<div id="details" class="section">\n    <h2>Details</h2>\n    <table cla
 return __p
 };
 
-this["JST"]["src/js/templates/elements/propertyFloorPlans.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/property/propertyFloorPlans.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
@@ -295,7 +254,7 @@ __p += '\n</div>';
 return __p
 };
 
-this["JST"]["src/js/templates/elements/propertyGallery.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/property/propertyGallery.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
@@ -314,7 +273,7 @@ __p += '\n\t</div>\n</div>';
 return __p
 };
 
-this["JST"]["src/js/templates/elements/propertyInfo.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/property/propertyInfo.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
@@ -383,7 +342,7 @@ __p += '\n\n<div id="map" class="clearFix section">\n    <h2>\n    Map\n    <a h
 return __p
 };
 
-this["JST"]["src/js/templates/elements/propertyManagement.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/property/propertyManagement.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -393,7 +352,7 @@ __p += '<div id="propertyManagement" class="moreInfoSection">\n\t<h3 class="sect
 return __p
 };
 
-this["JST"]["src/js/templates/elements/propertyMap.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/property/propertyMap.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -419,7 +378,7 @@ __p += '<div id="map" class="clearFix section">\n    <h2>\n    Map\n    <a href=
 return __p
 };
 
-this["JST"]["src/js/templates/elements/propertyReviews.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/property/propertyReviews.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -429,7 +388,58 @@ __p += '<div id="reviews" class="section">\n    <h2>Reviews</h2>\n    <p class="
 return __p
 };
 
-this["JST"]["src/js/templates/elements/searchBar.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/property/sendToCellForm.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="lightbox">\n    <form id="sendToCell" method="post" action="" class="absoluteCenter height100">\n        <h3>Send Me A Text!</h3>\n        <fieldset>\n            <input type="tel" placeholder="Mobile Number" name="mobileNumber" class="width100 borderBox">\n        </fieldset>\n        <fieldset>\n            <button id="sendToCellButton" type="button" class="width100 borderBox whiteText alignCenter sendToCellButton">Send Now</button>\n        </fieldset>\n    </form>\n</div>';
+
+}
+return __p
+};
+
+this["JST"]["src/js/templates/elements/search/advancedSearch.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div id="advancedSearch">\n    <div class="clearFix noOverflow">\n        <h3>Refine Your Search</h3>\n        <div class="table">\n            <div class="tableRow">\n                <div class="tableCell noPadLeft"><select>\n                    <option value="">Beds</option>\n                    <option value="Studio">Studio</option>\n                    <option value="1">1 Bed</option>\n                    <option value="2">2 Beds</option>\n                    <option value="3">3 Beds</option>\n                    <option value="4+">4+ Beds</option>\n                </select></div>\n                <div class="tableCell"><select>\n                    <option value="">Baths</option>\n                    <option value="1">1+ Baths</option>\n                    <option value="2">2+ Baths</option>\n                    <option value="3">3+ Baths</option>\n                </select></div>\n                <div class="tableCell"><select>\n                    <option value="">Price: Low</option>\n                    ';
+ var price = 250; while(price <= 3000) { ;
+__p += '\n                        <option value="' +
+((__t = ( price )) == null ? '' : __t) +
+'">' +
+((__t = ( price )) == null ? '' : __t) +
+'</option>\n                        ';
+ price += 250; ;
+__p += '\n                    ';
+ } ;
+__p += '\n                </select></div>\n                <div class="tableCell">&nbsp; to &nbsp;</div>\n                <div class="tableCell"><select>\n                    <option value="">Price: Max</option>\n                    ';
+ var price = 500; while(price <= 5000) { ;
+__p += '\n                        <option value="' +
+((__t = ( price )) == null ? '' : __t) +
+'">' +
+((__t = ( price )) == null ? '' : __t) +
+'</option>\n                        ';
+ price += 250; ;
+__p += '\n                    ';
+ } ;
+__p += '\n                </select></div>\n                <div class="tableCell noPadRight"><select>\n                    <option value="">Apartment &amp; Community Amenities</option>\n                </select></div>\n            </div>\n        </div>\n        \n        <div class="table">\n            <div class="tableRow">\n                <div class="tableCell noPadLeft">\n                    ' +
+((__t = ( apartmentAmenities )) == null ? '' : __t) +
+'\n                </div>\n                <div class="tableCell noPadLeft">\n                    ' +
+((__t = ( communityAmenities )) == null ? '' : __t) +
+'\n                </div>\n                <div class="tableCell noPadLeft">\n                    ' +
+((__t = ( petAmenities )) == null ? '' : __t) +
+'\n                </div>\n                <div class="tableCell noPadLeft">\n                    ' +
+((__t = ( propertyTypesAmenities )) == null ? '' : __t) +
+'\n                </div>\n                <div class="tableCell noPadLeft">\n                    ' +
+((__t = ( photosVideosAmenities )) == null ? '' : __t) +
+'\n                </div>\n            </div>\n        </div>\n        <div class="buttons">\n            <button>Cancel</button> &nbsp;\n            <button class="blue">Apply</button>\n        </div>\n    </div>\n    <span></span>\n</div>';
+
+}
+return __p
+};
+
+this["JST"]["src/js/templates/elements/search/searchBar.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -445,7 +455,7 @@ __p += '<form action="/search" method="post" name="search" id="searchBar" class=
 return __p
 };
 
-this["JST"]["src/js/templates/elements/searchResultsGroup.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/search/searchResultsGroup.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
@@ -508,21 +518,11 @@ __p += '\n</div>';
 return __p
 };
 
-this["JST"]["src/js/templates/elements/searchResultsGroupPlaceholder.html"] = function(obj) {
+this["JST"]["src/js/templates/elements/search/searchResultsGroupPlaceholder.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div class="results_placeholder">\n    <div class="basic select">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n        <div class="basic select">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n</div>';
-
-}
-return __p
-};
-
-this["JST"]["src/js/templates/elements/sendToCellForm.html"] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="lightbox">\n    <form id="sendToCell" method="post" action="" class="absoluteCenter height100">\n        <h3>Send Me A Text!</h3>\n        <fieldset>\n            <input type="tel" placeholder="Mobile Number" name="mobileNumber" class="width100 borderBox">\n        </fieldset>\n        <fieldset>\n            <button id="sendToCellButton" type="button" class="width100 borderBox whiteText alignCenter sendToCellButton">Send Now</button>\n        </fieldset>\n    </form>\n</div>';
 
 }
 return __p
