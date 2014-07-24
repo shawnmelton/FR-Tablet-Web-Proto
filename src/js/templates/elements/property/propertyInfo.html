@@ -1,0 +1,106 @@
+
+<% console.log('Load Details'); %>
+
+<div id="details" class="section">
+    <h2>Details</h2>
+    <table class="width100">
+        <tr>
+            <td class="name alignLeft vAlignMiddle"><%= property.name %></td>
+            <td class="alignCenter vAlignMiddle">1<span class="block">Beds</span></td>
+            <td class="alignCenter vAlignMiddle">2<span class="block">Baths</span></td>
+            <td class="alignCenter vAlignMiddle">$1,500<span class="block">Monthly</span></td>
+        </tr>
+    </table>
+    <p>Curabitur eleifend nisi lobortis, adipiscing mauris in, venenatis ipsum. Sed suscipit nisi ut tincidunt facilisis. Praesent ligula mi, cursus eu gravida nec, consequat id sapien. Vestibulum adipiscing quis mi quis mollis. In condimentum consequat felis, sit amet gravida massa elementum quis. Ut suscipit aliquet dolor, vitae laoreet nibh mollis non. Aenean diam justo, pretium et odio a, fermentum tempus metus.</p>
+    <ul>
+        <li><p class="pet_details"><%= property.attributes.pet_policy %></p></li>
+    </ul>
+    <ul>
+        <li>
+            <p class="hours">
+                Office Hours
+                <ul>
+                    <li>Monday - Friday 10am - 6pm</li>
+                </ul>
+            </p>
+        </li>
+    </ul>
+</div>
+
+<% console.log('Load Floorplans'); %>
+
+<div id="floorplans" class="section">
+    <h2>Floor Plans</h2>
+    <% for(i = 0; i < floor_plans.length; i++){ %>
+    <table class="width100">
+        <tr>
+            <td class="alignLeft">
+                <%= floor_plans[i].name %>
+                <a href="#!" class="block moreDetailsButton">more details here</a>
+            </td>
+            <td class="alignCenter"><%= floor_plans[i].beds %><span class="block">Beds</span></td>
+            <td class="alignCenter"><%= floor_plans[i].baths %><span class="block">Baths</span></td>
+            <td class="alignCenter"><%= floor_plans[i].price_low %><span class="block">Monthly</span></td>
+        </tr>
+        <tr><td class="moreDetails" colspan="4">
+            <img src="<%= floor_plans[i].image %>" />
+            <p><%= floor_plans[i].description %></p>
+        </td></tr>
+    </table>
+    <% } %>
+</div>
+
+<% console.log('Load Amenities'); %>
+
+<div id="amenities" class="section">
+    <h2>Features & Amenities</h2>
+    <ul>
+    <% 
+    if(typeof property.attributes.features !== 'undefined') {
+        for(i = 0; i < property.attributes.features.length; i++){ 
+    %>
+        <li><%= property.attributes.features[i].name %></li>
+    <% 
+        } 
+    } 
+    %>
+    </ul>
+</div>
+
+<% console.log('Load Reviews'); %>
+
+<div id="reviews" class="section">
+    <h2>Reviews</h2>
+    <p class="noBorder reviewStars">
+        <strong class="block">Apartment is Fantastic</strong>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.
+        <span class="block">From Google Places</span>
+    </p>
+    <p class="reviewStars">
+        <strong class="block">Apartment is Fantastic</strong>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.
+        <span class="block">From Google Places</span>
+    </p>
+    <p class="reviewStars">
+        <strong class="block">Apartment is Fantastic</strong>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.
+        <span class="block">From Google Places</span>
+    </p>
+    <p class="reviewStars">
+        <strong class="block">Apartment is Fantastic</strong>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lacinia orci. Etiam ac eros at ante gravida ultrices ut vel nibh. Donec dapibus luctus egestas. Praesent aliquet adipiscing nunc sit amet lacinia.
+        <span class="block">From Google Places</span>
+    </p>
+</div>
+
+<% console.log('Load Map'); %>
+
+<div id="map" class="clearFix section">
+    <h2>
+    Map
+    <a href="#!" id="buttonCA" class="block right">Send Me A Text!</a>
+    <a href="http://maps.apple.com/?daddr=<%= property.attributes.streetAddress %>,<%= property.attributes.city %>,<%= property.attributes.state %> <%= property.attributes.zip %>" target="_blank" id="getDirectionsButton" class="block right">Get Directions</a>
+    </h2>
+    <div id="property-map"></div>
+    <p><%= property.attributes.streetAddress %>,<%= property.attributes.city %>,<%= property.attributes.state %> <%= property.attributes.zip %></p>
+</div>

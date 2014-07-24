@@ -1,0 +1,10 @@
+<div id="propertyGallery" class="moreInfoSection">
+	<h3 class="sectionTitle">PROPERTY GALLERY</h3>
+	<div class="galleryPhotos">
+    <% 
+    var max_length = (images.length > 6) ? 6 : images.length;
+    for(i = 0; i < max_length; i++){ %>
+    	<img src="<%= images[i] %>" />
+    <% } %>
+	</div>
+</div>
