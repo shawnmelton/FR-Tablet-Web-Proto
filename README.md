@@ -28,7 +28,7 @@ The prototype uses a number of open source projects to work properly:
 * [JST] - ''JavaScript Templates'' for template-based programming
 * [Grunt] - The JavaScript Task Runner
 * [FTP-Deploy] - Grunt task for code deployment over ftp
-* [jQuery] - duh 
+* [jQuery] - :) 
 
 CSS, Js, HTML, and most IMGs are compressed and minified all into one index.html file and placed in the `/dist folder`.
 
@@ -37,7 +37,6 @@ Structure
 --------------
 
 The vast majority of the application code is found in the `/src` folder, inside which you'll find the following structure:
-
 
 #####/css _(SASS files prefixed by "_")
 #####/img _(Some site images)_
@@ -57,7 +56,6 @@ The vast majority of the application code is found in the `/src` folder, inside 
  - boostrap.js
  - router.js
 
-
 *****If a file is not in an individual folder, then it is used for multiple views
 
 #### Home
@@ -68,7 +66,6 @@ The vast majority of the application code is found in the `/src` folder, inside 
 #### Search Results (List/Map View)
  * Full Interactive Map 
  * Search Resulst Group (Cards)
-    * 
 
 
 #### Property Profile `(/js/views/property.js)`
@@ -88,8 +85,19 @@ The various components of the property view are loaded in `/js/views/elements/pr
     * Mini Photo Gallery
     * Property Management
 
+### Current Bugs/Quirks
 
+#### Advanced Search
+The various facets are not implemented in the [Middle-man API] at this point.  See that link as well as `/api.php` in this project to make these changes.
 
+#### Search Results Paging
+Curently, there is no mechanism for proper dequeing and pagination of the search results/cards on the Search/Map view.  The desire is to be able to use Infinite Scroll to return pages of content that, when scrolled far enough out of the viewport, will unload and free up resources.  Also, the desire is to include functionality that allows a user to hit a 'Back' button on the profile page and return to the search page at the same page and property as before
+
+#### Mini Gallery Sync with Photo Lightbox on Profile page
+The mini photo gallery below the fold on the profile page will activate the Photo lightbox with the selected image, **if loaded**. The photos are loaded lazily, so if the user chooses a photo from this gallery beyond what is loaded, the lightbox does not appear.
+
+#### Reviews
+These are not from live data
 
 [Require.js]:http://requirejs.org/
 [Backbone.js]:http://backbonejs.org/
@@ -98,3 +106,4 @@ The various components of the property view are loaded in `/js/views/elements/pr
 [Grunt]:http://gruntjs.com/
 [FTP-Deploy]:https://github.com/zonak/grunt-ftp-deploy
 [jQuery]:http://jquery.com/
+[Middle-man API]:https://github.com/shawnmelton/FR-Tablet-Proto-API
