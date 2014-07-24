@@ -1,137 +1,133 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tools/navigate', 'tools/data'],
-    function($, Backbone, tmplts, searchBarViewEl, Navigate, Data){
+define(['jquery', 'backbone', 'templates/jst', 'views/elements/search/searchBar', 'views/elements/search/fullMap', 'tools/navigate', 'tools/data', 'models/listing','collections/listings'],
+    function($, Backbone, tmplts, searchBarViewEl, fullMapEl, Navigate, Data, ListingModel, ListingCollection){
     var searchView = Backbone.View.extend({
         el: "#content",
         resultsEl: null,
         contentHeight: 0,
+        pins: [],
         map: null,
         mapCanvas: $('#map-canvas'),
         userAddressTerms: null,
         propertyIndex: null,
+        searchString: null,
+        lastSearchString: null,
         userZip: null,
+        lastZip: null,
+        userState: null,
+        userCity: null,
+        currentListingsPage: null,
+        currentSearchListingCount: 0, //How many recs have been loaded, to compare to total
+        listingLimit: 20,
+        scrollTriggerDistance: 600,
+        newPageScrollTop: 0,
+        cardsPerHalfPage: 0,
+        morePropertiesExist: false,
+        moreInfoPanel: null,
+        lastPropertyId: null,
 
-        getLocationFromZip: function(address){
-            //
+        isNumeric: function(n){
+          return !isNaN(parseFloat(n)) && isFinite(n);
         },
 
-        getPinGroupCenter: function(pins){
-            var maxLat=0,
-                minLat=0, 
-                maxLng=0,
-                minLng=0;
-
-            //loop over pins and find top right and bottom left and center on that point
-            $.each(pins, function(i, pin){
-                maxLat = (pin.latitude > maxLat) ? pin.latitude : maxLat;
-                maxLng = (pin.longitude > maxLng) ? pin.longitude : maxLng;
-                console.log('Pin location: ', pin);
-            });
-
-            return new Microsoft.Maps.Location(maxLat, maxLng);
-        },
-
-        initializeMap: function() {
-            /**
-             *  TODO: Get Lat/Lng from zip or address and
-             *  pass to the mapOptions
-             */
-            var mapOptions = {
-                credentials:"AlnGUafJim9K7OtP3Ximx2ZgbtPPLJ954ctxyPBDVZs_iBiBfF57NBrP4Y3aM2tW",
-                center: new Microsoft.Maps.Location(36.847861, -76.291552),
-                mapTypeId: Microsoft.Maps.MapTypeId.road,
-                zoom: 14,
-                showScalebar: false
-            };
-            this.map = new Microsoft.Maps.Map(document.getElementById("map-canvas"), mapOptions);
-
+        loadResultsSet: function(searchString) {
             var _this = this;
-            Microsoft.Maps.loadModule('Microsoft.Maps.Search', { callback: function(){
+            $('#map-loader').removeClass('hidden');
 
-                //Location from Lat/Lng
-                //new Microsoft.Maps.Location(36.847861, -76.291552)
+            //Initialize to zero or increment based on whether
+            //or not this is the first call of a new zip code
+            if(_this.lastSearchString != _this.searchString || this.currentListingsPage === null){
+                fullMapEl.mapInitialized = false;
+                this.currentListingsPage = 0;
+                _this.newPageScrollTop = 0;
+            }
+            else{
+                this.currentListingsPage++;
+            }
 
-                var zip = decodeURIComponent(location.pathname.split('search/')[1]);
-                var search = new Microsoft.Maps.Search.SearchManager(_this.map);
-                search.geocode({where:zip, count:10, callback:geocodeCallback});
-                function geocodeCallback(geocodeResult, userData)
-                {
-                    _this.map.entities.clear(); 
-                    var coords = [
-                        {
-                            lat: 36.847861, 
-                            lng: -76.291552
-                        },
-                        {
-                            lat: 36.84682083129883, 
-                            lng: -76.2850570678711
-                        },
-                        {
-                            lat: 36.85277557373047, 
-                            lng: -76.28134155273438
-                        },
-                        {
-                            lat: 36.86275863647461,
-                            lng: -76.26134490966797
-                        }
-                    ];
-                    var locs = [];
-                    var currentLocation = geocodeResult.results[0].location;
-                    var pinHTML = JST['src/js/templates/elements/pmarker.html']({
-                        image_src: 'http://cdn-1.eneighborhoods.com/x2/@v=-1112083012@/2611/7/776/1402776/1402776_1.jpg',
-                        count: '5'
-                    });
-                    var pinOptions = {width: null, height: null, htmlContent: pinHTML}; 
-                    var pin = new Microsoft.Maps.Pushpin(currentLocation, pinOptions);
-                        
-                    _this.map.setView({
-                        center: currentLocation
-                    });
-                     _this.map.entities.push(pin);
-                    locs.push(currentLocation);
-                    $.each(coords, function(i, coord){
-                        var location = new Microsoft.Maps.Location(coord.lat, coord.lng);
-                        var pinHTML = JST['src/js/templates/elements/marker.html']({
-                            count: '1'
-                        });
-                        var pinOptions = {width: null, height: null, htmlContent: pinHTML}; 
-                        var pin = new Microsoft.Maps.Pushpin(location, pinOptions);
-                        _this.map.entities.push(pin);
-                        locs.push(location);
-                    });
-                    _this.getPinGroupCenter(locs);
+            //Show loading image
+            $(_this.resultsEl).addClass('loading');
+
+            var searchOptions = {
+                limit: _this.listingLimit,
+                start: _this.currentListingsPage*_this.listingLimit
+            };
+
+            this.searchString = searchString || this.searchString;
+
+            //If search string is numeric, search by zip code
+            if(this.isNumeric(this.searchString)){
+                searchOptions.zip = this.searchString;
+            }
+            else{
+                searchOptions.city = encodeURI(this.searchString);
+            }
+
+            this.listings = new ListingCollection();
+            this.listings.fetch({
+                data: $.param(searchOptions),
+                success: function(response){
+                    //Remove loading image
+                    $(_this.resultsEl).removeClass('loading');
+                    $('.results_placeholder').remove();
+
+                    var numListings = response.length;
+                    _this.morePropertiesExist = (response.length);
+                    if(!_this.morePropertiesExist){
+                        //Remove loading class
+                        return;
+                    }
+
+                    //Properties exist
+
+                    //Increment listings shown
+                    _this.currentSearchListingCount += numListings;
+
+                    //Update current searched zip
+                    _this.lastSearchString = _this.searchString;
+
+                    _this.populateResults(numListings);
+                },
+                error: function(error){
+                    $('#map-loader').addClass('hidden');  
                 }
-             } 
             });
         },
 
-        loadResultsSet: function() {
-            this.propertyIndex += (this.propertyIndex === null) ? 0 : 1;
+        populateResults: function(numListings){
+            var _this = this;
+            var blocks = 4;
             $('.table > div > div > div').unbind(touchEventType);
-            this.resultsEl.append(JST['src/js/templates/elements/searchResultsGroup.html']({
+             
+            this.resultsEl.append(JST['src/js/templates/elements/search/searchResultsGroup.html']({
                 startIndex: this.propertyIndex,
-                numBlocksToPrint: 2,          //Change this based or layout options
-                numPropertiesToPrint: 4,       //Change this based or layout options
-                selects: Data.get('select', 2),
-                properties: Data.get('basic', 17)
+                selects: (numListings >= blocks) ? _this.listings.slice(0,blocks) : _this.listings.slice(0,numListings),
+                properties: (numListings > blocks) ? _this.listings.slice(blocks,numListings-blocks) : null,
+                listings: _this.listings,
+                numBlocksToPrint: blocks,          //Change this based or layout options
+                numPropertiesToPrint: blocks       //Change this based or layout options
             }));
 
-            this.setPropertyClickEvents();
-        },
+            var pageHeight = $(_this.resultsEl).find('.page').last().height();
+            var cardCount = $(_this.resultsEl).find('.page').last().find('.basic').length;
+            var cardRowHeight = $(_this.resultsEl).find('.page').last().find('.first').height();
 
-        /**
-         *  Hanldle click on Current Location button
-         *
-         */
-        currentLocationClicked: function(){
-            this.setUserLocation();
+            this.cardsPerHalfPage = cardCount/2;
+            this.newPageScrollTop += $(_this.resultsEl).find('.page').last().height();
+            this.setPropertyClickEvents();
+
+            if(!fullMapEl.mapInitialized){
+                fullMapEl.init(_this.listings);
+            }
+
+            $('#map-loader').addClass('hidden');
         },
 
         /**
          * Handle what happens when a property is touched/clicked.
          * @propertyId - Integer value.
          */
-        onPropertyClick: function(propertyId) {
-            Navigate.toUrl('/properties/'+propertyId);
+        onPropertyClick: function(homesId) {
+            Navigate.toUrl('/properties/'+homesId);
         },
 
         /**
@@ -140,9 +136,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          */
         render: function(){
             var _this = this;
-            userZip = decodeURIComponent(location.pathname.split('search/')[1]);
-            this.initializeMap();
-
+            this.searchString = decodeURIComponent(location.pathname.split('search/')[1]);
+            this.loadResultsSet();
             this.setKeywords();
             this.$el.html(JST['src/js/templates/layouts/search.html']());
             this.$el.attr("class", "search");
@@ -150,23 +145,29 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             //Check for "Show Map" setting
             this.$el.addClass('showMap');
             this.mapCanvas.addClass('showMap');
-
-            //Toggle browse/split-map view
-            $('#currentLocationButton').click(function(){
-                _this.currentLocationClicked();
-            });
+            $('#map-container').show();
 
             //Check for orientation
             window.addEventListener("orientationchange", function() {
-                this.setContentDimensions();
+                _this.setContentDimensions();
             }, false);
 
             this.resultsEl = $(document.getElementById('results'));
-            this.loadResultsSet();
+            this.resultsEl.append(JST['src/js/templates/elements/search/searchResultsGroupPlaceholder.html']);
+            this.resultsEl.find('.basic').each(function(i){
+                pulsate(this, i);
+            });
+
+            function pulsate(card, i){
+                $(card).delay(i * 200).fadeOut('slow').fadeIn('slow');
+            }
+
             this.setInfiniteScrolling();
             this.setResizeEvent();
             this.setContentDimensions();
             searchBarViewEl.renderToHeader();
+
+            $('#searchBar button').text('Search');
         },
 
         /**
@@ -184,6 +185,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             if($(window).width() <= 768 || window.orientation === 0 || window.orientation === 180){
                 this.$el.addClass('portrait');
                 this.mapCanvas.addClass('portrait');
+                $('#map-container').addClass('portrait');
 
                 //If Portrait, the height is set by percentage,
                 //so we need to clear out the inline css text
@@ -193,9 +195,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             else{
                 this.$el.removeClass('portrait');
                 this.mapCanvas.removeClass('portrait');
+                $('#map-container').removeClass('portrait');
 
                 //If Landscape, set height by window height
-                this.mapCanvas.css('height', (this.contentHeight - 45) + "px");
+                this.mapCanvas.css('height', (this.contentHeight - (this.contentHeight*0.01)) + "px");
                 this.$el.css('height', this.contentHeight + "px");
             }
         },
@@ -205,10 +208,24 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          * down the screen.
          */
         setInfiniteScrolling: function() {
-            _this = this;
+            var _this = this;
             $(window).scroll(function(){
-                if($(window).scrollTop() >= ($(document).height() - $(window).height() - 600)) {
+                var isLoading = $(_this.resultsEl).hasClass('loading');
+                var distanceScrolled = $(window).scrollTop();
+                var scrollHeight = $(this).height();
+                var scrollThreshold = _this.newPageScrollTop - (scrollHeight * 2);
+                if(!isLoading && distanceScrolled >= scrollThreshold && _this.morePropertiesExist) {
+                    // console.log('Load More Results');
                     _this.loadResultsSet();
+                }
+                else{
+                    console.log('Still loading...');
+                }
+
+                if(distanceScrolled >= _this.newPageScrollTop/2){
+                    console.log('Page Top: ', _this.newPageScrollTop, ', Scroll Height: ', scrollHeight);
+                    console.log('Content Top: ', distanceScrolled, ', New Threshold: ', scrollThreshold);
+                    console.log('Update Map');
                 }
             });
         },
@@ -229,12 +246,33 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
          * Make each property touchable.
          */
         setPropertyClickEvents: function() {
-            var _this = this;
-            $('.basic > div').bind(touchEventType, function() {
-                var propertyId = $(this).attr('property');
-                if(propertyId !== 'undefined' && propertyId !== false) {
-                    _this.onPropertyClick(parseInt(propertyId));
+        var _this = this;
+            $('.basic > .element > .front').bind(touchEventType, function() {
+                var homesId = $(this).parent().attr('property');
+                if(homesId !== 'undefined' && homesId !== false) {
+                    //Get property index
+                    
+                    window.lastPropertyIndex = $('.basic > .element > .front').index();
+                    window.currentListings = _this.listings;
+
+                    _this.currentListingsPage = null;
+                    _this.onPropertyClick(parseInt(homesId));
                 }
+            });
+            $('.basic > .element > .back > .ca_button').bind(touchEventType, function(e) {
+                _this.hideGuestCard($(this).parent().parent().parent());
+                e.preventDefault();
+                return false;
+            });
+            $('.basic > .element > .contact').bind(touchEventType, function(e) {
+                _this.showGuestCard($(this).parent().parent());
+                e.preventDefault();
+                return false;
+            });
+            $('.basic > .element > .details').bind(touchEventType, function(e) {
+                _this.showPropertyDetails($(this).parent().parent());
+                e.preventDefault();
+                return false;
             });
         },
 
@@ -256,23 +294,105 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'tool
             });
         },
 
-        setUserLocation: function(){
-            console.log('Show Loader');
+        hideGuestCard: function(card){
+            card.find('.element').attr('class', 'element noOverflow flip');
+            setTimeout(func, 100);
+            function func() {
+                card.find('.element').addClass('hasTransition');
+                card.find('.element').removeClass('flip');
+            }
+        },
+
+        showGuestCard: function(card){
+            $('.marker').removeClass('active');
+            if(!card) return;
+            $(this).unbind(touchEventType);
+            var cardIndex = card.index();
+            var pinMarker = $('.pin' + (cardIndex+1)).find('.marker');
+            pinMarker.addClass('active');
+            
             var _this = this;
-            //First, check for geolocation capability
-            if (navigator.geolocation) {
-                browserSupportFlag = true;
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    console.log('Hide Loader ', position);
-                }, function() {
-                    console.log('No Location Allowed/Found');
+            var propertyId = card.find('.element').attr('property');
+            var listTop = $(window).scrollTop();
+            var cardPosition = card.find('.contact').offset();
+            if(!cardPosition){
+                console.log('Show loader');
+                console.log('Load next page, and on load, scroll to that card');
+            }
+
+            var cardTop = cardPosition.top;
+            var scrollAdjustment = 70;
+
+            $('.basic').find('.element').not($(card)).attr('class', 'element noOverflow hasTransition');
+            
+            $(card).find('.element').bind('webkitTransitionEnd', function(e){
+                $(this).unbind('webkitTransitionEnd');
+                var cardOffset = $(card).offset();
+                $(this).addClass('flipped noTransition');
+                $(this).removeClass('hasTransition');
+            });
+            $(card).find('.element').addClass('flip');
+
+            $('html, body').scrollTop($(card).offset().top - scrollAdjustment);
+        },
+
+        showMoreInfoPanel: function(card){
+            var propertyId = card.find('.element').attr('property');
+            var cardOffset = $(card).offset();
+            var scrollAdjustment = 70;
+
+            $('.basic').find('.element').not($(card)).attr('class', 'element noOverflow hasTransition');
+            $('html, body').scrollTop($(card).offset().top - scrollAdjustment);
+
+            //Load More Details template with property information
+            this.moreInfoPanel = $(JST['src/js/templates/elements/moreInfoPanel.html']({
+                propertyId: propertyId
+            }));
+            this.moreInfoPanel.height(0);
+
+            if($(card).hasClass('select')){
+                $(card).after(this.moreInfoPanel);
+            }
+            else if(cardOffset.left < $(card).width()){
+                $(card).next().after(this.moreInfoPanel);
+            }
+            else{
+                $(card).after(this.moreInfoPanel);
+            }
+
+            this.moreInfoPanel.animate({
+                height: $(card).height()
+            }, function(){
+                this.lastPropertyId = propertyId;
+            });
+        },
+
+        showPropertyDetails: function(card){
+            var _this = this;
+            var propertyId = card.find('.element').attr('property');
+
+            if(_this.moreInfoPanel && _this.lastPropertyId == propertyId){
+                // Hide/Remove existing moreInfoPanel
+                _this.moreInfoPanel.animate({
+                    height: 0
+                }, function(){
+                    _this.moreInfoPanel.remove();
+                    _this.moreInfoPanel = null;
                 });
+                return;
             }
-            // Browser doesn't support Geolocation
-            else {
-                console.log('Browser Doesn\'t Support Geolocation');
+
+            //Hide/Remove existing moreInfoPanel
+            if(this.moreInfoPanel){
+                this.moreInfoPanel.height(0).remove();
+                _this.showMoreInfoPanel(card);
+                _this.showGuestCard(card);
             }
-        }
+            else{
+                _this.showMoreInfoPanel(card);
+                _this.showGuestCard(card);
+            }
+    }
     });
     
     return new searchView();

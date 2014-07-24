@@ -1,20 +1,16 @@
-var Listings = Backbone.Collection.extend({
-    model: Listing,
-    // Url to request when fetch() is called
-    url: 'http://api.smelton.frlabs.com/listings',
+define([
+  'underscore',
+  'backbone',
+  'models/listing'
+], function(_, Backbone, ListingModel){
+  var ListingCollection = Backbone.Collection.extend({
+    model: ListingModel,
+    url: '/api.php',
+    totalRecs: null,
     parse: function(response) {
+        this.totalRecs = response.totalrecs;
         return response.listings;
-    },
-    // Overwrite the sync method to pass over the Same Origin Policy
-    sync: function(method, model, options) {
-        var that = this;
-            var params = _.extend({
-                type: 'GET',
-                dataType: 'jsonp',
-                url: that.url,
-                processData: false
-            }, options);
-
-        return $.ajax(params);
     }
+  });
+  return ListingCollection;
 });

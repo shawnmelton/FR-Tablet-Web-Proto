@@ -1,6 +1,5 @@
-<form id="guestCard" method="post" action="" class="bgWhite">
+<form id="guestCard" method="post" action="" class="height100">
     <h3>Check Availability</h3>
-    <p>Email this property for more information</p>
     <fieldset>
         <input type="text" placeholder="Full Name" name="fullName" class="width100 borderBox">
     </fieldset>
@@ -11,7 +10,7 @@
         <input type="text" placeholder="Phone Number" name="phoneNumber" class="width100 borderBox">
     </fieldset>
     <fieldset>
-        <textarea placeholder="I am interested in more information about this property." name="comments" class="width100 borderBox"></textarea>
+        <textarea placeholder="I am interested in more information about <%= property.attributes.name %>." name="comments" class="width100 borderBox"></textarea>
     </fieldset>
     <fieldset>
         <button type="submit" class="width100 borderBox whiteText alignCenter">Check Availability</button>

@@ -7,7 +7,35 @@ html {
     &.home1024 { background: url(../img/home-bg-1024.jpg) no-repeat top center; }
     &.home768 { background: url(../img/home-bg-768.jpg) no-repeat top center; }
 }
-    #content { padding-top: 50px; }
+
+body{
+    -webkit-transition: left 0.3s;
+    transition: left 0.3s;
+
+    >.sideMenu{
+        position: fixed;
+        top: -10px;
+        left: -200px;
+        width: 200px;
+        height: 110%;
+        background: #666;
+        -moz-box-shadow: inset 0 0 5px #000;
+        -webkit-box-shadow: inset 0 0 5px #000;
+        box-shadow: inner 0 0 5px #000;
+        z-index: 10;
+        -webkit-transition: left 0.3s;
+        transition: left 0.3s;
+    }
+
+    &.showMenu{
+        left: 200px;
+
+        >.sideMenu{
+            left: 0;
+        }
+    }
+}
+    #content { z-index: 1; }
     #map-canvas {
         width: 100%;
         position: absolute;

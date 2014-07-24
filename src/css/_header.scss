@@ -7,6 +7,7 @@ header {
     padding: 0 0 0 270px;
     border-bottom: 1px solid #044a78;
     -webkit-transform: translate3d(0, 0, 0);
+    z-index: 3;
 
     &.sticky { position: absolute; }
 
@@ -20,12 +21,11 @@ header {
         }
 
         &#menuBtn {
-            background: url(../img/menu-button.png) no-repeat center center;
-            left: 0;
+            background: url(../img/menu-button.png) no-repeat left center;
+            left: -20;
             top: 0;
             height: 50px;
             width: 50px;
-            border-right: 1px solid #eaeaea;
         }
 
         &.touched { background-color: #fff; }

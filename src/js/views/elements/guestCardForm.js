@@ -1,12 +1,17 @@
 define([], function() {
     var guestCardFormEl = Backbone.View.extend({
         formEl: null,
+        property: null,
 
         getHTML: function() {
-            return JST['src/js/templates/elements/guestCardForm.html']();
+            var _this = this;
+            return JST['src/js/templates/elements/guestCardForm.html']({
+                property: _this.property
+            });
         },
 
-        init: function() {
+        init: function(property) {
+            this.property = property;
             this.formEl = $(document.getElementById('guestCard'));
             this.formFields = this.formEl.find('input, textarea');
             this.setEvents();

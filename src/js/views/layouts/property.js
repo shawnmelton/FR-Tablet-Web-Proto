@@ -1,109 +1,30 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'views/elements/footer',
-    'tools/navigate', 'tools/data', 'views/elements/propertyGallery', 'views/elements/guestCardForm'],
-    function($, Backbone, tmplts, searchBarViewEl, footerViewEl, Navigate, Data, galleryViewEl, guestCardFormEl){
+define(['jquery', 'backbone', 'templates/jst', 'views/elements/property/propertyView', 'views/elements/property/propertyMap', 'views/elements/search/searchBar', 'views/elements/footer',
+    'tools/navigate', 'tools/data', 'views/elements/property/propertyGallery','models/listing','collections/listings'],
+    function($, Backbone, tmplts, propertyViewEl, propertyMap, searchBarViewEl, footerViewEl, Navigate, Data, galleryViewEl, ListingModel, ListingCollection){
     var propertyView = Backbone.View.extend({
         el: "#content",
+        map: null,
         property: null,
         moreEl: null,
         moreContentEl: null,
         contentHeight: 0,
         linksInactive: true,
+        listings: null,
 
-        /**
-         * Load the content specific to the section that was clicked on.
-         */
-        loadSection: function(section) {
-            if(this.moreEl === null) {
-                this.moreEl = $(document.getElementById('more'));
-                this.moreContentEl = $(document.getElementById('moreContent'));
+        initProperty: function(property){
+            var _this = this;
+            if(property === null) {
+                Navigate.toUrl('/');
+                valid = false;
             }
-
-            // Load content from template instead.
-            switch(section) {
-                case 'floorplans': 
-                    this.moreContentEl.html(JST['src/js/templates/elements/propertyFloorPlans.html']());
-                    break;
-
-                case 'reviews':
-                    this.moreContentEl.html(JST['src/js/templates/elements/propertyReviews.html']());
-                    break;
-
-                case 'details':
-                    this.moreContentEl.html(JST['src/js/templates/elements/propertyDetails.html']({
-                        property: this.property
-                    }));
-                    break;
-
-                case 'map':
-                    this.moreContentEl.html(JST['src/js/templates/elements/propertyMap.html']({
-                        propertyAddress: this.property.address
-                    }));
-                    break;
-            }
-        },
-
-        /**
-         * Move down the page to the more section for additional property content.
-         */
-        moveToMore: function() {
-            if(this.moreEl === null) {
-                this.moreEl = $(document.getElementById('more'));
-                this.moreContentEl = $(document.getElementById('moreContent'));
-            }
-
-            var moreElTopPos = this.moreEl.position().top;
-
-            // Don't scroll to the More section unless the user isn't close.
-            if($('body').scrollTop() < (moreElTopPos - 50)) {
-                console.log("Body");
-                $('body').animate({
-                    scrollTop: moreElTopPos +'px'
-                },  500);
-            }
-        },
-
-        /**
-         * Handle what happens when the user clicks on the Check Availability button in the
-         * property teaser.
-         */
-        onCheckAvailabilityClick: function() {
-            this.moveToMore();
-        },
-
-        /**
-         * Catch the event when the user clicks on a section of the Property teaser
-         * Teaser is the section that displays on top of the property image.
-         */
-        onTeaserSectionClick: function(pEl) {
-            footerViewEl.setCurrentLink(pEl.attr('section'));
-            this.moveToMore();
-            this.loadSection(pEl.attr('section'));  
-        },
-
-        relayout: function() {
-            this.setContentDimensions();
-            galleryViewEl.update();
-        },
-
-        render: function(){
-            if(!this.valid()) {
-                return;
-            }
-
-            // Reset elements for this property view.
-            this.moreEl = null;
-            this.moreContentEl = null;
-
-            this.$el.html(JST['src/js/templates/layouts/property.html']({
-                property: this.property,
-                moreContent: JST['src/js/templates/elements/propertyFloorPlans.html'](),
-                guestCardForm: guestCardFormEl.getHTML()
-            }));
+            $('[name="keywords"]').val(property.attributes.city);
+            $('#searchBar button').text('Back');
+            this.$el.html(propertyViewEl.getHTML(property));
             this.$el.attr("class", "property");
-
-            guestCardFormEl.init();
-            searchBarViewEl.renderToHeader();
-            this.setProfileFooter();
+            this.$el.prepend(JST['src/js/templates/elements/photoLightbox.html']);
+            this.map = propertyMap.init(property);
+            searchBarViewEl.renderToHeader(); 
+            galleryViewEl.setProperty(property);                   
             galleryViewEl.reset();
             this.relayout();
 
@@ -115,61 +36,143 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         },
 
         /**
-         * Set the content height for this page.
+         * Move down the page to the more section for additional property content.
          */
-        setContentDimensions: function() {
-            this.contentHeight = $(window).height() - footerViewEl.getHeight();
-
-            if(navigator.userAgent.match(/iPod|iPhone|iPad/i) &&
-                navigator.userAgent.match(/Safari/i) && !(navigator.userAgent.match(/Chrome/i) ||
-                navigator.userAgent.match(/CriOS/i))) {
-                this.contentHeight -= 30;
+        moveToMore: function(section) {
+            var sectionEl = $('#' + section);
+            var moreElTopPos = (sectionEl.position().top + $('#content').height()) - $('footer').height();
+            // Don't scroll to the More section unless the user isn't close.
+            if($('body').scrollTop() < (moreElTopPos - 50)) {
+                $('body').animate({
+                    scrollTop: moreElTopPos +'px'
+                }, 500);
             }
-
-            this.$el.children('section').css('height', this.contentHeight +"px");
-            this.$el.css('height', this.contentHeight +"px");
         },
 
         /**
-         * Load footer with links that will take the user to additional property information.
+         * Move down the page to the more section for additional property content.
          */
-        setProfileFooter: function() {
-            footerViewEl.render([{
-                rel: 'floorplans',
-                text: 'Floor Plans &amp; Prices'
-            }, {
-                rel: 'details',
-                text: 'Details'
-            }, {
-                rel: 'reviews',
-                text: 'Reviews'
-            }, {
-                rel: 'map',
-                text: 'Map &amp; Directions'
-            }, {
-                rel: 'share',
-                text: 'Share',
-                cls: 'notNav share'
-            }, {
-                rel: 'availability',
-                text: 'Check Availability',
-                cls: 'availability'
-            }]);
+        moveToTop: function() {
+            var moreArrow = $(document.getElementById('moreInfoArrow'));
+            $('body').animate({
+                scrollTop: '0px'
+            }, 500, function(){
+                $('#moreContent').scrollTop(0);
+                moreArrow.removeClass('back');
+                moreArrow.find('span').html('More Info');
+            });
+        },
+
+        /**
+         * Handle what happens when the user clicks on the Check Availability button in the
+         * property teaser.
+         */
+        onCheckAvailabilityClick: function() {
+            this.moveToMore('details');
+        },
+
+        onCloseVideoButtonClick: function(){
+            $('video')[0].pause();
+            $('#video_lightbox').removeClass('show');
+            $('body').unbind('mousewheel');
+        },
+
+        /**
+         * Show video lightbox and load video
+         */
+        onVideoThumbnailClick: function() {
+            $('#video_lightbox').addClass('show');
+            if(!isMobileDevice){
+                $('body').on({'mousewheel': function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                });
+            }
+        },
+
+        /**
+         * Catch the event when the user clicks on a section of the Property teaser
+         * Teaser is the section that displays on top of the property image.
+         */
+        onTeaserSectionClick: function(pEl) {
+            //Set tab:  pEl.attr('section')
+            this.moveToMore(pEl.attr('section'));
+            //Load Section:  pEl.attr('section')
+        },
+
+        relayout: function() {
+            this.setContentDimensions();
+            galleryViewEl.update();
+        },
+
+        render: function(){
+            $('#map-container').hide();
+            $('#map-canvas').removeClass('showMap');
+            if(!this.valid()) {
+                return;
+            }
 
             var _this = this;
-            $('footer a').bind(touchEventType, function() {
-                if($(this).hasClass('notNav')) {
-                    // Share Button
-                } else {
-                    _this.moveToMore();
+            var propertyId = parseInt(decodeURIComponent(location.pathname.split('properties/')[1]));
+            this.listings = new ListingCollection();
+            this.listings.fetch({
+                data: $.param({
+                    homesId: propertyId
+                }),
+                success: function(response){
+                    _this.property = response.models[0];
+                    _this.initProperty(_this.property);
+                }
+            });
+        },
 
-                    if($(this).attr('rel') !== 'availability') {
-                        _this.loadSection($(this).attr('rel'));
+        preload: function(propertyId, done){
+            //Stub in preloader
+            this.$el.html(JST['src/js/templates/layouts/propertyPlaceholder.html']);
+            var newListing = new ListingCollection();
+            newListing.fetch({
+                data: $.param({
+                    homesId: propertyId
+                }),
+                success: function(response){
+                    //Run callback
+                    if(typeof(done) == "function"){
+                        console.log('Call Callback');
+                        done();
                     }
                 }
             });
+        },
 
-            footerViewEl.makeSticky();
+        /**
+         * Set the content height for this page.
+         */
+        setContentDimensions: function() {
+            this.contentHeight = $(window).height();
+            var moreInfoHeight = this.contentHeight - $('footer').height();
+
+            if(WURFL.form_factor == 'Tablet'){
+                this.contentHeight -= 20;
+                moreInfoHeight -= 20;
+            }
+
+            if(window.orientation == 90 || window.orientation == -90){
+                $('.photo_container img').removeClass('relativeCenter');
+                $('.photo_container img').removeClass('width100');
+                $('.photo_container img').addClass('height100');
+            }
+            else{
+                $('.photo_container img').addClass('width100');
+                $('.photo_container img').removeClass('height100');
+                $('.photo_container img').removeClass('relativeCenter');
+            }
+
+            this.$el.height(this.contentHeight);
+            this.$el.children('section#more').height(moreInfoHeight);
+            this.$el.children('section#more').css('top', $(window).height());
+            $('#video_lightbox').height($(window).height());
+            $('.photo_container').width($(window).width());
         },
 
         /**
@@ -191,32 +194,35 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
         },
 
         /**
-         * Activate footer link when scrolling down.
+         * 
          */
         setScrollEvent: function() {
-            $(window).scroll(function() {
-                
+            var _this = this;
+            window.onscroll = function(){
+                var moreArrow = $(document.getElementById('moreInfoArrow'));
                 var scrollTop = $(this).scrollTop() * 1.5;
                 var percent = scrollTop/$(window).height();
-                console.log('Percent:', scrollTop/$(window).height());
-                
+                if($(this).scrollTop() >= ($(window).height() * 0.85)){
+                    moreArrow.addClass('back');
+                    moreArrow.find('span').html('Back To Profile');
+                    _this.setBackToTopEvent();
+                }
+                else{
+                    $('#moreContent').scrollTop(0);
+                    moreArrow.removeClass('back');
+                    moreArrow.find('span').html('More Info');
+                    _this.setVertArrowEvent();
+                }
+                var blurAmount = (percent*10 > 15) ? 15 : percent*10;
                 //Add CSS blur to the gallery as the user scrolls the property up
                 $('#gallery').css({
-                    "-webkit-filter" : 'blur('+ (percent*10) +'px)',
-                    "-moz-filter" : 'blur('+ (percent*10) +'px)',
-                    "-MS-filter" : 'blur('+ (percent*10) +'px)',
-                    "filter" : 'blur('+ (percent*10) +'px)',
-                    "-o-filter" : 'blur('+ (percent*10) +'px)'
+                    "-webkit-filter" : 'blur('+ blurAmount +'px)',
+                    "-moz-filter" : 'blur('+ blurAmount +'px)',
+                    "-MS-filter" : 'blur('+ blurAmount +'px)',
+                    "filter" : 'blur('+ blurAmount +'px)',
+                    "-o-filter" : 'blur('+ blurAmount +'px)',
                 });
-
-                if(this.linksInactive && $(this).scrollTop() > 50) {
-                    footerViewEl.activateCurrentLink();
-                    this.linksInactive = !this.linksInactive;
-                } else if(!this.linksInactive && $(this).scrollTop() <= 50) {
-                    footerViewEl.deactivateAllLinks();
-                    this.linksInactive = !this.linksInactive;
-                }
-            });
+            };
         },
 
         /**
@@ -232,7 +238,79 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
             });
 
             // Check Availability Button.
-            $(document.getElementById('buttonCA')).bind(touchEventType, function(ev) {
+            $('#videoPlayButton').bind(touchEventType, function(ev) {
+                ev.preventDefault();
+                _this.onVideoThumbnailClick();
+            });
+
+            // Check Availability Button.
+            $('.close_button').bind(touchEventType, function(ev) {
+                ev.preventDefault();
+                _this.onCloseVideoButtonClick();
+            });
+
+            $('#video_lightbox').bind(touchEventType, function(e){
+                e.preventDefault();
+                _this.onCloseVideoButtonClick();
+            });
+
+            $('#video_lightbox, #video').bind('touchmove', function(e){
+                e.preventDefault();
+                return false;
+            });
+
+            $('video').bind('touchmove', function(e){
+                if($('#video_lightbox.show').length){
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            $('#floorplans tr').bind(touchEventType, function(ev){
+                var details = $(this).next().find('.moreDetails');
+                var label = $(this).find('.moreDetailsButton');
+                if(details.hasClass('show')){
+                    details.removeClass('show');
+                    $('.moreDetailsButton').text('more details here');
+                }
+                else{
+                    $('.moreDetails').removeClass('show');
+                    $('.moreDetailsButton').text('more details here');
+                    details.addClass('show');
+                    label.text('close');
+                }
+            });
+
+
+            $('#sendToCellButton').bind(touchEventType, function(ev){
+                $(this).removeClass('show');
+                if(isMobileDevice){
+                    $('body').animate({
+                        scrollTop: '0px'
+                    }, 500);
+                }
+            });
+
+            $('#buttonCA').bind(touchEventType, function(ev){
+                $('.lightbox').addClass('show');
+                $('.lightbox').bind(touchEventType, function(ev){
+                    if($(ev.target).hasClass('lightbox') || $(ev.target).hasClass('sendToCellButton')){
+                        $(this).removeClass('show');
+                        if(isMobileDevice){
+                            $('body').animate({
+                                scrollTop: '0px'
+                            }, 500);
+                        }
+                    }
+                });
+            });
+
+            $('.galleryPhotos>img').click(function(){
+                galleryViewEl.openImageInLightbox($(this).index());
+            });
+
+            // Show Video
+            $(document.getElementById('video')).bind(touchEventType, function(ev) {
                 ev.preventDefault();
                 _this.onCheckAvailabilityClick();
             });
@@ -243,10 +321,26 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
          */
         setVertArrowEvent: function() {
             var _this = this;
-            var vertArrow = $(document.getElementById('swipeVertArrow'));
-            vertArrow.unbind(touchEventType);
-            vertArrow.bind(touchEventType, function() {
-                _this.moveToMore();
+            var moreArrow = $(document.getElementById('moreInfoArrow'));
+            moreArrow.unbind(touchEventType);
+            moreArrow.bind(touchEventType, function(){
+                _this.moveToMore('details');
+                moreArrow.unbind(touchEventType);
+                _this.setBackToTopEvent();
+            });
+        },
+
+        /**
+         * Scroll down the page to the additional content when the down arrow is touched.
+         */
+        setBackToTopEvent: function() {
+            var _this = this;
+            var moreArrow = $(document.getElementById('moreInfoArrow'));
+            moreArrow.unbind(touchEventType);
+            moreArrow.bind(touchEventType, function() {
+                _this.moveToTop();
+                moreArrow.unbind(touchEventType);
+                _this.setVertArrowEvent();
             });
         },
 
@@ -260,16 +354,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/searchBar', 'view
                 Navigate.toUrl('/');
                 valid = false;
             }
-
-            this.property = Data.findById(parseInt(decodeURIComponent(location.pathname.split('properties/')[1])));
-            
-            if(this.property === null) {
-                Navigate.toUrl('/');
-                valid = false;
-            }
-
-            galleryViewEl.setPropertyId(this.property.id);
-
             return valid;
         }
     });

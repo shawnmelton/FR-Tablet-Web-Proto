@@ -1,0 +1,74 @@
+<div class="page">
+<%
+for(var s = 0; s < numBlocksToPrint && selects; s++) {
+    if(!selects[s]) break;
+    //Remove top padding from the first property
+    var first = (s == 0) ? 'first' : '';
+%>
+    <div class="basic select <%= first %>">
+        <div class="aspect_fill"></div>
+        <div class="element noOverflow hasTransition" property="<%= selects[s].attributes.homesId %>">
+            <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>
+            <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>
+            <div class="front">
+                <img src="<%= selects[s].attributes.primaryImage %>" class="block width100">
+                <div class="blurImageContainer">
+                    <img src="<%= selects[s].attributes.primaryImage %>" class="block width100">
+                    <p class="desc width100 absolute whiteText">
+                        <strong><%= selects[s].attributes.name %></strong><br>
+                        <%= selects[s].attributes.streetAddress %>,<%= selects[s].attributes.city %>
+                    </p>
+                    <p class="price absolute whiteText"><%= selects[s].attributes.price.max %> - <%= selects[s].attributes.price.min %>
+                    </p>
+                </div>
+            </div>
+            <div class="back">
+                <form>
+                    <input type="text" value="Name" placeholder="Name"/>
+                    <input type="text" value="Email" placeholder="Email"/>
+                    <input type="text" value="Phone" placeholder="Phone"/>
+                    <textarea>Question/Comments</textarea>
+                </form>
+                <a class="ca_button" href="#">Check Availability</a>
+            </div>
+        </div>
+    </div>
+<%
+    for(var p = 0; p < numPropertiesToPrint && properties; p++) {
+        var trueIndex = p + s*numPropertiesToPrint;
+        if(!properties[trueIndex]) break;
+%>
+        <div class="basic">
+            <div class="aspect_fill"></div>
+            <div class="element noOverflow hasTransition" property="<%= properties[trueIndex].attributes.homesId %>">
+            <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>
+            <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>
+                <div class="front">
+                    <img src="<%= properties[trueIndex].attributes.primaryImage %>" class="block width100">
+                    <div class="blurImageContainer">
+                        <img src="<%= properties[trueIndex].attributes.primaryImage %>" class="block width100">                    <p class="desc width100 absolute whiteText">
+                        <strong><%= properties[trueIndex].attributes.name %></strong><br>
+                        <%= properties[trueIndex].attributes.streetAddress %>,<%= properties[trueIndex].attributes.city %>
+                    </p>
+                    <p class="price absolute whiteText"><%= properties[trueIndex].attributes.price.max %> - <%= properties[trueIndex].attributes.price.min %>
+                    </p>
+                    </div>
+                </div>
+                <div class="back">
+                    <ul>
+                        <li>Brand New Floorplans</li>
+                        <li>Resort Style Pool</li>
+                        <li>Stainless Steel Appliances</li>
+                        <li>In-Home Washer &amp; Dryer</li>
+                        <li>Private Pier w/ Access to Canoes, Kayaks, &amp; Fishing</li>
+                        <li>21st Century Kitchens with Granite Countertops</li>
+                    </ul>
+                    <a class="ca_button" href="#">Check Availability</a>
+                </div>
+            </div>
+        </div>
+<%
+    }
+} 
+%>
+</div>

@@ -80,6 +80,7 @@
             &#menuBtn {
                 height: 40px;
                 width: 40px;
+                left: 15px;
             }
         }
 
@@ -95,15 +96,19 @@
     #content.search { padding-top: 60px; }
     #map-canvas { padding-top: 65px; }
 
-    footer {
+    /*footer {
         height: 40px;
+
+        >a{
+            line-height: 40px;
+        }
 
         >nav {
             >div {
               >a { height: 40px; }
             }
         }
-    }
+    }*/
 
     #menu { top: 40px; }
 }

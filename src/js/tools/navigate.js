@@ -6,6 +6,7 @@ define([], function(){
          */
         toUrl: function(url) {
             if(!!(window.history && window.history.pushState)) {
+                if ( history.pushState ) history.pushState( {}, document.title, location.href );
                 appRouter.navigate(url, {
                     trigger: true,
                     replace: true

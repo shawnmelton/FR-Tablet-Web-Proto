@@ -45,8 +45,7 @@ define(['jquery', 'backbone', 'templates/jst', 'tools/navigate'],
          */
         onMenuButtonTouch: function(ev) {
             ev.preventDefault();
-            this.lazyLoadMenu();
-            this.menuViewEl.onMenuButtonClick();
+            $('body').toggleClass('showMenu');
         },
 
         removeSticky: function() {

@@ -1,0 +1,14 @@
+<div id="amenities" class="section">
+    <h2>Features & Amenities</h2>
+    <ul>
+    <% 
+    if(typeof features !== 'undefined') {
+        for(i = 0; i < features.length; i++){ 
+    %>
+        <li><%= features[i].name %></li>
+    <% 
+        } 
+    } 
+    %>
+    </ul>
+</div>

@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'views/elements/header', 'views/elements/footer', 'views/elements/advancedSearch'], 
+define(['jquery', 'backbone', 'views/elements/header', 'views/elements/footer', 'views/elements/search/advancedSearch'], 
     function($, Backbone, headerViewEl, footerViewEl, advancedSearchViewEl) {
 
     var AppRouter = Backbone.Router.extend({
@@ -95,6 +95,9 @@ define(['jquery', 'backbone', 'views/elements/header', 'views/elements/footer', 
     var initialize = function(){
         window.appRouter = new AppRouter();
         var usePushState = !!(window.history && window.history.pushState);
+
+        if ( history.pushState ) history.pushState( {}, document.title, location.href );
+
         Backbone.history.start({
             pushState: usePushState,
             hashChange: usePushState
