@@ -26,6 +26,15 @@ The prototype uses a number of open source projects to work properly:
 * [Backbone.js] - gives structure to web applications
 * [SASS] - a professional grade CSS extension language
 * [JST] - ''JavaScript Templates'' for template-based programming
+        
+    #####Loading a template:
+        `var lightBox = JST['src/js/templates/elements/photoLightbox.html'];`
+    #####Loading a template with data:
+        `var lightBox = JST['src/js/templates/elements/photoLightbox.html']({
+            photos: property.attributes.images,
+            name: property.attributes.name
+        });`
+
 * [Grunt] - The JavaScript Task Runner
 * [FTP-Deploy] - Grunt task for code deployment over ftp
 * [jQuery] - :) 
