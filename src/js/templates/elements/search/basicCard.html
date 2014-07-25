@@ -1,0 +1,30 @@
+<div class="basic">
+    <div class="aspect_fill"></div>
+    <div class="element noOverflow hasTransition" property="<%= homesId %>">
+    <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>
+    <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>
+        <div class="front">
+            <img src="<%= primaryImage %>" class="block width100">
+            <div class="blurImageContainer">
+                <img src="<%= primaryImage %>" class="block width100">                    
+                <p class="desc width100 absolute whiteText">
+                <strong><%= name %></strong><br>
+                <%= streetAddress %>,<%= city %>
+            </p>
+            <p class="price absolute whiteText"><%= price.max %> - <%= price.min %>
+            </p>
+            </div>
+        </div>
+        <div class="back">
+            <ul>
+                <li>Brand New Floorplans</li>
+                <li>Resort Style Pool</li>
+                <li>Stainless Steel Appliances</li>
+                <li>In-Home Washer &amp; Dryer</li>
+                <li>Private Pier w/ Access to Canoes, Kayaks, &amp; Fishing</li>
+                <li>21st Century Kitchens with Granite Countertops</li>
+            </ul>
+            <a class="ca_button" href="#">Check Availability</a>
+        </div>
+    </div>
+</div>

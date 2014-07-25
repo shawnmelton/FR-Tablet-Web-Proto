@@ -1,0 +1,28 @@
+<div class="basic select <%= first %>">
+    <div class="aspect_fill"></div>
+    <div class="element noOverflow hasTransition" property="<%= homesId %>">
+        <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>
+        <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>
+        <div class="front">
+            <img src="<%= primaryImage %>" class="block width100">
+            <div class="blurImageContainer">
+                <img src="<%= primaryImage %>" class="block width100">
+                <p class="desc width100 absolute whiteText">
+                    <strong><%= name %></strong><br>
+                    <%= streetAddress %>,<%= city %>
+                </p>
+                <p class="price absolute whiteText"><%= price.max %> - <%= price.min %>
+                </p>
+            </div>
+        </div>
+        <div class="back">
+            <form>
+                <input type="text" value="Name" placeholder="Name"/>
+                <input type="text" value="Email" placeholder="Email"/>
+                <input type="text" value="Phone" placeholder="Phone"/>
+                <textarea>Question/Comments</textarea>
+            </form>
+            <a class="ca_button" href="#">Check Availability</a>
+        </div>
+    </div>
+</div>

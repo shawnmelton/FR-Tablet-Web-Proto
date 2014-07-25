@@ -8,7 +8,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/search/searchBar'
         map: null,
         mapCanvas: $('#map-canvas'),
         userAddressTerms: null,
-        propertyIndex: null,
+        propertyIndex: 0,
         searchString: null,
         lastSearchString: null,
         userZip: null,
@@ -95,17 +95,19 @@ define(['jquery', 'backbone', 'templates/jst', 'views/elements/search/searchBar'
 
         populateResults: function(numListings){
             var _this = this;
-            var blocks = 4;
             $('.table > div > div > div').unbind(touchEventType);
-             
-            this.resultsEl.append(JST['src/js/templates/elements/search/searchResultsGroup.html']({
-                startIndex: this.propertyIndex,
-                selects: (numListings >= blocks) ? _this.listings.slice(0,blocks) : _this.listings.slice(0,numListings),
-                properties: (numListings > blocks) ? _this.listings.slice(blocks,numListings-blocks) : null,
-                listings: _this.listings,
-                numBlocksToPrint: blocks,          //Change this based or layout options
-                numPropertiesToPrint: blocks       //Change this based or layout options
-            }));
+            for(var i=this.propertyIndex; i<_this.listings.models.length; i++){
+                var cardType = (i%5 === 0) ? 'selectCard' : 'basicCard';
+                this.resultsEl.append(JST['src/js/templates/elements/search/' + cardType + '.html']({
+                    first: (i == _this.propertyIndex) ? 'first' : '',
+                    name: _this.listings.models[i].attributes.name,
+                    homesId: _this.listings.models[i].attributes.homesId,
+                    streetAddress: _this.listings.models[i].attributes.streetAddress,
+                    city: _this.listings.models[i].attributes.city,
+                    primaryImage: _this.listings.models[i].attributes.primaryImage,
+                    price: _this.listings.models[i].attributes.price
+                }));  
+            }
 
             var pageHeight = $(_this.resultsEl).find('.page').last().height();
             var cardCount = $(_this.resultsEl).find('.page').last().find('.basic').length;
