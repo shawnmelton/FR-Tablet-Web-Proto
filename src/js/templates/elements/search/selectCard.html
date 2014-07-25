@@ -1,17 +1,17 @@
 <div class="basic select <%= first %>">
     <div class="aspect_fill"></div>
-    <div class="element noOverflow hasTransition" property="<%= selects[s].attributes.homesId %>">
+    <div class="element noOverflow hasTransition" property="<%= homesId %>">
         <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>
         <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>
         <div class="front">
-            <img src="<%= selects[s].attributes.primaryImage %>" class="block width100">
+            <img src="<%= primaryImage %>" class="block width100">
             <div class="blurImageContainer">
-                <img src="<%= selects[s].attributes.primaryImage %>" class="block width100">
+                <img src="<%= primaryImage %>" class="block width100">
                 <p class="desc width100 absolute whiteText">
-                    <strong><%= selects[s].attributes.name %></strong><br>
-                    <%= selects[s].attributes.streetAddress %>,<%= selects[s].attributes.city %>
+                    <strong><%= name %></strong><br>
+                    <%= streetAddress %>,<%= city %>
                 </p>
-                <p class="price absolute whiteText"><%= selects[s].attributes.price.max %> - <%= selects[s].attributes.price.min %>
+                <p class="price absolute whiteText"><%= price.max %> - <%= price.min %>
                 </p>
             </div>
         </div>

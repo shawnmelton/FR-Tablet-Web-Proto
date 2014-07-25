@@ -1,16 +1,17 @@
 <div class="basic">
     <div class="aspect_fill"></div>
-    <div class="element noOverflow hasTransition" property="<%= properties[trueIndex].attributes.homesId %>">
+    <div class="element noOverflow hasTransition" property="<%= homesId %>">
     <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>
     <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>
         <div class="front">
-            <img src="<%= properties[trueIndex].attributes.primaryImage %>" class="block width100">
+            <img src="<%= primaryImage %>" class="block width100">
             <div class="blurImageContainer">
-                <img src="<%= properties[trueIndex].attributes.primaryImage %>" class="block width100">                    <p class="desc width100 absolute whiteText">
-                <strong><%= properties[trueIndex].attributes.name %></strong><br>
-                <%= properties[trueIndex].attributes.streetAddress %>,<%= properties[trueIndex].attributes.city %>
+                <img src="<%= primaryImage %>" class="block width100">                    
+                <p class="desc width100 absolute whiteText">
+                <strong><%= name %></strong><br>
+                <%= streetAddress %>,<%= city %>
             </p>
-            <p class="price absolute whiteText"><%= properties[trueIndex].attributes.price.max %> - <%= properties[trueIndex].attributes.price.min %>
+            <p class="price absolute whiteText"><%= price.max %> - <%= price.min %>
             </p>
             </div>
         </div>

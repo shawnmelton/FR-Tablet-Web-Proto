@@ -28,7 +28,7 @@ The prototype uses a number of open source projects to work properly:
 * [JST] - ''JavaScript Templates'' for template-based programming
         
     #####Loading a template:
-        `var lightBox = JST['src/js/templates/elements/photoLightbox.html'];`
+        `var guestCardForm = JST['src/js/templates/elements/guestCardForm.html'];`
     #####Loading a template with data:
         `var lightBox = JST['src/js/templates/elements/photoLightbox.html']({
             photos: property.attributes.images,
@@ -72,12 +72,12 @@ The vast majority of the application code is found in the `/src` folder, inside 
  * Featured Properties
  * Video Lightbox
 
-#### Search Results (List/Map View)
+#### Search Results
  * Full Interactive Map 
  * Search Resulst Group (Cards)
 
 
-#### Property Profile `(/js/views/property.js)`
+#### Property Profile
 The various components of the property view are loaded in `/js/views/elements/propertyView.js`.
  * Property Info
  * Main Gallery

@@ -439,6 +439,32 @@ __p += '\n                </select></div>\n                <div class="tableCell
 return __p
 };
 
+this["JST"]["src/js/templates/elements/search/basicCard.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="basic">\n    <div class="aspect_fill"></div>\n    <div class="element noOverflow hasTransition" property="' +
+((__t = ( homesId )) == null ? '' : __t) +
+'">\n    <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>\n    <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>\n        <div class="front">\n            <img src="' +
+((__t = ( primaryImage )) == null ? '' : __t) +
+'" class="block width100">\n            <div class="blurImageContainer">\n                <img src="' +
+((__t = ( primaryImage )) == null ? '' : __t) +
+'" class="block width100">                    \n                <p class="desc width100 absolute whiteText">\n                <strong>' +
+((__t = ( name )) == null ? '' : __t) +
+'</strong><br>\n                ' +
+((__t = ( streetAddress )) == null ? '' : __t) +
+',' +
+((__t = ( city )) == null ? '' : __t) +
+'\n            </p>\n            <p class="price absolute whiteText">' +
+((__t = ( price.max )) == null ? '' : __t) +
+' - ' +
+((__t = ( price.min )) == null ? '' : __t) +
+'\n            </p>\n            </div>\n        </div>\n        <div class="back">\n            <ul>\n                <li>Brand New Floorplans</li>\n                <li>Resort Style Pool</li>\n                <li>Stainless Steel Appliances</li>\n                <li>In-Home Washer &amp; Dryer</li>\n                <li>Private Pier w/ Access to Canoes, Kayaks, &amp; Fishing</li>\n                <li>21st Century Kitchens with Granite Countertops</li>\n            </ul>\n            <a class="ca_button" href="#">Check Availability</a>\n        </div>\n    </div>\n</div>';
+
+}
+return __p
+};
+
 this["JST"]["src/js/templates/elements/search/searchBar.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -455,74 +481,39 @@ __p += '<form action="/search" method="post" name="search" id="searchBar" class=
 return __p
 };
 
-this["JST"]["src/js/templates/elements/search/searchResultsGroup.html"] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
-with (obj) {
-__p += '<div class="page">\n';
-
-for(var s = 0; s < numBlocksToPrint && selects; s++) {
-    if(!selects[s]) break;
-    //Remove top padding from the first property
-    var first = (s == 0) ? 'first' : '';
-;
-__p += '\n    <div class="basic select ' +
-((__t = ( first )) == null ? '' : __t) +
-'">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition" property="' +
-((__t = ( selects[s].attributes.homesId )) == null ? '' : __t) +
-'">\n            <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>\n            <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>\n            <div class="front">\n                <img src="' +
-((__t = ( selects[s].attributes.primaryImage )) == null ? '' : __t) +
-'" class="block width100">\n                <div class="blurImageContainer">\n                    <img src="' +
-((__t = ( selects[s].attributes.primaryImage )) == null ? '' : __t) +
-'" class="block width100">\n                    <p class="desc width100 absolute whiteText">\n                        <strong>' +
-((__t = ( selects[s].attributes.name )) == null ? '' : __t) +
-'</strong><br>\n                        ' +
-((__t = ( selects[s].attributes.streetAddress )) == null ? '' : __t) +
-',' +
-((__t = ( selects[s].attributes.city )) == null ? '' : __t) +
-'\n                    </p>\n                    <p class="price absolute whiteText">' +
-((__t = ( selects[s].attributes.price.max )) == null ? '' : __t) +
-' - ' +
-((__t = ( selects[s].attributes.price.min )) == null ? '' : __t) +
-'\n                    </p>\n                </div>\n            </div>\n            <div class="back">\n                <form>\n                    <input type="text" value="Name" placeholder="Name"/>\n                    <input type="text" value="Email" placeholder="Email"/>\n                    <input type="text" value="Phone" placeholder="Phone"/>\n                    <textarea>Question/Comments</textarea>\n                </form>\n                <a class="ca_button" href="#">Check Availability</a>\n            </div>\n        </div>\n    </div>\n';
-
-    for(var p = 0; p < numPropertiesToPrint && properties; p++) {
-        var trueIndex = p + s*numPropertiesToPrint;
-        if(!properties[trueIndex]) break;
-;
-__p += '\n        <div class="basic">\n            <div class="aspect_fill"></div>\n            <div class="element noOverflow hasTransition" property="' +
-((__t = ( properties[trueIndex].attributes.homesId )) == null ? '' : __t) +
-'">\n            <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>\n            <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>\n                <div class="front">\n                    <img src="' +
-((__t = ( properties[trueIndex].attributes.primaryImage )) == null ? '' : __t) +
-'" class="block width100">\n                    <div class="blurImageContainer">\n                        <img src="' +
-((__t = ( properties[trueIndex].attributes.primaryImage )) == null ? '' : __t) +
-'" class="block width100">                    <p class="desc width100 absolute whiteText">\n                        <strong>' +
-((__t = ( properties[trueIndex].attributes.name )) == null ? '' : __t) +
-'</strong><br>\n                        ' +
-((__t = ( properties[trueIndex].attributes.streetAddress )) == null ? '' : __t) +
-',' +
-((__t = ( properties[trueIndex].attributes.city )) == null ? '' : __t) +
-'\n                    </p>\n                    <p class="price absolute whiteText">' +
-((__t = ( properties[trueIndex].attributes.price.max )) == null ? '' : __t) +
-' - ' +
-((__t = ( properties[trueIndex].attributes.price.min )) == null ? '' : __t) +
-'\n                    </p>\n                    </div>\n                </div>\n                <div class="back">\n                    <ul>\n                        <li>Brand New Floorplans</li>\n                        <li>Resort Style Pool</li>\n                        <li>Stainless Steel Appliances</li>\n                        <li>In-Home Washer &amp; Dryer</li>\n                        <li>Private Pier w/ Access to Canoes, Kayaks, &amp; Fishing</li>\n                        <li>21st Century Kitchens with Granite Countertops</li>\n                    </ul>\n                    <a class="ca_button" href="#">Check Availability</a>\n                </div>\n            </div>\n        </div>\n';
-
-    }
-} 
-;
-__p += '\n</div>';
-
-}
-return __p
-};
-
 this["JST"]["src/js/templates/elements/search/searchResultsGroupPlaceholder.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div class="results_placeholder">\n    <div class="basic select">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n        <div class="basic select">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n\n    <div class="basic">\n        <div class="aspect_fill"></div>\n        <div class="element noOverflow hasTransition">\n            <div class="front"></div>\n            <div class="back"></div>\n        </div>\n    </div>\n</div>';
+
+}
+return __p
+};
+
+this["JST"]["src/js/templates/elements/search/selectCard.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="basic select ' +
+((__t = ( first )) == null ? '' : __t) +
+'">\n    <div class="aspect_fill"></div>\n    <div class="element noOverflow hasTransition" property="' +
+((__t = ( homesId )) == null ? '' : __t) +
+'">\n        <a href="#" class="cardButton details"><img src="/img/details_icon.png" /></a>\n        <a href="#" class="cardButton contact"><img src="/img/contact_icon.png" /></a>\n        <div class="front">\n            <img src="' +
+((__t = ( primaryImage )) == null ? '' : __t) +
+'" class="block width100">\n            <div class="blurImageContainer">\n                <img src="' +
+((__t = ( primaryImage )) == null ? '' : __t) +
+'" class="block width100">\n                <p class="desc width100 absolute whiteText">\n                    <strong>' +
+((__t = ( name )) == null ? '' : __t) +
+'</strong><br>\n                    ' +
+((__t = ( streetAddress )) == null ? '' : __t) +
+',' +
+((__t = ( city )) == null ? '' : __t) +
+'\n                </p>\n                <p class="price absolute whiteText">' +
+((__t = ( price.max )) == null ? '' : __t) +
+' - ' +
+((__t = ( price.min )) == null ? '' : __t) +
+'\n                </p>\n            </div>\n        </div>\n        <div class="back">\n            <form>\n                <input type="text" value="Name" placeholder="Name"/>\n                <input type="text" value="Email" placeholder="Email"/>\n                <input type="text" value="Phone" placeholder="Phone"/>\n                <textarea>Question/Comments</textarea>\n            </form>\n            <a class="ca_button" href="#">Check Availability</a>\n        </div>\n    </div>\n</div>';
 
 }
 return __p
