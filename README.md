@@ -74,7 +74,7 @@ The vast majority of the application code is found in the `/src` folder, inside 
 
 #### Search Results
  * Full Interactive Map 
- * Search Resulst Group (Cards)
+ * Search Resulst Group (basic & select cards)
 
 
 #### Property Profile
